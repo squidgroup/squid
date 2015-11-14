@@ -1,10 +1,8 @@
-#' Title
+#' Run SQUID app
 #'
-#' @return
+#' @return NULL
 #' @export
-#'
-#' @examples
-runSquid <- function() {
+runSQUID <- function() {
   appDir <- system.file("shiny-squid", "myapp", package = "SQUID")
   if (appDir == "") {
     stop("Could not find example directory. Try re-installing `squid`.", call. = FALSE)
