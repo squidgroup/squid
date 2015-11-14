@@ -32,7 +32,7 @@ SVRMod3Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
  	    output <- span(round(input$Mod3Step1_Vx,2))
  	  }
  	  
- 	  p(HTML(paste(strong(Modules_VAR$Vegu$label), output,"")))
+ 	  p(HTML(paste(strong(withMathJax(Modules_VAR$Vegu$label)), output,"")))
  	}),
       
     ######### Run simulation #########
@@ -48,8 +48,8 @@ SVRMod3Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
    	    # Call app main function
    	    data <- main(input, "Mod3Step1", session, TRUE)  
    	    
-   	    LMR      <- lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
-   	    RANDEF   <- as.data.frame(VarCorr(LMR))$vcov
+   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
+   	    RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
    	    
    	    data$Vi        <- round(RANDEF[1],2)
    	    data$Vr        <- round(RANDEF[2],2) 

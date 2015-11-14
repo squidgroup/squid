@@ -62,7 +62,7 @@ UIMod3Step3 <- function(){
       
       div(class="line"),
       
-      bsButton("Mod3Step4GotoStep3", label = "<< Previous Step (2)", style="link") # Go to previous step     
+      bsButton("Mod3Step3GotoStep2", label = "<< Previous Step (2)", style="link") # Go to previous step     
     
     )
   ) # End return

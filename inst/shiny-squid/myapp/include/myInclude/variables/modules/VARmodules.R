@@ -129,7 +129,22 @@ Modules_VAR <- list(
                    "max"         = 0.95,
                    "step"        = 0.01,
                    "errorTxt"    = "Among-individual variance in timing of sampling must be a number between 0 and 0.95."
+  ),
+  
+  "share" = list("label"    = "Shared environment", 
+                 "infoTxt"  = "(Shared) Individuals experience the same environment.",
+                 "value"    = TRUE
+  ),
+  
+  # Number of trait per individual
+  "Env_types" = list( "label"       = "Environment types",
+                      "infoTxt"     = "",
+                      "value"       = c("Random" = "ran",
+                                        "Autocorrelated" = "auto",
+                                        "Linear" = "lin",
+                                        "Cyclic" = "cyc")
   )
+  
 )
 
 

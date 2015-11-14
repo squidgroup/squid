@@ -30,12 +30,12 @@ SVRGetSummaryVariances <- function(input,B,Vind,Vme,Vk,NT,step,nb.IS,trait,X1_st
                  VCov[X1+step, X1+step], # Vslope1
                  VCov[X2+step, X2+step], # Vslope2
                  VCov[X1X2+step, X1X2+step], # Vslope12
-                 2*VCov[X1+step, B0+step], # Cov Intercept and Vslope1
-                 2*VCov[X2+step, B0+step], # Cov Intercept and Vslope2
-                 2*VCov[X1X2+step, B0+step], # Cov Intercept and Vslope12
-                 2*VCov[X2+step, X1+step], # Cov Vslope1 and Vslope2
-                 2*VCov[X1X2+step, X1+step], # Cov Vslope1 and Vslope12
-                 2*VCov[X1X2+step, X2+step], # Cov Vslope1 and Vslope12
+#                  2*VCov[X1+step, B0+step], # Cov Intercept and Vslope1
+#                  2*VCov[X2+step, B0+step], # Cov Intercept and Vslope2
+#                  2*VCov[X1X2+step, B0+step], # Cov Intercept and Vslope12
+#                  2*VCov[X2+step, X1+step], # Cov Vslope1 and Vslope2
+#                  2*VCov[X1X2+step, X1+step], # Cov Vslope1 and Vslope12
+#                  2*VCov[X1X2+step, X2+step], # Cov Vslope1 and Vslope12
                  input[[Vk]], # group variance
                  input[[Vme]] # measurement error variance
                  )
@@ -49,10 +49,6 @@ SVRGetSummaryVariances <- function(input,B,Vind,Vme,Vk,NT,step,nb.IS,trait,X1_st
   Value[is.na(Value)] <- " "
   Proportion <- as.character(Proportion)
   Proportion[Proportion == "(NA%)"] <- " "
-  
-  # Value[1] <- paste("$\\text{Trait ",trait,"}$",sep="")
-  
-  
   
   myTable <- data.frame(paste(Value,Proportion))
   names(myTable) <- paste("Trait.", trait, sep="")
