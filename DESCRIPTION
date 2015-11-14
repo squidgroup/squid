@@ -1,0 +1,34 @@
+Package: SQUID
+Title: Statistical Quantification of Individual Differences
+Version: 0.0.0.9000
+Authors@R:c(
+    person("Hassen"  , "Allegue"    , email = "h.allegue@oceans.ubc.ca"           , role = c("aut","cre")),
+    person("Yimen"   , "Araya"      , email = "yimencr@gmail.com"                 , role = "aut"),
+    person("Niels"   , "Dingemanse" , email = "ndingemanse@orn.mpg.de"            , role = "aut"),
+    person("Ned"     , "Dochtermann", email = "ned.dochtermann@gmail.com"         , role = "aut"),
+    person("Laszlo"  , "Garamszegi" , email = "laszlo.garamszegi@ebd.csic.es"     , role = "aut"),
+    person("Shinichi", "Nakagawa"   , email = "itchyshin@gmail.com"               , role = "aut"),
+    person("Holger"  , "Schielzeth" , email = "holger.schielzeth@uni-bielefeld.de", role = "aut"),
+    person("Dave"    , "Westneat"   , email = "david.westneat@uky.edu"            , role = "aut"))
+Description: SQuID is made to help researchers to become familiar with
+    multilevel variation, and to build up sampling designs for their study. SQuID
+    is built up as a series of modules that guide the user into situations of
+    increasing complexity to explore the dynamics between the way records are
+    collected and estimates of parameters of specific interest; The last modules
+    (Module 10) is the full model simulation package that allows the user to
+    generate data sets that can then be used to run analyses in the statistical
+    package of their choice for specific research questions.
+Depends:
+    R (>= 3.2.2)
+License: MIT
+LazyData: true
+Imports:
+    shiny,
+    shinyBS,
+    ggplot2,
+    lattice,
+    grid,
+    MASS,
+    lme4,
+    arm
+RoxygenNote: 5.0.1
