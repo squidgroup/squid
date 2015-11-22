@@ -45,16 +45,28 @@ display_results <- function(N, Time, data_C, data_S){
     geom_vline(xintercept = c(Time$Ts, Time$Te))
   
   # Display environment X1
-  plot_X1 <- qplot(Time,
-                  X1,
-                  data=data_C, 
-                  color=Individual, 
-                  group=Individual,
-                  xlim=c(Time$Tmin, Time$Tmax)) + 
+#   plot_X1 <- qplot(Time,
+#                   X1,
+#                   data=data_C, 
+#                   color=Individual, 
+#                   group=Individual,
+#                   xlim=c(Time$Tmin, Time$Tmax)) + 
+#     ggtitle("Environment over time") +
+#     xlab("Time") +
+#     ylab("Environment X1") +
+#     theme(legend.position="none")
+  
+  plot_X1 <-  ggplot(data=data_C, aes(x=Time, y=X1, color=Individual, group=Individual)) +
+    # geom_line() +
+    geom_point() +
+    xlim(Time$Tmin, Time$Tmax) + 
     ggtitle("Environment over time") +
     xlab("Time") +
     ylab("Environment X1") +
+    ylab("Environment") +
     theme(legend.position="none")
+  
+  
   
   # Display environment X2
   plot_X2 <- qplot(Time, 

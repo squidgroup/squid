@@ -69,7 +69,7 @@ input$test_X1_state      <- TRUE
 input$test_X1_ran_state  <- TRUE
 input$test_X1_ran_shared <- FALSE
 input$test_X1_ran_autocorrelation <- TRUE
-input$test_X1_ran_corr <- 0.7
+input$test_X1_ran_corr <- 0.85
 
 input$test_X1_ran_V     <- 1
 
@@ -89,17 +89,17 @@ input$test_Tmax <- 100
 input$test_Time_sampling <- c(1,100)
 
 input$test_NP <- 1
-input$test_NI <- 1
+input$test_NI <- 4
 input$test_NT <- 1
-input$test_NR <- 1
+input$test_NR <- 20
 input$test_NK <- 1
 
 input$test_Drec_Ind    <- TRUE
 input$test_Drec_Trait  <- TRUE
-input$test_Dtime_Ind   <- TRUE
+input$test_Dtime_Ind   <- FALSE
 input$test_Dtime_Trait <- TRUE
 
-input$test_Vit <- 0
+input$test_Vit <- 0.75
 
 environment <- NULL
 session     <- NULL
@@ -109,6 +109,11 @@ progress    <- NULL
 myModule <- "test"
 
 data <- main(input, myModule, session, progress)
+
+
+print(data$myPlot$plotSampTime)
+ggsave(filename = "figures/sampling_vit_0.75.png",plot = data$myPlot$plotSampTime, scale = 0.8)
+
 
 
 # Rprof(NULL)
@@ -129,6 +134,8 @@ data <- main(input, myModule, session, progress)
 # data <- list("myPlot"=myPlot, "data_S"=data_S, "data_C"=data_C, "V"=V)
 
 # head(data$data_S)
+
+
 print(multiplot(data$myPlot$plotX1,
                 data$myPlot$plotX2,
                 data$myPlot$plotX1X2,
