@@ -45,11 +45,11 @@ SVRMod1Step4 <- function(input, output, session, color){
           # Call app main function
           data <- main(input, "Mod1Step4", session, TRUE)  
           
-          LMR <- lmer(Phenotype ~ X1 + (1|Individual), data = data$data_S)
+          LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$data_S)
           
-          FIXEF    <- fixef(LMR)
-          SE.FIXEF <- se.fixef(LMR)
-          RANDEF   <- as.data.frame(VarCorr(LMR))$vcov
+          FIXEF    <- lme4::fixef(LMR)
+          SE.FIXEF <- arm::se.fixef(LMR)
+          RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
           # Make a mixed effect model to extract variances and slope      
           data$Vp        <- round(var(data$data_S$Phenotype),2)

@@ -3,7 +3,7 @@ get_Ind_Matrix <- function(N, Mu, VCov, Variables){
   
   # Generate the ind matrix the multivariate normal distribution
   ind      <- matrix(0, N$NI*N$NP, nrow(VCov))
-  ind[]    <- mvrnorm(N$NI*N$NP, rep(Mu,nrow(VCov)), VCov)
+  ind[]    <- MASS::mvrnorm(N$NI*N$NP, rep(Mu,nrow(VCov)), VCov)
   
   # ind    = [NI, ind] 
   # raw    = number of individuals 

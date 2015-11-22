@@ -25,8 +25,8 @@ SVRMod1Step2 <- function(input, output, session, color){
           # Call app main function
           data <- main(input, "Mod1Step2", session, TRUE) 
           
-          LMR      <- lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
-          RANDEF   <- as.data.frame(VarCorr(LMR))$vcov
+          LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
+          RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
           data$Vi        <- round(RANDEF[1],2)
           data$Vme       <- round(RANDEF[2],2)

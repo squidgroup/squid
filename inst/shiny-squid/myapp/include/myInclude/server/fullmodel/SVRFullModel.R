@@ -344,12 +344,12 @@ SVRFullModel <- function(myModule, input, output, session){
                          paste("$V_{",EQ3$dev1,EQ2$env1,"}$",sep=""),
                          paste("$V_{",EQ3$dev2,EQ2$env2,"}$",sep=""),
                          paste("$V_{",EQ3$dev12,EQ2$env12,"}$",sep=""),
-                         paste("$2COV_{",NOT$devI,",",EQ3$dev1,EQ2$env1,"}$",sep=""),
-                         paste("$2COV_{",NOT$devI,",",EQ3$dev2,EQ2$env2,"}$",sep=""),
-                         paste("$2COV_{",NOT$devI,",",EQ3$dev12,EQ2$env12,"}$",sep=""),
-                         paste("$2COV_{",EQ3$dev1,EQ2$env1,",",EQ3$dev2,EQ2$env2,"}$",sep=""),
-                         paste("$2COV_{",EQ3$dev1,EQ2$env1,",",EQ3$dev12,EQ2$env12,"}$",sep=""),
-                         paste("$2COV_{",EQ3$dev2,EQ2$env2,",",EQ3$dev12,EQ2$env12,"}$",sep=""),
+#                          paste("$2COV_{",NOT$devI,",",EQ3$dev1,EQ2$env1,"}$",sep=""),
+#                          paste("$2COV_{",NOT$devI,",",EQ3$dev2,EQ2$env2,"}$",sep=""),
+#                          paste("$2COV_{",NOT$devI,",",EQ3$dev12,EQ2$env12,"}$",sep=""),
+#                          paste("$2COV_{",EQ3$dev1,EQ2$env1,",",EQ3$dev2,EQ2$env2,"}$",sep=""),
+#                          paste("$2COV_{",EQ3$dev1,EQ2$env1,",",EQ3$dev12,EQ2$env12,"}$",sep=""),
+#                          paste("$2COV_{",EQ3$dev2,EQ2$env2,",",EQ3$dev12,EQ2$env12,"}$",sep=""),
                          paste("$V_",NOT$groupV,"$",sep=""),
                          paste("$V_",NOT$error,"$",sep=""),
                          paste("$V_",NOT$total,"$",sep="")
@@ -364,17 +364,17 @@ SVRFullModel <- function(myModule, input, output, session){
                         paste("Individual-specific response to an environmental effect $",EQ2$env1,"$ (random slopes) variance",sep=""),
                         paste("Individual-specific response to an environmental effect $",EQ2$env2,"$ (random slopes) variance",sep=""),
                         paste("Individual-specific response interaction to two environmental effects $",EQ2$env1,"$ and $",EQ2$env2,"$ (random slopes) variance",sep=""),
-                        paste("Covariance between random intercepts and random-slopes in response to an environmental effect $",EQ2$env1,"$.",sep=""),
-                        paste("Covariance between random intercepts and random-slopes in response to an environmental effect $",EQ2$env2,"$.",sep=""),
-                        paste("Covariance between random intercepts and individual-specific response interaction 
-                              to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$) (random slopes).",sep=""),
-                        paste("Covariance between random-slopes in response to an environmental effect $",EQ2$env1,"$ 
-                              and random-slopes in response to an environmental effect $",EQ2$env2,"$.",sep=""),
-                        paste("Covariance between random -slopes in response to an environmental effect $",EQ2$env1,"$ 
-                              and individual-specific response interaction to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$).",sep=""),
-                        paste("Covariance between random -slopes in response to an environmental effect $",EQ2$env2,"$ 
-                              and individual-specific response interaction to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$).",sep=""),
-                        
+#                         paste("Covariance between random intercepts and random-slopes in response to an environmental effect $",EQ2$env1,"$.",sep=""),
+#                         paste("Covariance between random intercepts and random-slopes in response to an environmental effect $",EQ2$env2,"$.",sep=""),
+#                         paste("Covariance between random intercepts and individual-specific response interaction 
+#                               to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$) (random slopes).",sep=""),
+#                         paste("Covariance between random-slopes in response to an environmental effect $",EQ2$env1,"$ 
+#                               and random-slopes in response to an environmental effect $",EQ2$env2,"$.",sep=""),
+#                         paste("Covariance between random -slopes in response to an environmental effect $",EQ2$env1,"$ 
+#                               and individual-specific response interaction to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$).",sep=""),
+#                         paste("Covariance between random -slopes in response to an environmental effect $",EQ2$env2,"$ 
+#                               and individual-specific response interaction to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$).",sep=""),
+#                         
                         "Higher-level grouping variance (clusters, groups, families etc.)", 
                         "Measurement error variance", 
                         "Total phenotypic variance"

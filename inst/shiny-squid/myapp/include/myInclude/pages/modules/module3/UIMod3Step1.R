@@ -62,7 +62,7 @@ UIMod3Step1 <- function(){
       
       p(),
       # Simulation run button
-      bsButton("Mod3Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, style = Modules_VAR$Run$style),
+      bsButton("Mod3Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
       runningIndicator(),
       p(),
       
@@ -70,7 +70,7 @@ UIMod3Step1 <- function(){
       
       p(HTML(Mod3Step1_txt$para6)),       # Text: para6
       
-      p('$$Y_j=I_0+ME_j$$'),
+      p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
       
       p(HTML(Mod3Step1_txt$para7)),       # Text: para7
       uiOutput("Mod3Step1_summary_table"),

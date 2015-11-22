@@ -43,7 +43,7 @@ input$test_Vind <- matrix(c(0.7 , 1  , 0 , 0,
 
 input$test_Vme <- 0.05
 
-input$test_Vk <- 0.1
+input$test_Vk <- 0
 
 
 # input$test_Vind <- matrix(c(0.7,  1  , 1   , 1   , 1   , 1   , 1   , 1  ,
@@ -67,9 +67,15 @@ input$test_Vk <- 0.1
 
 input$test_X1_state      <- TRUE
 input$test_X1_ran_state  <- TRUE
+<<<<<<< HEAD
 input$test_X1_ran_shared <- FALSE
 input$test_X1_ran_autocorrelation <- TRUE
 input$test_X1_ran_corr <- 0.85
+=======
+input$test_X1_ran_shared <- TRUE
+input$test_X1_ran_autocorrelation <- FALSE
+input$test_X1_ran_corr <- 0
+>>>>>>> dcc0e770d5ab268455b9b34f8a95fec7c323079c
 
 input$test_X1_ran_V     <- 1
 
@@ -89,9 +95,15 @@ input$test_Tmax <- 100
 input$test_Time_sampling <- c(1,100)
 
 input$test_NP <- 1
+<<<<<<< HEAD
 input$test_NI <- 4
 input$test_NT <- 1
 input$test_NR <- 20
+=======
+input$test_NI <- 10
+input$test_NT <- 1
+input$test_NR <- 10
+>>>>>>> dcc0e770d5ab268455b9b34f8a95fec7c323079c
 input$test_NK <- 1
 
 input$test_Drec_Ind    <- TRUE
@@ -99,7 +111,11 @@ input$test_Drec_Trait  <- TRUE
 input$test_Dtime_Ind   <- FALSE
 input$test_Dtime_Trait <- TRUE
 
+<<<<<<< HEAD
 input$test_Vit <- 0.75
+=======
+input$test_Vit <- 0.2
+>>>>>>> dcc0e770d5ab268455b9b34f8a95fec7c323079c
 
 environment <- NULL
 session     <- NULL
@@ -185,6 +201,7 @@ print(multiplot(data$myPlot$plotTotPhen,
 
 
 library(lme4)
+library(arm)
 LMR <- lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
 LMR <- lmer(Phenotype ~ X1 + (1|Individual), data = data$data_S)
 
@@ -205,6 +222,7 @@ P <- print(VarCorr(LMR),comp="Variance")
 
 
 fixef(LMR) # get fixed effect coefficients
+se.coef (LMR)
 se.fixef(LMR) # get standard error of fixed effect coefficients
 
 as.data.frame(VarCorr(LMR))$vcov # get random effect (variances)
