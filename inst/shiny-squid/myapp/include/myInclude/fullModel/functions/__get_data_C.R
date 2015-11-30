@@ -66,6 +66,11 @@ get_data_C <- function(Mu, N, B, r, V, Time, Variables, Env, session, progress){
     ### Generate the measurement error for each individual
     ME           <- rnorm(N$NI*N$NT*N$NP*N$NS, Mu, sqrt(V$Vme))
     
+#     nb <- N$NI*N$NT*N$NP*N$NS
+#     ME <- rep(0, nb)
+#     varseq <- seq(0,1,1/nb)
+#     for(i in 1:nb){ ME[i] <- rnorm(1,0,varseq[i])}
+    
     ############################################## 
     
     Phenotype    <-  rowSums((B + ind) * X) + K + ME

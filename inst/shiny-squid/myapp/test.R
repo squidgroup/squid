@@ -32,10 +32,10 @@ input <- list()
 
 # input$test_Vind <- matrix(c(0.7,rep(0,(4*4)-1)),4)
 
-input$test_B    <- matrix(c(0,0.7,0,0),1)
+input$test_B    <- matrix(c(0.3,0.3,0,0),1)
 
-input$test_Vind <- matrix(c(0.7 , 1  , 0 , 0,
-                            0   , 0.1  , 0 , 0,
+input$test_Vind <- matrix(c(0.5 , 0  , 0 , 0,
+                            0   , 0.5  , 0 , 0,
                             0   , 0  , 0 , 0,
                             0   , 0  , 0 , 0    
                           ), 
@@ -67,21 +67,14 @@ input$test_Vk <- 0
 
 input$test_X1_state      <- TRUE
 input$test_X1_ran_state  <- TRUE
-<<<<<<< HEAD
 input$test_X1_ran_shared <- FALSE
-input$test_X1_ran_autocorrelation <- TRUE
-input$test_X1_ran_corr <- 0.85
-=======
-input$test_X1_ran_shared <- TRUE
 input$test_X1_ran_autocorrelation <- FALSE
-input$test_X1_ran_corr <- 0
->>>>>>> dcc0e770d5ab268455b9b34f8a95fec7c323079c
-
+input$test_X1_ran_corr <- 0.85
 input$test_X1_ran_V     <- 1
 
 
 input$test_X1_lin_state <- FALSE
-# input$test_X1_lin_Slope         <- 0.1
+input$test_X1_lin_Slope         <- 0.1
 # 
 input$test_X1_cyc_state <- FALSE
 # input$test_X1_cyc_Period <- 40
@@ -95,15 +88,9 @@ input$test_Tmax <- 100
 input$test_Time_sampling <- c(1,100)
 
 input$test_NP <- 1
-<<<<<<< HEAD
-input$test_NI <- 4
-input$test_NT <- 1
-input$test_NR <- 20
-=======
-input$test_NI <- 10
+input$test_NI <- 100
 input$test_NT <- 1
 input$test_NR <- 10
->>>>>>> dcc0e770d5ab268455b9b34f8a95fec7c323079c
 input$test_NK <- 1
 
 input$test_Drec_Ind    <- TRUE
@@ -111,11 +98,7 @@ input$test_Drec_Trait  <- TRUE
 input$test_Dtime_Ind   <- FALSE
 input$test_Dtime_Trait <- TRUE
 
-<<<<<<< HEAD
-input$test_Vit <- 0.75
-=======
-input$test_Vit <- 0.2
->>>>>>> dcc0e770d5ab268455b9b34f8a95fec7c323079c
+input$test_Vit <- 0.5
 
 environment <- NULL
 session     <- NULL
@@ -125,10 +108,22 @@ progress    <- NULL
 myModule <- "test"
 
 data <- main(input, myModule, session, progress)
+library(lme4)
+library(arm)
+library(dplyr)
+
+data_means <- data$data_S %>% 
+                group_by(Individual) %>%
+                summarise(Xmean = mean(X1))
+
+new_data <- inner_join(data$data_S, data_means)
+
+LMR <- lmer(Phenotype ~ Xmean + (Xmean|Individual), data = data$data_S)
+summary(LMR)
 
 
-print(data$myPlot$plotSampTime)
-ggsave(filename = "figures/sampling_vit_0.75.png",plot = data$myPlot$plotSampTime, scale = 0.8)
+# print(data$myPlot$plotSampTime)
+# ggsave(filename = "figures/sampling_vit_0.75.png",plot = data$myPlot$plotSampTime, scale = 0.8)
 
 
 
@@ -202,8 +197,10 @@ print(multiplot(data$myPlot$plotTotPhen,
 
 library(lme4)
 library(arm)
+LMR <- lmer(Phenotype ~ X1 + (X1|Individual), data = data$data_S)
+
 LMR <- lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
-LMR <- lmer(Phenotype ~ X1 + (1|Individual), data = data$data_S)
+
 
 LMR <- lmer(Phenotype ~ -1  + (1|Individual), data = data$data_S)
 LMR <- update(LMR, ~.+ X1 + (X1|Individual) - (1|Individual))

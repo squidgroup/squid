@@ -278,6 +278,12 @@ SVRFullModel <- function(myModule, input, output, session){
        
        if(!input[[Drec_Ind]] & input[[Dtime_Ind]])       updateCheckboxInput(session, Drec_Ind,   value = TRUE)
        if(!input[[Drec_Trait]] & input[[Dtime_Trait]])   updateCheckboxInput(session, Drec_Trait, value = TRUE)  
+       
+       if(input[[Vit]] > 0){
+         updateCheckboxInput(session, Dtime_Ind,   value = FALSE)
+         updateCheckboxInput(session, Dtime_Trait,   value = FALSE)
+       }
+       
      }),
 
      ######################################################################################
