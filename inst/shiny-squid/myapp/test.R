@@ -108,15 +108,19 @@ progress    <- NULL
 myModule <- "test"
 
 data <- main(input, myModule, session, progress)
+
 library(lme4)
 library(arm)
 library(dplyr)
 
-data_means <- data$data_S %>% 
-                group_by(Individual) %>%
-                summarise(Xmean = mean(X1))
+df <- data$data_S
+new_data <- df %>% 
+              group_by(Individual) %>%
+              summarise(Xmean = mean(X1)) %>%
+              inner_join(df) %>%
+              mutate(CMW = X1 - Xmean, 
+                     CMB = Xmean - mean(X1))
 
-new_data <- inner_join(data$data_S, data_means)
 
 LMR <- lmer(Phenotype ~ Xmean + (Xmean|Individual), data = data$data_S)
 summary(LMR)

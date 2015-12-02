@@ -13,10 +13,10 @@ UImodule3 <- function(){
         tabPanel("Step 1", UIMod3Step1()),    
         
         # Step 2 ------------------------------------------------------------
-        tabPanel("Step 2", UIMod3Step2()),
+        tabPanel("Step 2", UIMod3Step2())#,
         
         # Step 3 ------------------------------------------------------------
-        tabPanel("Step 3", UIMod3Step3())
+        # tabPanel("Step 3", UIMod3Step3())
       
       )
     )

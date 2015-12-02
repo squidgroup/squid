@@ -11,8 +11,7 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
             numericInput("Mod3Step2_NI", "", 5),
             getNumericInput("Mod3Step2_Tmax", Modules_VAR$Tmax, ""),
             matrixInput2("Mod3Step2_Vind", "",data.frame(matrix(c(input$Mod3Step2_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
-            numericInput("Mod3Step2_Vx","", 1-input$Mod3Step2_Vi-input$Mod3Step2_Vme),
-            matrixInput2("Mod3Step2_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod3Step2_Vi-input$Mod3Step2_Vme),0,0),1))),
+            matrixInput2("Mod3Step2_B", "",data.frame(matrix(c(0,input$Mod3Step2_beta1,0,0),1))), 
             
             checkboxInput("Mod3Step2_X1_state", "", value = TRUE),
             
@@ -30,19 +29,6 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
           )
         }),
  	outputOptions(output, "Mod3Step2_hidden", suspendWhenHidden = FALSE),
- 	
- 	
- 	# display variable (general and unknown environmntal effect)
- 	output$Mod3Step2_Vx_txt <- renderUI({
- 	  
- 	  if(!testInput(input$Mod3Step2_Vx, Modules_VAR$Vegu, FALSE, FALSE)){
- 	    output <- span(strong(round(input$Mod3Step2_Vx,2),class="alert alert-danger"))
- 	  }else{
- 	    output <- span(round(input$Mod3Step2_Vx,2))
- 	  }
- 	  
- 	  p(HTML(paste(strong(withMathJax(Modules_VAR$Vegu$label)), output,"")))
- 	}),
  	
  	  output$Mod3Step2_X1_plot <- renderPlot({showEnvironment(input, "Mod3Step2" , "X1")}),
       
@@ -96,25 +82,22 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
    	  
    	  myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step2_Vi),
    	                                         paste("Residual variance ($V_",NOT$error,"$) =",input$Mod3Step2_Vme),
-   	                                         paste("Environmental variance ($V_",NOT$env,"$) =",input$Mod3Step2_Vx)),
+   	                                         paste("Mean environmental effect ($",EQ3$mean1,"$) =",input$Mod3Step2_beta1)),
    	                        "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
    	                                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
-   	                                        "") 
+   	                                        "")
    	  )  
    	  
    	  getTable(myTable) 
    	  
    	}),
  	
-
-    
     ######### Manage errors #########
      	# display error message
      	observe({
      	  if(
      	     !testInput(input$Mod3Step2_X1_ran_V, FullModel_VAR$ranV, FALSE, FALSE) ||
-     	     !testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, FALSE) ||
-     	     !testInput(input$Mod3Step2_Vx, Modules_VAR$Vegu, FALSE, FALSE)){
+     	     !testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, FALSE)){
      	    updateButton(session, "Mod3Step2_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
      	  }else{
      	    updateButton(session, "Mod3Step2_Run", disabled = FALSE, style = Modules_VAR$Run$style)
@@ -122,8 +105,7 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
      	}),
  	
  	    output$Mod3Step2_error_ran_V     <- renderUI({testInput(input$Mod3Step2_X1_ran_V, FullModel_VAR$ranV, FALSE, TRUE)}),
- 	    output$Mod3Step2_error_ran_corr  <- renderUI({testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, TRUE)}),
- 	    output$Mod3Step2_error_Vx        <- renderUI({testInput(input$Mod3Step2_Vx, Modules_VAR$Vegu, FALSE, TRUE)})
- 	            
+ 	    output$Mod3Step2_error_ran_corr  <- renderUI({testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, TRUE)})
+
   )) # End return
 }

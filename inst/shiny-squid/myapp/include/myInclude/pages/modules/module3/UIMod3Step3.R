@@ -12,10 +12,23 @@ UIMod3Step3 <- function(){
       p(HTML(Mod3Step3_txt$para1)),      # Text: paragraph 1 
       p(HTML(Mod3Step3_txt$exercise)),   # Text: exercise
       
-      # inputs
-      p("input >>>>> Vi"), 
-      p("input >>>>> Ve"), 
-      p("input >>>>> Vme"), 
+      # Among-individual variance (Vi) 
+      getSliderInput("Mod3Step3_Vi", Modules_VAR$Vi),
+      
+      # Measurement error variance  
+      getSliderInput("Mod3Step3_Vme", Modules_VAR$Vme),
+      
+      # Environment effects variance (Ves)
+      uiOutput("Mod3Step3_Vx_txt"),
+      uiOutput("Mod3Step3_error_Vx"), 
+      
+      conditionalPanel(
+        condition = "0",
+        uiOutput("Mod3Step3_hidden")
+      ), 
+      
+      ##########
+      
       
       p(HTML(Mod3Step3_txt$para2)),      # Text: paragraph 2 
       

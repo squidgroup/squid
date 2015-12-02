@@ -19,13 +19,7 @@ UIMod3Step1 <- function(){
       
       # Measurement error variance  
       getSliderInput("Mod3Step1_Vme", Modules_VAR$Vme),
-      # getNumericInput("Mod3Step1_Vme", Modules_VAR$Vme, "Mod3Step1_error_Vme"),
-      
-      # Environment effects variance (Ves)
-      uiOutput("Mod3Step1_Vx_txt"),
-      uiOutput("Mod3Step1_error_Vx"), 
     
-      
       conditionalPanel(
         condition = "0",
         uiOutput("Mod3Step1_hidden")
@@ -33,9 +27,9 @@ UIMod3Step1 <- function(){
       
       p(HTML(Mod3Step1_txt$para2)),      # Text: paragraph 2
       
-      # input Beta1
-      p("input Beta ???????"),
-      
+      # Mean Environment effects in the slope (Beta 1)
+      getSliderInput("Mod3Step1_beta1", Modules_VAR$B1),
+            
       p(HTML(Mod3Step1_txt$para3)),       # Text: paragraph 3
       
       # Figure of 2 examples of sampling design when among-individual variance in sampling timing is 0.1 and 0.9

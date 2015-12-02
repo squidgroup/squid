@@ -18,7 +18,8 @@ Mod3Step1_txt <- list(
                   will be unknown and so not measured. In Step 3, this unmeasured environmental 
                   variance ended up as &ldquo;residual&rdquo; variance, and it had no effect on the estimate 
                   of among-individual variance because the environment was randomly determined from 
-                  one sampling period to another and all individuals experienced the same environment. 
+                  one sampling period to another and all individuals were sampled at the same time 
+                  and experienced the same environment . 
                   In module 3, we explore what happens when we address this obviously simplified assumption. 
                   For example, suppose the environment changes steadily over the sampling period. 
                   What happens when the pattern of how an investigator measures individuals varies, 
@@ -60,10 +61,9 @@ Mod3Step1_txt <- list(
                   ", sep=""),
   "para10"     = paste("Because among-individual variance in sampling and systematic changes in environment 
                   are extremely likely in real systems, how can we get accurate estimates of $V_",NOT$error,"$?",sep=""),
-  "para11"     = "We explore two solutions to this problem:
+  "para11"     = "We explore one solution to this problem:
                   <ol>
                     <li>Adjust sampling regime to minimize it (go to Step 2)</li>
-                    <li>Use mean-centering to account for the problem (go to Step 3).</li>
                   </ol>"
   
 )
@@ -82,9 +82,9 @@ Mod3Step2_txt <- list(
                   identical sampling and whether there are biases in other parameters that remain. 
                   So, in this step we will allow you to simulate several types of non-random environments 
                   and adjust the sampling regime.",
-  "exercise"   = "<b>Exercise:</b> As in Step 1, we will generate a new group of individuals, with phenotypic 
-                  variance caused by measurement error (V<sub>ME</sub>), individual differences (V<sub>I</sub>), and the 
-                  impact of the environment (V<sub>E</sub>). ",
+  "exercise"   = paste0("<b>Exercise:</b> As in Step 1, we will generate a new group of individuals, with phenotypic 
+                  variance caused by measurement error ($V_",NOT$error,"$), individual differences ($V_",NOT$devI,"$), and the 
+                  impact of the environment ($V_",NOT$env,"$)."),
   "para1"      =  "You now get to set the environment. In Step 1 of this module, we used an environment 
                   that was experienced similarly by all individuals (&ldquo;shared&rdquo;) and which changed 
                   systematically over time. Below, you can change these settings to have environments 
@@ -100,14 +100,14 @@ Mod3Step2_txt <- list(
                   effect is unknown) is:",
   "para5"      =  "A mixed statistical model estimates the parameters which we can compare with the true values:",
   "conclusion" = "<b>Conclusion</b>",
-  "para6"      =  "The results of any given simulation may vary, but the overall picture that emerges 
-                  if you do several simulations should be that when V<sub>E</sub> is small, as you measure each 
+  "para6"      =  paste0("The results of any given simulation may vary, but the overall picture that emerges 
+                  if you do several simulations should be that when $V_",NOT$error,"$ is small, as you measure each 
                   individual more often and do so more similarly among individuals, the better 
-                  your estimates.", 
-  "para7"      =  "Did you simulate a population where the environment is not shared among individuals? 
+                  your estimates."), 
+  "para7"      =  paste0("Did you simulate a population where the environment is not shared among individuals? 
                   If not, try it now. What you should find is that no matter what the sampling regime, y
-                  our estimate of VI is too high. To understand, let’s return to the definitions of 
-                  the variance components. We defined V<sub>I</sub> as the variance among individuals 
+                  our estimate of $V_",NOT$ind,"$ is too high. To understand, let’s return to the definitions of 
+                  the variance components. We defined $V_",NOT$ind,"$ as the variance among individuals 
                   that permanently affected their phenotype throughout the sampling period. Biologically, 
                   this can be ascribed to genetic differences or environments acting during development 
                   (e.g., before measurements started). When environments are unshared during sampling, 
@@ -119,7 +119,7 @@ Mod3Step2_txt <- list(
                   phenotype is not solely due to the environment. That is true, but does not change the fact 
                   that for the focal trait, it is sensitive to the environment the individual is in each time 
                   it is expressed. We will get to the issue of multiple phenotypic characters and how they might 
-                  integrate in Module 4). ",
+                  integrate in Module 4)."),
     "para8"     =  "Thus, if you do not know what environments are affecting trait expression, sampling in 
                     parallel for all individuals is a possible solution to potential biases created by 
                     non-random environments. But, because unshared environments can create biases even 
@@ -133,22 +133,22 @@ Mod3Step3_txt <- list(
   "title"      = "Step 3: Measured environments and mean-centering",
   "subgoal"    = "<b>Sub-goal:</b> Illustrating the use of mean-centered data to control for environmental biases",
   
-  "intro"      = "<b>Introduction:</b> Step 1 of this module illustrated that environmental effects on 
-                  phenotypes can produce biases in estimates of among-individual variance (V<sub>I</sub>).  
+  "intro"      = paste0("<b>Introduction:</b> Step 1 of this module illustrated that environmental effects on 
+                  phenotypes can produce biases in estimates of among-individual variance ($V_",NOT$ind,"$).  
                   Step 2 explored how altering sampling regimes could reduce this problem, but also 
                   revealed that in some circumstances no sampling regime would work. Sometimes 
                   individuals experience different environments, and no sampling regime can adjust for that. 
-                  However, if investigators can measure the environment, then such differences could be accounted for.",
+                  However, if investigators can measure the environment, then such differences could be accounted for."),
   "para1"      =  "A central message of the SQuID project is that phenotypic variance exists in hierarchical 
                   levels&mdash;so far we have focused on two, within-individual and among-individual variance. 
                   Our focus has also been on variance in a trait, but the problem we have encountered is 
-                  that there can exist within-individual and among-individual variance in environment as well. 
+                  that there can exist within-individual and among-individual variance in <em>environment</em> as well. 
                   If the environment influences phenotype, then an essential question is whether the pattern 
                   in phenotype merely reflects the pattern in environment, or are there multiple causes. ",
-  "exercise"   = "<b>Exercise:</b> This exercise follows the same structure as all of our other simulations so far. 
+  "exercise"   = paste0("<b>Exercise:</b> This exercise follows the same structure as all of our other simulations so far. 
                   We will generate a group of individuals, with phenotypic variance caused by 
-                  measurement error (V<sub>ME</sub>), individual differences (V<sub>I</sub>), and the impact of 
-                  the environment (V<sub>E</sub>). So, first set the true values of these variances:",
+                  measurement error ($V_",NOT$error,"$), individual differences ($V_",NOT$ind,"$), and the impact of 
+                  the environment ($V_",NOT$env,"$). So, first set the true values of these variances:"),
   "para2"      = "The environment can be chosen as in Step 2. It, combined with the sampling regime, 
                   will affect within- and among-individual variance in the environment. ",
   "para3"      = "An interesting consequence of having variance in the environment that 

@@ -111,12 +111,12 @@ Modules_VAR <- list(
                                          Try to decrease other variances.",sep="")
   ),
   
-  # Mean known Environemental effect
-  "Bes"   = list(  "label"       = "Mean effect of measured environment ($\\beta_{ESK}$):",
+  # Mean Environemental effect
+  "B1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
                    "infoTxt"     = "Mean effect of specific (unshared among individuals)and known (measured) environmental effect",
                    "value"       = 0,
-                   "min"         = "",
-                   "max"         = "",
+                   "min"         = 0,
+                   "max"         = 1,
                    "step"        = 0.01,
                    "errorTxt"    = "Mean effect of measured environment (beta ES) must be a number."
   ),

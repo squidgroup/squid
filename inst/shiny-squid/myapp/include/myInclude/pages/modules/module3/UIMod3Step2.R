@@ -17,9 +17,8 @@ UIMod3Step2 <- function(){
       # Measurement error variance  
       getSliderInput("Mod3Step2_Vme", Modules_VAR$Vme),
       
-      # Environment effects variance (Ves)
-      uiOutput("Mod3Step2_Vx_txt"),
-      uiOutput("Mod3Step2_error_Vx"), 
+      # Mean Environment effects in the slope (Beta 1)
+      getSliderInput("Mod3Step2_beta1", Modules_VAR$B1),
       
       
       conditionalPanel(
@@ -108,9 +107,9 @@ UIMod3Step2 <- function(){
       
       div(class="line"),
       
-      bsButton("Mod3Step2GotoStep1", label = "<< Previous Step (1)", style = Modules_VAR$StepLink$style), # Go to previous step       
-      span(Modules_VAR$StepLink$sep, class="step-Link"),
-      bsButton("Mod3Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
+      bsButton("Mod3Step2GotoStep1", label = "<< Previous Step (1)", style = Modules_VAR$StepLink$style)#, # Go to previous step       
+#       span(Modules_VAR$StepLink$sep, class="step-Link"),
+#       bsButton("Mod3Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
       
       
   
