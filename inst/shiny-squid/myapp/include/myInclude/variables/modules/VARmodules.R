@@ -69,13 +69,13 @@ Modules_VAR <- list(
   ),
   
   # Number of trait expressions (NR)
-  "NR"   = list( "label"       = "Number of records:",
-                 "infoTxt"     = "Number of records taken for each individual.",
+  "NR"   = list( "label"       = "Number of trait expressions sampled:",
+                 "infoTxt"     = "Number of trait expressions sampled for each individual.",
                  "value"       = 2,
                  "min"         = 2,
                  "max"         = 100,
                  "step"        = 1,
-                 "errorTxt"    = "Number of records must be an integer between 2 and 100."
+                 "errorTxt"    = "Number of trait expressions sampled must be an integer between 2 and 100."
   ),
   
   # Simulation time (Tmax)

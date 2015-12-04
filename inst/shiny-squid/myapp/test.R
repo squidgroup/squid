@@ -32,10 +32,10 @@ input <- list()
 
 # input$test_Vind <- matrix(c(0.7,rep(0,(4*4)-1)),4)
 
-input$test_B    <- matrix(c(0,0.3,0,0),1)
+input$test_B    <- matrix(c(0.2,0.3,0,0),1)
 
 input$test_Vind <- matrix(c(0.7 , 0  , 0 , 0,
-                            0   , 0  , 0 , 0,
+                            0   , 0.5  , 0 , 0,
                             0   , 0  , 0 , 0,
                             0   , 0  , 0 , 0    
                           ), 
@@ -108,6 +108,13 @@ progress    <- NULL
 myModule <- "test"
 
 data <- main(input, myModule, session, progress)
+
+ggplot(data = data$data_S, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
+  stat_smooth(method = "lm", se=FALSE) + 
+  theme(legend.position="none") + 
+  xlab("Environmental effect") + 
+  ylab("Phenotype")
+
 
 library(lme4)
 library(arm)
@@ -209,6 +216,9 @@ LMR <- update(LMR, ~.+ X1)
 LMR <- lmer(Phenotype ~ -1  + (1|Individual), data = data$data_S)
 LMR <- update(LMR, ~.+ X1 + (X1|Individual) - (1|Individual))
 LMR <- update(LMR, ~.+ X2 + (X2|Individual) - (1|individual))
+
+LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$data_S)
+RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
 
 
 

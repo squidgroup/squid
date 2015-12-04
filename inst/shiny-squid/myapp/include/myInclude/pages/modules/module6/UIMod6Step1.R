@@ -59,49 +59,30 @@ UIMod6Step1 <- function(){
         runningIndicator(),
         p(),
         
+        (HTML(Mod6Step1_txt$results)),    # Text: results
+        
         # Table : display true and measured values (Vp, Vi and mean)      
-        uiOutput("Mod6Step1_summary_table")
+        uiOutput("Mod6Step1_summary_table"),
+        
+        (HTML(Mod6Step1_txt$para4)),    # Text: paragraph 
+        
+        # Phenotype against environment figure
+        p(plotOutput("Mod6Step1_plot", width = Modules_VAR$Plot$width)),  
+        
+        (HTML(Mod6Step1_txt$point)),   # Text: point 
+        
+        p(HTML(module1_txt$statModTitle)),
+        p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=
+                (",EQ3$mean0,"+
+                 ",NOT$devI,"_",NOT$ind,")+
+                 (",EQ3$mean1,"+", NOT$devS,"_", NOT$ind,")", NOT$env,"_{",NOT$time, NOT$ind,"}+
+                 ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
+        p(paste0("$$V_p=
+                V_",NOT$devI,"+
+                V_{",EQ3$mean1,NOT$env,"}+
+                V_{",NOT$devS,NOT$env,"}+
+                V_",NOT$error,"$$"))
 
-#         # Number of individuals               
-#         getSliderInput("Mod1Step1_NI", Modules_VAR$NI),
-# 
-#         p(HTML(Mod1Step1_txt$para1)),      # Text: Paragraph 1  
-#         
-#         # Measurement error variance
-#         # getNumericInput("Mod1Step1_Vme", Modules_VAR$Vme, "Mod1Step1_error_Vme"),
-#         getSliderInput("Mod1Step1_Vme", Modules_VAR$Vme),
-#         
-#         # Hidden variable:
-#           # Mod1Step1_Vind: Intercepts and slopes (Co)variance matrix
-#         conditionalPanel(
-#           condition = "0",
-#           uiOutput("Mod1Step1_hidden")
-#         ),
-#               
-#         p(),
-#         # Simulation run button
-#         bsButton("Mod1Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
-#         runningIndicator(),
-#         p(),
-#         # Simulation progress bar
-#         
-#       
-#         # Output
-#           # Graph: density distribution of true and measured phenotypic values
-#           plotOutput("Mod1Step1_plot", width = Modules_VAR$Plot$width),                        
-#           
-#           # Table : display true and measured values (Vp, Vi and mean)      
-#           uiOutput("Mod1Step1_summary_table"), 
-#           
-#           p(HTML(Mod1Step1_txt$point)),       # Text: point
-#           p(HTML(Mod1Step1_txt$solutions)),   # Text: solutions         
-#           
-#           # display statistical model
-#           p(HTML(module1_txt$statModTitle)),
-#           p(paste("$$",NOT$trait.1,"_",NOT$ind,"=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_",NOT$ind,"$$",sep="")),
-#           p(paste("$$V_p=V_",NOT$devI,"+V_",NOT$error,"$$",sep="")),
-#         
-#         
 #         div(class="line"),
 #         
 #         # Go to next step

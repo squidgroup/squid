@@ -60,23 +60,56 @@ Mod6Step1_txt <- list(
   "para3"    = "Set in the background is the environmental variable and its sampling. 
                 Here we should use uniform sampling, where each individual is sampled 
                 at the same time so there are no biases. By definition, 
-                our environmental variable is also mean centered."
+                our environmental variable is also mean centered.",
+  "results"  = "<b>Results:</b> A mixed-effects statistical model estimates these parameters:",
+  "para4"    = "Individual-specific responses can be best visualised by plotting 
+                the individual-specific regression lines.",
+  "point"   = "<b>Point:</b> Again, we performed linear regression approach in a mixed model framework, 
+                but in this case we generated multiple regression lines 
+                (by defining different intercepts and slopes) for each individual in a single 
+                model to describe the individual-specific effect of an explanatory variable. 
+                Individual-specific responses to changes that occur along an environmental 
+                gradient form &ldquo;reaction norms&rdquo;. These reaction norms, if the environmental 
+                gradient is centeredcentred around zero, can be characterized by their 
+                intercept that describes individual mean expression values, and by their 
+                slope that expresses the plasticity of traits within individuals. 
+                Statistically, one can evaluate whether the random-intercept or the 
+                random-slope model fits the data at hand better. However, 
+                the consideration of differences in how individuals respond to environmental 
+                fluctuations may be straightforward on a biological basis. This model 
+                simultaneously accommodates tests for individual personality differences 
+                (i.e. the calculation of repeatability makes sense) as well as tests 
+                for individual by environment interaction."
   
 )
 
 # Step 2 --------------
 Mod6Step2_txt <- list(    
-  "title"      = "Step 2: ",
-  "subgoal"    = "<b>Sub-goal:</b>",
-  "intro"      = "<b>Introduction:</b> Step 1 revealed a problem—non-random environments through time 
-                  and variability in the timing of sampling can create biases in estimates of 
-                  among-individual variation. In this step we encourage you to adjust the sampling 
-                  regime to minimize this problem. It should be obvious that if all individuals 
-                  are sampled with the same timing, then the bias in the estimates of among-individual 
-                  variance disappears, but it is worthwhile assessing how close one has to be to 
-                  identical sampling and whether there are biases in other parameters that remain. 
-                  So, in this step we will allow you to simulate several types of non-random environments 
-                  and adjust the sampling regime.",
+  "title"      = "Step 2: Intercept-slope correlation",
+  "subgoal"    = "<b>Sub-goal:</b> To introduce and understand correlation (covariance) 
+                  between intercepts and slopes.",
+  "intro"      = "<b>Introduction:</b> Up until this point, we have been making the hidden 
+                  and simplifying assumption that each variable in our variance 
+                  partitioning is independent of other variables. In other words, 
+                  we have assumed, for example, that measurement error is 
+                  not correlated with individual intercept or environment. 
+                  For the most part, we will continue to make these assumptions, 
+                  but the introduction of random slopes means we have two variances, 
+                  in intercepts and slopes, that are part of phenotypic variance 
+                  and attributes of individuals. Biologically, it becomes 
+                  very interesting if there is a correlation between intercepts and slopes. 
+                  That correlation can be either positive or negative, 
+                  and we will have you simulate data both ways so you can see what the sign of 
+                  the correlation does to the pattern of variance within and among individuals.",
+  "para1"      = "We use the same equation as before, e.g.,",
+  "para2"      = "but now we make the formally hidden assumption explicit with some new nomenclature:",
+  "para3"      = paste0("This means that the intercept value of the ith individual ($",NOT$ind,"_",NOT$ind,"$) 
+                  and the slope of that individual ($",NOT$devS,"_",NOT$ind,"$) are distributed as multivariate 
+                  normal with means for each attribute of 0 and a variance-covariance 
+                  structure of $$ Ω_IS. We then specify the variance-covariance 
+                  structure in a 2 by 2 matrix. You have seen the variance terms 
+                  (V_I and V_S) before, but the new term introduced here is , 
+                  which is the measure of how much I_i and S_i covary together (〖Cov〗_IS)."),
   "exercise"   = paste0("<b>Exercise:</b> As in Step 1, we will generate a new group of individuals, with phenotypic 
                   variance caused by measurement error ($V_",NOT$error,"$), individual differences ($V_",NOT$devI,"$), and the 
                   impact of the environment ($V_",NOT$env,"$).")
