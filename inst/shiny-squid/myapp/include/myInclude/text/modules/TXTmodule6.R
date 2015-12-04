@@ -103,16 +103,40 @@ Mod6Step2_txt <- list(
                   the correlation does to the pattern of variance within and among individuals.",
   "para1"      = "We use the same equation as before, e.g.,",
   "para2"      = "but now we make the formally hidden assumption explicit with some new nomenclature:",
-  "para3"      = paste0("This means that the intercept value of the ith individual ($",NOT$ind,"_",NOT$ind,"$) 
+  "para3"      = paste0("This means that the intercept value of the ith individual ($",NOT$devI,"_",NOT$ind,"$) 
                   and the slope of that individual ($",NOT$devS,"_",NOT$ind,"$) are distributed as multivariate 
                   normal with means for each attribute of 0 and a variance-covariance 
-                  structure of $$ Ω_IS. We then specify the variance-covariance 
+                  structure of $\\Omega_{",NOT$devI,NOT$devS,"}$. We then specify the variance-covariance 
                   structure in a 2 by 2 matrix. You have seen the variance terms 
-                  (V_I and V_S) before, but the new term introduced here is , 
-                  which is the measure of how much I_i and S_i covary together (〖Cov〗_IS)."),
-  "exercise"   = paste0("<b>Exercise:</b> As in Step 1, we will generate a new group of individuals, with phenotypic 
-                  variance caused by measurement error ($V_",NOT$error,"$), individual differences ($V_",NOT$devI,"$), and the 
-                  impact of the environment ($V_",NOT$env,"$).")
+                  ($V_",NOT$devI,"$ and $V_",NOT$devS,"$) before, but the new term introduced here is, 
+                  which is the measure of how much $",NOT$devI,"_",NOT$ind,"$ and $",NOT$devS,"_",NOT$ind,"$ 
+                  covary together ($Cov_{",NOT$devI, NOT$devS,"}$)."),
+  "exercise"   = paste0("<b>Exercise:</b> We will do a very similar simulation as in Step 1, 
+                  but you will then enter some value for the covariance between 
+                  the intercept and the slope. You will enter this covariance as 
+                  a standardized value by expression it as a 
+                  correlation ranging between -1 and +1:"),
+  "para4"      = "We will then examine the appearance of the resulting data.",
+  "results"    = "<b>Results:</b> A mixed-effects statistical model estimates these parameters:",
+  "para5"      = "The best way to develop an intuition about what the covariance represents 
+                  is to compare a graph with and without it. Below are two panels of simulated data. 
+                  The one on the left shows your simulated individuals without the covariance, 
+                  and the one on the right is the same set with the covariance you entered. 
+                  The difference will, of course, be more obvious is you entered a 
+                  large covariance (correlation).",
+  "para6"      = "Try this step a couple of times to explore in particular what a 
+                  negative versus positive covariance does to the pattern of reaction norms.",
+  "point"      = "<b>Point:</b> Intercept-slope covariance is an additional layer 
+                  to understanding the phenotypic equation. You will note that it 
+                  is not a parameter in the equation itself, but is rather 
+                  describing the relationship between two parameters in the equation—that is, 
+                  how they behave across individuals. The covariance does normally 
+                  appear in a partitioning of variance:",
+  "para7"      = "The biology of the covariance is just beginning to be explored 
+                  (e.g., Mathot et al. 2011). Undoubtedly further understanding 
+                  of it will contribute to understanding the evolution of plasticity, 
+                  since the covariance links variation in plasticity with variation 
+                  in mean trait values, and therefore could affect evolution in unexpected ways."
 )
 
 # Step 3 --------------

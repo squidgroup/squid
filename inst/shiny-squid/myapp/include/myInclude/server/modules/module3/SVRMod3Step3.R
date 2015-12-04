@@ -34,7 +34,7 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
     ######### Run simulation #########
     # Run simulation and return results
     Mod3Step3_output <- reactive({
-      if(input$Mod3Step3_Run == 0 && input$Mod3Step3_Run2 == 0) # if Run button is pressed
+      if(input$Mod3Step3_Run == 0) # if Run button is pressed
         return(NULL)
       
       isolate({ 
@@ -61,7 +61,39 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
         
         return(data)
       })  
-    }),  
+    }),
+    
+    Mod3Step3_output_2 <- reactive({
+      if(input$Mod3Step3_Run2 == 0) # if Run button is pressed
+        return(NULL)
+      
+      isolate({ 
+        
+        updateCheckboxInput(session, "isRunning", value = TRUE)
+        
+        # Call app main function
+        data <- main(input, "Mod3Step3", session, TRUE)  
+        
+        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$data_S)
+        RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
+        
+        data$Vi        <- round(RANDEF[1],2)
+        data$Vr        <- round(RANDEF[2],2) 
+        
+        data$data_S$X1 <- input$Mod3Step3_Vx_proportion * data$data_S$X1
+        
+        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$data_S)
+        RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
+        
+        data$Vi_2      <- round(RANDEF2[1],2)
+        data$Vr_2      <- round(RANDEF2[2],2) 
+        data$B1_2      <- round(fixef(LMR2)[1],2) 
+        
+        updateCheckboxInput(session, "isRunning", value = FALSE)
+        
+        return(data)
+      })  
+    }),
     
     output$Mod3Step3_previewPlot <- renderPlot({ 
       
@@ -78,12 +110,10 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
       print(data$myPlot$plotSampTime)
     }),
     
-    Mod3Step3_table <- reactive({
-        
-      data <- Mod3Step3_output()
+    Mod3Step3_table <- function(data){
       
       myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step3_Vi),
-                                             paste("Residual variance ($V_",NOT$error,"$) =",input$Mod3Step3_Vme),
+                                             paste("Measurement error variance ($V_",NOT$error,"$) =",input$Mod3Step3_Vme),
                                              paste("Environmental variance ($V_",NOT$env,"$) =",input$Mod3Step3_Vx),
                                              paste("Mean environmental effect ($",EQ3$mean1,"$) =",round(input$Mod3Step3_B[2],2))),
                             "Totally unknown environment" = c(paste("Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
@@ -97,19 +127,23 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
       )  
     
         return(getTable(myTable))
-    }),  
+    },  
     
     # Display results (table)
-    output$Mod3Step3_summary_table <- renderUI({Mod3Step3_table()}),
-    output$Mod3Step3_summary_table_2 <- renderUI({Mod3Step3_table()}),
+    output$Mod3Step3_summary_table <- renderUI({
+      data   <- Mod3Step3_output()
+      Mod3Step3_table(data)
+    }),
+    output$Mod3Step3_summary_table_2 <- renderUI({
+      data   <- Mod3Step3_output_2()
+      Mod3Step3_table(data)
+    }),
     
     observe({
-      updateSliderInput(session, "Mod3Step3_Vx", value = input$Mod3Step3_Vx2)
       updateSliderInput(session, "Mod3Step3_Vit", value = input$Mod3Step3_Vit2)
     }),
     
     observe({
-      updateSliderInput(session, "Mod3Step3_Vx2", value = input$Mod3Step3_Vx)
       updateSliderInput(session, "Mod3Step3_Vit2", value = input$Mod3Step3_Vit)
     }),
     

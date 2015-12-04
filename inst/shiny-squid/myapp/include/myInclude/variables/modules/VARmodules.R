@@ -58,6 +58,16 @@ Modules_VAR <- list(
                     "errorTxt"    = ""
   ),
   
+  # Environmental effect variance
+  "CorIS" = list(  "label"        = paste0("Correlation between $",NOT$devI,"$ and $",NOT$devS,"$ ($Cor_{",NOT$devI,NOT$devS,"}$):"),
+                    "infoTxt"     = paste0("Correlation between $",NOT$devI,"$ (random intercept) and $",NOT$devS,"$ (random slope)"),
+                    "value"       = "",
+                    "min"         = -1,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = ""
+  ),
+  
   # Measurement error variance (Vme)
   "Vme"  = list("label"       = paste("Measurement error variance ($V_",NOT$error,"$):",sep=""),
                 "infoTxt"     = "Measurement error variance",
@@ -71,7 +81,7 @@ Modules_VAR <- list(
   # Number of trait expressions (NR)
   "NR"   = list( "label"       = "Number of trait expressions sampled:",
                  "infoTxt"     = "Number of trait expressions sampled for each individual.",
-                 "value"       = 2,
+                 "value"       = 5,
                  "min"         = 2,
                  "max"         = 100,
                  "step"        = 1,

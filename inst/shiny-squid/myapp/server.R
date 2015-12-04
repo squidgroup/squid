@@ -69,6 +69,8 @@ shinyServer(function(input, output, session) {
     # Module 6 Step 1 ---------------------------------------------------------
     SVRMod6Step1(input, output, session, Modules_VAR, nb.IS, color)
   
+    SVRMod6Step2(input, output, session, Modules_VAR, nb.IS, color)
+  
   
   
   #     output$table_test <- renderTable({ 

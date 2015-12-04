@@ -13,10 +13,10 @@ UImodule6 <- function(){
       tabsetPanel(id = "Module6TabsetPanel", type = "pills", selected = "Step 1",
                   
                   # Step 1 ------------------------------------------------------------
-                  tabPanel("Step 1", UIMod6Step1())    
+                  tabPanel("Step 1", UIMod6Step1()),   
                   
-#                   # Step 2 ------------------------------------------------------------
-#                   tabPanel("Step 2", UIMod1Step2()),
+                  # Step 2 ------------------------------------------------------------
+                  tabPanel("Step 2", UIMod6Step2())
 #                   
 #                   # Step 3 ------------------------------------------------------------
 #                   tabPanel("Step 3",UIMod1Step3()),

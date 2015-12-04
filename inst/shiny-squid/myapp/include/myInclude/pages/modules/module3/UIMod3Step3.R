@@ -71,7 +71,15 @@ UIMod3Step3 <- function(){
       
       p(HTML(Mod3Step3_txt$para7)),      # Text: paragraph 7
       
-      getSliderInput("Mod3Step3_Vx2", Modules_VAR$Vx),
+      sliderInput("Mod3Step3_Vx_proportion",
+                  "Proportion of the environmental effect measured:", 
+                  value = Modules_VAR$Vx$value, 
+                  min   = Modules_VAR$Vx$min, 
+                  max   = Modules_VAR$Vx$max, 
+                  step  = Modules_VAR$Vx$step,
+                  width = "500px",
+                  post = ""
+      ),
       
       p(HTML(Mod3Step3_txt$para8)),      # Text: paragraph 8
       

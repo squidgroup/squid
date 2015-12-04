@@ -146,7 +146,7 @@ Mod3Step3_txt <- list(
                         the Basic Lessons module, step 4. Here we demonstrate that this can, 
                         under some circumstances, solve the bias in sampling problem."),
 
-  "exercise"   = paste0("<b>Exercise:</b> This exercise follows the same structure as all of our other 
+  "exercise"   = paste0("<b>Exercise 1:</b> This exercise follows the same structure as all of our other 
                         simulations so far. We will generate a group of individuals , 
                         with phenotypic variance caused by measurement error ($V_",NOT$error,"$), 
                         individual differences ($V_",NOT$ind,"$), and the impact of the environment ($V_",NOT$env,"$). 
@@ -174,12 +174,12 @@ Mod3Step3_txt <- list(
   "para6"      = paste0("This should show you that when there is among-individual variance in 
                   sampling and you can account for all the environmental variance 
                   with an x variable, any bias in $V_",NOT$ind,"$ caused by the biased sampling disappears."),
-  "para7"      = "Now, let&rsquo;s repeat the same simulation as above, expect this time explore 
+  "para7"      = "<b>Exercise 2:</b> Now, let&rsquo;s repeat the same simulation as above, expect this time explore 
                   what happens as you change the proportion of the environmental 
                   variance that is known. Below is the bar that allows you 
                   to adjust this.",
   "para8"      = "If you want, you can also change the level of bias in sampling.",
-  "para9"      = "As above, we will show you the true values you entered, 
+  "para9"      = "<b>Results:</b> As above, we will show you the true values you entered, 
                   the values estimated when the environment is unknown, 
                   and those estimated when some portion of the environment 
                   is known and included in the model.",

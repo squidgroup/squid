@@ -32,10 +32,10 @@ input <- list()
 
 # input$test_Vind <- matrix(c(0.7,rep(0,(4*4)-1)),4)
 
-input$test_B    <- matrix(c(0.2,0.3,0,0),1)
+input$test_B    <- matrix(c(0,0.3,0,0),1)
 
 input$test_Vind <- matrix(c(0.7 , 0  , 0 , 0,
-                            0   , 0.5  , 0 , 0,
+                            1   , 0.5  , 0 , 0,
                             0   , 0  , 0 , 0,
                             0   , 0  , 0 , 0    
                           ), 
@@ -88,17 +88,17 @@ input$test_Tmax <- 100
 input$test_Time_sampling <- c(1,100)
 
 input$test_NP <- 1
-input$test_NI <- 100
+input$test_NI <- 500
 input$test_NT <- 1
-input$test_NR <- 10
+input$test_NR <- 20
 input$test_NK <- 1
 
-input$test_Drec_Ind    <- TRUE
-input$test_Drec_Trait  <- TRUE
+input$test_Drec_Ind    <- FALSE
+input$test_Drec_Trait  <- FALSE
 input$test_Dtime_Ind   <- FALSE
 input$test_Dtime_Trait <- TRUE
 
-input$test_Vit <- 0.5
+input$test_Vit <- 0
 
 environment <- NULL
 session     <- NULL
@@ -108,6 +108,15 @@ progress    <- NULL
 myModule <- "test"
 
 data <- main(input, myModule, session, progress)
+
+
+
+LMR <- lmer(Phenotype ~ 1 + X1 + (X1|Individual), data = test)
+summary(LMR)
+
+cov2cor(VarCorr(LMR)$Individual[,])[2]
+
+
 
 ggplot(data = data$data_S, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
   stat_smooth(method = "lm", se=FALSE) + 
@@ -208,7 +217,8 @@ print(multiplot(data$myPlot$plotTotPhen,
 
 library(lme4)
 library(arm)
-LMR <- lmer(Phenotype ~ X1 + (X1|Individual), data = data$data_S)
+LMR <- lmer(Phenotype ~ 0 + X1 + (X1|Individual), data = data$data_S)
+summary(LMR)
 
 LMR <- lmer(Phenotype ~  0 + (1|Individual), data = data$data_S)
 LMR <- update(LMR, ~.+ X1)
@@ -219,9 +229,6 @@ LMR <- update(LMR, ~.+ X2 + (X2|Individual) - (1|individual))
 
 LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$data_S)
 RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
-
-
-
 
 summary(LMR)
 # 

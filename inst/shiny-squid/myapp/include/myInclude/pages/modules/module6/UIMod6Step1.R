@@ -81,14 +81,14 @@ UIMod6Step1 <- function(){
                 V_",NOT$devI,"+
                 V_{",EQ3$mean1,NOT$env,"}+
                 V_{",NOT$devS,NOT$env,"}+
-                V_",NOT$error,"$$"))
+                V_",NOT$error,"$$")),
 
-#         div(class="line"),
-#         
-#         # Go to next step
-#         bsButton("Mod1Step1GotoStep2", 
-#                  label = "Next Step (2) >>",
-#                  style = Modules_VAR$StepLink$style)
+        div(class="line"),
+        
+        # Go to next step
+        bsButton("Mod6Step1GotoStep2", 
+                 label = "Next Step (2) >>",
+                 style = Modules_VAR$StepLink$style)
     
     )
   ) # End return

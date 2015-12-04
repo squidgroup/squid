@@ -4,7 +4,7 @@ SVRMod6Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
   return(c(
   
     ######### Set variables #########  
-    updateVind <- function(input, nb.IS){
+    Mod6Step1updateVind <- function(input, nb.IS){
       df <- matrix(rep(0,nb.IS^2),nb.IS)
       diag(df)[1] <- input$Mod6Step1_Vi
       diag(df)[2] <- input$Mod6Step1_Vs
@@ -14,7 +14,7 @@ SVRMod6Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
        output$Mod6Step1_hidden <- renderUI({
           list(
             numericInput("Mod6Step1_Tmax", "", Modules_VAR$Tmax$max),
-            matrixInput2("Mod6Step1_Vind", "", updateVind(input, nb.IS)),
+            matrixInput2("Mod6Step1_Vind", "", Mod6Step1updateVind(input, nb.IS)),
             matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,input$Mod6Step1_beta1,0,0),1))),
             checkboxInput("Mod6Step1_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_ran_state", "", value = TRUE),
