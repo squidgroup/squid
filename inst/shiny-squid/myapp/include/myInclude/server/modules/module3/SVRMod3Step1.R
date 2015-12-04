@@ -8,8 +8,7 @@ SVRMod3Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
        output$Mod3Step1_hidden <- renderUI({
           list(
             numericInput("Mod3Step1_Tmax", "", Modules_VAR$Tmax$max),
-            numericInput("Mod3Step1_NI", "", 5),
-            getNumericInput("Mod3Step1_Tmax", Modules_VAR$Tmax, ""),
+            numericInput("Mod3Step1_NI", "", 100),
             matrixInput2("Mod3Step1_Vind", "",data.frame(matrix(c(input$Mod3Step1_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
             matrixInput2("Mod3Step1_B", "",data.frame(matrix(c(0,input$Mod3Step1_beta1,0,0),1))),
             checkboxInput("Mod3Step1_X1_state", "", value = TRUE),

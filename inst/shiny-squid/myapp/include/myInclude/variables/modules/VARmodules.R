@@ -48,6 +48,16 @@ Modules_VAR <- list(
                "errorTxt"    = "Among-individual variance ($V_",NOT$devI,"$) must be a number between 0 and 1."
   ),
   
+  # Individual-specific response to an environmental effect (random slopes) variance (VS)
+  "Vs"     = list(  "label"       = paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$): "),
+                    "infoTxt"     = "Individual-specific response to an environmental effect (random slopes) variance",
+                    "value"       = "",
+                    "min"         = 0,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = ""
+  ),
+  
   # Measurement error variance (Vme)
   "Vme"  = list("label"       = paste("Measurement error variance ($V_",NOT$error,"$):",sep=""),
                 "infoTxt"     = "Measurement error variance",
@@ -108,6 +118,17 @@ Modules_VAR <- list(
                     "max"         = 1,
                     "step"        = 0.01,
                     "errorTxt"    = paste("General and unknown environmental effect variance ($",general_VAR$EnvGenUnk,"$) must be a number between 0 and 1.
+                                         Try to decrease other variances.",sep="")
+  ),
+  
+  # Environmental effect variance
+  "Vx"     = list(  "label"       = paste("Environmental effect variance ($V_",NOT$env,"$): ",sep=""),
+                    "infoTxt"     = "Environmental effect variance",
+                    "value"       = "",
+                    "min"         = 0,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = paste("General and unknown environmental effect variance ($V_",NOT$env,"$) must be a number between 0 and 1.
                                          Try to decrease other variances.",sep="")
   ),
   

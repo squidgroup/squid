@@ -1,6 +1,6 @@
 
 module1_txt <- list(
-  "title"         = paste("Module 1: Differences between $V_",NOT$total,"$, $V_",NOT$devI,"$ and 
+  "title"         = paste("Differences between $V_",NOT$total,"$, $V_",NOT$devI,"$ and 
                            $V_",NOT$error,"$, intercept",sep=""),
   "goal"          = "<b>Goal:</b> to develop understanding of hierarchies in 
                       variance when individuals express traits repeatedly.",
@@ -224,11 +224,3 @@ Mod1Step4_txt <- list(
                 a wide array of processes involved at one or more levels in this hierarchal 
                 structure of among versus within-individual variance."
 )
-
-
-
-
-
-
-
-

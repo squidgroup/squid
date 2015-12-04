@@ -32,10 +32,10 @@ input <- list()
 
 # input$test_Vind <- matrix(c(0.7,rep(0,(4*4)-1)),4)
 
-input$test_B    <- matrix(c(0.3,0.3,0,0),1)
+input$test_B    <- matrix(c(0,0.3,0,0),1)
 
-input$test_Vind <- matrix(c(0.5 , 0  , 0 , 0,
-                            0   , 0.5  , 0 , 0,
+input$test_Vind <- matrix(c(0.7 , 0  , 0 , 0,
+                            0   , 0  , 0 , 0,
                             0   , 0  , 0 , 0,
                             0   , 0  , 0 , 0    
                           ), 
@@ -203,8 +203,8 @@ library(lme4)
 library(arm)
 LMR <- lmer(Phenotype ~ X1 + (X1|Individual), data = data$data_S)
 
-LMR <- lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
-
+LMR <- lmer(Phenotype ~  0 + (1|Individual), data = data$data_S)
+LMR <- update(LMR, ~.+ X1)
 
 LMR <- lmer(Phenotype ~ -1  + (1|Individual), data = data$data_S)
 LMR <- update(LMR, ~.+ X1 + (X1|Individual) - (1|Individual))

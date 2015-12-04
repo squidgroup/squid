@@ -1,0 +1,109 @@
+
+module6_txt <- list(
+  "title"         = "Random-slope regression"
+)
+
+# Step 1 --------------
+Mod6Step1_txt <- list(
+  
+  "title"      = "Step 1: Introduction to random slopes",
+  "subgoal"    = "<b>Sub-goal:</b> to develop understanding of hierarchies in 
+                  variance when individuals express their traits as a response 
+                  to a changing environmental factor, but do so differently. 
+                  In other words, individuals have variable reaction norms 
+                  in both intercept and slope.",
+  "intro"      = paste0("<b>Introduction</b> Modules ",Module_titles$mod1," and 
+                    ",Module_titles$mod3," have explored how among-individual ($V_",NOT$ind,"$) 
+                    variance in mean values can be modelled. In Step 3 of 
+                    Module ",Module_titles$mod1,", individuals also varied, 
+                    to some extent, in how an environmental factor influenced 
+                    the expression of their phenotypes around this mean, 
+                    and these deviations produce within-individual variance 
+                    as a response to environmental fluctuations ($V_{",EQ3$mean1,"}$). 
+                    Throughout all these lessons, we have assumed that 
+                    if the environment changes, individuals change their 
+                    phenotype in exactly the same way. This is a dubious 
+                    assumption and in most biological situations, it is more 
+                    reasonable and often more interesting to account for the 
+                    fact that individuals might vary in how the environment 
+                    affects phenotype.  For example, individuals may differ 
+                    in how they cope with a stressful situation, and less tolerant 
+                    individuals will alter their activity at a higher degree 
+                    in the presence of a stress factor (e.g. high temperature, 
+                    presence of a predator, or shortage of food) than stress-tolerant 
+                    conspecifics. In general, among-individual differences 
+                    in plasticity (also called individual by environment interaction; $I\\times E$) 
+                    are necessary if adaptive plasticity is to be under selection, 
+                    and insofar as such differences have a genetic basis ($G\\times E$), 
+                    such interactions are necessary for the evolution of plasticity. 
+                    Studies of $I\\times E$ in natural populations remain relatively rare. 
+                    Here we introduce random-slope regression, in which the assumption 
+                    about a common within-individual variance (and plasticity) is 
+                    relaxed and we explicitly estimate among-individual variance in slope."),
+  "exercise"  = "<b>Exercise:</b> Here we depart from the random-intercept regression model presented 
+                  in Step 4 of module Basic Lessons about Variance by introducing 
+                  a parameter that allows defining individual deviations from 
+                  the population mean response to environmental changes. 
+                  The fundamental difference between the random-intercept regression 
+                  and the random-slope model, is that while the former 
+                  uses individual-level &ldquo;random&rdquo; effects to model individual-specific 
+                  intercepts (i.e. that depict the between-individual variance of mean trait values), 
+                  the latter introduces an additional &ldquo;random&rdquo; effect on the slopes 
+                  (i.e. that describe how individuals respond to changing environments). 
+                  For the random-intercept regression, we used the following model 
+                  to recreate our simulated set of effects:",
+  "para1"    = "We will modify this model as:",
+  "para2"    = paste0("in which $",NOT$devS,"_",NOT$ind,"$ is the effect of measured environment 
+                $",NOT$env,"_{",NOT$time, NOT$ind,"}$
+                on the measure of phenotype in ith individual. 
+                Accordingly, we can apply the following parameterization regimes:"),
+  "para3"    = "Set in the background is the environmental variable and its sampling. 
+                Here we should use uniform sampling, where each individual is sampled 
+                at the same time so there are no biases. By definition, 
+                our environmental variable is also mean centered."
+  
+)
+
+# Step 2 --------------
+Mod6Step2_txt <- list(    
+  "title"      = "Step 2: ",
+  "subgoal"    = "<b>Sub-goal:</b>",
+  "intro"      = "<b>Introduction:</b> Step 1 revealed a problem—non-random environments through time 
+                  and variability in the timing of sampling can create biases in estimates of 
+                  among-individual variation. In this step we encourage you to adjust the sampling 
+                  regime to minimize this problem. It should be obvious that if all individuals 
+                  are sampled with the same timing, then the bias in the estimates of among-individual 
+                  variance disappears, but it is worthwhile assessing how close one has to be to 
+                  identical sampling and whether there are biases in other parameters that remain. 
+                  So, in this step we will allow you to simulate several types of non-random environments 
+                  and adjust the sampling regime.",
+  "exercise"   = paste0("<b>Exercise:</b> As in Step 1, we will generate a new group of individuals, with phenotypic 
+                  variance caused by measurement error ($V_",NOT$error,"$), individual differences ($V_",NOT$devI,"$), and the 
+                  impact of the environment ($V_",NOT$env,"$).")
+)
+
+# Step 3 --------------
+Mod6Step3_txt <- list(  
+  "title"      = "Step 3: Biased sampling and known and unknown environments",
+  
+  
+  "subgoal"    = "<b>Sub-goal:</b> Accounting for the environment to control for environmental biases.",
+  
+  "intro"      = paste0("Step 1 of this module illustrated that environmental effects on phenotypes 
+                        can produce biases in estimates of among-individual variance ($V_",NOT$ind,"$).  
+                        Step 2 explored how altering sampling regimes could reduce this problem, 
+                        but also revealed that in some circumstances no sampling regime would work. 
+                        Sometimes individuals experience different environments, and no sampling 
+                        regime can adjust for that. However, if investigators can measure the environment, 
+                        then such differences could be accounted for. 
+                        Environmental variance was accounted for using linear regression in 
+                        the Basic Lessons module, step 4. Here we demonstrate that this can, 
+                        under some circumstances, solve the bias in sampling problem."),
+
+  "exercise"   = paste0("<b>Exercise:</b> This exercise follows the same structure as all of our other 
+                        simulations so far. We will generate a group of individuals , 
+                        with phenotypic variance caused by measurement error ($V_",NOT$error,"$), 
+                        individual differences ($V_",NOT$ind,"$), and the impact of the environment ($V_",NOT$env,"$). 
+                        So, first set the true values of these variances:")
+)
+

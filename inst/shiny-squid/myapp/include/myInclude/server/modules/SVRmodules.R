@@ -12,9 +12,9 @@ SVRmodules <- function(input, session){
     
     # Module 3
     observe({if(input$Mod3Step2GotoStep1 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 1")}),  
-    observe({if(input$Mod3Step1GotoStep2 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 2")})#,  
-    # observe({if(input$Mod3Step3GotoStep2 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 2")}),  
-    # observe({if(input$Mod3Step2GotoStep3 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 3")})
+    observe({if(input$Mod3Step1GotoStep2 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 2")}),  
+    observe({if(input$Mod3Step3GotoStep2 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 2")}),  
+    observe({if(input$Mod3Step2GotoStep3 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 3")})
     
   ))
 }

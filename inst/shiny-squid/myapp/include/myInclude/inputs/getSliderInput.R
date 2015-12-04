@@ -11,7 +11,8 @@ getSliderInput<- function(inputID, inputConf, placement="top", trigger="hover")
                                 min   = inputConf$min, 
                                 max   = inputConf$max, 
                                 step  = inputConf$step,
-                                width = "500px"
+                                width = "500px",
+                                post = ""
                     ),
                     bsTooltip(myInfoId, inputConf$infoTxt, placement, trigger)
                 )
@@ -24,7 +25,8 @@ getSliderInput<- function(inputID, inputConf, placement="top", trigger="hover")
                               min   = inputConf$min, 
                               max   = inputConf$max, 
                               step  = inputConf$step,
-                              width = "500px"
+                              width = "500px",
+                              post = ""
                   )
                 )
   }

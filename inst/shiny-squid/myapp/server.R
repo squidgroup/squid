@@ -61,8 +61,13 @@ shinyServer(function(input, output, session) {
     # Module 3 Step 2 ---------------------------------------------------------
     SVRMod3Step2(input, output, session, Modules_VAR, FullModel_VAR, nb.IS, color)
   
+    # Module 3 Step 3 ---------------------------------------------------------
+    SVRMod3Step3(input, output, session, Modules_VAR, FullModel_VAR, nb.IS, color)
   
+  # Module 6  --------------------------------------------------------- 
   
+    # Module 6 Step 1 ---------------------------------------------------------
+    SVRMod6Step1(input, output, session, Modules_VAR, nb.IS, color)
   
   
   

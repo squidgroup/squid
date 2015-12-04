@@ -9,69 +9,88 @@ UIMod3Step3 <- function(){
       
       p(HTML(Mod3Step3_txt$subgoal)),    # Text: subgoal
       p(HTML(Mod3Step3_txt$intro)),      # Text: introduction
-      p(HTML(Mod3Step3_txt$para1)),      # Text: paragraph 1 
       p(HTML(Mod3Step3_txt$exercise)),   # Text: exercise
       
       # Among-individual variance (Vi) 
-      getSliderInput("Mod3Step3_Vi", Modules_VAR$Vi),
+      fluidRow(
+        column(8,getSliderInput("Mod3Step3_Vi", Modules_VAR$Vi)),
+        column(4,textOutput("Mod3Step3_Vi_proportion", inline = TRUE))
+      ),
       
       # Measurement error variance  
-      getSliderInput("Mod3Step3_Vme", Modules_VAR$Vme),
+      fluidRow(
+        column(8,getSliderInput("Mod3Step3_Vme", Modules_VAR$Vme)),
+        column(4,textOutput("Mod3Step3_Vme_proportion"))
+      ),
       
-      # Environment effects variance (Ves)
-      uiOutput("Mod3Step3_Vx_txt"),
-      uiOutput("Mod3Step3_error_Vx"), 
+      # Environment effects variance (Vx)
+      fluidRow(
+        column(8,getSliderInput("Mod3Step3_Vx", Modules_VAR$Vx)),
+               column(4,textOutput("Mod3Step3_Vx_proportion"))
+        ),
       
       conditionalPanel(
         condition = "0",
         uiOutput("Mod3Step3_hidden")
       ), 
       
-      ##########
+      p(HTML(Mod3Step3_txt$para1)),      # Text: paragraph 1  
       
+      getEnvironmentInput(3,3),
       
       p(HTML(Mod3Step3_txt$para2)),      # Text: paragraph 2 
       
-      # inputs
-      p("input >>>>> Ve"), 
-      p("input >>>>> shared/unshared"), 
-      p("input >>>>> environment type"),
+      getSliderInput("Mod3Step3_NR",  Modules_VAR$NR),
+      getSliderInput("Mod3Step3_Vit", Modules_VAR$Vit),
+      
+      p(),
+      plotOutput("Mod3Step3_previewPlot", width = Modules_VAR$Plot$width),
+      p(),
       
       p(HTML(Mod3Step3_txt$para3)),      # Text: paragraph 3
       
-      # inputs
-      p("input >>>>> Beta 1"), 
-      p("input >>>>> Beta 2"), 
-      p("input >>>>> NR"), 
-      p("input >>>>> Vit"), 
-      
-      p("RuNNNNNN"),  
+      p(),
+      # Simulation run button
+      bsButton("Mod3Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
+      runningIndicator(),
+      p(),
       
       p(HTML(Mod3Step3_txt$results)),         # Text: results
       
-      p('$$Y_j=I_0+\\beta_{ES}E_S+ME_j$$'),
+      p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",EQ3$mean1,EQ$env1,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
       
       p(HTML(Mod3Step3_txt$para4)),      # Text: paragraph 4
       
-      p('$$Y_ij=I_0j+\\beta_1\\overline{E}_j+\\beta_2(\\overline{E}_j-E_{ij})+ME_j$$'),
+      p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
       
       p(HTML(Mod3Step3_txt$para5)),      # Text: paragraph 5
       
+      uiOutput("Mod3Step3_summary_table"),
+      
       p(HTML(Mod3Step3_txt$para6)),      # Text: paragraph 6
-      
-      p("table"),
-      
-      p("output >>>>> graph"),
       
       p(HTML(Mod3Step3_txt$para7)),      # Text: paragraph 7
       
-      p(HTML(Mod3Step3_txt$conclusion)), # Text: conclusion
+      getSliderInput("Mod3Step3_Vx2", Modules_VAR$Vx),
       
       p(HTML(Mod3Step3_txt$para8)),      # Text: paragraph 8
       
-      p(HTML(Mod3Step3_txt$finalcaveat)),# Text: a final caveat
+      getSliderInput("Mod3Step3_Vit2", Modules_VAR$Vit),
+      
+      p(),
+      # Simulation run button
+      bsButton("Mod3Step3_Run2", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
+      runningIndicator(),
+      p(),
       
       p(HTML(Mod3Step3_txt$para9)),      # Text: paragraph 9
+      
+      uiOutput("Mod3Step3_summary_table_2"),
+      
+      p(HTML(Mod3Step3_txt$conclusion)), # Text: conclusion
+      p(HTML(Mod3Step3_txt$conclusion2)), # Text: conclusion 2
+      
+      p(HTML(Mod3Step3_txt$finalcaveat)),# Text: a final caveat
       
       div(class="line"),
       

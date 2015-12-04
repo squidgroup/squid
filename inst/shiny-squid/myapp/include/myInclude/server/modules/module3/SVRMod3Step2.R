@@ -8,7 +8,7 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
        output$Mod3Step2_hidden <- renderUI({
           list(
             numericInput("Mod3Step2_Tmax", "", Modules_VAR$Tmax$max),
-            numericInput("Mod3Step2_NI", "", 5),
+            numericInput("Mod3Step2_NI", "", 100),
             getNumericInput("Mod3Step2_Tmax", Modules_VAR$Tmax, ""),
             matrixInput2("Mod3Step2_Vind", "",data.frame(matrix(c(input$Mod3Step2_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
             matrixInput2("Mod3Step2_B", "",data.frame(matrix(c(0,input$Mod3Step2_beta1,0,0),1))), 

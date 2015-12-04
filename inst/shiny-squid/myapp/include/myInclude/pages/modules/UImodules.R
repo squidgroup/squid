@@ -8,7 +8,7 @@ UImodules <- function(){
        navlistPanel( 
          
          id       = "modulesNavList",
-         selected = "Module 1",
+         selected = "Basic Lessons about Variance",
          well     = TRUE,  
          fluid    = FALSE,
          widths   = c(2,9),
@@ -16,13 +16,13 @@ UImodules <- function(){
          "Modules",
          
          # Module 1
-         tabPanel("Module 1",UImodule1()), # END Module 1               
+         tabPanel(Module_titles$mod1, UImodule1()), # END Module 1               
          
          # Module 2
          tabPanel("Module 2",UImodule2()), # END Module 2
          
          # Module 3
-         tabPanel("Module 3",UImodule3()), # END Module 3
+         tabPanel(Module_titles$mod3, UImodule3()), # END Module 3
          
          # Module 4
          tabPanel("Module 4",UImodule4()), # END Module 4
