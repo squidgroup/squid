@@ -70,7 +70,7 @@ Mod6Step1_txt <- list(
                 model to describe the individual-specific effect of an explanatory variable. 
                 Individual-specific responses to changes that occur along an environmental 
                 gradient form &ldquo;reaction norms&rdquo;. These reaction norms, if the environmental 
-                gradient is centeredcentred around zero, can be characterized by their 
+                gradient is centered around zero, can be characterized by their 
                 intercept that describes individual mean expression values, and by their 
                 slope that expresses the plasticity of traits within individuals. 
                 Statistically, one can evaluate whether the random-intercept or the 
@@ -141,26 +141,49 @@ Mod6Step2_txt <- list(
 
 # Step 3 --------------
 Mod6Step3_txt <- list(  
-  "title"      = "Step 3: Biased sampling and known and unknown environments",
+  "title"      = "Step 3: Sample size and precision",
+  "subgoal"    = paste0("<b>Sub-goal:</b> to develop understanding of how the level of replication 
+                  in terms of the number of individuals and samples per individual 
+                  influence the estimation of the among-individual variance in intercepts $(V_",NOT$devI,")$, 
+                  slopes $(V_",NOT$devS,")$ and their correlation $(Cor_{",NOT$devI, NOT$devS,"})$."),
+  "intro"      = paste0("<b>Introduction:</b> several papers have addressed the issue of sample 
+                        size requirements for random regression models. The general conclusion 
+                        is that accurate estimates of random regression parameters require relatively 
+                        high sample sizes, particularly for estimating the correlation between 
+                        intercepts and slopes. When planning an optimal experimental design, 
+                        researchers are faced with a trade-off between the number of individuals 
+                        and the number of observations per individual they can sample."),
+  "exercise"   = paste0("<b>Exercise:</b> We will perform a set of simulations that will address 
+                        what is the sampling design, in terms of number of individuals and repeats 
+                        per individual, that will maximize the precision of parameter estimates. 
+                        Let’s assume that some researchers want to explore the effect of sample size 
+                        in their estimates. They also want to determine the best decision in terms 
+                        of allocating effort in sampling more individuals or more repeats per individual. 
+                        The use of SQuID helps researchers to determine the best sampling design.
+                        They will use the same equation as we used in the step 2, e.g.,"),
   
-  
-  "subgoal"    = "<b>Sub-goal:</b> Accounting for the environment to control for environmental biases.",
-  
-  "intro"      = paste0("Step 1 of this module illustrated that environmental effects on phenotypes 
-                        can produce biases in estimates of among-individual variance ($V_",NOT$ind,"$).  
-                        Step 2 explored how altering sampling regimes could reduce this problem, 
-                        but also revealed that in some circumstances no sampling regime would work. 
-                        Sometimes individuals experience different environments, and no sampling 
-                        regime can adjust for that. However, if investigators can measure the environment, 
-                        then such differences could be accounted for. 
-                        Environmental variance was accounted for using linear regression in 
-                        the Basic Lessons module, step 4. Here we demonstrate that this can, 
-                        under some circumstances, solve the bias in sampling problem."),
+  "table"      = "The table below summarises the value of each parameter of the model:",
 
-  "exercise"   = paste0("<b>Exercise:</b> This exercise follows the same structure as all of our other 
-                        simulations so far. We will generate a group of individuals , 
-                        with phenotypic variance caused by measurement error ($V_",NOT$error,"$), 
-                        individual differences ($V_",NOT$ind,"$), and the impact of the environment ($V_",NOT$env,"$). 
-                        So, first set the true values of these variances:")
+  "para1"      = paste0("You should base your decision on the graphic representation of the estimates. 
+                      The figure below is a summary of parameter estimates of 100 models performed to 
+                      100 simulated datasets."),
+  
+  
+  "para2"     = "For each sample size there will be three combinations: 
+                 one with more individuals than repeats, one with equal number of repeats and observations, 
+                 and one with more repeats than individuals.",
+  "para3"     = "Each histogram shows a frequency distribution of each parameter based on the 100 simulations 
+                that you ran for each of the three study designs: a) more individuals than repeats 
+                per individual, b) the same number of individuals and repeats per individual and c) 
+                more repeats per individual than individuals. The red line represents the &ldquo;true&rdquo; value 
+                that you set for this parameter above. The histograms provide information on the expected bias 
+                (inaccuracy) and imprecision that comes with each chosen study design. 
+                If the chosen study design would be perfect (i.e., resulting in highly precise and accurate estimates) 
+                your parameter estimates should be narrowly distributed around the true value. 
+                If your estimates are precise but inaccurate, the distribution should be narrow but 
+                peaking away from the true value. If your estimates are accurate but imprecise 
+                the distribution should be peaking at the true value but simultaneously be very broad. 
+                Finally, if your estimates are imprecise and inaccurate the distribution would both 
+                be wide and peaking away from the true value."
 )
 

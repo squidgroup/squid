@@ -30,5 +30,6 @@ Imports:
     grid,
     MASS,
     lme4,
-    arm
+    arm,
+    dplyr
 RoxygenNote: 5.0.1

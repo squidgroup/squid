@@ -136,7 +136,7 @@ Mod3Step3_txt <- list(
   "subgoal"    = "<b>Sub-goal:</b> Accounting for the environment to control for environmental biases.",
   
   "intro"      = paste0("Step 1 of this module illustrated that environmental effects on phenotypes 
-                        can produce biases in estimates of among-individual variance ($V_",NOT$ind,"$).  
+                        can produce biases in estimates of among-individual variance ($V_",NOT$devI,"$).  
                         Step 2 explored how altering sampling regimes could reduce this problem, 
                         but also revealed that in some circumstances no sampling regime would work. 
                         Sometimes individuals experience different environments, and no sampling 

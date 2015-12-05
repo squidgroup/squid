@@ -111,6 +111,12 @@ data <- main(input, myModule, session, progress)
 
 
 
+  
+
+
+
+
+
 LMR <- lmer(Phenotype ~ 1 + X1 + (X1|Individual), data = test)
 summary(LMR)
 

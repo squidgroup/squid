@@ -16,14 +16,10 @@ UImodule6 <- function(){
                   tabPanel("Step 1", UIMod6Step1()),   
                   
                   # Step 2 ------------------------------------------------------------
-                  tabPanel("Step 2", UIMod6Step2())
-#                   
-#                   # Step 3 ------------------------------------------------------------
-#                   tabPanel("Step 3",UIMod1Step3()),
-#                   
-#                   # Step 4 ------------------------------------------------------------
-#                   tabPanel("Step 4",UIMod1Step4())
+                  tabPanel("Step 2", UIMod6Step2()),
                   
+                  # Step 3 ------------------------------------------------------------
+                  tabPanel("Step 3",UIMod6Step3())
       ) # End tabsetPanel
     ) # End Wellpanel    
   )

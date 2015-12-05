@@ -49,6 +49,21 @@ SVRMod6Step2 <- function(input, output, session, Modules_VAR, nb.IS, color){
         data$B0        <- round(fixef(LMR)[1],2) 
         data$B1        <- round(fixef(LMR)[2],2) 
         
+        # Remove covariance
+        df   <- data$data_S
+        
+        newdf <- df              %>% 
+          select(Individual,Je1) %>%
+          unique()               %>%
+          transmute(Individual = sample(Individual), Je1 = Je1)
+        
+        df <- df       %>% 
+          select(-Je1) %>%
+          inner_join(newdf)
+        
+        df$Phenotype    <- (df$B0 + df$J0) + (df$Be1 + df$Je1) * df$X1 + df$ME
+        data$df <- df
+        
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
         return(data)
@@ -82,26 +97,28 @@ SVRMod6Step2 <- function(input, output, session, Modules_VAR, nb.IS, color){
     }),
     
     # Display results (table)
-    output$Mod6Step2_summary_table <- renderUI({Mod6Step2_table()})
+    output$Mod6Step2_summary_table <- renderUI({Mod6Step2_table()}),
     
-#     output$Mod6Step2_plot <- renderPlot({ 
-#       
-#       data  <- Mod6Step2_output()          
-#       
-#       if(!is.null(data)){                    
-#         
-#         print(ggplot(data = data$data_S, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
-#           stat_smooth(method = "lm", se=FALSE) + 
-#           theme(legend.position="none") + 
-#           xlab("Environmental effect") + 
-#           ylab("Phenotype"))
-#         
-#       }else{
-#         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
-#       }
-#       
-#     })
-    
+    output$Mod6Step2_plot <- renderPlot({ 
 
+      data  <- Mod6Step2_output()
+      
+      if(!is.null(data)){
+        
+        data$df$covariance     <- "Without covariance"
+        data$data_S$covariance <- "With covariance"
+        myDf <- rbind(data$data_S, data$df)
+        
+        print(ggplot(data = myDf, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
+          stat_smooth(method = "lm", se=FALSE) + 
+          theme(legend.position="none") + 
+          facet_grid(. ~ covariance) + 
+          xlab("Environmental effect") + 
+          ylab("Phenotype"))
+        
+      }else{
+        print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
+      }
+    })
   )) # End return
 }

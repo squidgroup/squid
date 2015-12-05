@@ -82,11 +82,18 @@ UIMod6Step2 <- function(){
         (HTML(Mod6Step2_txt$para5)),       # Text: paragraph 5
 
         p("graph 1"),
-        
-        p("graph 2"),
+        p(plotOutput("Mod6Step2_plot", width = "700px")),
         
         p(HTML(Mod6Step2_txt$para6)),       # Text: paragraph 6
         p(HTML(Mod6Step2_txt$point)),       # Text: paragraph point
+        
+        p(paste0("$$V_",NOT$total,"=
+                V_{",EQ3$mean1,NOT$env,"}+
+                V_",NOT$devI,"+
+                V_{",NOT$devS,NOT$env,"}+
+                2Cov_{",NOT$devI,NOT$devS,NOT$env,"}+
+                V_",NOT$error,"$$")),
+        
         p(HTML(Mod6Step2_txt$para7)),        # Text: paragraph 7
         
         div(class="line"),
