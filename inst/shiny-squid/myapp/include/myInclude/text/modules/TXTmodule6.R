@@ -1,6 +1,10 @@
 
 module6_txt <- list(
-  "title"         = "Random-slope regression"
+  "title"         = "Random-slope regression",
+  "goal"          = "<b>Goal:</b> To explore situations where individuals may not only differ in their 
+                    intercepts but also in the slope of their reaction to changes in a given 
+                    environmental variable. Random slope regression is a great tool to 
+                    analyse among-individual differences in phenotypic plasticity."
 )
 
 # Step 1 --------------
@@ -165,7 +169,7 @@ Mod6Step3_txt <- list(
   "table"      = "The table below summarises the value of each parameter of the model:",
 
   "para1"      = paste0("You should base your decision on the graphic representation of the estimates. 
-                      The figure below is a summary of parameter estimates of 100 models performed to 
+                      The figure below is a summary of parameter estimates of 100 models performed from the 
                       100 simulated datasets."),
   
   
@@ -173,9 +177,10 @@ Mod6Step3_txt <- list(
                  one with more individuals than repeats, one with equal number of repeats and observations, 
                  and one with more repeats than individuals.",
   "para3"     = "Each histogram shows a frequency distribution of each parameter based on the 100 simulations 
-                that you ran for each of the three study designs: a) more individuals than repeats 
-                per individual, b) the same number of individuals and repeats per individual and c) 
-                more repeats per individual than individuals. The red line represents the &ldquo;true&rdquo; value 
+                that you ran for each of the three study designs. &ldquo;NI&rdquo; 
+                is the number of individuals and &ldquo;NR&rdquo; 
+                is the number of repeats per individuals.
+                The red line represents the &ldquo;true&rdquo; value 
                 that you set for this parameter above. The histograms provide information on the expected bias 
                 (inaccuracy) and imprecision that comes with each chosen study design. 
                 If the chosen study design would be perfect (i.e., resulting in highly precise and accurate estimates) 

@@ -1,4 +1,4 @@
-main <- function(input, myModule, session, progress){ 
+main <- function(input, myModule, session=NULL, progress=FALSE){ 
   
 # Main function of the full model that simulates individual phenotypes over time
 # and then samples within those phenotypes according to specific sampling design

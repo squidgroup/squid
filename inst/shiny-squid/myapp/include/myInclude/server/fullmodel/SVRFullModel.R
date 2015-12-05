@@ -114,6 +114,8 @@ SVRFullModel <- function(myModule, input, output, session){
   error_B               <- paste(myModule, "error_B", sep="_")
   error_Vind            <- paste(myModule, "error_Vind", sep="_")
   
+  Data_Description_Table<- paste(myModule, "Data_Description_Table", sep="_")
+  
   return(c(
     
      # Equation  trait 1
@@ -513,7 +515,32 @@ SVRFullModel <- function(myModule, input, output, session){
       content = function(con) {
         write.csv(myFullModel()$data_C, con)
       }
-    )
+    ),
+
+    output[[Data_Description_Table]] <- renderUI({
+      
+      myTable <- data.frame(
+        "Variance Summary"= c("$\\text{Fixed effects}$",
+                              paste0("Mean of the trait ($",EQ3$mean0,"$)"),
+                              paste0("Population-specific slope of the environmental effect ($",EQ3$mean1,"$)"),
+                              "$\\text{Random effects}$",
+                              paste0("Individual variance ($V_",NOT$devI,"$)"),
+                              paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$)"),
+                              paste0("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$)"),
+                              paste0("Residual variance ($V_",NOT$error,"$)")),
+        "Value" = c("",
+                    "0.5",
+                    "0.5", 
+                    "",
+                    "0.7",
+                    "0.1",
+                    "0.5",
+                    "0.05")
+      )  
+      
+      return(getTable(myTable))
+      
+    })
 
     ######################################################################################
     ################################## LOADER INDICATOR ##################################
@@ -523,27 +550,3 @@ SVRFullModel <- function(myModule, input, output, session){
     
   )) # End return
 }
-
-
-#   output$FMod_result <- renderTable({ 
-#     
-#     data <- myFullModel() 
-#     
-#     LMR <- lmer(Phenotype ~ X1 + (1 + X1|individual), data = data$data_S)
-#     
-#     #       as.data.frame(VarCorr(LMR))
-#     
-#     V <- as.data.frame(VarCorr(LMR))
-#     P <- print(VarCorr(LMR),comp=c("Variance","Std.Dev."))
-#     
-#     Group <- c("Individual", "", "Residual") 
-#     Name <- c("Random Intercept (I.0)", "Random slope (I.X1)", "")
-#     
-#     True.Variance <- c(data$V$Vind[1,1], data$V$Vind[2,2], data$V$Vm) 
-#     Estimate.Variance <- c(V$vcov[1], V$vcov[2], V$vcov[4])         
-#     True.Corr <- c("",round(data$V$Vind[2,1],digits = 2),"")
-#     Corr <- c("",round(attr(P$individual, "correlation")[1,2], digits = 2),"")
-#     
-#     data.frame(Group, Name, True.Variance, Estimate.Variance, True.Corr,Corr) 
-#     
-#   }),

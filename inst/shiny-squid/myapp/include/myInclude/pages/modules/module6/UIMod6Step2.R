@@ -99,8 +99,8 @@ UIMod6Step2 <- function(){
         div(class="line"),
         
         bsButton("Mod6Step2GotoStep1", label = "<< Previous Step (1)", style = Modules_VAR$StepLink$style), # Go to previous step       
-        span(Modules_VAR$StepLink$sep, class="step-Link")
-        # bsButton("Mod6Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
+        span(Modules_VAR$StepLink$sep, class="step-Link"),
+        bsButton("Mod6Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
         
     
     )

@@ -48,12 +48,10 @@ UIfullModelSbyS <- function(){
         fluid  = FALSE,
         widths = c(2,9),
 #         tabPanel("Table", tableOutput("FModSbyS_result")), # END Table 
-        tabPanel("Environments", 
-                 plotOutput("FModSbyS_plotEnvironment", height = "1050px")), # END Environments 
-        tabPanel("Individual Phenotypes", 
-                 plotOutput("FModSbyS_plotPhenotype", height = "700px")), # END Individual phenotypes
-        tabPanel("Sampling Time", 
-                 plotOutput("FModSbyS_plotSamples", height = "350px"))
+        tabPanel("Environments",plotOutput("FModSbyS_plotEnvironment", height = "1050px")), # END Environments 
+        tabPanel("Individual Phenotypes", plotOutput("FModSbyS_plotPhenotype", height = "700px")), # END Individual phenotypes
+        tabPanel("Sampling Time", plotOutput("FModSbyS_plotSamples", height = "350px")),
+        tabPanel("Data file description", uiOutput("FModSbyS_Data_Description_Table")) # END Environements 
       )
              
     ) # END tabpanel Outputs

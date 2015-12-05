@@ -188,7 +188,8 @@ UIfullModel <- function(){
 #         tabPanel("Table", tableOutput("FMod_result")), # END Table 
         tabPanel("Environments", plotOutput("FMod_plotEnvironment", height = "1050px")), # END Environements 
         tabPanel("Individual Phenotypes", plotOutput("FMod_plotPhenotype", height = "700px")), # END Individual phenotypes
-        tabPanel("Sampling Time", plotOutput("FMod_plotSamples", height = "350px")) # END Environements 
+        tabPanel("Sampling Time", plotOutput("FMod_plotSamples", height = "350px")), # END Environements 
+        tabPanel("Data file description", uiOutput("FMod_Data_Description_Table")) # END Environements 
       )
              
     ) # END tabpanel Outputs

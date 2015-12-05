@@ -9,10 +9,10 @@ Mod3Step1_txt <- list(
   "title"      = "Step 1: Sampling and non-random environment",
   "subgoal"    = "<b>Sub-goal:</b> to explore how hidden patterns in environment combined with variance in sampling 
                   affect estimates of variance parameters and their interpretation. ",
-  "intro"      = paste("<b>Introduction:</b> In modules 1 & 2, we developed a partitioning of phenotypic variance 
+  "intro"      = paste("<b>Introduction:</b> In the previous module (Basic lessons about variance), we developed a partitioning of phenotypic variance 
                   into several components (the variance among individuals, $V_",NOT$devI,"$, the variance 
                   caused by measurement error, $V_",NOT$error,"$, and variance caused by the environment, $V_{",NOT$env,"}$). 
-                  In the final step of Module 1, we illustrated how measurement of the environment 
+                  In the final step of this module, we illustrated how measurement of the environment 
                   could help explain some of the variance. Often, when we study phenotypes in 
                   natural populations, many aspects of the environment that could affect phenotypes
                   will be unknown and so not measured. In Step 3, this unmeasured environmental 
@@ -20,7 +20,7 @@ Mod3Step1_txt <- list(
                   of among-individual variance because the environment was randomly determined from 
                   one sampling period to another and all individuals were sampled at the same time 
                   and experienced the same environment . 
-                  In module 3, we explore what happens when we address this obviously simplified assumption. 
+                  In the present module, we explore what happens when we address this obviously simplified assumption. 
                   For example, suppose the environment changes steadily over the sampling period. 
                   What happens when the pattern of how an investigator measures individuals varies, 
                   such as if the timing of measurement is different for different individuals?", sep=""),
@@ -119,7 +119,7 @@ Mod3Step2_txt <- list(
                   phenotype is not solely due to the environment. That is true, but does not change the fact 
                   that for the focal trait, it is sensitive to the environment the individual is in each time 
                   it is expressed. We will get to the issue of multiple phenotypic characters and how they might 
-                  integrate in Module 4)."),
+                  integrate in the multiple traits Module)."),
     "para8"     =  "Thus, if you do not know what environments are affecting trait expression, sampling in 
                     parallel for all individuals is a possible solution to potential biases created by 
                     non-random environments. But, because unshared environments can create biases even 
@@ -165,7 +165,7 @@ Mod3Step3_txt <- list(
                   have shown you what happens when all the environmental variance is unknown 
                   (or not included in your statistical model). Here, let’s start with all the 
                   variance being known—that is, slide the bar below all the way to 1. ",
-  "results"    = "<b>Results:</b> In the first module 1, Step 4, we said the statistical model was",
+  "results"    = "<b>Results:</b> In the first module, Step 4, we said the statistical model was",
   "para4"      = "This is the model we will investigate here. 
                   We will compare it to a model in which all of the environmental 
                   variance is unknown, e.g.,",

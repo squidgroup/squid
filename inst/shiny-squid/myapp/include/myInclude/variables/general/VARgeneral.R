@@ -145,7 +145,7 @@ Module_titles <- list(
   "mod3"  = "Non-random environments",
   "mod4"  = "",
   "mod5"  = "",
-  "mod6"  = "",
+  "mod6"  = "Random regressions",
   "mod7"  = "",
   "mod8"  = "",
   "mod9"  = "",

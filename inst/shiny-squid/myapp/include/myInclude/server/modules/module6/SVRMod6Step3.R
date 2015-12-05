@@ -14,8 +14,9 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
       # Set hidden variables
        output$Mod6Step3_hidden <- renderUI({
           list(
-            numericInput("Mod6Step2_Tmax", "", Modules_VAR$Tmax$max),
-            numericInput("Mod6Step3_Vme", "", Modules_VAR$Tmax$max),
+            numericInput("Mod6Step3_NP", "", 100),
+            numericInput("Mod6Step3_Tmax", "", Modules_VAR$Tmax$max),
+            numericInput("Mod6Step3_Vme", "", 0.05),
             matrixInput2("Mod6Step3_Vind", "", Mod6Step3updateVind(nb.IS)),
             matrixInput2("Mod6Step3_B", "",data.frame(matrix(c(0.5,0.5,0,0),1))),
             checkboxInput("Mod6Step3_X1_state", "", value = TRUE),
@@ -26,50 +27,45 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
           )
       }),
  	    outputOptions(output, "Mod6Step3_hidden", suspendWhenHidden = FALSE),
-# 
-#     # Run simulation and return results
-#     Mod6Step2_output <- reactive({
-#       
-#       if(input$Mod6Step2_Run == 0) # if Run button is pressed
-#         return(NULL)
-#       
-#       isolate({ 
-#         
-#         updateCheckboxInput(session, "isRunning", value = TRUE)
-#         
-#         # Call app main function
-#         data <- main(input, "Mod6Step2", session, TRUE)  
-#         
-#         LMR      <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = data$data_S)
-#         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
-#         
-#         data$Vi        <- round(RANDEF[1],2)
-#         data$Vs        <- round(RANDEF[2],2)
-#         data$CorIS     <- round(RANDEF[3]/sqrt(RANDEF[1]*RANDEF[2]),2)
-#         data$Vr        <- round(RANDEF[4],2) 
-#         data$B0        <- round(fixef(LMR)[1],2) 
-#         data$B1        <- round(fixef(LMR)[2],2) 
-#         
-#         # Remove covariance
-#         df   <- data$data_S
-#         
-#         newdf <- df              %>% 
-#           select(Individual,Je1) %>%
-#           unique()               %>%
-#           transmute(Individual = sample(Individual), Je1 = Je1)
-#         
-#         df <- df       %>% 
-#           select(-Je1) %>%
-#           inner_join(newdf)
-#         
-#         df$Phenotype    <- (df$B0 + df$J0) + (df$Be1 + df$Je1) * df$X1 + df$ME
-#         data$df <- df
-#         
-#         updateCheckboxInput(session, "isRunning", value = FALSE)
-#         
-#         return(data)
-#       })  
-#     }),
+
+    # Run simulation and return results
+    Mod6Step3_output <- reactive({
+      
+      if(input$Mod6Step3_Run == 0) # if Run button is pressed
+        return(NULL)
+      
+      isolate({ 
+        
+        updateCheckboxInput(session, "isRunning", value = TRUE)
+        
+        if(input$Mod6Step3_selector == 100){
+          NI <- c(5,10,20)
+          NR <- c(20,10,5)
+        }
+        
+        if(input$Mod6Step3_selector == 225){
+          NI <- c(5,15,45)
+          NR <- c(45,15,5)
+        }
+        
+        if(input$Mod6Step3_selector == 400){
+          NI <- c(10,20,40)
+          NR <- c(40,20,10)
+        }
+        
+        if(input$Mod6Step3_selector == 900){
+          NI <- c(18,30,50)
+          NR <- c(50,30,18)
+        }
+        
+        # Call app main function
+        data <- runPowerAnalysis(input, "Mod6Step3", NI, NR)
+        
+        updateCheckboxInput(session, "isRunning", value = FALSE)
+        
+        return(data)
+      })  
+    }),
     
 
       output$Mod6Step3_summary_variance_table <- renderUI({
@@ -99,68 +95,59 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
 
     output$Mod6Step3_summary_table <- renderUI({
       
-      myTable <- data.frame(
-        "Observations"           = c(rep(c(100, 225, 400, 900), each = 3)),
-        "Individuals"            = c(5,10,20,5,15,45,10,20,40,18,30,50),
-        "Repeats per individual" = c(20,10,5,45,15,5,40,20,10,50,30,18)
-      )  
+      if(input$Mod6Step3_selector == 100){
+        myTable <- data.frame(
+          "Observations"           = c(rep(100, 3)),
+          "Individuals"            = c(5,10,20),
+          "Repeats per individual" = c(20,10,5)
+        )  
+      }
+      
+      if(input$Mod6Step3_selector == 225){
+        myTable <- data.frame(
+          "Observations"           = c(rep(225, 3)),
+          "Individuals"            = c(5,15,45),
+          "Repeats per individual" = c(45,15,5)
+        )  
+      }
+
+      if(input$Mod6Step3_selector == 400){
+        myTable <- data.frame(
+          "Observations"           = c(rep(400, 3)),
+          "Individuals"            = c(10,20,40),
+          "Repeats per individual" = c(40,20,10)
+        )  
+      }
+
+      if(input$Mod6Step3_selector == 900){
+        myTable <- data.frame(
+          "Observations"           = c(rep(900, 3)),
+          "Individuals"            = c(18,30,50),
+          "Repeats per individual" = c(50,30,18)
+        )  
+      }
       
       return(getTable(myTable))
       
+    }),
+
+    output$Mod6Step3_plot <- renderPlot({ 
+
+      data  <- Mod6Step3_output()
+      
+      if(!is.null(data)){
+
+        vline.data <- data.frame(z           = rep(c(0.5, 0.7, 0.1),each=3), 
+                                 Parameter   = rep(c("CORis", "Vi", "Vs"),each=3))
+        
+        print(ggplot(data, aes(x=Value)) +
+              geom_histogram(binwidth = 0.5) + 
+              geom_vline(aes(xintercept = z), vline.data, color="red") +
+              facet_grid(Parameter ~ nIndividual + nRecord))
+        
+      }else{
+        print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
+      }
     })
-
-
-
-
-#     Mod6Step2_table <- reactive({
-#       
-#       data    <- Mod6Step2_output()
-#       
-#       myTable <- data.frame(
-#         "True"       = c("$\\text{Fixed effects}$",
-#                         paste("Mean of the trait ($",EQ3$mean0,"$) =",round(input$Mod6Step2_B[1],2)),
-#                         paste("Population-specific slope of the environmental effect ($",EQ3$mean1,"$) =",round(input$Mod6Step2_B[2],2)),
-#                         "$\\text{Random effects}$",
-#                         paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod6Step2_Vi),
-#                         paste("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$) =",input$Mod6Step2_Vs),
-#                         paste("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$) =",input$Mod6Step2_CorIS),
-#                         paste("Residual variance ($V_",NOT$error,"$) =",input$Mod6Step2_Vme)),
-#         "Estimated" = c("$\\text{Fixed effects}$",
-#                         paste("Sampled mean of the trait ($",NOT$mean,"'_0$) =",ifelse(!is.null(data),data$B0,"...")),
-#                         paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'_1$) =",ifelse(!is.null(data),data$B1,"...")),
-#                         "$\\text{Random effects}$",
-#                         paste("Individual variance in sample ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi,"...")),
-#                         paste("Individual-specific response to an environmental effect (random slopes) variance ($V'_",NOT$devS,"$) = ", ifelse(!is.null(data),data$Vs,"...")),
-#                         paste("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$) =", ifelse(!is.null(data),data$CorIS,"...")),
-#                         paste("Residual variance of sample ($V'_",NOT$residual,"$) = ", ifelse(!is.null(data),data$Vr,"...")))
-#       )  
-#       
-#       return(getTable(myTable))
-#     }),
-#     
-#     # Display results (table)
-#     output$Mod6Step2_summary_table <- renderUI({Mod6Step2_table()}),
-#     
-#     output$Mod6Step2_plot <- renderPlot({ 
-# 
-#       data  <- Mod6Step2_output()
-#       
-#       if(!is.null(data)){
-#         
-#         data$df$covariance     <- "Without covariance"
-#         data$data_S$covariance <- "With covariance"
-#         myDf <- rbind(data$data_S, data$df)
-#         
-#         print(ggplot(data = myDf, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
-#           stat_smooth(method = "lm", se=FALSE) + 
-#           theme(legend.position="none") + 
-#           facet_grid(. ~ covariance) + 
-#           xlab("Environmental effect") + 
-#           ylab("Phenotype"))
-#         
-#       }else{
-#         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
-#       }
-#     })
   )) # End return
 }
