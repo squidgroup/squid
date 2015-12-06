@@ -26,8 +26,8 @@ UIMod1Step4 <- function(){
       
       # Environment effects variance
       wellPanel(
-        uiOutput("Mod1Step4_Vesk_txt"),
-        uiOutput("Mod1Step4_error_Vesk")
+        uiOutput("Mod1Step4_Vbx_txt"),
+        uiOutput("Mod1Step4_error_Vbx")
       ),
       
       # Number of trait expressions (NR)
@@ -40,13 +40,11 @@ UIMod1Step4 <- function(){
       
       p(HTML(Mod1Step4_txt$para1)),    # Text: paragraph 1
       p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
-              NOT$devI,"_",NOT$ind,"+",NOT$mean,"_{",NOT$specific,NOT$known,"}",
-              NOT$env,"_{",NOT$specific,NOT$known,NOT$time,NOT$ind,"}+",
+              NOT$devI,"_",NOT$ind,"+",
+              EQ3$mean1,
+              EQ2$env1,"+",
               NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
       p(HTML(Mod1Step4_txt$para2)),    # Text: paragraph 2
-      
-      # Mean known environmental effect (Beta ES)
-      # getNumericInput("Mod1Step4_Be1", Modules_VAR$Bes, "Mod1Step4_error_Be1"),
       
       p(),
       # Simulation run button
@@ -72,10 +70,10 @@ UIMod1Step4 <- function(){
       
       p(HTML(module1_txt$statModTitle)),
       p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
-              NOT$devI,"_",NOT$ind,"+",NOT$mean,"_{",NOT$specific,NOT$known,"}",
-              NOT$env,"_{",NOT$specific,NOT$known,NOT$time,NOT$ind,"}+",
+              NOT$devI,"_",NOT$ind,"+",EQ3$mean1,
+              EQ2$env1,"+",
               NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-      p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+",general_VAR$EnvSpecKno,"+V_",NOT$error,"$$",sep="")),
+      p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_{",EQ3$mean1,EQ2$env1,"}+V_",NOT$error,"$$",sep="")),
       
       ####### TEST ##########
       tableOutput("table_test"),

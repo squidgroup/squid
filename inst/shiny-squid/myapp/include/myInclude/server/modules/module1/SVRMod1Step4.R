@@ -11,7 +11,7 @@ SVRMod1Step4 <- function(input, output, session, color){
           matrixInput2("Mod1Step4_Vind", "",data.frame(matrix(c(input$Mod1Step4_Vi,
                                                                 rep(0,(nb.IS*nb.IS)-1)),
                                                               nb.IS))),
-          numericInput("Mod1Step4_Vesk","", 1-input$Mod1Step4_Vi-input$Mod1Step4_Vme),
+          numericInput("Mod1Step4_Vbx","", 1-input$Mod1Step4_Vi-input$Mod1Step4_Vme),
           matrixInput2("Mod1Step4_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step4_Vi-input$Mod1Step4_Vme),0,0),1))),
           checkboxInput("Mod1Step4_X1_state", "", value = TRUE),
           checkboxInput("Mod1Step4_X1_ran_state", "", value = TRUE),
@@ -20,16 +20,16 @@ SVRMod1Step4 <- function(input, output, session, color){
       }),
       outputOptions(output, "Mod1Step4_hidden", suspendWhenHidden = FALSE),
   
-    # display variable (known environmental effect Vesk)
-    output$Mod1Step4_Vesk_txt <- renderUI({
+    # display variable (known environmental effect Vbx)
+    output$Mod1Step4_Vbx_txt <- renderUI({
       
-      if(!testInput(input$Mod1Step4_Vesk, Modules_VAR$Vesk, FALSE, FALSE)){
-        output <- span(strong(round(input$Mod1Step4_Vesk,2),class="alert alert-danger"))
+      if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
+        output <- span(strong(round(input$Mod1Step4_Vbx,2),class="alert alert-danger"))
       }else{
-        output <- span(round(input$Mod1Step4_Vesk,2))
+        output <- span(round(input$Mod1Step4_Vbx,2))
       }
       
-      p(HTML(paste(strong(Modules_VAR$Vesk$label),output,"")))
+      p(HTML(paste(strong(Modules_VAR$Vb1x1$label),output,"")))
       
     }),
       
@@ -79,7 +79,7 @@ SVRMod1Step4 <- function(input, output, session, color){
             
             plot(Phenotype~X1,
                  data = data$data_S,
-                 main= bquote(italic(beta[sk(estimated)]) == .(data$Be1) %+-% .(data$se.Be1) ~~ (italic(beta[sk(true)]) == .(round(input$Mod1Step4_B[1,2],2)))),
+                 main= bquote(italic(beta[1(estimated)]) == .(data$Be1) %+-% .(data$se.Be1) ~~ (italic(beta[1(true)]) == .(round(input$Mod1Step4_B[1,2],2)))),
                  xlab="Environment", 
                  ylab="Phenotype",
                  pch = 19,
@@ -130,11 +130,11 @@ SVRMod1Step4 <- function(input, output, session, color){
         myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step4_Vi),
                                                paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step4_Vme),
                                                "Mean of the trait ($\\mu$) = 0",
-                                               paste("Slope of environmental effect ($",NOT$mean,"_{",NOT$specific,NOT$known,"}$) =",round(input$Mod1Step4_B[1,2],2))),
+                                               paste("Slope of environmental effect ($",EQ3$mean1,"$) =",round(input$Mod1Step4_B[1,2],2))),
                               "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
                                               paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vme,"...")),
                                               paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(data),data$mean,"...")),
-                                              paste("Estimated slope of environmental effect ($",NOT$mean,"'_{",NOT$specific,NOT$known,"}$) =  "    ,ifelse(!is.null(data),paste(data$Be1,"\U00b1", data$se.Be1, sep=" "),"..."))) 
+                                              paste("Estimated slope of environmental effect ($",NOT$mean,"'_1$) =  "    ,ifelse(!is.null(data),paste(data$Be1,"\U00b1", data$se.Be1, sep=" "),"..."))) 
                              )  
         
         getTable(myTable)
@@ -148,7 +148,7 @@ SVRMod1Step4 <- function(input, output, session, color){
 #          !testInput(input$Mod1Step4_NI, Modules_VAR$NI, TRUE, FALSE)  || 
 #          !testInput(input$Mod1Step4_Vi, Modules_VAR$Vi, FALSE, FALSE) ||
 #          !testInput(input$Mod1Step4_Vme, Modules_VAR$Vme, FALSE, FALSE) || 
-         !testInput(input$Mod1Step4_Vesk, Modules_VAR$Vesk, FALSE, FALSE) #||
+         !testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE) #||
 #          !testInput(input$Mod1Step4_NR, Modules_VAR$NR, TRUE, FALSE) ||  
 #          !testInput(input$Mod1Step4_Bx1, Modules_VAR$Bes, FALSE, FALSE)
          ){
@@ -161,7 +161,7 @@ SVRMod1Step4 <- function(input, output, session, color){
 #       output$Mod1Step4_error_NI   <- renderUI({testInput(input$Mod1Step4_NI, Modules_VAR$NI, TRUE, TRUE)}),
 #       output$Mod1Step4_error_Vi   <- renderUI({testInput(input$Mod1Step4_Vi, Modules_VAR$Vi, FALSE, TRUE)}),
 #       output$Mod1Step4_error_Vme  <- renderUI({testInput(input$Mod1Step4_Vme, Modules_VAR$Vi, FALSE, TRUE)}),
-      output$Mod1Step4_error_Vesk   <- renderUI({testInput(input$Mod1Step4_Vesk, Modules_VAR$Vesk, FALSE, TRUE)})#,
+      output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})#,
 #       output$Mod1Step4_error_NR   <- renderUI({testInput(input$Mod1Step4_NR, Modules_VAR$NR, TRUE, TRUE)}),
 #       output$Mod1Step4_error_Be1  <- renderUI({testInput(input$Mod1Step4_Be1, Modules_VAR$Bes, FALSE, TRUE)})
                 

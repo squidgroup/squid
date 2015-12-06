@@ -24,7 +24,7 @@ UIMod1Step3 <- function(){
       getSliderInput("Mod1Step3_Vme", Modules_VAR$Vme),
       
       # Environment effects variance (Vx1)
-      uiOutput("Mod1Step3_Vesu_txt"),
+      uiOutput("Mod1Step3_Vbx_txt"),
       uiOutput("Mod1Step3_error_Vesu"), 
       
       # Number of trait expressions (NR)
@@ -35,7 +35,6 @@ UIMod1Step3 <- function(){
         uiOutput("Mod1Step3_hidden")
       ),
       
-
       p(),
       # Simulation run button
       bsButton("Mod1Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
@@ -66,12 +65,10 @@ UIMod1Step3 <- function(){
       p(HTML(module1_txt$statModTitle)),
       p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
               NOT$devI,"_",NOT$ind,"+",
-              NOT$mean,"_{",NOT$specific,NOT$unknown,"}",
-              NOT$env,"_{",NOT$specific,NOT$unknown,NOT$time,NOT$ind,"}+",
+              EQ3$mean1," ",
+              EQ2$env1,"+",
               NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-      p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+",general_VAR$EnvSpecUnk,"+V_",NOT$error,"$$",sep="")),
-      
-      p(HTML(Mod1Step3_txt$para2)),       # Text: paragraph 2
+      p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_{",EQ3$mean1," ",EQ2$env1,"}+V_",NOT$error,"$$",sep="")),
       
       div(class="line"),
       

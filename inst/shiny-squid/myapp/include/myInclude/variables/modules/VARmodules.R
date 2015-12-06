@@ -98,14 +98,15 @@ Modules_VAR <- list(
                    "errorTxt"    = "Number of trait expressions must be an integer between 1 and 100."
   ),
   
-  # Specific and Unknown Environemental effect variance
-  "Vesu"  = list(  "label"       = paste("Specific and unknown environmental effect variance ($", general_VAR$EnvSpecUnk,"$):",sep=""),
-                   "infoTxt"     = "Specific (unshared among individuals) and unknown (unmeasured) environmental effect variance",
+  # Variance of population mean response to an environmental effect 
+  "Vb1x1"  = list(  "label"       = paste("Variance of population mean response to an environmental effect ($V_{",EQ3$mean1," ",EQ2$env1,"}$):",sep=""),
+                   "infoTxt"     = "Variance of population mean response to an environmental effect",
                    "value"       = "",
                    "min"         = 0,
                    "max"         = 1,
                    "step"        = 0.01,
-                   "errorTxt"    = paste("Specific and unknown environmental effect variance ($",general_VAR$EnvSpecUnk,"$) must be a number between 0 and 1.
+                   "errorTxt"    = paste("Variance of population mean response to an environmental effect ($V_{",EQ3$mean1," ",EQ2$env1,"}$) 
+                                        must be a number between 0 and 1.
                                          Try to decrease other variances.",sep="")
   ),
   
@@ -145,7 +146,7 @@ Modules_VAR <- list(
   # Mean Environemental effect
   "B1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
                    "infoTxt"     = "Mean effect of specific (unshared among individuals)and known (measured) environmental effect",
-                   "value"       = 0,
+                   "value"       = 1,
                    "min"         = 0,
                    "max"         = 1,
                    "step"        = 0.01,
@@ -155,7 +156,7 @@ Modules_VAR <- list(
   # Among-individual variance in timing of sampling
   "Vit"   = list(  "label"       = "Among-individual variance in timing of sampling:",
                    "infoTxt"     = "Among-individual variance in timing of sampling.",
-                   "value"       = 0,
+                   "value"       = 0.5,
                    "min"         = 0,
                    "max"         = 0.95,
                    "step"        = 0.01,

@@ -22,7 +22,8 @@ NOT <-list(
   "error"          = "e",
   "residual"       = "r",
   "total"          = "P",
-  "repeatability"  = "R"
+  "repeatability"  = "R",
+  "mu"             = "\\mu"
   
 )
 

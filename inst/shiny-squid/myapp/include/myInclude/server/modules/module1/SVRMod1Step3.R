@@ -9,7 +9,7 @@ SVRMod1Step3 <- function(input, output, session, color){
           list(
             numericInput("Mod1Step3_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod1Step3_Vind", "",data.frame(matrix(c(input$Mod1Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
-            numericInput("Mod1Step3_Vesu","", 1-input$Mod1Step3_Vi-input$Mod1Step3_Vme),
+            numericInput("Mod1Step3_Vbx","", 1-input$Mod1Step3_Vi-input$Mod1Step3_Vme),
             matrixInput2("Mod1Step3_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step3_Vi-input$Mod1Step3_Vme),0,0),1))),
             checkboxInput("Mod1Step3_X1_state", "", value = TRUE),
             checkboxInput("Mod1Step3_X1_ran_state", "", value = TRUE),
@@ -19,16 +19,16 @@ SVRMod1Step3 <- function(input, output, session, color){
         }),
  	outputOptions(output, "Mod1Step3_hidden", suspendWhenHidden = FALSE),
  	
-	  # display variable (Unknown environmental effect Vesu)
-	  output$Mod1Step3_Vesu_txt <- renderUI({
+	  # display variable (Unknown environmental effect Vbx)
+	  output$Mod1Step3_Vbx_txt <- renderUI({
 
-	    if(!testInput(input$Mod1Step3_Vesu, Modules_VAR$Vesu, FALSE, FALSE)){
-	      output <- span(strong(round(input$Mod1Step3_Vesu,2),class="alert alert-danger"))
+	    if(!testInput(input$Mod1Step3_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
+	      output <- span(strong(round(input$Mod1Step3_Vbx,2),class="alert alert-danger"))
 	    }else{
-	      output <- span(round(input$Mod1Step3_Vesu,2))
+	      output <- span(round(input$Mod1Step3_Vbx,2))
 	    }
 
-	    p(HTML(paste(strong(Modules_VAR$Vesu$label), output,"")))
+	    p(HTML(paste(strong(Modules_VAR$Vb1x1$label), output,"")))
 	  }),
       
     ######### Run simulation #########
@@ -72,7 +72,7 @@ SVRMod1Step3 <- function(input, output, session, color){
      	    
      	    Vp        <- paste("Vp = "   , data$Vp)
      	    Vi        <- paste("Vi = "   , data$Vi)
-     	    Vr        <- paste("Vr (Vsu + Vm) = "  , data$Vr)
+     	    Vr        <- paste("Vr (Vbx + Vm) = "  , data$Vr)
      	    
      	    myFactor  <- factor(rep(c(Vp,Vi,Vr), each=length(data$data_S$Phenotype)), levels=c(Vp,Vi,Vr))      
      	    
@@ -112,9 +112,9 @@ SVRMod1Step3 <- function(input, output, session, color){
    	# Display results (table)
    	output$Mod1Step3_summary_table <- renderUI({ 
    	  
-   	  myTable <- data.frame("True"     = c(paste("Total Phenotypis variance ($V_",NOT$total,"$) = 1",sep=""),
+   	  myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1",sep=""),
    	                                       paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step3_Vi),
-   	                                       paste("Residual variance ($",general_VAR$EnvSpecUnk,"+V_",NOT$error,"$) =",input$Mod1Step3_Vme+input$Mod1Step3_Vesu),
+   	                                       paste("Residual variance ($V_{",EQ3$mean1," ",EQ2$env1,"}+V_",NOT$error,"$) =",input$Mod1Step3_Vme+input$Mod1Step3_Vbx),
    	                                       "Mean of the trait ($\\mu$) = 0"),
    	                        "Estimated" = c(paste("Total Phenotypic variance in sample ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vp,"...")),
                	                            paste("Sampled Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vi,"...")),
@@ -137,7 +137,7 @@ SVRMod1Step3 <- function(input, output, session, color){
 #      	     !testInput(input$Mod1Step3_NI, Modules_VAR$NI, TRUE, FALSE) || 
 #      	     !testInput(input$Mod1Step3_Vi, Modules_VAR$Vi, FALSE, FALSE) ||
 #      	     !testInput(input$Mod1Step3_Vme, Modules_VAR$Vme, FALSE, FALSE) ||
-     	     !testInput(input$Mod1Step3_Vesu, Modules_VAR$Vesu, FALSE, FALSE)){
+     	     !testInput(input$Mod1Step3_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
      	    updateButton(session, "Mod1Step3_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
      	  }else{
      	    updateButton(session, "Mod1Step3_Run", disabled = FALSE, style = Modules_VAR$Run$style)
@@ -146,7 +146,7 @@ SVRMod1Step3 <- function(input, output, session, color){
 #    	  output$Mod1Step3_error_NI  <- renderUI({testInput(input$Mod1Step3_NI, Modules_VAR$NI, TRUE, TRUE)}),
 #  	    output$Mod1Step3_error_Vi  <- renderUI({testInput(input$Mod1Step3_Vi, Modules_VAR$Vi, FALSE, TRUE)}),
 #  	    output$Mod1Step3_error_Vme  <- renderUI({testInput(input$Mod1Step3_Vme, Modules_VAR$Vi, FALSE, TRUE)}),
- 	    output$Mod1Step3_error_Vesu  <- renderUI({testInput(input$Mod1Step3_Vesu, Modules_VAR$Vesu, FALSE, TRUE)})
+ 	    output$Mod1Step3_error_Vbx  <- renderUI({testInput(input$Mod1Step3_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})
  	            
   )) # End return
 }
