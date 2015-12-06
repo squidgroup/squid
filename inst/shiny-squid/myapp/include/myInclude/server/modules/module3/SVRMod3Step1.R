@@ -12,9 +12,8 @@ SVRMod3Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
             matrixInput2("Mod3Step1_Vind", "",data.frame(matrix(c(input$Mod3Step1_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
             matrixInput2("Mod3Step1_B", "",data.frame(matrix(c(0,input$Mod3Step1_beta1,0,0),1))),
             checkboxInput("Mod3Step1_X1_state", "", value = TRUE),
-            checkboxInput("Mod3Step1_X1_ran_state", "", value = TRUE),
-            checkboxInput("Mod3Step1_X1_ran_shared", "", value = TRUE),
-            numericInput("Mod3Step1_X1_ran_V","", 1, min = 0, max = 1, step = 0.001),
+            checkboxInput("Mod3Step1_X1_ran_state", "", value = FALSE),
+            checkboxInput("Mod3Step1_X1_lin_state", "", value = TRUE),
             checkboxInput("Mod3Step1_Dtime_Ind", "", value = FALSE)
           )
         }),

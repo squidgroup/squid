@@ -60,7 +60,7 @@ createEnvironment <- function(input, myModule, myEnv){
     "ran"  = list("state"           = ifelse(inputNames$ran_state %in% names(input),input[[inputNames$ran_state]],FALSE),
                   "shared"          = ifelse(inputNames$ran_shared %in% names(input),input[[inputNames$ran_shared]],TRUE),
                   "Mu"              = 0,
-                  "V"               = ifelse(inputNames$ran_V %in% names(input),input[[inputNames$ran_V]],0),
+                  "V"               = ifelse(inputNames$ran_V %in% names(input),input[[inputNames$ran_V]],1),
                   "autocorrelation" = ifelse(inputNames$ran_autocorrelation %in% names(input),input[[inputNames$ran_autocorrelation]],FALSE), 
                   "corr"            = ifelse(inputNames$ran_corr %in% names(input),input[[inputNames$ran_corr]],0)),
     
@@ -73,8 +73,8 @@ createEnvironment <- function(input, myModule, myEnv){
     "lin"  = list("state"     = ifelse(inputNames$lin_state %in% names(input),input[[inputNames$lin_state]],FALSE),
                   "shared"    = ifelse(inputNames$lin_shared %in% names(input),input[[inputNames$lin_shared]],TRUE),
                   "Intercept" = ifelse(inputNames$lin_Intercept %in% names(input),input[[inputNames$lin_Intercept]],0),
-                  "Slope"     = ifelse(inputNames$lin_Slope %in% names(input),input[[inputNames$lin_Slope]],0),
-                  "V"         = ifelse(inputNames$lin_V %in% names(input),input[[inputNames$lin_V]],0)),
+                  "Slope"     = ifelse(inputNames$lin_Slope %in% names(input),input[[inputNames$lin_Slope]],1),
+                  "V"         = ifelse(inputNames$lin_V %in% names(input),input[[inputNames$lin_V]],1)),
     
     # Linear effect (environment = Intercept + Slope x Time)
     #   state: the state of the linear environmental effect (TRUE is activated, FALSE is not)
@@ -88,7 +88,7 @@ createEnvironment <- function(input, myModule, myEnv){
                   "Period"    = ifelse(inputNames$cyc_Period %in% names(input),input[[inputNames$cyc_Period]],10),
                   "Hshift"    = ifelse(inputNames$cyc_Hshift %in% names(input),input[[inputNames$cyc_Hshift]],0), 
                   "Vshift"    = ifelse(inputNames$cyc_Vshift %in% names(input),input[[inputNames$cyc_Vshift]],0),
-                  "V"         = ifelse(inputNames$cyc_V %in% names(input),input[[inputNames$cyc_V]],0))
+                  "V"         = ifelse(inputNames$cyc_V %in% names(input),input[[inputNames$cyc_V]],1))
   )
   
   return(envObj)
