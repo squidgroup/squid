@@ -305,13 +305,13 @@ fullmodelTxt <- list(
                             In that case you should fix all the input errors and then run 
                             the simulation. ",
   
-  "output_1"            = "While you are running the simulation SQuID is bringing you to the output tab. 
+  "output_1"            = "While you are running the simulation, SQuID is bringing you to the output tab. 
                           Here you have the opportunity to download generated (raw and sampled) 
                           data or to inspect figures showing different components of 
                           your simulation such as the environment patterns, 
                           the individual phenotypic values, and the sampling 
                           events over the simulation time. ",
-  "output_2"            = "The first page contains figures that show how the different environmental parameters 
+  "output_2"            = "The first section contains figures that show how the different environmental parameters 
                           are distributed in time. When you do not set up any environment 
                           parameters the figure show a flat line.",
   "output_3"            = "If you click on the &ldquo;Individual Phenotypes&rdquo; option you can access to top figure 
@@ -320,7 +320,10 @@ fullmodelTxt <- list(
                           to your sampling design.",
   "output_4"            = "Finally by clicking on the &ldquo;Sampling time&rdquo; option you can see a figure illustrating 
                           the distribution of sampling occasions 
-                          for each individual through time. ",
+                          for each individual through time.",
+  "output_5"            = "We also provide a brief description of the generated data, 
+                          either raw data or sampled data, which are available to 
+                          download as a .csv files.",
   
   
   

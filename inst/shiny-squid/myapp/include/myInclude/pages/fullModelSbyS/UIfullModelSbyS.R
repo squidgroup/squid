@@ -33,7 +33,8 @@ UIfullModelSbyS <- function(){
        p(HTML(fullmodelTxt$output_1)),
        p(HTML(fullmodelTxt$output_2)),
        p(HTML(fullmodelTxt$output_3)), 
-       p(HTML(fullmodelTxt$output_4)), 
+       p(HTML(fullmodelTxt$output_4)),
+       p(HTML(fullmodelTxt$output_5)),
                   
       bsButton("FModSbyS_rerunButton", label = FullModel_VAR$ReRun$label, icon= FullModel_VAR$ReRun$icon, class="runButton", style = FullModel_VAR$ReRun$style),       
       downloadButton("FModSbyS_download_sampled", label = FullModel_VAR$download_sampled$label),
