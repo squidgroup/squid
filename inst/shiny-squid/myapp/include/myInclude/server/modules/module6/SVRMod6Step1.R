@@ -15,12 +15,12 @@ SVRMod6Step1 <- function(input, output, session, Modules_VAR, nb.IS, color){
           list(
             numericInput("Mod6Step1_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod6Step1_Vind", "", Mod6Step1updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,input$Mod6Step1_beta1,0,0),1))),
+            matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step1_Vbx),0,0),1))),
             checkboxInput("Mod6Step1_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_ran_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_ran_shared", "", value = TRUE),
             numericInput("Mod6Step1_X1_ran_V","", 1, min = 0, max = 1, step = 0.001),
-            checkboxInput("Mod6Step1_Dtime_Ind", "", value = FALSE)
+            checkboxInput("Mod6Step1_Dtime_Ind", "", value = TRUE)
           )
         }),
  	    outputOptions(output, "Mod6Step1_hidden", suspendWhenHidden = FALSE),

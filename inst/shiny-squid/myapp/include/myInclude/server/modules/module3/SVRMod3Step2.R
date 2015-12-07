@@ -11,7 +11,7 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
             numericInput("Mod3Step2_NI", "", 100),
             getNumericInput("Mod3Step2_Tmax", Modules_VAR$Tmax, ""),
             matrixInput2("Mod3Step2_Vind", "",data.frame(matrix(c(input$Mod3Step2_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
-            matrixInput2("Mod3Step2_B", "",data.frame(matrix(c(0,input$Mod3Step2_beta1,0,0),1))), 
+            matrixInput2("Mod3Step2_B", "",data.frame(matrix(c(0,sqrt(input$Mod3Step2_Vbx),0,0),1))), 
             
             checkboxInput("Mod3Step2_X1_state", "", value = TRUE),
             
@@ -82,7 +82,7 @@ SVRMod3Step2 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
    	  
    	  myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step2_Vi),
    	                                         paste("Residual variance ($V_",NOT$error,"$) =",input$Mod3Step2_Vme),
-   	                                         paste("Mean environmental effect ($",EQ3$mean1,"$) =",input$Mod3Step2_beta1)),
+   	                                         paste("Environmental variance ($V_{",EQ3$mean1," ",EQ2$env1,"}$) =",input$Mod3Step2_Vbx)),
    	                        "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
    	                                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
    	                                        "")

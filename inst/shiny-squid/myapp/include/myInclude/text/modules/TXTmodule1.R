@@ -213,7 +213,7 @@ Mod1Step4_txt <- list(
   "para6"    = paste("We encourage you to go back and play around with the magnitude of $V_",NOT$error,"$ 
                 to see how it affects estimates of  $",EQ3$mean1,"$
                 and $V_",NOT$devI,"$. You can also play around with the slope and the ratio of 
-                $V_{",NOT$specific, NOT$known,"}$ and $V_",NOT$devI,"$ to better understand the effects.",sep=""),
+                $V_{",EQ3$mean1," ",EQ2$env1,"}$ and $V_",NOT$devI,"$ to better understand the effects.",sep=""),
   "point"    = "<b>Point:</b> This exercise introduced explanatory variables (also known as fixed effects). 
                 Because individual is a &ldquo;random&rdquo; effect, this is thus a &ldquo;mixed effects&rdquo; model. 
                 The fixed effect part is a linear regression. Even if this is all you want 

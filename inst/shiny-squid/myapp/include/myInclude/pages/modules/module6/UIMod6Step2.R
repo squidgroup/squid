@@ -53,8 +53,8 @@ UIMod6Step2 <- function(){
         # Measurement error variance  
         getSliderInput("Mod6Step2_Vme", Modules_VAR$Vme),
         
-        # Mean Environment effects in the slope (Beta 1)
-        getSliderInput("Mod6Step2_beta1", Modules_VAR$B1),
+        # Variance of Mean Environment effects in the slope (V Beta1 X1)
+        getSliderInput("Mod6Step2_Vbx", Modules_VAR$Vb1x1),
         
         #Individual-specific response to an environmental effect (random slopes) variance (VS) :
         getSliderInput("Mod6Step2_Vs", Modules_VAR$Vs),

@@ -1,4 +1,4 @@
-getEnvironmentInput <- function(module, step){
+getEnvironmentInput <- function(module, step, myDefault="Random"){
   
   return(
     span(

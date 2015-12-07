@@ -17,13 +17,13 @@ Mod6Step1_txt <- list(
                   In other words, individuals have variable reaction norms 
                   in both intercept and slope.",
   "intro"      = paste0("<b>Introduction</b> Modules ",Module_titles$mod1," and 
-                    ",Module_titles$mod3," have explored how among-individual ($V_",NOT$ind,"$) 
+                    ",Module_titles$mod3," have explored how among-individual ($V_",NOT$devI,"$) 
                     variance in mean values can be modelled. In Step 3 of 
                     Module ",Module_titles$mod1,", individuals also varied, 
                     to some extent, in how an environmental factor influenced 
                     the expression of their phenotypes around this mean, 
                     and these deviations produce within-individual variance 
-                    as a response to environmental fluctuations ($V_{",EQ3$mean1,"}$). 
+                    as a response to environmental fluctuations ($V_{",EQ3$mean1,EQ2$env1,"}$). 
                     Throughout all these lessons, we have assumed that 
                     if the environment changes, individuals change their 
                     phenotype in exactly the same way. This is a dubious 

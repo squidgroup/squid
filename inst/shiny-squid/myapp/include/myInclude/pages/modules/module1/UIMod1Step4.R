@@ -66,6 +66,7 @@ UIMod1Step4 <- function(){
         # Graph: Individual reaction norm  
         plotOutput("Mod1Step4_plot2", width = Modules_VAR$Plot$width),
       
+      p(HTML(Mod1Step4_txt$para6)),   # Text: paragraph 6
       p(HTML(Mod1Step4_txt$point)),   # Text: point    
       
       p(HTML(module1_txt$statModTitle)),

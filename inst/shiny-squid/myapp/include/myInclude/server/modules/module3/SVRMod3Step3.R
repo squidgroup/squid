@@ -10,7 +10,7 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
         numericInput("Mod3Step3_Tmax", "", Modules_VAR$Tmax$max),
         numericInput("Mod3Step3_NI", "", 100),
         matrixInput2("Mod3Step3_Vind", "",data.frame(matrix(c(input$Mod3Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
-        matrixInput2("Mod3Step3_B", "",data.frame(matrix(c(0,sqrt(input$Mod3Step3_Vx),0,0),1))), 
+        matrixInput2("Mod3Step3_B", "",data.frame(matrix(c(0,sqrt(input$Mod3Step3_Vbx),0,0),1))), 
         
         checkboxInput("Mod3Step3_X1_state", "", value = TRUE),
         
@@ -80,7 +80,7 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
         data$Vi        <- round(RANDEF[1],2)
         data$Vr        <- round(RANDEF[2],2) 
         
-        data$data_S$X1 <- input$Mod3Step3_Vx_proportion * data$data_S$X1
+        data$data_S$X1 <- input$Mod3Step3_Vbx_proportion * data$data_S$X1
         
         LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$data_S)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
@@ -114,7 +114,7 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
       
       myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step3_Vi),
                                              paste("Measurement error variance ($V_",NOT$error,"$) =",input$Mod3Step3_Vme),
-                                             paste("Environmental variance ($V_",NOT$env,"$) =",input$Mod3Step3_Vx),
+                                             paste("Environmental variance ($V_",NOT$env,"$) =",input$Mod3Step3_Vbx),
                                              paste("Mean environmental effect ($",EQ3$mean1,"$) =",round(input$Mod3Step3_B[2],2))),
                             "Totally unknown environment" = c(paste("Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
                                                               paste("Residual variance ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
@@ -123,7 +123,7 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
                             "Environment known " = c(paste("Individual variance ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi_2,"...")),
                                                      paste("Residual variance ($V'_",NOT$residual,"$) = ", ifelse(!is.null(data),data$Vr_2,"...")),
                                                      paste0("Environmental variance ($V'_",NOT$env,"$) = ", ifelse(!is.null(data),data$B1_2^2,"...")),
-                                                     paste0("Mean environmental effect ($",EQ3$mean1,"$) =", ifelse(!is.null(data),data$B1_2,"...")))
+                                                     paste0("Mean environmental effect ($",NOT$mean,"'_1$) =", ifelse(!is.null(data),data$B1_2,"...")))
       )  
     
         return(getTable(myTable))
@@ -147,9 +147,9 @@ SVRMod3Step3 <- function(input, output, session, Modules_VAR, FullModel_VAR, nb.
       updateSliderInput(session, "Mod3Step3_Vit2", value = input$Mod3Step3_Vit)
     }),
     
-    output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vx + input$Mod3Step3_Vme),2)*100,"%)")}),
-    output$Mod3Step3_Vme_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vme / (input$Mod3Step3_Vi + input$Mod3Step3_Vx + input$Mod3Step3_Vme),2)*100,"%)")}),
-    output$Mod3Step3_Vx_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vx / (input$Mod3Step3_Vi + input$Mod3Step3_Vx + input$Mod3Step3_Vme),2)*100,"%)")}),
+    output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Vme),2)*100,"%)")}),
+    output$Mod3Step3_Vme_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vme / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Vme),2)*100,"%)")}),
+    output$Mod3Step3_Vbx_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vbx / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Vme),2)*100,"%)")}),
 
     ######### Manage errors #########
     # display error message

@@ -51,7 +51,7 @@ Modules_VAR <- list(
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
   "Vs"     = list(  "label"       = paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$): "),
                     "infoTxt"     = "Individual-specific response to an environmental effect (random slopes) variance",
-                    "value"       = "",
+                    "value"       = 0.5,
                     "min"         = 0,
                     "max"         = 1,
                     "step"        = 0.01,
@@ -99,9 +99,9 @@ Modules_VAR <- list(
   ),
   
   # Variance of population mean response to an environmental effect 
-  "Vb1x1"  = list(  "label"       = paste("Variance of population mean response to an environmental effect ($V_{",EQ3$mean1," ",EQ2$env1,"}$):",sep=""),
+  "Vb1x1"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $(V_{",EQ3$mean1," ",EQ2$env1,"})$:",sep=""),
                    "infoTxt"     = "Variance of population mean response to an environmental effect",
-                   "value"       = "",
+                   "value"       = 0.5,
                    "min"         = 0,
                    "max"         = 1,
                    "step"        = 0.01,

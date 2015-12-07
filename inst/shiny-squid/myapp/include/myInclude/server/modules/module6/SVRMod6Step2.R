@@ -16,7 +16,7 @@ SVRMod6Step2 <- function(input, output, session, Modules_VAR, nb.IS, color){
           list(
             numericInput("Mod6Step2_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod6Step2_Vind", "", Mod6Step2updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,input$Mod6Step2_beta1,0,0),1))),
+            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1))),
             checkboxInput("Mod6Step2_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_ran_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_ran_shared", "", value = TRUE),
@@ -52,16 +52,19 @@ SVRMod6Step2 <- function(input, output, session, Modules_VAR, nb.IS, color){
         # Remove covariance
         df   <- data$data_S
         
-        newdf <- df              %>% 
-          select(Individual,Je1) %>%
-          unique()               %>%
-          transmute(Individual = sample(Individual), Je1 = Je1)
+        if(input$Mod6Step2_CorIS != 0){
+          newdf <- df              %>% 
+            select(Individual,Je1) %>%
+            unique()               %>%
+            transmute(Individual = sample(Individual), Je1 = Je1)
+          
+          df <- df       %>% 
+            select(-Je1) %>%
+            inner_join(newdf)
+          
+          df$Phenotype    <- (df$B0 + df$J0) + (df$Be1 + df$Je1) * df$X1 + df$ME
+        }
         
-        df <- df       %>% 
-          select(-Je1) %>%
-          inner_join(newdf)
-        
-        df$Phenotype    <- (df$B0 + df$J0) + (df$Be1 + df$Je1) * df$X1 + df$ME
         data$df <- df
         
         updateCheckboxInput(session, "isRunning", value = FALSE)

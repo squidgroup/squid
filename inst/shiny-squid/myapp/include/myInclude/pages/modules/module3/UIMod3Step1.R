@@ -27,8 +27,8 @@ UIMod3Step1 <- function(){
       
       p(HTML(Mod3Step1_txt$para2)),      # Text: paragraph 2
       
-      # Mean Environment effects in the slope (Beta 1)
-      getSliderInput("Mod3Step1_beta1", Modules_VAR$B1),
+      # Variance of Mean Environment effects in the slope (V Beta1 X1)
+      getSliderInput("Mod3Step1_Vbx", Modules_VAR$Vb1x1),
             
       p(HTML(Mod3Step1_txt$para3)),       # Text: paragraph 3
       

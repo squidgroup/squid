@@ -23,12 +23,12 @@ UIMod3Step3 <- function(){
         column(4,textOutput("Mod3Step3_Vme_proportion"))
       ),
       
-      # Environment effects variance (Vx)
+      # Variance of Mean Environment effects in the slope (V Beta1 X1)
       fluidRow(
-        column(8,getSliderInput("Mod3Step3_Vx", Modules_VAR$Vx)),
-               column(4,textOutput("Mod3Step3_Vx_proportion"))
+        column(8,getSliderInput("Mod3Step3_Vbx", Modules_VAR$Vb1x1)),
+               column(4,textOutput("Mod3Step3_Vbx_proportion"))
         ),
-      
+
       conditionalPanel(
         condition = "0",
         uiOutput("Mod3Step3_hidden")
@@ -71,7 +71,7 @@ UIMod3Step3 <- function(){
       
       p(HTML(Mod3Step3_txt$para7)),      # Text: paragraph 7
       
-      sliderInput("Mod3Step3_Vx_proportion",
+      sliderInput("Mod3Step3_Vbx_proportion",
                   "Proportion of the environmental effect measured:", 
                   value = Modules_VAR$Vx$value, 
                   min   = Modules_VAR$Vx$min, 
