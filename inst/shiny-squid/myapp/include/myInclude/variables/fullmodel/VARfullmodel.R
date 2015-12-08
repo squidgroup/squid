@@ -46,7 +46,7 @@ FullModel_VAR <- list(
   
   # Simulation time (Tmax)
   "NP"     = list( "label"       = "Replicates",
-                   "infoTxt"     = "Number of replicates (distinct populations are generated with the same simulation design).",
+                   "infoTxt"     = "Number of replicates of the simulated world (distinct populations are generated with the same simulation design).",
                    "value"       = 1,
                    "min"         = 1,
                    "max"         = "",
