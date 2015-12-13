@@ -4,22 +4,15 @@
 #################################################################
 #################################################################
 
-# Install packages if not found
-required.packages <- c("shiny", "shinyBS","ggplot2", "lattice","grid", "MASS", "lme4", "arm")
-new.packages <- required.packages[!(required.packages %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
-
-require(shiny)
-require(shinyBS)
-require(ggplot2)
-require(lattice)
-require(grid)
-require(MASS)
-# require(Rcpp)
-# require(RcppArmadillo)
-require(lme4)
-require(arm)
-require(dplyr)
+library(shiny)
+library(shinyBS)
+library(ggplot2)
+library(lattice)
+library(grid)
+library(MASS)
+suppressPackageStartupMessages(library(lme4))
+suppressPackageStartupMessages(library(arm))
+suppressPackageStartupMessages(library(dplyr))
 
 #################################################################
 #################################################################

@@ -182,6 +182,9 @@ UIfullModel <- function(){
       p(),
       uiOutput("FMod_rerunButtonError"),
       p(),
+      
+      p(HTML(fullmodelTxt$output_figure_color)),
+      
       navlistPanel(   
         fluid  = FALSE,
         widths = c(2,9),

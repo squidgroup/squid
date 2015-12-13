@@ -77,7 +77,7 @@ get_data_C <- function(Mu, N, B, r, V, Time, Variables, Env, session, progress){
     
     ############################################## 
     
-    Individual   <- as.factor(rep(rep(1:(N$NI*N$NP), each=N$NS), N$NT))
+    Individual   <- rep(rep(1:(N$NI*N$NP), each=N$NS), N$NT)
     
     Individual_Trait <- vector(mode="integer", N$NI*N$NP*N$NT)
     myFun  <- function(i){

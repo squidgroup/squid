@@ -45,6 +45,8 @@ UIfullModelSbyS <- function(){
       uiOutput("FModSbyS_rerunButtonError"),                   
       p(),
       
+      p(HTML(fullmodelTxt$output_figure_color)),
+      
       navlistPanel(   
         fluid  = FALSE,
         widths = c(2,9),

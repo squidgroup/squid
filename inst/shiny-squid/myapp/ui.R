@@ -44,7 +44,7 @@ shinyUI( fluidPage(
 #     collapsable = TRUE,
     
     # Application title
-    title = "SQUID",
+    title = "SQuID",
     
 #     tabPanel("Home", # Title
 #       icon=icon("home", "fa-fw"), # Icon
@@ -54,7 +54,7 @@ shinyUI( fluidPage(
 
     # Portal page
     tabPanel("Portal", # Title
-             icon=icon("tasks", "fa-fw"), # Icon
+             icon=icon("home", "fa-fw"),
              # Portal container
              tags$div(class="myPage myTutorial", portal())
              

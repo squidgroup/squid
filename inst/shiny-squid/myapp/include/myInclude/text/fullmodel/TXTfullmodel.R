@@ -324,7 +324,8 @@ fullmodelTxt <- list(
   "output_5"            = "We also provide a brief description of the generated data, 
                           either raw data or sampled data, which are available to 
                           download as a .csv files.",
-  
+  "output_figure_color" = paste0("The figures below show the data related to one trait ($",NOT$trait.1,"$) and one 
+                                replicate of the 20 first individuals of the simulated population."),
   
   
   
