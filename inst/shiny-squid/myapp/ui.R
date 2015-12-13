@@ -45,12 +45,6 @@ shinyUI( fluidPage(
     
     # Application title
     title = "SQuID",
-    
-#     tabPanel("Home", # Title
-#       icon=icon("home", "fa-fw"), # Icon
-#       # Home container    
-#       tags$div(class="myPage",home())
-#     ), # END tabpanel Home        
 
     # Portal page
     tabPanel("Portal", # Title
@@ -65,7 +59,6 @@ shinyUI( fluidPage(
              icon=icon("tasks", "fa-fw"), # Icon
              # Portal container
              tags$div(class="myPage myTutorial", UImodules())
-             
     ), # End tabPanel Portal
 
     # Simulation page
@@ -73,7 +66,6 @@ shinyUI( fluidPage(
              icon=icon("coffee", "fa-fw"), # Icon
              # Simulation container 
              tags$div(class="myPage",UIfullModelSbyS())
-             
     ), # End tabPanel Simulation 
 
     # Full model page
@@ -81,30 +73,37 @@ shinyUI( fluidPage(
              icon=icon("fighter-jet", "fa-fw"), # Icon
              # Simulation container 
              tags$div(class="myPage",UIfullModel())
-             
     ), # End tabPanel Full Model 
 
-      
+    # People page
+    tabPanel("About us", icon=icon("users", "fa-users"),
+       tags$div(class="myPage myTutorial",
+        fixedPage(
+          wellPanel( 
+            h4(portal_txt$parag2_title),
+            p(HTML(portal_txt$parag2_contents)),
+            h4(portal_txt$parag4_title),
+            fluidRow(
+              column(6, HTML('<img src="pictures/group_pic.jpg" alt="SQuID">')),
+              column(6, p(HTML(portal_txt$parag4_contents)))
+            )
+          )
+        )
+       )
+    ), # End tabPanel People
+
     # Footer
     tags$div(class="footer",
-             fixedPage(div(class="line"),
-             # Boolean showing when a simulation is running
-             conditionalPanel(
-               condition = "0",         
-               checkboxInput("isRunning", "", FALSE)
-             ), 
-             " "
-            ))
-
-#     # People page
-#     tabPanel("Peolple", icon=icon("users", "fa-users"),             
-#              h3("People page"),
-#              tags$ul(tags$li("Information about the persons involved in this project"))), # End tabPanel People
-#     
-#     # Contact page
-#     tabPanel("Contact", icon=icon("envelope", "fa-fw"),
-#              h3("Contact page"),
-#              tags$ul(tags$li("Info and help contact"))) # End tabPanel Contact
+     fixedPage(div(class="line"),
+       # Boolean showing when a simulation is running
+       conditionalPanel(
+         condition = "0",         
+         checkboxInput("isRunning", "", FALSE)
+       ), 
+       " "
+     )
+    )
+    
   ) # END navbarPage
 )
 )

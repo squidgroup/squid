@@ -10,7 +10,11 @@ UIMod6Step3 <- function(){
         p(HTML(Mod6Step3_txt$intro)),      # Text: introduction
         p(HTML(Mod6Step3_txt$exercise)),   # Text: exercise
         
-        p("equation"),
+        p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=
+                (",EQ3$mean0,"+
+                 ",NOT$devI,"_",NOT$ind,")+
+                 (",EQ3$mean1,"+", NOT$devS,"_", NOT$ind,")", NOT$env,"_{",NOT$time, NOT$ind,"}+
+                 ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
         
         p(HTML(Mod6Step3_txt$table)),   # Text: table
         uiOutput("Mod6Step3_summary_variance_table"),

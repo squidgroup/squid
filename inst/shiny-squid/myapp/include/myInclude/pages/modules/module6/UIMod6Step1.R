@@ -69,7 +69,7 @@ UIMod6Step1 <- function(){
         # Phenotype against environment figure
         p(plotOutput("Mod6Step1_plot", width = Modules_VAR$Plot$width)),  
         
-        (HTML(Mod6Step1_txt$point)),   # Text: point 
+        p(HTML(Mod6Step1_txt$point)),   # Text: point 
         
         p(HTML(module1_txt$statModTitle)),
         p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=

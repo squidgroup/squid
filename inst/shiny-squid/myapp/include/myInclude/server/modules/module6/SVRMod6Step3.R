@@ -6,8 +6,8 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
     ######### Set variables #########  
     Mod6Step3updateVind <- function(nb.IS){
       df <- matrix(rep(0,nb.IS^2),nb.IS)
-      diag(df)[1] <- 0.7
-      diag(df)[2] <- 0.1
+      diag(df)[1] <- 0.5
+      diag(df)[2] <- 0.5
       df[2,1]     <- 0.5
       return(as.data.frame(df))
     },
@@ -71,7 +71,7 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
       output$Mod6Step3_summary_variance_table <- renderUI({
         
         myTable <- data.frame(
-          "Variance Summary"= c("$\\text{Fixed effects}$",
+          "Summary of Variances"= c("$\\text{Fixed effects}$",
                           paste0("Mean of the trait ($",EQ3$mean0,"$)"),
                           paste0("Population-specific slope of the environmental effect ($",EQ3$mean1,"$)"),
                           "$\\text{Random effects}$",
@@ -83,8 +83,8 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
                       "0.5",
                       "0.5", 
                       "",
-                      "0.7",
-                      "0.1",
+                      "0.5",
+                      "0.5",
                       "0.5",
                       "0.05")
         )  
@@ -137,7 +137,7 @@ SVRMod6Step3 <- function(input, output, session, Modules_VAR, nb.IS, color){
       
       if(!is.null(data)){
 
-        vline.data <- data.frame(z           = rep(c(0.5, 0.7, 0.1),each=3), 
+        vline.data <- data.frame(z           = rep(c(0.5, 0.5, 0.5),each=3), 
                                  Parameter   = rep(c("CORis", "Vi", "Vs"),each=3))
         
         print(ggplot(data, aes(x=Value)) +

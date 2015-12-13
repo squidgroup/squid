@@ -27,7 +27,7 @@ UIMod6Step2 <- function(){
           \\sim MNV(0,\\Omega_{",NOT$devI, NOT$devS,"}):
           \\Omega_{",NOT$devI, NOT$devS,"}=
           \\begin{pmatrix}
-          V_{",   NOT$devI,"}                  &                        \\\\
+          V_{",   NOT$devI,"}                 & Cov_{", NOT$devI, ",", NOT$devS ,"} \\\\
           Cov_{", NOT$devI, ",", NOT$devS ,"} & V_{",   NOT$devS, "}\\\\
           \\end{pmatrix} 
           $$")),
@@ -81,7 +81,6 @@ UIMod6Step2 <- function(){
         
         (HTML(Mod6Step2_txt$para5)),       # Text: paragraph 5
 
-        p("graph 1"),
         p(plotOutput("Mod6Step2_plot", width = "700px")),
         
         p(HTML(Mod6Step2_txt$para6)),       # Text: paragraph 6
