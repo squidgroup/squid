@@ -45,7 +45,7 @@ portal_txt <- list(
       "parag3_contents1"     = "<b>SQuID</b> is made to help researchers to become familiar with multilevel variation, and to 
                                 build up sampling designs for their study. SQuID is built up as a series of modules that guide 
                                 the user into situations of increasing complexity to explore the dynamics between the way 
-                                records are collected and estimates of parameters of specific interest; The last modules (Module 10) 
+                                records are collected and estimates of parameters of specific interest; The last modules (Module 11) 
                                 is the <b><i>full model simulation package</i></b> that allows the user to generate data sets that can then be 
                                 used to run analyses in the statistical package of their choice for specific research questions.",
       "parag3_contents2"     = "<b>SQuID</b> is based on a mathematical model that creates a group of individuals (i.e. study population) 
@@ -69,5 +69,29 @@ portal_txt <- list(
                                 Shinichi Nakagawa (University of New South Wales, Kensington, NSW, Australia)<br>
                                 Denis R&eacute;ale (Universit&eacute; du Qu&eacute;bec &Agrave; Montr&eacute;al, Canada)<br>
                                 Holger Schielzeth (University of Bielefeld, Germany)<br>
-                                Dave Westneat (University of Kentucky, USA)<br>"
+                                Dave Westneat (University of Kentucky, USA)<br>",
+      "beginners"            = "The SQuID modules are designed for users who have some but not a 
+                                lot of statistical background, particularly with linear mixed models. 
+                                We strongly recommend that if you are in this category, you begin with 
+                                the module 	&ldquo;Basic Lessons&rdquo;. That should be followed by the module 
+                                &ldquo;Non-random environments&rdquo;. You will need to be very comfortable with 
+                                the ideas here before moving on. Which module you choose next depends 
+                                on your interests but Step 1 in module &ldquo;Multidimensional Plasticity&rdquo; 
+                                introduces multiple regression. The module &ldquo;Random regression&rdquo; 
+                                may also be good to do after module &ldquo;Non-random environments&rdquo;.",
+      "teachers"             = "The SQuID modules can be very useful for teaching statistical concepts, 
+                                especially ones related to linear mixed models. Which modules to use 
+                                depends on your students and what you want them to learn. 
+                                Brief descriptors of each module are available on this page 
+                                (instructions to see them). We also recommend that you skim some of 
+                                the modules or visit the full equation step-by-step page to better 
+                                understand how SQuID works.",
+      "experts"              = "SQuID was designed to provide a user-friendly and web-based program 
+                                to simulate data for testing a variety of ideas about sampling and 
+                                bias in hierarchical mixed modeling. For those very familiar with 
+                                these approaches and curious about SQuID, we recommend initially 
+                                using the module &ldquo;Full model&rdquo; and the option &ldquo;Step-by-step&rdquo;. 
+                                Once you understand how SQuID works, the &ldquo;Express model&rdquo; version 
+                                will work best. Finally, we have SQuID available for download for 
+                                those interested in doing efficient simulations."
   )
