@@ -1,5 +1,3 @@
-
-
 portal_txt <- list(
       "parag1_title"         = "Biological goals",
       "parag1_contents"      = '<img id="logo" src="pictures/logo_2.png" align="left" alt="SQuID">
@@ -74,13 +72,13 @@ portal_txt <- list(
                                 lot of statistical background, particularly with linear mixed models. 
                                 We strongly recommend that if you are in this category, you begin with 
                                 the module 	&ldquo;Basic Lessons&rdquo;. That should be followed by the module 
-                                &ldquo;Non-random environments&rdquo;. You will need to be very comfortable with 
+                                &ldquo;Non-stochastic environments&rdquo;. You will need to be very comfortable with 
                                 the ideas here before moving on. Which module you choose next depends 
                                 on your interests but Step 1 in module &ldquo;Multidimensional Plasticity&rdquo; 
                                 introduces multiple regression. The module &ldquo;Random regression&rdquo; 
-                                may also be good to do after module &ldquo;Non-random environments&rdquo;.",
+                                may also be good to do after module &ldquo;Non-stochastic environments&rdquo;.",
       "teachers"             = "The SQuID modules can be very useful for teaching statistical concepts, 
-                                especially ones related to linear mixed models. Which modules to use 
+                                especially ones related to linear mixed models. Which module to use 
                                 depends on your students and what you want them to learn. 
                                 Brief descriptors of each module are available on this page 
                                 (instructions to see them). We also recommend that you skim some of 
@@ -94,4 +92,4 @@ portal_txt <- list(
                                 Once you understand how SQuID works, the &ldquo;Express model&rdquo; version 
                                 will work best. Finally, we have SQuID available for download for 
                                 those interested in doing efficient simulations."
-  )
+)

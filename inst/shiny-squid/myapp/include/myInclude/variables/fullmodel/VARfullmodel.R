@@ -142,12 +142,12 @@ FullModel_VAR <- list(
 #                                   "value" = TRUE)
 #   ),
   
-  # Random environmental effect
-  "ran"     = list( "state" = list("label"    = "Add random environment effect", 
-                                  "infoTxt"   = "Generate a random environmental effect following a normal distribution with mean 0 and variance that you could input below.",
+  # Stochastic environmental effect
+  "ran"     = list( "state" = list("label"    = "Add stochastic environment effect", 
+                                  "infoTxt"   = "Generate a stochastic environmental effect following a normal distribution with mean 0 and variance that you could input below.",
                                   "value"     = FALSE),
                     "share" = list("label"    = "Shared environment", 
-                                   "infoTxt"  = "If checked random (and auto-correlated) environmental effect will be general to all individuals otherwise will be specific (different among individuals).",
+                                   "infoTxt"  = "If checked stochastic (and auto-correlated) environmental effect will be general to all individuals otherwise will be specific (different among individuals).",
                                    "value"    = TRUE)
   ),
   
@@ -163,7 +163,7 @@ FullModel_VAR <- list(
   
   # Environemental autocorrelation effect 
   "ran_autocorrelation" = list("label"    = "Add autocorrelation", 
-                               "infoTxt"  = "Incorporate auto-correlation within the random and normal environmental values.",
+                               "infoTxt"  = "Incorporate auto-correlation within the stochastic and normal environmental values.",
                                "value"    = FALSE
   ),
   

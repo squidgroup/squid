@@ -95,8 +95,8 @@ input$test_NK <- 1
 
 input$test_Drec_Ind    <- FALSE
 input$test_Drec_Trait  <- FALSE
-input$test_Dtime_Ind   <- FALSE
-input$test_Dtime_Trait <- TRUE
+input$test_Dtime_Ind   <- TRUE
+input$test_Dtime_Trait <- FALSE
 
 input$test_Vit <- 0
 

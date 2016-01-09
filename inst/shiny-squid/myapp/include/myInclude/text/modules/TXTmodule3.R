@@ -6,7 +6,7 @@ module3_txt <- list(
 # Step 1 --------------
 Mod3Step1_txt <- list(
   
-  "title"      = "Step 1: Sampling and non-random environment",
+  "title"      = "Step 1: Sampling and non-stochastic environment",
   "subgoal"    = "<b>Sub-goal:</b> to explore how hidden patterns in environment combined with variance in sampling 
                   affect estimates of variance parameters and their interpretation. ",
   "intro"      = paste("<b>Introduction:</b> In the previous module (Basic lessons about variance), we partitioned phenotypic variance 
@@ -17,7 +17,7 @@ Mod3Step1_txt <- list(
                   natural populations, many aspects of the environment that could affect phenotypes
                   will be unknown and so not measured. In Step 3, this unmeasured environmental 
                   variance ended up as &ldquo;residual&rdquo; variance, and it had no effect on the estimate 
-                  of among-individual variance because the environment was randomly determined from 
+                  of among-individual variance because the environment was stochastically determined from 
                   one sampling period to another and all individuals were sampled at the same time 
                   and experienced the same environment . 
                   In the present module, we explore what happens when we relax this obviously simplified assumption. 
@@ -71,17 +71,17 @@ Mod3Step1_txt <- list(
 
 # Step 2 --------------
 Mod3Step2_txt <- list(    
-  "title"      = "Step 2: Sampling to reduce effects of non-random environment",
+  "title"      = "Step 2: Sampling to reduce effects of non-stochastic environment",
   "subgoal"    = "<b>Sub-goal:</b> Using simulations to generate sampling regimes 
-                  that limit the effects of non-random environments.",
-  "intro"      = "<b>Introduction:</b> Step 1 revealed a problem—non-random environments through time 
+                  that limit the effects of non-stochastic environments.",
+  "intro"      = "<b>Introduction:</b> Step 1 revealed a problem—non-stochastic environments through time 
                   and variability in the timing of sampling can create biases in estimates of 
                   among-individual variation. In this step we encourage you to adjust the sampling 
                   regime to minimize this problem. It should be obvious that if all individuals 
                   are sampled with the same timing, then the bias in the estimates of among-individual 
                   variance disappears, but it is worthwhile assessing how close one has to be to 
                   identical sampling and whether there are biases in other parameters that remain. 
-                  So, in this step we will allow you to simulate several types of non-random environments 
+                  So, in this step we will allow you to simulate several types of non-stochastic environments 
                   and adjust the sampling regime.",
   "exercise"   = paste0("<b>Exercise:</b> As in Step 1, we will generate a new group of individuals, with phenotypic 
                   variance caused by measurement error $(V_",NOT$error,")$, individual differences ($V_",NOT$devI,"$), and the 
@@ -90,7 +90,7 @@ Mod3Step2_txt <- list(
                   that was experienced similarly by all individuals (&ldquo;shared&rdquo;) and which changed 
                   systematically over time. Below, you can change these settings to have environments 
                   that each individual experiences uniquely (&ldquo;unshared&rdquo;), and which changes over 
-                  time as some other function (randomly or as a regressive autocorrelated decay function).",
+                  time as some other function (stochastically or as a regressive autocorrelated decay function).",
   "para2"      =  "As in step 1, you also must enter parameters for variance in the sampling timing 
                   within and among individuals. As before, the number of expressions of the 
                   phenotype will be set by us at 100, so keep this in mind as you enter values here.",
@@ -122,7 +122,7 @@ Mod3Step2_txt <- list(
                   integrate in the 'multiple traits' Module)."),
     "para8"     =  "To conclude this step, if you do not know what environments are affecting trait expression, sampling in 
                     parallel for all individuals is a possible solution to potential biases created by 
-                    non-random environments. But, because unshared environments can create biases even 
+                    non-stochastic environments. But, because unshared environments can create biases even 
                     with identical sampling (and often identical sampling will be nearly impossible to achieve), 
                     the only other solution is to measure the environment and account for possible biases explicitly. 
                     This is explored next in Step 3."

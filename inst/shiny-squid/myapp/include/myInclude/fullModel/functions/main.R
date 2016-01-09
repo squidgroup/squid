@@ -17,8 +17,7 @@ main <- function(input, myModule, session=NULL, progress=FALSE){
 #     data_S: sampled phenotypic data
 #     V: list of variances associated with the model  
   
-  
-  
+
   # Start the clock!
 #   ptm <- proc.time()
   
@@ -43,11 +42,11 @@ main <- function(input, myModule, session=NULL, progress=FALSE){
 
   #######################################################################################
   ## Generate my phenotype traits
-  data_C     <- get_data_C(Mu, N, B, r, V, Time, Variables, Env, session, progress)
+  data_C     <- get_data_C(Mu, N, B, r, V, Time, Variables, Env)
 
   ####################################################################################### 
   ## Get Sampling data  
-  data_S     <- get_data_S(N, Time, data_C, session, progress)
+  data_S     <- get_data_S(N, Time, data_C)
 
   #######################################################################################
   ## Display results  

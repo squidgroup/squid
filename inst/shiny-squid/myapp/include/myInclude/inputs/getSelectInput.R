@@ -1,3 +1,5 @@
+# Create a select input
+
 getSelectInput <- function(inputID, inputConf, placement="top", trigger="hover") 
 {    
   

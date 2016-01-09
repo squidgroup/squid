@@ -1,20 +1,13 @@
-
-# This is the user-interface definition of a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-# 
-
 #################################################################
 ## Include packages and source functions ########################
 
-source("include/include.R")
+source("./include/include.R", local = TRUE)
 
 #################################################################
 
 #################################################################
 #################################################################
-########### My Shiny User Interface Main Page ###################
+################ My Shiny User Interface  #######################
 #################################################################
 #################################################################
 
@@ -50,7 +43,10 @@ shinyUI( fluidPage(
     tabPanel("Portal", # Title
              icon=icon("home", "fa-fw"),
              # Portal container
-             tags$div(class="myPage myTutorial", portal())
+             tags$div(class="myPage myTutorial", 
+                      # portal()
+                      source("./source/pages/portal/UIportal.R",local=TRUE)
+                      )
              
     ), # End tabPanel Portal
     
@@ -58,21 +54,24 @@ shinyUI( fluidPage(
     tabPanel("Modules", # Title
              icon=icon("tasks", "fa-fw"), # Icon
              # Portal container
-             tags$div(class="myPage myTutorial", UImodules())
+             tags$div(class="myPage myTutorial", 
+                      # UImodules()
+                      source("./source/pages/modules/UImodules.R",local=TRUE)
+                      )
     ), # End tabPanel Portal
 
     # Simulation page
     tabPanel("Full model (Step by step)", # title
              icon=icon("coffee", "fa-fw"), # Icon
              # Simulation container 
-             tags$div(class="myPage",UIfullModelSbyS())
+             tags$div(class="myPage",source("./source/pages/fullModelSbyS/UIfullModelSbyS.R",local=TRUE))
     ), # End tabPanel Simulation 
 
     # Full model page
     tabPanel("Full model (express)", # title
              icon=icon("fighter-jet", "fa-fw"), # Icon
              # Simulation container 
-             tags$div(class="myPage",UIfullModel())
+             tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE))
     ), # End tabPanel Full Model 
 
     # People page

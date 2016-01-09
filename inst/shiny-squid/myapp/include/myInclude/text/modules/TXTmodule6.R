@@ -51,7 +51,7 @@ Mod6Step1_txt <- list(
                   The fundamental difference between the random-intercept regression 
                   and the random-slope model, is that while the former 
                   uses individual-level &ldquo;random&rdquo; effects to model individual-specific 
-                  intercepts (i.e. that depict the between-individual variance of mean trait values), 
+                  intercepts (i.e. that depict the among-individual variance of mean trait values), 
                   the latter introduces an additional &ldquo;random&rdquo; effect on the slopes 
                   (i.e. that describe how individuals respond to changing environments). 
                   For the random-intercept regression, we used the following model 
@@ -59,7 +59,7 @@ Mod6Step1_txt <- list(
   "para1"    = "We will modify this model as:",
   "para2"    = paste0("in which $",NOT$devS,"_",NOT$ind,"$ is the effect of measured environment 
                 $",NOT$env,"_{",NOT$time, NOT$ind,"}$
-                on the measure of phenotype in ith individual. 
+                on the measure of phenotype in the <i>i <sup>th</sup></i> individual. 
                 Accordingly, we can apply the following parameterization regimes:"),
   "para3"    = "Set in the background is the environmental variable and its sampling. 
                 Here we should use uniform sampling, where each individual is sampled 
@@ -107,7 +107,7 @@ Mod6Step2_txt <- list(
                   the correlation does to the pattern of variance within and among individuals.",
   "para1"      = "We use the same equation as before, e.g.,",
   "para2"      = "but now we make the formally hidden assumption explicit with some new nomenclature:",
-  "para3"      = paste0("This means that the intercept value of the ith individual ($",NOT$devI,"_",NOT$ind,"$) 
+  "para3"      = paste0("This means that the intercept value of the <i>i <sup>th</sup></i> individual ($",NOT$devI,"_",NOT$ind,"$) 
                   and the slope of that individual ($",NOT$devS,"_",NOT$ind,"$) are distributed as multivariate 
                   normal with means for each attribute of 0 and a variance-covariance 
                   structure of $\\Omega_{",NOT$devI,NOT$devS,"}$. We then specify the variance-covariance 
@@ -168,15 +168,19 @@ Mod6Step3_txt <- list(
   
   "table"      = "The table below summarises the value of each parameter of the model:",
 
-  "para1"      = paste0("You should base your decision on the graphic representation of the estimates. 
+  "para1"      = paste0("For these simulations we are going to use a stochastic environment effect ($",NOT$env,"$). 
+                        We will also sample individual trait expressions the same number of times but at 
+                        different instances of time among-individuals. The among-individual variance 
+                        in sampling of timing will be null."),
+  "para2"      = paste0("You should base your decision on the graphic representation of the estimates. 
                       The figure below is a summary of parameter estimates of 100 models performed from the 
                       100 simulated datasets."),
   
   
-  "para2"     = "For each sample size there will be three combinations: 
+  "para3"     = "For each sample size there will be three combinations: 
                  one with more individuals than repeats, one with equal number of repeats and observations, 
                  and one with more repeats than individuals.",
-  "para3"     = "Each histogram shows a frequency distribution of each parameter based on the 100 simulations 
+  "para4"     = "Each histogram shows a frequency distribution of each parameter based on the 100 simulations 
                 that you ran for each of the three study designs. &ldquo;NI&rdquo; 
                 is the number of individuals and &ldquo;NR&rdquo; 
                 is the number of repeats per individuals.
@@ -187,8 +191,8 @@ Mod6Step3_txt <- list(
                 your parameter estimates should be narrowly distributed around the true value. 
                 If your estimates are precise but inaccurate, the distribution should be narrow but 
                 peaking away from the true value. If your estimates are accurate but imprecise 
-                the distribution should be peaking at the true value but simultaneously be very broad. 
+                the distribution should be peaking at the true value but simultaneously very broad. 
                 Finally, if your estimates are imprecise and inaccurate the distribution would both 
-                be wide and peaking away from the true value."
+                wide and peaking away from the true value."
 )
 

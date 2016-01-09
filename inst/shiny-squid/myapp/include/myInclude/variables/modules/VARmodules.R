@@ -51,7 +51,7 @@ Modules_VAR <- list(
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
   "Vs"     = list(  "label"       = paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$): "),
                     "infoTxt"     = "Individual-specific response to an environmental effect (random slopes) variance",
-                    "value"       = 0.5,
+                    "value"       = 0.2,
                     "min"         = 0,
                     "max"         = 1,
                     "step"        = 0.01,
@@ -171,7 +171,7 @@ Modules_VAR <- list(
   # Number of trait per individual
   "Env_types" = list( "label"       = "Environment types",
                       "infoTxt"     = "",
-                      "value"       = c("Random" = "ran",
+                      "value"       = c("Stochastic" = "ran",
                                         "Autocorrelated" = "auto",
                                         "Linear" = "lin",
                                         "Cyclic" = "cyc")

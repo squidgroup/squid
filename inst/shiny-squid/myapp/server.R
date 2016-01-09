@@ -1,12 +1,5 @@
-
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 # Source included packages and functions
-source("include/include.R")
+source("include/include.R", local = TRUE)
 
 # Initialisation ------------------------------------------
 
@@ -34,44 +27,45 @@ shinyServer(function(input, output, session) {
   # Portal ----------------
   
   # Modules   ---------------------------------------------------------  
-  SVRmodules(input, session)  
+  # SVRmodules(input, session)  
+  source("./source/server/modules/SVRmodules.R",local=TRUE)
   
     # Module 1  ---------------------------------------------------------  
   
     # Module 1 Step 1 ---------------------------------------------------------  
-      SVRMod1Step1(input, output, session, color)
+      source("./source/server/modules/module1/SVRMod1Step1.R",local=TRUE)
     
     # Module 1 Step 2 ---------------------------------------------------------
-      SVRMod1Step2(input, output, session, color)
+      source("./source/server/modules/module1/SVRMod1Step2.R",local=TRUE)
     
     # Module 1 Step 3 ---------------------------------------------------------
-      SVRMod1Step3(input, output, session, color)
+      source("./source/server/modules/module1/SVRMod1Step3.R",local=TRUE)
 
     # Module 1 Step 4 ---------------------------------------------------------
-      SVRMod1Step4(input, output, session, color)
+      source("./source/server/modules/module1/SVRMod1Step4.R",local=TRUE)
 
   
   # Module 3  --------------------------------------------------------- 
   
     # Module 3 Step 1 ---------------------------------------------------------
-      SVRMod3Step1(input, output, session, Modules_VAR, nb.IS, color)
+      source("./source/server/modules/module3/SVRMod3Step1.R",local=TRUE)
   
     # Module 3 Step 2 ---------------------------------------------------------
-      SVRMod3Step2(input, output, session, Modules_VAR, FullModel_VAR, nb.IS, color)
+      source("./source/server/modules/module3/SVRMod3Step2.R",local=TRUE)
   
     # Module 3 Step 3 ---------------------------------------------------------
-      SVRMod3Step3(input, output, session, Modules_VAR, FullModel_VAR, nb.IS, color)
+      source("./source/server/modules/module3/SVRMod3Step3.R",local=TRUE)
   
   # Module 6  --------------------------------------------------------- 
   
     # Module 6 Step 1 ---------------------------------------------------------
-      SVRMod6Step1(input, output, session, Modules_VAR, nb.IS, color)
+      source("./source/server/modules/module6/SVRMod6Step1.R",local=TRUE)
   
     # Module 6 Step 2 ---------------------------------------------------------
-      SVRMod6Step2(input, output, session, Modules_VAR, nb.IS, color)
+      source("./source/server/modules/module6/SVRMod6Step2.R",local=TRUE)
   
     # Module 6 Step 3 ---------------------------------------------------------
-      SVRMod6Step3(input, output, session, Modules_VAR, nb.IS, color)
+      source("./source/server/modules/module6/SVRMod6Step3.R",local=TRUE)
 
   
   # Full model  (Step by Step)   ----------------

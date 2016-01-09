@@ -95,19 +95,19 @@ fullmodelTxt <- list(
   
   
   "environment_1"       = "SQuID allows you to generate different structures by which the environment changes over time: 
-                          <ol><li>random</li> <li>temporally auto-correlated</li> <li>linear</li> <li>cyclic</li></ol>",
-  "environment_2"       = paste("For the first structure (<b>random</b>), environmental values $",NOT$env,"_{",NOT$random,NOT$time,"}$ are 
+                          <ol><li>stochastic</li> <li>temporally auto-correlated</li> <li>linear</li> <li>cyclic</li></ol>",
+  "environment_2"       = paste("For the first structure (<b>stochastic</b>), environmental values $",NOT$env,"_{",NOT$random,NOT$time,"}$ are 
                           generated using a Normal distribution with mean 0 and variance $V_",NOT$random,"$. 
                           $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,V_",NOT$random,")$$
                           This means that environmental values will be totally 
-                          random and uncorrelated from time to time. This simple situation is not the most realistic 
-                          (i.e. it is hard to think of an environmental factor that is completely randomly distributed in time). 
+                          stochastic and uncorrelated from time to time. This simple situation is not the most realistic 
+                          (i.e. it is hard to think of an environmental factor that is completely stochastically distributed in time). 
                           The other options are more complex but also more realistic.",sep=""),
   "environment_3"       = paste("For the <b>temporally auto-correlated</b> $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ 
                           we assume that two values of the environment close in time 
                           are more similar than two values far apart from each other (i.e. positive autocorrelation). 
                           Environmental values $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ are generated 
-                          as the product of a random value by a decay function.
+                          as the product of a stochastic value by a decay function.
                           $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,V_",NOT$random,")\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
                           where $\\Delta ",NOT$time,"$ is the time interval between two instances of the study period, and $\\alpha$
                           is the decay rate, a measure of how fast the correlation decays with time.
@@ -141,7 +141,7 @@ fullmodelTxt <- list(
                           in our population 3 different environments $",NOT$env,"_1$,$",NOT$env,"_2$,and $",NOT$env,"_3$ will be generated for 
                           respectively the individual 1, 2, and 3. Although these environments are different, 
                           they follow the same general trend defined by environment options described 
-                          previously (random, auto-correlated, linear, and cyclic). 
+                          previously (stochastic, auto-correlated, linear, and cyclic). 
                           In order to create multiple environments from one environment configuration, 
                           we apply a variability around each parameter (e.g. the intercept of the 
                           linear effect or the amplitude of the cyclic effect) that follows 
@@ -198,13 +198,13 @@ fullmodelTxt <- list(
   "inputEnvironment_1"    = paste("You have now to decide what types of environmental effects you will generate for the simulated traits. 
                             In this section you can select a maximum of two environment effects ($",EQ2$env1,"$ and $",EQ2$env2,"$). 
                             These environments can be customized according to the various options 
-                            displayed in their respective tabs. You can add random, 
+                            displayed in their respective tabs. You can add stochastic, 
                             linear and cyclic effects to the general structured environmental effects. 
                             Each option can be added or deleted from the general environmental 
                             structure by respectively checking or unchecking its associated checkbox.",sep=""),
-  "inputEnvironment_2"    = "For the <b>random</b> effect you have to specify the variance for that environment. 
+  "inputEnvironment_2"    = "For the <b>stochastic</b> effect you have to specify the variance for that environment. 
                             This variance will create stochastic variation in the environmental value from one time step to the next. 
-                            Furthermore, within the random environmental effect section, it is possible to add <b>auto-correlated</b> 
+                            Furthermore, within the stochastic environmental effect section, it is possible to add <b>auto-correlated</b> 
                             effects that follow the algorithm presented in the &ldquo;Description&rdquo; page. You have to specify the 
                             correlation value ranging from 0 to 1 that characterizes the magitude of temporal autocorrelation.",
   "inputEnvironment_3"    = "You can also choose whether or not the environment is showing a <b>linear</b> or a <b>cyclical</b> 
@@ -213,10 +213,10 @@ fullmodelTxt <- list(
                             the period, the horizontal shift and the vertical shift for the cyclic effect.
                             Therefore, if you select the three options you can create linearly increasing 
                             environmental values with some cyclic and stochastic variation from time to time.",
-  "inputEnvironment_4"    = "For each environment type (random, linear and cyclic) you can also choose whether that 
+  "inputEnvironment_4"    = "For each environment type (stochastic, linear and cyclic) you can also choose whether that 
                             environmental effect is shared or not between individuals by checking or not 
                             the &ldquo;Shared environment&rdquo; checkbox. For instance, you could decide to share 
-                            the random and linear environmental effects between individuals while the 
+                            the stochastic and linear environmental effects between individuals while the 
                             cyclic effect is not shared. When an environment effect is not shared 
                             between individuals an input cell appear showing the environmental 
                             variance value used to generate the different environments. 

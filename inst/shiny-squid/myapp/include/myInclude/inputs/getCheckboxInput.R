@@ -1,4 +1,4 @@
-# Create numer input
+# Create checkbox input
 
 getCheckboxInput<- function(inputID, inputConf, placement="top", trigger="hover") 
 {    

@@ -1,4 +1,4 @@
-# Create numer input
+# Create numeric input
 
 getNumericInput<- function(inputID, inputConf, errorID, placement="top", trigger="hover") 
 {    

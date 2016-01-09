@@ -1,3 +1,5 @@
+# Create a slider input 
+
 getSliderInput<- function(inputID, inputConf, placement="top", trigger="hover") 
 {    
   

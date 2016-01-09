@@ -1,10 +1,19 @@
+# Test and initialize inputs
+# 
+# Args:
+#   input: list contains all the inputs used to run the model 
+#          (for more details see setEnvironments and setVariables functions).
+#   myModule: name of the module.
+#   Env: environment object of my model
+
+# Returns:
+#   Return a list that contains all model variables
 
 setVariables <- function(input, myModule, Env){
   
   ##############################################################
-  ################## VARIABLE DECLARATIONS #####################
+  ################## VARIABLES DECLARATION #####################
   ##############################################################  
-  
   
   # Variables 
   Variables <- list(
@@ -65,8 +74,8 @@ setVariables <- function(input, myModule, Env){
     "Tmax"     = x,                           # End time
     "TS"       = 1,                           # Time step value
     
-    "Ts"       = y[1],#floor((y[1]/100)*x),   # Start time of sampling
-    "Te"       = y[2],#floor((y[2]/100)*x),   # End time of sampling (Max = Tmax)
+    "Ts"       = y[1],                        # Start time of sampling
+    "Te"       = y[2],                        # End time of sampling (Max = Tmax)
     "Tsamp"    = y[2]-y[1]+1,                 # Total sampling time
     "TsampI"   = 0,                           # Sampling time per individual
     
