@@ -4,12 +4,12 @@
 #################################################################
 #################################################################
 
-library(shiny)
-library(shinyBS)
-library(ggplot2)
-library(lattice)
-library(grid)
-library(MASS)
+suppressPackageStartupMessages(library(shiny))
+suppressPackageStartupMessages(library(shinyBS))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(lattice))
+suppressPackageStartupMessages(library(grid))
+suppressPackageStartupMessages(library(MASS))
 suppressPackageStartupMessages(library(lme4))
 suppressPackageStartupMessages(library(arm))
 suppressPackageStartupMessages(library(dplyr))

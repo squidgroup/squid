@@ -5,7 +5,7 @@ fixedPage( HTML("<div>"),
    navlistPanel( 
      
      id       = "modulesNavList",
-     selected = "Basic Lessons about Variance",
+     selected = Module_titles$mod1,
      well     = TRUE,  
      fluid    = FALSE,
      widths   = c(2,9),
