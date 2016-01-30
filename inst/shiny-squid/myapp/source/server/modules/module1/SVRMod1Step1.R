@@ -17,11 +17,10 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function      
-        data <- main(input, "Mod1Step1", session, TRUE) 
+        data <- SQUID::runSQUIDfct(input, "Mod1Step1") 
         
-        data$Vp        <- round(var(data$data_S$Phenotype),2)
-        data$Vj        <- round(var(data$data_S$J0),2)
-        data$mean      <- round(mean(data$data_S$Phenotype),2)
+        data$Vp              <- round(var(data$sampled_Data$Phenotype),2)
+        data$phenotypeMean   <- round(mean(data$sampled_Data$Phenotype),2)
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
@@ -37,9 +36,9 @@ c(
         
         if(!is.null(data)){                    
           
-          mydata    <- data.frame(dens = c(data$data_S$Phenotype, data$data_S$J0)
+          mydata    <- data.frame(dens = c(data$sampled_Data$Phenotype, data$sampled_Data$I)
                                   , lines = rep(c(paste("Total phenotype (",NOT$trait.1,")",sep=""), 
-                                                  paste("Individual phenotype (",NOT$devI,")",sep="")), each = length(data$data_S$Phenotype)))
+                                                  paste("Individual phenotype (",NOT$devI,")",sep="")), each = length(data$sampled_Data$Phenotype)))
           
           print(densityplot(~dens, data=mydata, groups=lines,
                             plot.points=TRUE, ref=TRUE, 
@@ -67,24 +66,10 @@ c(
             "Estimated" = c(paste("Total Sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step1_output()),Mod1Step1_output()$Vp,"..."),sep=""),
                             "",
                             "",
-                            paste("Sampled mean of the trait ($\\mu'$) = ",ifelse(!is.null(Mod1Step1_output()),Mod1Step1_output()$mean,"..."),sep=""))
+                            paste("Sampled mean of the trait ($\\mu'$) = ",ifelse(!is.null(Mod1Step1_output()),Mod1Step1_output()$phenotypeMean,"..."),sep=""))
             )
         
           getTable(myTable)
       }) 
-
-    ######### Manage errors #########
-      # display error message and disable button if so
-#       observe({
-#         if(!testInput(input$Mod1Step1_NI, Modules_VAR$NI, TRUE, FALSE) || 
-#              !testInput(input$Mod1Step1_Vme, Modules_VAR$Vme, FALSE, FALSE)){
-#           updateButton(session, "Mod1Step1_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
-#         }else{
-#           updateButton(session, "Mod1Step1_Run", disabled = FALSE, style = Modules_VAR$Run$style)
-#         }
-#       }),
-#       
-#       output$Mod1Step1_error_NI  <- renderUI({testInput(input$Mod1Step1_NI, Modules_VAR$NI, TRUE, TRUE)}),
-#       output$Mod1Step1_error_Vme <- renderUI({testInput(input$Mod1Step1_Vme, Modules_VAR$Vme, FALSE, TRUE)})
             
-) # End return
+) # End

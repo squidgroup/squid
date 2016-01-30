@@ -1,11 +1,5 @@
 # UI: Module 6 Step 1
 span( 
-    
-  bsButton("TEST", 
-           label = "TEST",
-           style = Modules_VAR$StepLink$style),
-  
-  
   
     h4(Mod6Step1_txt$title),           # Text: title
     

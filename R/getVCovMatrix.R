@@ -1,7 +1,11 @@
-# get_VCov : Build the (co)vairante matrix 
-# The covariance is calculated as function of variance and regression coefficiant 
-
-get_VCov_Matrix <- function(VCov){
+#' getVCovMatrix
+#'
+#' @description          Build the (co)vairante matrix.
+#'                       Covariances are calculated as function of variances and correlations 
+#'
+#' @return               matrix of (co)variances.
+#'
+getVCovMatrix <- function(VCov){
 
   Vdim   <- length(diag(VCov))
   

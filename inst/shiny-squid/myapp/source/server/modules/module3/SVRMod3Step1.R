@@ -28,16 +28,14 @@ c(
    	    updateCheckboxInput(session, "isRunning", value = TRUE)
    	    
    	    # Call app main function
-   	    data <- main(input, "Mod3Step1", session, TRUE)  
+   	    data <- SQUID::runSQUIDfct(input, "Mod3Step1")  
    	    
-   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
+   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_Data)
    	    RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
    	    
-   	    data$Vi        <- round(RANDEF[1],2)
-   	    data$Vr        <- round(RANDEF[2],2)
-   	    data$Vp        <- round(data$Vi + data$Vr,2)
-   	    data$mean      <- round(mean(data$data_S$Phenotype),2)
-   	    data$R         <- round(data$Vi / (data$Vi + data$Vr),2)
+   	    data$Vi            <- round(RANDEF[1],2)
+   	    data$Vr            <- round(RANDEF[2],2)
+   	    data$Vp            <- round(data$Vi + data$Vr,2)
    	    
    	    updateCheckboxInput(session, "isRunning", value = FALSE)
    	    
@@ -49,14 +47,14 @@ c(
  	  
  	  input$Mod3Step1_previewPlot
  	  
- 	  myInput <- list("Mod3Step1_Preview_Tmax" = Modules_VAR$Tmax$max,
- 	                  "Mod3Step1_Preview_NI" = input$Mod3Step1_NI,
- 	                  "Mod3Step1_Preview_Vit" = input$Mod3Step1_Vit,
- 	                  "Mod3Step1_Preview_NR" = input$Mod3Step1_NR,
+ 	  myInput <- list("Mod3Step1_Preview_Tmax"      = Modules_VAR$Tmax$max,
+ 	                  "Mod3Step1_Preview_NI"        = input$Mod3Step1_NI,
+ 	                  "Mod3Step1_Preview_Vit"       = input$Mod3Step1_Vit,
+ 	                  "Mod3Step1_Preview_NR"        = input$Mod3Step1_NR,
  	                  "Mod3Step1_Preview_Dtime_Ind" = FALSE
  	                  )
  	  # Call app main function
- 	  data <- main(myInput, "Mod3Step1_Preview", session, TRUE)
+ 	  data <- SQUID::runSQUIDfct(myInput, "Mod3Step1_Preview", TRUE)
  	  print(data$myPlot$plotSampTime)
  	}),
  	

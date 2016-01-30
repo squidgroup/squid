@@ -1,16 +1,11 @@
 require(ggplot2)
 require(grid)
-# require(Rcpp)
-# require(RcppArmadillo)
-require("MASS")
-# library(microbenchmark)
 
-
-file.sources = paste("include/myInclude/fullModel/functions/",
-                     list.files(path = "include/myInclude/fullModel/functions/", 
-                                pattern = ".R"), 
-                     sep = "")
-S <- sapply(file.sources,source,.GlobalEnv)
+# file.sources = paste("include/myInclude/fullModel/functions/",
+#                      list.files(path = "include/myInclude/fullModel/functions/", 
+#                                 pattern = ".R"), 
+#                      sep = "")
+# S <- sapply(file.sources,source,.GlobalEnv)
 
 
 # includePath     <- "include/myInclude/fullModel/functions/cpp/"
@@ -64,51 +59,57 @@ input$test_Vk <- 0
 # ), 
 # 2)
   
+# Environment X1
+  input$test_X1_state      <- TRUE
+  # Stochastic
+    input$test_X1_ran_state  <- TRUE
+    input$test_X1_ran_shared <- FALSE
+    input$test_X1_ran_V      <- 1
+  # Autocorrelate
+    input$test_X1_ran_autocorrelation <- FALSE
+    input$test_X1_ran_corr            <- 0.8
+  # Linear
+    input$test_X1_lin_state <- FALSE
+    input$test_X1_lin_Slope <- 0.1
+  # Cyclic
+  input$test_X1_cyc_state <- FALSE
 
-input$test_X1_state      <- TRUE
-input$test_X1_ran_state  <- TRUE
-input$test_X1_ran_shared <- FALSE
-input$test_X1_ran_autocorrelation <- FALSE
-input$test_X1_ran_corr <- 0.85
-input$test_X1_ran_V     <- 1
+# Environment X2
+  input$test_X2_state        <- TRUE
+  # Stochastic
+    input$test_X2_ran_state  <- FALSE
+    input$test_X2_ran_shared <- FALSE
+    input$test_X2_ran_V      <- 1
+  # Autocorrelate
+    input$test_X2_ran_autocorrelation <- FALSE
+    input$test_X2_ran_corr  <- 0.85
+  # Linear
+    input$test_X2_lin_state <- TRUE
+    input$test_X2_lin_Slope <- 0.1
+  # Cyclic
+    input$test_X2_cyc_state <- TRUE
 
-
-input$test_X1_lin_state <- FALSE
-input$test_X1_lin_Slope         <- 0.1
-# 
-input$test_X1_cyc_state <- FALSE
-# input$test_X1_cyc_Period <- 40
-# 
-# input$test_X2_state     <- TRUE
-# input$test_X2_cyc_state <- TRUE
-# 
-# input$test_X_Interaction <- TRUE
  
 input$test_Tmax <- 100
 input$test_Time_sampling <- c(1,100)
 
 input$test_NP <- 1
-input$test_NI <- 500
+input$test_NI <- 5
 input$test_NT <- 1
-input$test_NR <- 20
+input$test_NR <- 5
 input$test_NK <- 1
 
 input$test_Drec_Ind    <- FALSE
 input$test_Drec_Trait  <- FALSE
-input$test_Dtime_Ind   <- TRUE
+input$test_Dtime_Ind   <- FALSE
 input$test_Dtime_Trait <- FALSE
 
 input$test_Vit <- 0
 
-environment <- NULL
-session     <- NULL
-progress    <- NULL
-
-
 myModule <- "test"
 
-data <- main(input, myModule, session, progress)
 
+data <- SQUID::runSQUIDfct(input, myModule, TRUE)
 
 
 
@@ -168,12 +169,12 @@ summary(LMR)
 # head(data$data_S)
 
 
-print(multiplot(data$myPlot$plotX1,
+print(SQUID::multiplot(data$myPlot$plotX1,
                 data$myPlot$plotX2,
                 data$myPlot$plotX1X2,
                 cols=1))
 
-print(multiplot(data$myPlot$plotTotPhen,
+print(SQUID::multiplot(data$myPlot$plotTotPhen,
                 data$myPlot$plotSampPhen,
                 data$myPlot$plotSampTime,
                 cols=1))

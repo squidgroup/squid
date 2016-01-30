@@ -34,9 +34,9 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
-        data <- main(input, "Mod6Step1", session, TRUE)  
+        data <- SQUID::runSQUIDfct(input, "Mod6Step1")  
         
-        LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$data_S)
+        LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$sampled_Data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
@@ -85,11 +85,14 @@ c(
       
       if(!is.null(data)){                    
         
-        print(ggplot(data = data$data_S, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
-          stat_smooth(method = "lm", se=FALSE) + 
-          theme(legend.position="none") + 
-          xlab("Environmental effect") + 
-          ylab("Phenotype"))
+        print(
+          ggplot2::ggplot(data = data$sampled_Data, ggplot2::aes(y     = Phenotype, 
+                                                           x     = X1, 
+                                                           color = as.factor(Individual))) +
+                          ggplot2::stat_smooth(method = "lm", se=FALSE) + 
+                          ggplot2::theme(legend.position="none") + 
+                          ggplot2::xlab("Environmental effect") + 
+                          ggplot2::ylab("Phenotype"))
         
       }else{
         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))

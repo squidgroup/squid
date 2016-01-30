@@ -1,8 +1,19 @@
+#' showEnvironment
+#'
+#' @description          create and return simulated environment
+#'
+#' @param input          list of the model variables.
+#' @param module         character of the module name
+#' @param envName        character of the name of the environment ("X1", "X2").
+#'
+#' @return               vector of number of records per individual and trait
+#' @export
+#'
 showEnvironment <- function(input, module, envName){
   
-  envObject <- SQUID::setEnvironments(input, module)
-  modelVar  <- SQUID::setVariables(input, module, envObject)
-  envData   <- SQUID::getEnvironment(envObject[[envName]], modelVar$N, TRUE)
+  envObject <- setEnvironments(input, module)
+  modelVar  <- setVariables(input, module, envObject)
+  envData   <- getEnvironment(envObject[[envName]], modelVar$N, TRUE)
   
   myData   <- data.frame("envData"  = envData, 
                          "x"        = rep(1:modelVar$N$NS, modelVar$N$NI),

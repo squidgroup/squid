@@ -1,9 +1,8 @@
 #################################################################
-## Include packages and source functions ########################
-
-source("./include/include.R", local = TRUE)
-
 #################################################################
+
+## Include packages and source functions ########################
+source("./include/include.R", local = TRUE)
 
 #################################################################
 #################################################################
@@ -11,8 +10,9 @@ source("./include/include.R", local = TRUE)
 #################################################################
 #################################################################
 
-shinyUI( fluidPage(
- 
+shinyUI(
+  fluidPage(
+    
   # Header
   # add custom CSS and Javascipt file
   tags$head(
@@ -25,17 +25,12 @@ shinyUI( fluidPage(
                         console.log(message)
                         eval(message.code); 
                       });')),
-    # tags$script(src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full", type = 'text/javascript'),
-#     tags$script(src = 'https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML', type = 'text/javascript'),
     tags$script( "MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ]}});", type='text/x-mathjax-config'),
     tags$script(type="text/javascript", src = "js/googleAnalytics.js")
   ),
   
   # Navigation upper Bar
   navbarPage( 
-
-#     collapsable = TRUE,
-    
     # Application title
     title = "SQuID",
 
@@ -44,7 +39,6 @@ shinyUI( fluidPage(
              icon=icon("home", "fa-fw"),
              # Portal container
              tags$div(class="myPage myTutorial", 
-                      # portal()
                       source("./source/pages/portal/UIportal.R",local=TRUE)
                       )
              
@@ -102,7 +96,6 @@ shinyUI( fluidPage(
        " "
      )
     )
-    
   ) # END navbarPage
 )
 )

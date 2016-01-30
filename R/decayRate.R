@@ -1,4 +1,4 @@
-decay_rate <- function(env,corr, Nb){
+decayRate <- function(env,corr, Nb){
 
   myMatrix <- matrix(0, nrow=Nb, ncol=Nb)
   

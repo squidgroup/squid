@@ -35,9 +35,9 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
-        data <- main(input, "Mod6Step2", session, TRUE)  
+        data <- SQUID::runSQUIDfct(input, "Mod6Step2")  
         
-        LMR      <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = data$data_S)
+        LMR      <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = data$sampled_Data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
@@ -48,19 +48,19 @@ c(
         data$B1        <- round(fixef(LMR)[2],2) 
         
         # Remove covariance
-        df   <- data$data_S
+        df   <- data$sampled_Data
         
         if(input$Mod6Step2_CorIS != 0){
-          newdf <- df              %>% 
-            select(Individual,Je1) %>%
-            unique()               %>%
-            transmute(Individual = sample(Individual), Je1 = Je1)
+          newdf <- df                   %>% 
+                  select(Individual,S1) %>%
+                  unique()              %>%
+                  transmute(Individual = sample(Individual), S1 = S1)
           
-          df <- df       %>% 
-            select(-Je1) %>%
-            inner_join(newdf)
+          df <- df           %>% 
+                select(-S1)  %>%
+                inner_join(newdf)
           
-          df$Phenotype    <- (df$B0 + df$J0) + (df$Be1 + df$Je1) * df$X1 + df$ME
+          df$Phenotype    <- (df$B0 + df$I) + (df$B1 + df$S1) * df$X1 + df$e
         }
         
         data$df <- df
@@ -107,8 +107,8 @@ c(
       if(!is.null(data)){
         
         data$df$covariance     <- "Without covariance"
-        data$data_S$covariance <- "With covariance"
-        myDf <- rbind(data$data_S, data$df)
+        data$sampled_Data$covariance <- "With covariance"
+        myDf <- rbind(data$sampled_Data, data$df)
         
         print(ggplot(data = myDf, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
           stat_smooth(method = "lm", se=FALSE) + 

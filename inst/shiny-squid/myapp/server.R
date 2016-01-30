@@ -1,29 +1,29 @@
 # Source included packages and functions
-source("include/include.R", local = TRUE)
 
-# Initialisation ------------------------------------------
 
-# Graphs
-color <- list(
-  "color1"  = "red",
-  "color2"  =  "dodgerblue"
-)
-
-data_S      <- NULL
-environment <- NULL
-sliderMin   <- NULL
-sliderMax   <- NULL
-TmaxOld     <- 100
-Test        <- NULL
-
-isPreparing <- FALSE
-isRunning   <- FALSE
-
+# data_S      <- NULL
+# environment <- NULL
+# sliderMin   <- NULL
+# sliderMax   <- NULL
+# TmaxOld     <- 100
+# Test        <- NULL
 
 # My WebServer  ----------------------------------------------------------------
 
 shinyServer(function(input, output, session) {
 
+  # Initialisation ------------------------------------------
+  source("include/include.R", local = TRUE)
+  
+  # Graphs
+  color <- list(
+    "color1"  = "red",
+    "color2"  =  "dodgerblue"
+  )
+  
+  isPreparing <- FALSE
+  isRunning   <- FALSE
+  
   # Portal ----------------
   
   # Modules   ---------------------------------------------------------  

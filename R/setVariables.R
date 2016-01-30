@@ -1,15 +1,14 @@
-# Test and initialize inputs
-# 
-# Args:
-#   input: list contains all the inputs used to run the model 
-#          (for more details see setEnvironments and setVariables functions).
-#   myModule: name of the module.
-#   Env: environment object of my model
-
-# Returns:
-#   Return a list that contains all model variables
-
-setVariables <- function(input, myModule, Env){
+#' setVariables
+#'
+#' @description          test and initialize input variables
+#' 
+#' @param input          list of all the inputs used to run the model.
+#' @param module         character of the name of the module.
+#' @param environment    list of the model environments.
+#'
+#' @return               list of all model variables
+#'
+setVariables <- function(input, module, environments){
   
   ##############################################################
   ################## VARIABLES DECLARATION #####################
@@ -19,7 +18,6 @@ setVariables <- function(input, myModule, Env){
   Variables <- list(
     "nb.IS"    = 4,   # Minimum number of intercepts + slopes
     "nb.KE"    = 2,   # Number of known environment 
-    # "nb.UE"    = 2,   # Number of unknown environment
     "B0"       = 1,   # Position of intercept component in the (Co)variance matrix
     "X1"       = 2,   # Position of environment X1 component in the (Co)variance matrix
     "X2"       = 3,   # Position of environment X2 component in the (Co)variance matrix
@@ -27,24 +25,24 @@ setVariables <- function(input, myModule, Env){
   )
   
   inputNames <- list(
-    "B"              = paste(myModule,"B", sep = "_"),      
-    "Vind"           = paste(myModule,"Vind", sep = "_"),
-    "Vme"            = paste(myModule,"Vme", sep = "_"),
-    "Vk"             = paste(myModule,"Vk", sep = "_"),
-    "Tmax"           = paste(myModule,"Tmax", sep = "_"),      
-    "Time_sampling"  = paste(myModule,"Time_sampling", sep = "_"),
-    "Vit"            = paste(myModule,"Vit", sep = "_"),
-    "Drec_Ind"       = paste(myModule,"Drec_Ind", sep = "_"),
-    "Drec_Trait"     = paste(myModule,"Drec_Trait", sep = "_"),
-    "Dtime_Ind"      = paste(myModule,"Dtime_Ind", sep = "_"),
-    "Dtime_Trait"    = paste(myModule,"Dtime_Trait", sep = "_"),
-    "NR_Fixe"        = paste(myModule,"NR_Fixe", sep = "_"),
-    "NP"             = paste(myModule,"NP", sep = "_"),
-    "NI"             = paste(myModule,"NI", sep = "_"),
-    "NT"             = paste(myModule,"NT", sep = "_"),
-    "NR"             = paste(myModule,"NR", sep = "_"),
-    "NK"             = paste(myModule,"NK", sep = "_"),
-    "PB"             = paste(myModule,"PB", sep = "_")
+    "B"              = paste(module,"B", sep = "_"),      
+    "Vind"           = paste(module,"Vind", sep = "_"),
+    "Vme"            = paste(module,"Vme", sep = "_"),
+    "Vk"             = paste(module,"Vk", sep = "_"),
+    "Tmax"           = paste(module,"Tmax", sep = "_"),      
+    "Time_sampling"  = paste(module,"Time_sampling", sep = "_"),
+    "Vit"            = paste(module,"Vit", sep = "_"),
+    "Drec_Ind"       = paste(module,"Drec_Ind", sep = "_"),
+    "Drec_Trait"     = paste(module,"Drec_Trait", sep = "_"),
+    "Dtime_Ind"      = paste(module,"Dtime_Ind", sep = "_"),
+    "Dtime_Trait"    = paste(module,"Dtime_Trait", sep = "_"),
+    "NR_Fixe"        = paste(module,"NR_Fixe", sep = "_"),
+    "NP"             = paste(module,"NP", sep = "_"),
+    "NI"             = paste(module,"NI", sep = "_"),
+    "NT"             = paste(module,"NT", sep = "_"),
+    "NR"             = paste(module,"NR", sep = "_"),
+    "NK"             = paste(module,"NK", sep = "_"),
+    "PB"             = paste(module,"PB", sep = "_")
   )
   
   ##############################################################
@@ -121,15 +119,15 @@ setVariables <- function(input, myModule, Env){
   if(inputNames$Vind %in% names(input)){
     V$Vind <- as.matrix(input[[inputNames$Vind]])
     
-        if(!Env$X1$state){
+        if(!environments$X1$state){
           V$Vind[seq(from=Variables$X1, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
           V$Vind[ ,seq(from=Variables$X1, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
         }
-        if(!Env$X2$state){
+        if(!environments$X2$state){
           V$Vind[seq(from=Variables$X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
           V$Vind[ ,seq(from=Variables$X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
         }
-        if(!Env$Interaction){
+        if(!environments$Interaction){
           V$Vind[seq(from=Variables$X1X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
           V$Vind[ ,seq(from=Variables$X1X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
         }
@@ -142,9 +140,9 @@ setVariables <- function(input, myModule, Env){
   if(inputNames$B %in% names(input)){
     B <- input[[inputNames$B]]
     
-    if(!Env$X1$state)    B[seq(from=Variables$X1, to=Variables$X1+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
-    if(!Env$X2$state)    B[seq(from=Variables$X2, to=Variables$X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
-    if(!Env$Interaction) B[seq(from=Variables$X1X2, to=Variables$X1X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)] <- 0 
+    if(!environments$X1$state)    B[seq(from=Variables$X1, to=Variables$X1+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
+    if(!environments$X2$state)    B[seq(from=Variables$X2, to=Variables$X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
+    if(!environments$Interaction) B[seq(from=Variables$X1X2, to=Variables$X1X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)] <- 0 
     
     B <- repmat(as.matrix(B),N$NI*N$NS*N$NP,1)
     B <- reshapeMat(B, Variables$nb.IS)

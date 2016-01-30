@@ -1,54 +1,47 @@
-# createEnvironment: create an environment object
-#
-# Args:
-#   input: list contains all the inputs used to run the model
-#   myModule: name of the module.
-#   myEnv: name of the enviroment.
-#
-# Returns:
-#   myEnv: a list that contains the environment object
-
-createEnvironment <- function(input, myModule, myEnv){
-  
+#' createEnvironment
+#'
+#' @description          create an environment object
+#' 
+#' @param input          list of all the inputs used to run the model.
+#' @param module         character of the name of the module.
+#' @param environment    character of the environment name.
+#'
+#' @return               list of an environment object.
+#'
+createEnvironment <- function(input, module, environment){
   
   # extract environment parameters from the general inputs
   inputNames <- list(
-    "state"               = paste(myModule, myEnv, "state", sep = "_"),
-    # "shared"            = paste(myModule, myEnv, "shared", sep = "_"),
-    "myModule"            = paste(myModule, myEnv, "myModule", sep = "_"),
+    "state"               = paste(module, environment, "state", sep = "_"),
+    # "myModule"            = paste(myModule, myEnv, "myModule", sep = "_"),
     # Random effect
-    "ran_state"           = paste(myModule, myEnv, "ran_state", sep = "_"),
-    "ran_shared"          = paste(myModule, myEnv, "ran_shared", sep = "_"),
-    "ran_Mu"              = paste(myModule, myEnv, "ran_Mu", sep = "_"),
-    "ran_V"               = paste(myModule, myEnv, "ran_V", sep = "_"),
-    "ran_autocorrelation" = paste(myModule, myEnv, "ran_autocorrelation", sep = "_"),
-    "ran_corr"            = paste(myModule, myEnv, "ran_corr", sep = "_"),
+    "ran_state"           = paste(module, environment, "ran_state", sep = "_"),
+    "ran_shared"          = paste(module, environment, "ran_shared", sep = "_"),
+    "ran_Mu"              = paste(module, environment, "ran_Mu", sep = "_"),
+    "ran_V"               = paste(module, environment, "ran_V", sep = "_"),
+    "ran_autocorrelation" = paste(module, environment, "ran_autocorrelation", sep = "_"),
+    "ran_corr"            = paste(module, environment, "ran_corr", sep = "_"),
     # Linear effect
-    "lin_state"           = paste(myModule, myEnv, "lin_state", sep = "_"),
-    "lin_shared"          = paste(myModule, myEnv, "lin_shared", sep = "_"),
-    "lin_V"               = paste(myModule, myEnv, "lin_V", sep = "_"),
-    "lin_Intercept"       = paste(myModule, myEnv, "lin_Intercept", sep = "_"),
-    "lin_Slope"           = paste(myModule, myEnv, "lin_Slope", sep = "_"),
+    "lin_state"           = paste(module, environment, "lin_state", sep = "_"),
+    "lin_shared"          = paste(module, environment, "lin_shared", sep = "_"),
+    "lin_V"               = paste(module, environment, "lin_V", sep = "_"),
+    "lin_Intercept"       = paste(module, environment, "lin_Intercept", sep = "_"),
+    "lin_Slope"           = paste(module, environment, "lin_Slope", sep = "_"),
     # Cyclic effect
-    "cyc_state"           = paste(myModule, myEnv, "cyc_state", sep = "_"),
-    "cyc_shared"          = paste(myModule, myEnv, "cyc_shared", sep = "_"),
-    "cyc_V"               = paste(myModule, myEnv, "cyc_V", sep = "_"),
-    "cyc_Amplitude"       = paste(myModule, myEnv, "cyc_Amplitude", sep = "_"),
-    "cyc_Period"          = paste(myModule, myEnv, "cyc_Period", sep = "_"),
-    "cyc_Hshift"          = paste(myModule, myEnv, "cyc_Hshift", sep = "_"),
-    "cyc_Vshift"          = paste(myModule, myEnv, "cyc_Vshift", sep = "_")
+    "cyc_state"           = paste(module, environment, "cyc_state", sep = "_"),
+    "cyc_shared"          = paste(module, environment, "cyc_shared", sep = "_"),
+    "cyc_V"               = paste(module, environment, "cyc_V", sep = "_"),
+    "cyc_Amplitude"       = paste(module, environment, "cyc_Amplitude", sep = "_"),
+    "cyc_Period"          = paste(module, environment, "cyc_Period", sep = "_"),
+    "cyc_Hshift"          = paste(module, environment, "cyc_Hshift", sep = "_"),
+    "cyc_Vshift"          = paste(module, environment, "cyc_Vshift", sep = "_")
   )
   
   # Create a list of the environment object
-  envObj <-  list(
+  environmentObject <-  list(
     
     # the state of the environment (if TRUE is activated otherwise it's not)
     "state"  = ifelse(inputNames$state %in% names(input),input[[inputNames$state]],FALSE),
-    #       "shared" = ifelse(myEnv == "EG",TRUE,
-    #                         ifelse(myEnv == "ES",FALSE,
-    #                                ifelse(inputNames$shared %in% names(input),input[[inputNames$shared]],FALSE)
-    #                                )
-    #                         ),
     
     # Random effect (normal distribution)
     #   state: the state of the random environmental effect (TRUE is activated, FALSE is not)
@@ -91,5 +84,5 @@ createEnvironment <- function(input, myModule, myEnv){
                   "V"         = ifelse(inputNames$cyc_V %in% names(input),input[[inputNames$cyc_V]],1))
   )
   
-  return(envObj)
+  return(environmentObject)
 }

@@ -18,8 +18,5 @@ c(
   observe({if(input$Mod6Step2GotoStep1 != 0) updateTabsetPanel(session, "Module6TabsetPanel", selected = "Step 1")}),  
   observe({if(input$Mod6Step1GotoStep2 != 0) updateTabsetPanel(session, "Module6TabsetPanel", selected = "Step 2")}),  
   observe({if(input$Mod6Step3GotoStep2 != 0) updateTabsetPanel(session, "Module6TabsetPanel", selected = "Step 2")}),  
-  observe({if(input$Mod6Step2GotoStep3 != 0) updateTabsetPanel(session, "Module6TabsetPanel", selected = "Step 3")}),
-  
-  observe({if(input$TEST != 0) session$sendCustomMessage('activeNavs', Module_titles$mod1)})
-  
+  observe({if(input$Mod6Step2GotoStep3 != 0) updateTabsetPanel(session, "Module6TabsetPanel", selected = "Step 3")})
 )

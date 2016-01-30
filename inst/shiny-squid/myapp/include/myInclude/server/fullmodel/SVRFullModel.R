@@ -49,24 +49,6 @@ SVRFullModel <- function(myModule, input, output, session){
   X2_shared          <- paste(myModule, "X2_shared", sep="_")
   X2_plotEnvironment <- paste(myModule, "X2_plotEnvironment", sep="_")
   
-  loader             <- paste(myModule, "loader", sep="_")
-  
-#   EG_state           <- paste(myModule, "EG_state", sep="_")
-#   EG_ran_state       <- paste(myModule, "EG_ran_state", sep="_")
-#   EG_ran_V           <- paste(myModule, "EG_ran_V", sep="_")
-#   EG_ran_corr        <- paste(myModule, "EG_ran_corr", sep="_")
-#   EG_lin_state       <- paste(myModule, "EG_lin_state", sep="_")
-#   EG_cyc_state       <- paste(myModule, "EG_cyc_state", sep="_")
-#   EG_plotEnvironment <- paste(myModule, "EG_plotEnvironment", sep="_")
-#   
-#   ES_state           <- paste(myModule, "ES_state", sep="_")
-#   ES_ran_state       <- paste(myModule, "ES_ran_state", sep="_")
-#   ES_ran_V           <- paste(myModule, "ES_ran_V", sep="_")
-#   ES_ran_corr        <- paste(myModule, "ES_ran_corr", sep="_")
-#   ES_lin_state       <- paste(myModule, "ES_lin_state", sep="_")
-#   ES_cyc_state       <- paste(myModule, "ES_cyc_state", sep="_")
-#   ES_plotEnvironment <- paste(myModule, "ES_plotEnvironment", sep="_")
-  
   X_Interaction      <- paste(myModule, "X_Interaction", sep="_")
   
   runButton          <- paste(myModule, "runButton", sep="_")
@@ -99,22 +81,19 @@ SVRFullModel <- function(myModule, input, output, session){
   error_NP              <- paste(myModule, "error_NP", sep="_")    
   error_X1_ran_V        <- paste(myModule, "error_X1_ran_V", sep="_")
   error_X2_ran_V        <- paste(myModule, "error_X2_ran_V", sep="_")
-#   error_EG_ran_V        <- paste(myModule, "error_EG_ran_V", sep="_")
-#   error_ES_ran_V        <- paste(myModule, "error_ES_ran_V", sep="_")
   error_X1_ran_corr     <- paste(myModule, "error_X1_ran_corr", sep="_")
   error_X2_ran_corr     <- paste(myModule, "error_X2_ran_corr", sep="_")
-#   error_EG_ran_corr     <- paste(myModule, "error_EG_ran_corr", sep="_")
-#   error_ES_ran_corr     <- paste(myModule, "error_ES_ran_corr", sep="_")
   error_NI              <- paste(myModule, "error_NI", sep="_")
   error_NK              <- paste(myModule, "error_NK", sep="_")
   error_Vme             <- paste(myModule, "error_Vme", sep="_")
   error_Vk              <- paste(myModule, "error_Vk", sep="_")
   error_NR              <- paste(myModule, "error_NR", sep="_")
-  # error_Vit             <- paste(myModule, "error_Vit", sep="_")
   error_B               <- paste(myModule, "error_B", sep="_")
   error_Vind            <- paste(myModule, "error_Vind", sep="_")
   
   Data_Description_Table<- paste(myModule, "Data_Description_Table", sep="_")
+  
+  loader             <- paste(myModule, "loader", sep="_")
   
   return(c(
     
@@ -221,13 +200,10 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
          # Call app main function
-         data <- main(input, myModule, session, TRUE) 
+         data <- SQUID::runSQUIDfct(input, myModule, TRUE) 
          
-         # save data
-         # data_S <<- data$data_S
-         
-         names(data$data_C) <- outputNames
-         names(data$data_S) <- outputNames
+         names(data$full_Data)    <- outputNames
+         names(data$sampled_Data) <- outputNames
          
          updateCheckboxInput(session, "isRunning", value = FALSE)
          
@@ -239,33 +215,28 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[plotEnvironment]] <- renderPlot({
           
        data <- myFullModel()
-       
        #   print result graphs 
-       print(multiplot(data$myPlot$plotX1,                    
-                       data$myPlot$plotX2,
-                       data$myPlot$plotX1X2,
-                       cols=1))
+       print(SQUID::multiplot(data$myPlot$plotX1,                    
+                              data$myPlot$plotX2,
+                              data$myPlot$plotX1X2,
+                              cols=1))
        
      }),
      
      output[[plotPhenotype]] <- renderPlot({
          
        data <- myFullModel() 
-       
        #   print result graphs 
-       print(multiplot(data$myPlot$plotTotPhen,                    
-                       data$myPlot$plotSampPhen,                    
-                       cols=1))
+       print(SQUID::multiplot(data$myPlot$plotTotPhen,                    
+                              data$myPlot$plotSampPhen,                    
+                              cols=1))
        
      }),
      
      output[[plotSamples]] <- renderPlot({
-       
        data <- myFullModel()
-       
        #   print result graphs 
        print(data$myPlot$plotSampTime)
-       
      }),
      
      # update the sampling time length for each individual    
@@ -285,7 +256,6 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, Dtime_Ind,   value = FALSE)
          updateCheckboxInput(session, Dtime_Trait,   value = FALSE)
        }
-       
      }),
 
      ######################################################################################
@@ -303,16 +273,6 @@ SVRFullModel <- function(myModule, input, output, session){
                updateCheckboxInput(session, X2_state, value = TRUE), 
                updateCheckboxInput(session, X2_state, value = FALSE))
         
-        # Update EG environment state
-#         ifelse(input[[EG_ran_state]] || input[[EG_lin_state]]|| input[[EG_cyc_state]], 
-#                updateCheckboxInput(session, EG_state, value = TRUE), 
-#                updateCheckboxInput(session, EG_state, value = FALSE))
-  
-        # Update ES environment state
-#         ifelse(input[[ES_ran_state]] || input[[ES_lin_state]]|| input[[ES_cyc_state]], 
-#                updateCheckboxInput(session, ES_state, value = TRUE), 
-#                updateCheckboxInput(session, ES_state, value = FALSE))
-        
         if(!input[[X1_ran_state]]) updateCheckboxInput(session, X1_ran_shared, value = TRUE)
         if(!input[[X1_lin_state]]) updateCheckboxInput(session, X1_lin_shared, value = TRUE)
         if(!input[[X1_cyc_state]]) updateCheckboxInput(session, X1_cyc_shared, value = TRUE)
@@ -325,17 +285,8 @@ SVRFullModel <- function(myModule, input, output, session){
         if(!input[[X1_state]] || !input[[X2_state]]) updateCheckboxInput(session, X_Interaction, value = FALSE)
       }),
 
-
-#       observe({
-#         ifelse(input[[ES_ran_state]] || input[[ES_lin_state]]|| input[[ES_cyc_state]], 
-#                updateCheckboxInput(session, ES_state, value = TRUE), 
-#                updateCheckboxInput(session, ES_state, value = FALSE))
-#       }),
-
-      output[[X1_plotEnvironment]] <- renderPlot({showEnvironment(input, myModule, "X1")}),
-      output[[X2_plotEnvironment]] <- renderPlot({showEnvironment(input, myModule, "X2")}),
-#       output[[EG_plotEnvironment]] <- renderPlot({showEnvironment(input, myModule, "EG")}),
-#       output[[ES_plotEnvironment]] <- renderPlot({showEnvironment(input, myModule, "ES")}),
+      output[[X1_plotEnvironment]] <- renderPlot({SQUID::showEnvironment(input, myModule, "X1")}),
+      output[[X2_plotEnvironment]] <- renderPlot({SQUID::showEnvironment(input, myModule, "X2")}),
      
     ######################################################################################
     ############################### VARIANCES SUMMARY ####################################
@@ -403,15 +354,10 @@ SVRFullModel <- function(myModule, input, output, session){
       }else{
         myTable <- subset(myTable, Trait.y != "0 (0%)")
       }
-      
-      
-      
+
       getTable(myTable)
       
     }),
-
-# , options = list(paging = FALSE, searching = FALSE, info = FALSE, ordering = FALSE)
-
 
     ######################################################################################
     ################################## ERROR MANAGER #####################################
@@ -426,18 +372,13 @@ SVRFullModel <- function(myModule, input, output, session){
          !testInput(input[[NP]], FullModel_VAR$NP, TRUE, FALSE)                      ||            
          !testInput(input[[X1_ran_V]], FullModel_VAR$ranV, FALSE, FALSE)             ||
          !testInput(input[[X2_ran_V]], FullModel_VAR$ranV, FALSE, FALSE)             ||
-#          !testInput(input[[EG_ran_V]], FullModel_VAR$ranV, FALSE, FALSE)             ||
-#          !testInput(input[[ES_ran_V]], FullModel_VAR$ranV, FALSE, FALSE)             ||             
-         !testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)     || 
-         !testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)     || 
-#          !testInput(input[[EG_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)     || 
-#          !testInput(input[[ES_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)     ||             
+         !testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)       || 
+         !testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)       || 
          !testInput(input[[NI]], FullModel_VAR$NI, TRUE, FALSE)                      ||
          !testInput(input[[Vme]], FullModel_VAR$Vme, FALSE, FALSE)                   ||
-         !testInput(input[[Vk]], FullModel_VAR$Vk, FALSE, FALSE)                    ||
-         !testInput(input[[NK]], FullModel_VAR$NK, TRUE, FALSE, TRUE)          ||
+         !testInput(input[[Vk]], FullModel_VAR$Vk, FALSE, FALSE)                     ||
+         !testInput(input[[NK]], FullModel_VAR$NK, TRUE, FALSE, TRUE)                ||
          !testInput(input[[NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
-         # !testInput(input[[Vit]], FullModel_VAR$Vit, FALSE, FALSE)                   ||
          !testInputBMatrix(input[[B]] , FullModel_VAR$B, FALSE)                      ||
          !testInputVindMatrix(input[[Vind]] , FullModel_VAR$Vind, FALSE)){
         return(TRUE)
@@ -477,12 +418,8 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[error_NP]]              <- renderUI({testInput(input[[NP]], FullModel_VAR$NP, TRUE, TRUE)}),     
      output[[error_X1_ran_V]]        <- renderUI({testInput(input[[X1_ran_V]], FullModel_VAR$ranV, FALSE, TRUE)}),
      output[[error_X2_ran_V]]        <- renderUI({testInput(input[[X2_ran_V]], FullModel_VAR$ranV, FALSE, TRUE)}),
-#      output[[error_EG_ran_V]]        <- renderUI({testInput(input[[EG_ran_V]], FullModel_VAR$ranV, FALSE, TRUE)}),
-#      output[[error_ES_ran_V]]        <- renderUI({testInput(input[[ES_ran_V]], FullModel_VAR$ranV, FALSE, TRUE)}),     
      output[[error_X1_ran_corr]]    <- renderUI({testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
      output[[error_X2_ran_corr]]    <- renderUI({testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
-#      output[[error_EG_ran_corr]]    <- renderUI({testInput(input[[EG_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
-#      output[[error_ES_ran_corr]]    <- renderUI({testInput(input[[ES_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),     
      output[[error_NI]]              <- renderUI({testInput(input[[NI]], FullModel_VAR$NI, TRUE, TRUE)}),
      output[[error_Vme]]             <- renderUI({testInput(input[[Vme]], FullModel_VAR$Vme, FALSE, TRUE)}),
      output[[error_NK]]              <- renderUI({testInput(input[[NK]], FullModel_VAR$NK, TRUE, TRUE, TRUE)}),
@@ -491,7 +428,6 @@ SVRFullModel <- function(myModule, input, output, session){
           input[[Tmax]];input[[Vit]];
           testInput(input[[NR]], FullModel_VAR$NR, TRUE, TRUE) 
        }),
-     # output[[error_Vit]]             <- renderUI({testInput(input[[Vit]], FullModel_VAR$Vit, FALSE, TRUE)}),
      output[[error_B]]               <- renderUI({testInputBMatrix(input[[B]] , FullModel_VAR$B, TRUE)}),
      output[[error_Vind]]            <- renderUI({testInputVindMatrix(input[[Vind]], FullModel_VAR$Vind, TRUE)}),
 
@@ -504,7 +440,7 @@ SVRFullModel <- function(myModule, input, output, session){
         paste('data-', Sys.Date(), '.csv', sep="")
       },
       content = function(con) {
-        write.csv(myFullModel()$data_S, con)
+        write.csv(myFullModel()$sampled_Data, con)
       }
     ),
 
@@ -513,7 +449,7 @@ SVRFullModel <- function(myModule, input, output, session){
         paste('data-', Sys.Date(), '.csv', sep="")
       },
       content = function(con) {
-        write.csv(myFullModel()$data_C, con)
+        write.csv(myFullModel()$full_Data, con)
       }
     ),
 
@@ -582,12 +518,5 @@ SVRFullModel <- function(myModule, input, output, session){
       return(getTable(myTable))
       
     })
-
-    ######################################################################################
-    ################################## LOADER INDICATOR ##################################
-    ######################################################################################
-
-
-    
   )) # End return
 }

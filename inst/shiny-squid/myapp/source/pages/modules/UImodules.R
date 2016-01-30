@@ -1,5 +1,3 @@
-
-    
 fixedPage( HTML("<div>"),                                 
    
    navlistPanel( 

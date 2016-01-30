@@ -26,7 +26,7 @@ c(
     }),
     outputOptions(output, "Mod3Step3_hidden", suspendWhenHidden = FALSE),
     
-    output$Mod3Step3_X1_plot <- renderPlot({showEnvironment(input, "Mod3Step3" , "X1")}),
+    output$Mod3Step3_X1_plot <- renderPlot({SQUID::showEnvironment(input, "Mod3Step3" , "X1")}),
     
     ######### Run simulation #########
     # Run simulation and return results
@@ -39,15 +39,15 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
-        data <- main(input, "Mod3Step3", session, TRUE)  
+        data <- SQUID::runSQUIDfct(input, "Mod3Step3")  
         
-        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$data_S)
+        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_Data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
         data$Vr        <- round(RANDEF[2],2)
         
-        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$data_S)
+        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_Data)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF2[1],2)
@@ -69,17 +69,17 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
-        data <- main(input, "Mod3Step3", session, TRUE)
+        data <- SQUID::runSQUIDfct(input, "Mod3Step3")
         
-        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$data_S)
+        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_Data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
         data$Vr        <- round(RANDEF[2],2)
         
-        data$data_S$X1 <- input$Mod3Step3_Vbx_proportion * data$data_S$X1
+        data$sampled_Data$X1 <- input$Mod3Step3_Vbx_proportion * data$sampled_Data$X1
         
-        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$data_S)
+        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_Data)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF2[1],2)
@@ -103,7 +103,7 @@ c(
                       "Mod3Step3_Preview_Dtime_Ind" = FALSE
       )
       # Call app main function
-      data <- main(myInput, "Mod3Step3_Preview", session, TRUE)
+      data <- SQUID::runSQUIDfct(myInput, "Mod3Step3_Preview", TRUE)
       print(data$myPlot$plotSampTime)
     }),
     

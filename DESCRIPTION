@@ -26,6 +26,7 @@ Imports:
     shiny,
     shinyBS,
     ggplot2,
+    cowplot, 
     lattice,
     grid,
     MASS,

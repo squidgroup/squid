@@ -1,6 +1,10 @@
-### Generate the sampling time for each individual, each trait and each population
-
-get_Tx_uniform <- function(N, Time){  
+#' getTxUniform
+#'
+#' @description          generate the sampling time for each individual, each trait and each population
+#'
+#' @return               matrix of sampling time
+#'
+getTxUniform <- function(N, Time){  
     
   if(Time$Tsamp > 1){
     
@@ -29,7 +33,8 @@ get_Tx_uniform <- function(N, Time){
         
         # Difference in sampling time among individuals and same among traits
         # Generate individual mean time sampling
-        if(diff!=0){sampMean <- sample(MuInterval, length(N$NRI)/N$NT, replace=T)
+        if(diff!=0){
+          sampMean <- sample(MuInterval, length(N$NRI)/N$NT, replace=T)
         }else{sampMean <- rep(MuInterval, length(N$NRI)/N$NT)}
         
         sampMin <- sampMean - (Time$TsampI/2)
@@ -49,7 +54,8 @@ get_Tx_uniform <- function(N, Time){
         
         # Difference in sampling time among Traits and same among individuals
         
-        if(diff!=0){sampMean <- sample(MuInterval, N$NT*N$NP, replace=T)
+        if(diff!=0){
+          sampMean <- sample(MuInterval, N$NT*N$NP, replace=T)
         }else{sampMean <- rep(MuInterval, N$NT*N$NP)}
         
         sampMin <- sampMean - (Time$TsampI/2)

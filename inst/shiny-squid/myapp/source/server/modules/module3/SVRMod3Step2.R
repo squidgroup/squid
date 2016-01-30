@@ -28,7 +28,7 @@ c(
         }),
  	outputOptions(output, "Mod3Step2_hidden", suspendWhenHidden = FALSE),
  	
- 	  output$Mod3Step2_X1_plot <- renderPlot({showEnvironment(input, "Mod3Step2" , "X1")}),
+ 	  output$Mod3Step2_X1_plot <- renderPlot({SQUID::showEnvironment(input, "Mod3Step2" , "X1")}),
       
     ######### Run simulation #########
    	# Run simulation and return results
@@ -41,16 +41,14 @@ c(
    	    updateCheckboxInput(session, "isRunning", value = TRUE)
    	    
    	    # Call app main function
-   	    data <- main(input, "Mod3Step2", session, TRUE)  
+   	    data <- SQUID::runSQUIDfct(input, "Mod3Step2")  
    	    
-   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$data_S)
+   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_Data)
    	    RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
    	    
    	    data$Vi        <- round(RANDEF[1],2)
    	    data$Vr        <- round(RANDEF[2],2) 
    	    data$Vp        <- round(data$Vi + data$Vr,2)
-   	    data$mean      <- round(mean(data$data_S$Phenotype),2)
-   	    data$R         <- round(data$Vi / (data$Vi + data$Vr),2)
    	    
    	    updateCheckboxInput(session, "isRunning", value = FALSE)
    	    
@@ -69,7 +67,7 @@ c(
  	                  "Mod3Step2_Preview_Dtime_Ind" = FALSE
  	                  )
  	  # Call app main function
- 	  data <- main(myInput, "Mod3Step2_Preview", session, TRUE)
+ 	  data <- SQUID::runSQUIDfct(myInput, "Mod3Step2_Preview", TRUE)
  	  print(data$myPlot$plotSampTime)
  	}),
  	
@@ -85,9 +83,7 @@ c(
    	                                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
    	                                        "")
    	  )  
-   	  
-   	  getTable(myTable) 
-   	  
+   	  getTable(myTable)
    	}),
  	
     ######### Manage errors #########
@@ -101,7 +97,6 @@ c(
      	    updateButton(session, "Mod3Step2_Run", disabled = FALSE, style = Modules_VAR$Run$style)
      	  }
      	}),
- 	
  	    output$Mod3Step2_error_ran_V     <- renderUI({testInput(input$Mod3Step2_X1_ran_V, FullModel_VAR$ranV, FALSE, TRUE)}),
  	    output$Mod3Step2_error_ran_corr  <- renderUI({testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, TRUE)})
 

@@ -7,6 +7,7 @@
 suppressPackageStartupMessages(library(shiny))
 suppressPackageStartupMessages(library(shinyBS))
 suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(cowplot))
 suppressPackageStartupMessages(library(lattice))
 suppressPackageStartupMessages(library(grid))
 suppressPackageStartupMessages(library(MASS))
@@ -20,7 +21,7 @@ suppressPackageStartupMessages(library(dplyr))
 #################################################################
 #################################################################
 
-includePath     <- "include/myInclude/"
+includePath     <- "./include/myInclude/"
 file.sources    <- paste(includePath,list.files(includePath,
                                                 recursive=TRUE,
                                                 pattern='*.R$'),sep="")

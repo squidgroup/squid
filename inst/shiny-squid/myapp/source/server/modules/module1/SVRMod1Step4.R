@@ -41,21 +41,21 @@ c(
           updateCheckboxInput(session, "isRunning", value = TRUE)
 
           # Call app main function
-          data <- main(input, "Mod1Step4", session, TRUE)  
+          data <- SQUID::runSQUIDfct(input, "Mod1Step4")  
           
-          LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$data_S)
+          LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_Data)
           
           FIXEF    <- lme4::fixef(LMR)
           SE.FIXEF <- arm::se.fixef(LMR)
           RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
           # Make a mixed effect model to extract variances and slope      
-          data$Vp        <- round(var(data$data_S$Phenotype),2)
-          data$Vi        <- round(RANDEF[1],2)
-          data$Vme       <- round(RANDEF[2],2)
-          data$Be1       <- round(FIXEF["X1"],2)
-          data$se.Be1    <- round(SE.FIXEF["X1"],2)
-          data$mean      <- round(mean(data$data_S$Phenotype),2)
+          data$Vp            <- round(var(data$sampled_Data$Phenotype),2)
+          data$Vi            <- round(RANDEF[1],2)
+          data$Vme           <- round(RANDEF[2],2)
+          data$B1            <- round(FIXEF["X1"],2)
+          data$se.B1         <- round(SE.FIXEF["X1"],2)
+          data$phenotypeMean <- round(mean(data$sampled_Data$Phenotype),2)
           
           updateCheckboxInput(session, "isRunning", value = FALSE)
           
@@ -72,17 +72,14 @@ c(
         if(!is.null(data)){
           
           isolate({ 
-            
-            LM <- lm(Phenotype ~ X1, data = data$data_S)
-            
-            plot(Phenotype~X1,
-                 data = data$data_S,
-                 main= bquote(italic(beta[1(estimated)]) == .(data$Be1) %+-% .(data$se.Be1) ~~ (italic(beta[1(true)]) == .(round(input$Mod1Step4_B[1,2],2)))),
-                 xlab="Environment", 
-                 ylab="Phenotype",
-                 pch = 19,
-                 col = color$color2) 
-            abline(LM)          
+
+            ggplot2::ggplot(data$sampled_Data, ggplot2::aes(x     = X1, 
+                                                            y     = Phenotype)) +
+              ggplot2::geom_point() + 
+              ggplot2::geom_smooth(method = "lm", se = FALSE) + 
+              ggplot2::xlab("Environment") +
+              ggplot2::ylab("Phenotype") + 
+              ggplot2::ggtitle(bquote(italic(beta[1(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[1(true)]) == .(round(input$Mod1Step4_B[1,2],2)))))
         
           })
           
@@ -98,23 +95,16 @@ c(
         if(!is.null(data)){
           
           isolate({ 
-                  
-#             plot(Phenotype~X1,
-#                  data = data$data_S,
-#                  main= bquote(V[.(NOT$devI)] == .(data$Vi)),
-#                  xlab="Environment", 
-#                  ylab="Phenotype per individual",
-#                  pch = 19,
-#                  col = Individual) 
-            
-            xyplot(Phenotype~X1,
-                   type="b",
-                   data=data$data_S,
-                   group=Individual,
-                   xlab="Environment", 
-                   ylab="Phenotype per individual"
-            )
-            
+            ggplot2::ggplot(data$sampled_Data, ggplot2::aes(x     = X1, 
+                                                            y     = Phenotype, 
+                                                            color = as.factor(Individual),
+                                                            group = as.factor(Individual))) +
+              ggplot2::geom_point() + 
+              ggplot2::geom_smooth(method = "lm", se = FALSE) + 
+              ggplot2::xlab("Environment") +
+              ggplot2::ylab("Phenotype per individual") + 
+              ggplot2::theme(legend.position="none")
+
           })
           
         }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
@@ -131,36 +121,22 @@ c(
                                                paste("Slope of environmental effect ($",EQ3$mean1,"$) =",round(input$Mod1Step4_B[1,2],2))),
                               "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
                                               paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vme,"...")),
-                                              paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(data),data$mean,"...")),
-                                              paste("Estimated slope of environmental effect ($",NOT$mean,"'_1$) =  "    ,ifelse(!is.null(data),paste(data$Be1,"\U00b1", data$se.Be1, sep=" "),"..."))) 
+                                              paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(data),data$phenotypeMean,"...")),
+                                              paste("Estimated slope of environmental effect ($",NOT$mean,"'_1$) =  "    ,ifelse(!is.null(data),paste(data$B1,"\U00b1", data$se.B1, sep=" "),"..."))) 
                              )  
         
         getTable(myTable)
     
       }), 	
- 	
     
     ######### Manage errors #########
       observe({
-        if(
-#          !testInput(input$Mod1Step4_NI, Modules_VAR$NI, TRUE, FALSE)  || 
-#          !testInput(input$Mod1Step4_Vi, Modules_VAR$Vi, FALSE, FALSE) ||
-#          !testInput(input$Mod1Step4_Vme, Modules_VAR$Vme, FALSE, FALSE) || 
-         !testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE) #||
-#          !testInput(input$Mod1Step4_NR, Modules_VAR$NR, TRUE, FALSE) ||  
-#          !testInput(input$Mod1Step4_Bx1, Modules_VAR$Bes, FALSE, FALSE)
-         ){
+        if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
           updateButton(session, "Mod1Step4_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
         }else{
           updateButton(session, "Mod1Step4_Run", disabled = FALSE, style = Modules_VAR$Run$style)
         }
       }),
-  
-#       output$Mod1Step4_error_NI   <- renderUI({testInput(input$Mod1Step4_NI, Modules_VAR$NI, TRUE, TRUE)}),
-#       output$Mod1Step4_error_Vi   <- renderUI({testInput(input$Mod1Step4_Vi, Modules_VAR$Vi, FALSE, TRUE)}),
-#       output$Mod1Step4_error_Vme  <- renderUI({testInput(input$Mod1Step4_Vme, Modules_VAR$Vi, FALSE, TRUE)}),
-      output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})#,
-#       output$Mod1Step4_error_NR   <- renderUI({testInput(input$Mod1Step4_NR, Modules_VAR$NR, TRUE, TRUE)}),
-#       output$Mod1Step4_error_Be1  <- renderUI({testInput(input$Mod1Step4_Be1, Modules_VAR$Bes, FALSE, TRUE)})
+      output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})
                 
   ) # End return
