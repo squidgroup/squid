@@ -1,17 +1,16 @@
 # SQUID
 
-## Installation and run SQuID
+## Installation
 
 To install from GitHub:
 
 ```
 # install.packages("devtools")
-# install SQuID from github
 devtools::install_github("Haycen/SQUID")
 
 # run SQuID
 library(SQUID)
-runSQUID()
+runSQUIDapp()
 ```
 
 ## Biological goals
