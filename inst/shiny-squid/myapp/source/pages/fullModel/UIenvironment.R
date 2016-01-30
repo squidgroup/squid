@@ -27,10 +27,7 @@ UIenvironment <- function(Mod, name, isShared){
         condition = paste("input.",Mod,"_",name,"_ran_state == 1 || input.",
                           Mod,"_",name,"_lin_state == 1 || input.",
                           Mod,"_",name,"_cyc_state == 1", sep=""),
-          
-#           bsButton(paste(Mod,name,"VisualizeButton", sep="_"), label = "Visualize Environment", icon= FullModel_VAR$Run$icon, style = FullModel_VAR$Run$style),
-#           p(),
-          
+
           plotOutput(paste(Mod,name,"plotEnvironment", sep="_"))
 
       )
@@ -39,8 +36,3 @@ UIenvironment <- function(Mod, name, isShared){
   ) # End return
   
 }
-
-
-    
-    
-    

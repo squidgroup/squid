@@ -20,7 +20,6 @@ getSelectInput <- function(inputID, inputConf, placement="top", trigger="hover")
                                 inputConf$value)
                 )
   }
-  
   return(myOutput)
 }
 

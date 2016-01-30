@@ -42,8 +42,8 @@ c(
         data$Vi        <- round(RANDEF[1],2)
         data$Vs        <- round(RANDEF[2],2)
         data$Vr        <- round(RANDEF[3],2) 
-        data$B0        <- round(fixef(LMR)[1],2) 
-        data$B1        <- round(fixef(LMR)[2],2) 
+        data$B0        <- round(lme4::fixef(LMR)[1],2) 
+        data$B1        <- round(lme4::fixef(LMR)[2],2) 
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
         

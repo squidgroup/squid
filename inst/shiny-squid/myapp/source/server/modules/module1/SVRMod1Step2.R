@@ -54,7 +54,7 @@ c(
           mydata    <- data.frame(dens  = c(data$sampled_Data$Phenotype,data$sampled_Data$I, data$sampled_Data$e),
                                   lines = myFactor)
           
-          print(densityplot(~dens|lines,data=mydata,
+          print(lattice::densityplot(~dens|lines,data=mydata,
                             plot.points = T,
                             xlab="Model component values",
                             ylab="Density"))

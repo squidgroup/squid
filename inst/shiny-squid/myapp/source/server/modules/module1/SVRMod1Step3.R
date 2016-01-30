@@ -79,7 +79,7 @@ c(
      	                                      (data$sampled_Data$B1 * data$sampled_Data$X1) + data$sampled_Data$e),
      	                            lines = myFactor)
      	    
-     	    print(densityplot(~dens|lines,data=mydata,
+     	    print(lattice::densityplot(~dens|lines,data=mydata,
      	                      plot.points = T,as.table=TRUE,
      	                      xlab="Model component values",
      	                      ylab="Density"))            

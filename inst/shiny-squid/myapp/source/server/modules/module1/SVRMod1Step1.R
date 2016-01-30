@@ -40,14 +40,14 @@ c(
                                   , lines = rep(c(paste("Total phenotype (",NOT$trait.1,")",sep=""), 
                                                   paste("Individual phenotype (",NOT$devI,")",sep="")), each = length(data$sampled_Data$Phenotype)))
           
-          print(densityplot(~dens, data=mydata, groups=lines,
-                            plot.points=TRUE, ref=TRUE, 
-                            col=c(color$color1, color$color2),
-                            par.settings = list(superpose.line = list(col=c(color$color1, color$color2))),
-                            auto.key = list(corner = c(0.95, 0.95)),
-                            main="Distribution of total and individual phenotype values",
-                            xlab="Phenotype values",
-                            ylab="Density"))            
+          print(lattice::densityplot(~dens, data=mydata, groups=lines,
+                                      plot.points=TRUE, ref=TRUE, 
+                                      col=c(color$color1, color$color2),
+                                      par.settings = list(superpose.line = list(col=c(color$color1, color$color2))),
+                                      auto.key = list(corner = c(0.95, 0.95)),
+                                      main="Distribution of total and individual phenotype values",
+                                      xlab="Phenotype values",
+                                      ylab="Density"))
           
         }else{
           print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))

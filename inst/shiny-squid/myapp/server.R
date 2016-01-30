@@ -1,19 +1,9 @@
-# Source included packages and functions
-
-
-# data_S      <- NULL
-# environment <- NULL
-# sliderMin   <- NULL
-# sliderMax   <- NULL
-# TmaxOld     <- 100
-# Test        <- NULL
-
 # My WebServer  ----------------------------------------------------------------
 
 shinyServer(function(input, output, session) {
 
   # Initialisation ------------------------------------------
-  source("include/include.R", local = TRUE)
+  source("./source/SVRsource.R",local=TRUE)
   
   # Graphs
   color <- list(

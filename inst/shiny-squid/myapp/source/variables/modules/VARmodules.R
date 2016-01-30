@@ -176,7 +176,19 @@ Modules_VAR <- list(
                                         "Linear" = "lin",
                                         "Cyclic" = "cyc")
   )
-  
+)
+
+Module_titles <- list(
+  "mod1"  = "Basic Lessons about Variance",
+  "mod2"  = "",
+  "mod3"  = "Non-stochastic environments",
+  "mod4"  = "",
+  "mod5"  = "",
+  "mod6"  = "Random slopes",
+  "mod7"  = "",
+  "mod8"  = "",
+  "mod9"  = "",
+  "mod10" = ""
 )
 
 

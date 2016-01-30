@@ -44,8 +44,8 @@ c(
         data$Vs        <- round(RANDEF[2],2)
         data$CorIS     <- round(RANDEF[3]/sqrt(RANDEF[1]*RANDEF[2]),2)
         data$Vr        <- round(RANDEF[4],2) 
-        data$B0        <- round(fixef(LMR)[1],2) 
-        data$B1        <- round(fixef(LMR)[2],2) 
+        data$B0        <- round(lme4::fixef(LMR)[1],2) 
+        data$B1        <- round(lme4::fixef(LMR)[2],2) 
         
         # Remove covariance
         df   <- data$sampled_Data
@@ -110,12 +110,14 @@ c(
         data$sampled_Data$covariance <- "With covariance"
         myDf <- rbind(data$sampled_Data, data$df)
         
-        print(ggplot(data = myDf, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
-          stat_smooth(method = "lm", se=FALSE) + 
-          theme(legend.position="none") + 
-          facet_grid(. ~ covariance) + 
-          xlab("Environmental effect") + 
-          ylab("Phenotype"))
+        print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype, 
+                                                        x     = X1, 
+                                                        color = as.factor(Individual))) +
+                              ggplot2::stat_smooth(method = "lm", se=FALSE) + 
+                              ggplot2::theme(legend.position="none") + 
+                              ggplot2::facet_grid(. ~ covariance) + 
+                              ggplot2::xlab("Environmental effect") + 
+                              ggplot2::ylab("Phenotype"))
         
       }else{
         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))

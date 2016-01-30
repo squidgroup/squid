@@ -1,6 +1,6 @@
 Package: SQUID
 Title: Statistical Quantification of Individual Differences
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R:c(
     person("Hassen"  , "Allegue"    , email = "h.allegue@oceans.ubc.ca"           , role = c("aut","cre")),
     person("Yimen"   , "Araya"      , email = "yimencr@gmail.com"                 , role = "aut"),
@@ -23,14 +23,14 @@ Depends:
 License: MIT
 LazyData: true
 Imports:
-    shiny,
-    shinyBS,
-    ggplot2,
-    cowplot, 
-    lattice,
-    grid,
-    MASS,
-    lme4,
-    arm,
-    dplyr
+    shiny (>= 0.13.0),
+    shinyBS (>= 0.61),
+    ggplot2 (>= 2.0.0),
+    cowplot (>= 0.6.0), 
+    lattice (>= 0.20-33),
+    grid (>= 3.2.3),
+    MASS (>= 7.3-45),
+    lme4 (>= 1.1-10),
+    arm (>= 1.8-6),
+    dplyr (>= 0.4.3)
 RoxygenNote: 5.0.1

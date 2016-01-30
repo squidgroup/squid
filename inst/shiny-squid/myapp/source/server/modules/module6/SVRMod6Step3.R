@@ -138,10 +138,10 @@ c(
         vline.data <- data.frame(z           = rep(c(0.5, 0.5, 0.5),each=3), 
                                  Parameter   = rep(c("CORis", "Vi", "Vs"),each=3))
         
-        print(ggplot(data, aes(x=Value)) +
-              geom_histogram(binwidth = 0.5) + 
-              geom_vline(aes(xintercept = z), vline.data, color="red") +
-              facet_grid(Parameter ~ nIndividual + nRecord))
+        print(ggplot2::ggplot(data, ggplot2::aes(x=Value)) +
+                              ggplot2::geom_histogram(binwidth = 0.5) + 
+                              ggplot2::geom_vline(ggplot2::aes(xintercept = z), vline.data, color="red") +
+                              ggplot2::facet_grid(Parameter ~ nIndividual + nRecord))
         
       }else{
         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))

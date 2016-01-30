@@ -1,4 +1,4 @@
-fixedPage( HTML("<div>"),                                 
+fixedPage( HTML("<div>"),
    
    navlistPanel( 
      
@@ -34,7 +34,7 @@ fixedPage( HTML("<div>"),
                             
                 ) # End tabsetPanel
               ) # End Wellpanel
-     ), # END Module 1               
+     ), # END Module 1
      
      # Module 2
      # tabPanel("Module 2",UImodule2()), # END Module 2

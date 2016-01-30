@@ -4,14 +4,15 @@
 #'                       phenotypic equation and then sampling from this world according to user-defined sampling design.
 #' 
 #' @param input          list of the model variables.
-#' @param module         character of the module name
+#' @param module         character of the module name when used with SQUID shiny app.
 #'
-#' @return               list.
+#' @return               list with a data.frame of the full data generated and a data.frame 
+#'                       of the sampled data.
 #' @export
 #' @example 
 #' runSQUIDfct()
 #'
-runSQUIDfct <- function(input, module="", shinyUI = FALSE){ 
+runSQUIDfct <- function(input=list(), module="", shinyUI = FALSE){ 
   
   # Main function of the full model that simulates individual phenotypes over time
   # and then samples within those phenotypes according to specific sampling design
@@ -19,20 +20,13 @@ runSQUIDfct <- function(input, module="", shinyUI = FALSE){
   # Args:
   #   input: list contains all the inputs used to run the model 
   #          (for more details see setEnvironments and setVariables functions).
-  #   myModule: name of the module.
-  #   session: shiny session object.
-  #   progress: progress bar object.
+  #   module: name of the module.
   
   # Returns:
-  #   Return a list that contains:
-  #     myPlot: plots of the simulation results
-  #     data_C: continous phenotypic data (raw data)
-  #     data_S: sampled phenotypic data
-  #     V: list of variances associated with the model  
-  
-  
-  # Start the clock!
-  #   ptm <- proc.time()
+  #   Return a list with:
+  #     full_Data   : continous phenotypic data (raw data)
+  #     sampled_Data: sampled phenotypic data
+  #     myPlot      : plots of the simulation results
   
   ##############################################################
   #################### INPUT VARIABLES  ########################
@@ -51,8 +45,6 @@ runSQUIDfct <- function(input, module="", shinyUI = FALSE){
   Time      <- variables$Time
   variables <- variables$Variables
   
-  #   cat("bar\n", file=stderr())
-  
   # Initialize output
   output <- list()
   
@@ -70,9 +62,6 @@ runSQUIDfct <- function(input, module="", shinyUI = FALSE){
     output[["myPlot"]]     <- displayResults(N, Time, output[["full_Data"]], output[["sampled_Data"]])
   
   #######################################################################################
-  # Stop clock timer
-  #   Time_clock <- proc.time() - ptm
-  #   cat(Time_clock)
 
   return(output)
   

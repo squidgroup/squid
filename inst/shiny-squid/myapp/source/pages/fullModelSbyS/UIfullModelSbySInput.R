@@ -3,16 +3,14 @@
 span( 
   
   conditionalPanel(
-    condition = "0",         
-    uiOutput('FModSbyS_B_UI_hidden'),    
+    condition = "0",
+    uiOutput('FModSbyS_B_UI_hidden'),
     uiOutput('FModSbyS_Vind_UI_hidden'),
     getCheckboxInput("FModSbyS_X1_state", FullModel_VAR$X1$state),
     getCheckboxInput("FModSbyS_X2_state", FullModel_VAR$X2$state)
-#         getCheckboxInput("FModSbyS_EG_state", FullModel_VAR$EG$state),
-#         getCheckboxInput("FModSbyS_ES_state", FullModel_VAR$ES$state)
   ), 
   
-  fixedPage(                       
+  fixedPage( 
     
     p(HTML(fullmodelTxt$inputStepbyStepDesign)),
     
@@ -23,7 +21,7 @@ span(
       column(width = 9,
              wellPanel( 
                
-               fixedRow(                     
+               fixedRow(
                  column(width = 3,
                         
                         getNumericInput("FModSbyS_Tmax", FullModel_VAR$Tmax, "FModSbyS_error_Tmax") 

@@ -66,7 +66,6 @@ EQ <- list(
 
 # Model equation components (without indices: time, individual and group)
 EQ2 <- list(
-  
 
   "dev0.1"       = paste(NOT$devI,"_",NOT$trait.1,sep=""),
   "dev0.2"       = paste(NOT$devI,"_",NOT$trait.2,sep=""),
@@ -118,7 +117,7 @@ general_VAR <- list(
   
   )
 
-outputNames <- c("Replicate",                                
+outputNames <- c("Replicate", 
                  "Individual",
                  "Individual_Trait",
                  "Trait", 
@@ -138,20 +137,3 @@ outputNames <- c("Replicate",
                  "G",
                  "e"
 )
-
-
-Module_titles <- list(
-  "mod1"  = "Basic Lessons about Variance",
-  "mod2"  = "",
-  "mod3"  = "Non-stochastic environments",
-  "mod4"  = "",
-  "mod5"  = "",
-  "mod6"  = "Random slopes",
-  "mod7"  = "",
-  "mod8"  = "",
-  "mod9"  = "",
-  "mod10" = ""
-)
-
-
-

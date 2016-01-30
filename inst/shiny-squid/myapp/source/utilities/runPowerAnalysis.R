@@ -13,26 +13,26 @@ runPowerAnalysis <- function(input, ModStep, NI, NR){
       
       df <- df$sampled_Data
       df <- df %>% 
-              select(Replicate, Individual, Phenotype, X1) %>% 
-              mutate(nIndividual=paste0("NI=",NI[index]), nRecord=paste0("NR=",NR[index]))
+              dplyr::select(Replicate, Individual, Phenotype, X1) %>% 
+              dplyr::mutate(nIndividual=paste0("NI=",NI[index]), nRecord=paste0("NR=",NR[index]))
       
       res <- rbind(res, df)
   }
   
   lmerRes <- res %>%
-                group_by(Replicate, nIndividual, nRecord) %>%
-                do(lmerall(.)) %>%
-                tbl_df()
+                dplyr::group_by(Replicate, nIndividual, nRecord) %>%
+                dplyr::do(lmerall(.)) %>%
+                dplyr::tbl_df()
 
   return(lmerRes)
 }
 
 lmerall <- function(df){    
-  modIDS      <- lmer(Phenotype~ X1 + (X1|Individual), data=df)
-  vcs         <- VarCorr(modIDS)
+  modIDS      <- lme4::lmer(Phenotype~ X1 + (X1|Individual), data=df)
+  vcs         <- lme4::VarCorr(modIDS)
   Vintercepts <- vcs$Individual[1,1]
   Vslopes     <- vcs$Individual[2,2]
-  corIS       <- cov2cor(vcs$Individual[,])[2]
+  corIS       <- stats::cov2cor(vcs$Individual[,])[2]
   res         <- data.frame("Parameter"  = c("Vi", "Vs", "CORis"), 
                             "Value"      = c(Vintercepts, Vslopes, corIS))
   return(res)
