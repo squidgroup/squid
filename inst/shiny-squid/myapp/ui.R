@@ -4,12 +4,12 @@
 #################################################################
 #################################################################
 
+## Include packages and source functions ########################
+source("./source/UIsource.R", local=TRUE)
+
 shinyUI(
   fluidPage(
-    
-    ## Include packages and source functions ########################
-    source("./source/UIsource.R",local=TRUE),
-    
+
   # Header
   # add custom CSS and Javascipt file
   tags$head(
@@ -36,7 +36,7 @@ shinyUI(
              icon=icon("home", "fa-fw"),
              # Portal container
              tags$div(class="myPage myTutorial", 
-                      source("./source/pages/portal/UIportal.R",local=TRUE)
+                      source("./source/pages/portal/UIportal.R",local=TRUE)[["value"]]
                       )
              
     ), # End tabPanel Portal
@@ -47,7 +47,7 @@ shinyUI(
              # Portal container
              tags$div(class="myPage myTutorial", 
                       # UImodules()
-                      source("./source/pages/modules/UImodules.R",local=TRUE)
+                      source("./source/pages/modules/UImodules.R",local=TRUE)[["value"]]
                       )
     ), # End tabPanel Portal
 
@@ -55,14 +55,14 @@ shinyUI(
     tabPanel("Full model (Step by step)", # title
              icon=icon("coffee", "fa-fw"), # Icon
              # Simulation container 
-             tags$div(class="myPage",source("./source/pages/fullModelSbyS/UIfullModelSbyS.R",local=TRUE))
+             tags$div(class="myPage",source("./source/pages/fullModelSbyS/UIfullModelSbyS.R",local=TRUE)[["value"]])
     ), # End tabPanel Simulation 
 
     # Full model page
     tabPanel("Full model (express)", # title
              icon=icon("fighter-jet", "fa-fw"), # Icon
              # Simulation container 
-             tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE))
+             tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
     ), # End tabPanel Full Model 
 
     # People page

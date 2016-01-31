@@ -9,12 +9,12 @@ fixedPage( HTML("<div id='FullModelStepByStep'>"),
               
     # model description panel
     tabPanel("Description", 
-      source("./source/pages/fullModelSbyS/UImodelDescription.R",local=TRUE)
+      source("./source/pages/fullModelSbyS/UImodelDescription.R",local=TRUE)[["value"]]
     ),
 
     # Inputs panel
     tabPanel("Inputs",
-      source("./source/pages/fullModelSbyS/UIfullModelSbySInput.R",local=TRUE)
+      source("./source/pages/fullModelSbyS/UIfullModelSbySInput.R",local=TRUE)[["value"]]
     ),# End tabPanel Inputs
   
     # Outputs panel
@@ -46,7 +46,7 @@ fixedPage( HTML("<div id='FullModelStepByStep'>"),
         tabPanel("Sampling Time", plotOutput("FModSbyS_plotSamples", height = "350px")),
         tabPanel("Data file description", 
                  tags$b("Full model equation"),
-                 source("./source/pages/fullModelSbyS/UImodelEquation.R",local=TRUE),
+                 source("./source/pages/fullModelSbyS/UImodelEquation.R",local=TRUE)[["value"]],
                  uiOutput("FModSbyS_Data_Description_Table")
                ) # END Environements 
       )

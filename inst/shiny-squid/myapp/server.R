@@ -1,9 +1,9 @@
 # My WebServer  ----------------------------------------------------------------
 
-shinyServer(function(input, output, session) {
+# Initialisation ------------------------------------------
+source("./source/SVRsource.R",local=TRUE)
 
-  # Initialisation ------------------------------------------
-  source("./source/SVRsource.R",local=TRUE)
+shinyServer(function(input, output, session) {
   
   # Graphs
   color <- list(

@@ -70,7 +70,7 @@ span(
              
       h4("Model equation"),
       
-      source("./source/pages/fullModelSbyS/UImodelEquation.R",local=TRUE),
+      source("./source/pages/fullModelSbyS/UImodelEquation.R",local=TRUE)[["value"]],
       # UImodelEquation(),
      
       myDefinitionTable,

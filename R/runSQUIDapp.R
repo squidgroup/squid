@@ -1,6 +1,7 @@
 #' Run SQUID app
 #'
 #' @return NULL
+#' @import dplyr
 #' @export
 runSQUIDapp <- function() {
   appDir <- system.file("shiny-squid", "myapp", package = "SQUID")

@@ -1,5 +1,3 @@
-source("./source/text/portal/TXTportal.R",local=TRUE)
-
 fixedPage(
   wellPanel( 
     

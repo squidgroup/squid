@@ -21,16 +21,16 @@ fixedPage( HTML("<div>"),
                 tabsetPanel(id = "Module1TabsetPanel", type = "pills", selected = "Step 1",
                             
                             # Step 1 ------------------------------------------------------------
-                            tabPanel("Step 1", source("./source/pages/modules/module1/UIMod1Step1.R",local=TRUE)),    
+                            tabPanel("Step 1", source("./source/pages/modules/module1/UIMod1Step1.R",local=TRUE)[["value"]]),    
                             
                             # Step 2 ------------------------------------------------------------
-                            tabPanel("Step 2", source("./source/pages/modules/module1/UIMod1Step2.R",local=TRUE)),
+                            tabPanel("Step 2", source("./source/pages/modules/module1/UIMod1Step2.R",local=TRUE)[["value"]]),
                             
                             # Step 3 ------------------------------------------------------------
-                            tabPanel("Step 3", source("./source/pages/modules/module1/UIMod1Step3.R",local=TRUE)),
+                            tabPanel("Step 3", source("./source/pages/modules/module1/UIMod1Step3.R",local=TRUE)[["value"]]),
                             
                             # Step 4 ------------------------------------------------------------
-                            tabPanel("Step 4", source("./source/pages/modules/module1/UIMod1Step4.R",local=TRUE))
+                            tabPanel("Step 4", source("./source/pages/modules/module1/UIMod1Step4.R",local=TRUE)[["value"]])
                             
                 ) # End tabsetPanel
               ) # End Wellpanel
@@ -50,13 +50,13 @@ fixedPage( HTML("<div>"),
                 tabsetPanel(id = "Module3TabsetPanel", type = "pills", selected = "Step 1",
                             
                             # Step 1 ------------------------------------------------------------
-                            tabPanel("Step 1", source("./source/pages/modules/module3/UIMod3Step1.R",local=TRUE)),    
+                            tabPanel("Step 1", source("./source/pages/modules/module3/UIMod3Step1.R",local=TRUE)[["value"]]),
                             
                             # Step 2 ------------------------------------------------------------
-                            tabPanel("Step 2", source("./source/pages/modules/module3/UIMod3Step2.R",local=TRUE)),
+                            tabPanel("Step 2", source("./source/pages/modules/module3/UIMod3Step2.R",local=TRUE)[["value"]]),
                             
                             # Step 3 ------------------------------------------------------------
-                            tabPanel("Step 3", source("./source/pages/modules/module3/UIMod3Step3.R",local=TRUE))
+                            tabPanel("Step 3", source("./source/pages/modules/module3/UIMod3Step3.R",local=TRUE)[["value"]])
                             
                 )
               )
@@ -80,13 +80,13 @@ fixedPage( HTML("<div>"),
                 tabsetPanel(id = "Module6TabsetPanel", type = "pills", selected = "Step 1",
                             
                             # Step 1 ------------------------------------------------------------
-                            tabPanel("Step 1", source("./source/pages/modules/module6/UIMod6Step1.R",local=TRUE)),   
+                            tabPanel("Step 1", source("./source/pages/modules/module6/UIMod6Step1.R",local=TRUE)[["value"]]),
                             
                             # Step 2 ------------------------------------------------------------
-                            tabPanel("Step 2", source("./source/pages/modules/module6/UIMod6Step2.R",local=TRUE)),
+                            tabPanel("Step 2", source("./source/pages/modules/module6/UIMod6Step2.R",local=TRUE)[["value"]]),
                             
                             # Step 3 ------------------------------------------------------------
-                            tabPanel("Step 3",source("./source/pages/modules/module6/UIMod6Step3.R",local=TRUE))
+                            tabPanel("Step 3",source("./source/pages/modules/module6/UIMod6Step3.R",local=TRUE)[["value"]])
                 ) # End tabsetPanel
               ) # End Wellpanel   
      ) # END Module 6

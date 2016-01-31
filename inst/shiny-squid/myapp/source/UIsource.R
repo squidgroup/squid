@@ -7,6 +7,7 @@ source("./source/variables/fullmodel/VARfullmodel.R",local=TRUE)
 source("./source/variables/modules/VARmodules.R",local=TRUE)
 
 #### Text ####
+source("./source/text/portal/TXTportal.R",local=TRUE)
 source("./source/text/modules/TXTmodule1.R",local=TRUE)
 source("./source/text/modules/TXTmodule3.R",local=TRUE)
 source("./source/text/modules/TXTmodule6.R",local=TRUE)
