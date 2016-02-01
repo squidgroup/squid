@@ -76,6 +76,8 @@ SVRFullModel <- function(myModule, input, output, session){
   
   download_sampled      <- paste(myModule, "download_sampled", sep="_")
   download_raw          <- paste(myModule, "download_raw", sep="_")
+  save_inputs           <- paste(myModule, "save_inputs", sep="_")
+  load_inputs           <- paste(myModule, "load_inputs", sep="_")
   
   error_Tmax            <- paste(myModule, "error_Tmax", sep="_")
   error_NP              <- paste(myModule, "error_NP", sep="_")    
@@ -395,7 +397,7 @@ SVRFullModel <- function(myModule, input, output, session){
        }
      }),
      output[[rerunButtonError]] <- renderUI({
-      if(isError()){         
+      if(isError()){
         error_msg(FullModel_VAR$ReRun$errorTxt)
       }else{
         NULL
@@ -517,6 +519,30 @@ SVRFullModel <- function(myModule, input, output, session){
       
       return(getTable(myTable))
       
-    })
+    })#,
+  
+#     output[[save_inputs]] <- downloadHandler(
+#       filename = function() {
+#         paste('inputs-', Sys.Date(), '.RData', sep="")
+#       },
+#       content = function(con) {
+#         saveFile <- reactiveValuesToList(input)
+#         save(saveFile, file = con)
+#       }
+#     ),
+
+#     observe({
+#       
+#       inFile <- input[[load_inputs]]
+#       if (is.null(inFile))
+#         return(NULL)
+# 
+#       load(inFile$datapath)
+#       isolate(
+#         updateNumericInput(session, inputId = NI, value = saveFile[[NI]])
+#       )
+#       
+#     })
+
   )) # End return
 }

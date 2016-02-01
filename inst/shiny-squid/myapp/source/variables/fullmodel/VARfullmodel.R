@@ -34,6 +34,12 @@ FullModel_VAR <- list(
   # Download raw data Button
   "download_raw"  = list( "label"     = "Download Raw Data"),
   
+  # save input Button
+  "save"  = list( "label" = "Save"),
+  
+  # load input Button
+  "load"  = list( "label" = "Load"),
+  
   # Simulation time (Tmax)
   "Tmax"   = list( "label"       = "Time",
                    "infoTxt"     = "Simulation time (number of time steps).",
@@ -88,17 +94,6 @@ FullModel_VAR <- list(
   ),
   
   # Environement variables 
-  
-#   # Measured environment 
-#   "Known" = list( "label" = "Known environment",
-#                   "info"  = "Info_known"
-#             ),
-  
-#   # Unmeasured environment
-#   "Unknown" = list( "label" = "Unknown environment",
-#                     "info"  = "Info_unknown"
-#   ),
-  
   "Envnames" = c("X1", "X2", "EG", "ES"),
   
   "X1"     = list( "state" = list("label" = "Add environment X1", 
@@ -123,24 +118,6 @@ FullModel_VAR <- list(
                    "info"  = "Interaction between environment X1 and X2 is 
                               available only when both environements are not null." 
   ),
-  
-#   # Unmeasured general envrionmental influences (affecting the whole population in the same way)
-#   "EG"     = list( "state" = list("label" = "Add general environment (Shared)", 
-#                                   "info"  = "",
-#                                   "value" = FALSE),
-#                    "share" = list("label" = "Shared environment", 
-#                                   "info"  = "",
-#                                   "value" = TRUE)
-#   ),
-  
-#   # Unmeasured special environmental influences (affecting individuals independently pf each other)
-#   "ES"     = list( "state" = list("label" = "Add special environment (Unshared)", 
-#                                   "info"  = "",
-#                                   "value" = FALSE),
-#                    "share" = list("label" = "Shared environment", 
-#                                   "info"  = "",
-#                                   "value" = TRUE)
-#   ),
   
   # Stochastic environmental effect
   "ran"     = list( "state" = list("label"    = "Add stochastic environment effect", 
