@@ -43,7 +43,7 @@ getEnvironment <- function(environment, N, visualization){
         
       }else{
         
-        Amplitude <-  rep(rnorm(NB, environment$cyc$Amplitude, sqrt(environment)), each = N$NS)
+        Amplitude <-  rep(rnorm(NB, environment$cyc$Amplitude, sqrt(environment$cyc$V)), each = N$NS)
         Period    <-  rep(rnorm(NB, environment$cyc$Period,    sqrt(environment$cyc$V)), each = N$NS)
         Hshift    <-  rep(rnorm(NB, environment$cyc$Hshift,    sqrt(environment$cyc$V)), each = N$NS)
         Vshift    <-  rep(rnorm(NB, environment$cyc$Vshift,    sqrt(environment$cyc$V)), each = N$NS)

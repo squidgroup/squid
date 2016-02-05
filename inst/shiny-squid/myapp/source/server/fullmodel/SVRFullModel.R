@@ -28,25 +28,62 @@ SVRFullModel <- function(myModule, input, output, session){
   X1_state           <- paste(myModule, "X1_state", sep="_")
   X1_ran_state       <- paste(myModule, "X1_ran_state", sep="_")
   X1_ran_shared      <- paste(myModule, "X1_ran_shared", sep="_")
-  X1_shared          <- paste(myModule, "X1_shared", sep="_")
   X1_ran_V           <- paste(myModule, "X1_ran_V", sep="_")
+  X1_ran_autocorrelation <- paste(myModule, "X1_ran_autocorrelation", sep="_")
   X1_ran_corr        <- paste(myModule, "X1_ran_corr", sep="_")
   X1_lin_state       <- paste(myModule, "X1_lin_state", sep="_")
+  X1_lin_Intercept   <- paste(myModule, "X1_lin_Intercept", sep="_")
+  X1_lin_Slope       <- paste(myModule, "X1_lin_Slope", sep="_")
   X1_lin_shared      <- paste(myModule, "X1_lin_shared", sep="_")
+  X1_lin_V           <- paste(myModule, "X1_lin_V", sep="_")
   X1_cyc_state       <- paste(myModule, "X1_cyc_state", sep="_")
   X1_cyc_shared      <- paste(myModule, "X1_cyc_shared", sep="_")
+  X1_cyc_Amplitude   <- paste(myModule, "X1_cyc_Amplitude", sep="_")
+  X1_cyc_Period      <- paste(myModule, "X1_cyc_Period", sep="_")
+  X1_cyc_Hshift      <- paste(myModule, "X1_cyc_Hshift", sep="_")
+  X1_cyc_Vshift      <- paste(myModule, "X1_cyc_Vshift", sep="_")
+  X1_cyc_V           <- paste(myModule, "X1_cyc_V", sep="_")
+  X1_plotEnvironment <- paste(myModule, "X1_plotEnvironment", sep="_")
+  
+  
+  X1_state           <- paste(myModule, "X1_state", sep="_")
+  X1_ran_state       <- paste(myModule, "X1_ran_state", sep="_")
+  X1_ran_shared      <- paste(myModule, "X1_ran_shared", sep="_")
+  X1_ran_V           <- paste(myModule, "X1_ran_V", sep="_")
+  X1_ran_autocorrelation <- paste(myModule, "X1_ran_autocorrelation", sep="_")
+  X1_ran_corr        <- paste(myModule, "X1_ran_corr", sep="_")
+  X1_lin_state       <- paste(myModule, "X1_lin_state", sep="_")
+  X1_lin_Intercept   <- paste(myModule, "X1_lin_Intercept", sep="_")
+  X1_lin_Slope       <- paste(myModule, "X1_lin_Slope", sep="_")
+  X1_lin_shared      <- paste(myModule, "X1_lin_shared", sep="_")
+  X1_lin_V           <- paste(myModule, "X1_lin_V", sep="_")
+  X1_cyc_state       <- paste(myModule, "X1_cyc_state", sep="_")
+  X1_cyc_shared      <- paste(myModule, "X1_cyc_shared", sep="_")
+  X1_cyc_Amplitude   <- paste(myModule, "X1_cyc_Amplitude", sep="_")
+  X1_cyc_Period      <- paste(myModule, "X1_cyc_Period", sep="_")
+  X1_cyc_Hshift      <- paste(myModule, "X1_cyc_Hshift", sep="_")
+  X1_cyc_Vshift      <- paste(myModule, "X1_cyc_Vshift", sep="_")
+  X1_cyc_V           <- paste(myModule, "X1_cyc_V", sep="_")
   X1_plotEnvironment <- paste(myModule, "X1_plotEnvironment", sep="_")
   
   X2_state           <- paste(myModule, "X2_state", sep="_")
   X2_ran_state       <- paste(myModule, "X2_ran_state", sep="_")
   X2_ran_shared      <- paste(myModule, "X2_ran_shared", sep="_")
   X2_ran_V           <- paste(myModule, "X2_ran_V", sep="_")
+  X2_ran_autocorrelation <- paste(myModule, "X2_ran_autocorrelation", sep="_")
   X2_ran_corr        <- paste(myModule, "X2_ran_corr", sep="_")
   X2_lin_state       <- paste(myModule, "X2_lin_state", sep="_")
+  X2_lin_Intercept   <- paste(myModule, "X2_lin_Intercept", sep="_")
+  X2_lin_Slope       <- paste(myModule, "X2_lin_Slope", sep="_")
   X2_lin_shared      <- paste(myModule, "X2_lin_shared", sep="_")
+  X2_lin_V           <- paste(myModule, "X2_lin_V", sep="_")
   X2_cyc_state       <- paste(myModule, "X2_cyc_state", sep="_")
   X2_cyc_shared      <- paste(myModule, "X2_cyc_shared", sep="_")
-  X2_shared          <- paste(myModule, "X2_shared", sep="_")
+  X2_cyc_Amplitude   <- paste(myModule, "X2_cyc_Amplitude", sep="_")
+  X2_cyc_Period      <- paste(myModule, "X2_cyc_Period", sep="_")
+  X2_cyc_Hshift      <- paste(myModule, "X2_cyc_Hshift", sep="_")
+  X2_cyc_Vshift      <- paste(myModule, "X2_cyc_Vshift", sep="_")
+  X2_cyc_V           <- paste(myModule, "X2_cyc_V", sep="_")
   X2_plotEnvironment <- paste(myModule, "X2_plotEnvironment", sep="_")
   
   X_Interaction      <- paste(myModule, "X_Interaction", sep="_")
@@ -285,6 +322,7 @@ SVRFullModel <- function(myModule, input, output, session){
         
         # Interaction state
         if(!input[[X1_state]] || !input[[X2_state]]) updateCheckboxInput(session, X_Interaction, value = FALSE)
+
       }),
 
       output[[X1_plotEnvironment]] <- renderPlot({SQUID::showEnvironment(input, myModule, "X1")}),
@@ -520,7 +558,87 @@ SVRFullModel <- function(myModule, input, output, session){
       return(getTable(myTable))
       
     })#,
-  
+
+#     observe({
+#       
+#       inFile <- input[[load_inputs]]
+#       if (is.null(inFile))
+#         return(NULL)
+#       
+#       load(inFile$datapath)
+#       isolate({
+#         
+#         updateNumericInput(session, inputId = Tmax, value = saveFile[[Tmax]])
+#         updateNumericInput(session, inputId = NP,   value = saveFile[[NP]])
+#         updateNumericInput(session, inputId = NI,   value = saveFile[[NI]])
+#         updateNumericInput(session, inputId = NK,   value = saveFile[[NK]])
+#         updateSelectInput(session,  inputId = NT,   selected = saveFile[[NT]])
+# 
+#         # Environment X1
+#           # Stochastic environment
+#           updateCheckboxInput(session, inputId = X1_ran_state,  value = saveFile[[X1_ran_state]])
+#           updateNumericInput(session,  inputId = X1_ran_V,      value = saveFile[[X1_ran_V]])
+#           updateCheckboxInput(session, inputId = X1_ran_autocorrelation,  value = saveFile[[X1_ran_autocorrelation]])
+#           updateNumericInput(session,  inputId = X1_ran_corr,   value = saveFile[[X1_ran_corr]])
+#           updateCheckboxInput(session, inputId = X1_ran_shared, value = saveFile[[X1_ran_shared]])
+#           
+#           # Linear environment
+#           updateCheckboxInput(session, inputId = X1_lin_state,     value = saveFile[[X1_lin_state]])
+#           updateNumericInput(session,  inputId = X1_lin_Intercept, value = saveFile[[X1_lin_Intercept]])
+#           updateNumericInput(session,  inputId = X1_lin_Slope,     value = saveFile[[X1_lin_Slope]])
+#           updateCheckboxInput(session, inputId = X1_lin_shared,    value = saveFile[[X1_lin_shared]])
+#           updateNumericInput(session,  inputId = X1_lin_V,         value = saveFile[[X1_lin_V]])
+#           
+#           # Cyclic environment
+#           updateCheckboxInput(session, inputId = X1_cyc_state, value = saveFile[[X1_cyc_state]])
+#           updateNumericInput(session,  inputId = X1_cyc_Amplitude, value = saveFile[[X1_cyc_Amplitude]])
+#           updateNumericInput(session,  inputId = X1_cyc_Period, value = saveFile[[X1_cyc_Period]])
+#           updateNumericInput(session,  inputId = X1_cyc_Hshift, value = saveFile[[X1_cyc_Hshift]])
+#           updateNumericInput(session,  inputId = X1_cyc_Vshift, value = saveFile[[X1_cyc_Vshift]])
+#           updateCheckboxInput(session, inputId = X1_cyc_shared, value = saveFile[[X1_cyc_shared]])
+#           updateNumericInput(session,  inputId = X1_cyc_V,      value = saveFile[[X1_cyc_V]])
+#           
+#         # Environment X2
+#           # Stochastic environment
+#           updateCheckboxInput(session, inputId = X2_ran_state,  value = saveFile[[X2_ran_state]])
+#           updateNumericInput(session,  inputId = X2_ran_V,      value = saveFile[[X2_ran_V]])
+#           updateCheckboxInput(session, inputId = X2_ran_autocorrelation,  value = saveFile[[X2_ran_autocorrelation]])
+#           updateNumericInput(session,  inputId = X2_ran_corr,   value = saveFile[[X2_ran_corr]])
+#           updateCheckboxInput(session, inputId = X2_ran_shared, value = saveFile[[X2_ran_shared]])
+#           
+#           # Linear environment
+#           updateCheckboxInput(session, inputId = X2_lin_state,     value = saveFile[[X2_lin_state]])
+#           updateNumericInput(session,  inputId = X2_lin_Intercept, value = saveFile[[X2_lin_Intercept]])
+#           updateNumericInput(session,  inputId = X2_lin_Slope,     value = saveFile[[X2_lin_Slope]])
+#           updateCheckboxInput(session, inputId = X2_lin_shared,    value = saveFile[[X2_lin_shared]])
+#           updateNumericInput(session,  inputId = X2_lin_V,         value = saveFile[[X2_lin_V]])
+#           
+#           # Cyclic environment
+#           updateCheckboxInput(session, inputId = X2_cyc_state, value = saveFile[[X2_cyc_state]])
+#           updateNumericInput(session,  inputId = X2_cyc_Amplitude, value = saveFile[[X2_cyc_Amplitude]])
+#           updateNumericInput(session,  inputId = X2_cyc_Period, value = saveFile[[X2_cyc_Period]])
+#           updateNumericInput(session,  inputId = X2_cyc_Hshift, value = saveFile[[X2_cyc_Hshift]])
+#           updateNumericInput(session,  inputId = X2_cyc_Vshift, value = saveFile[[X2_cyc_Vshift]])
+#           updateCheckboxInput(session, inputId = X2_cyc_shared, value = saveFile[[X2_cyc_shared]])
+#           updateNumericInput(session,  inputId = X2_cyc_V,      value = saveFile[[X2_cyc_V]])
+#         
+#         # environment interaction
+#         updateCheckboxInput(session, inputId = X_Interaction, value = saveFile[[X_Interaction]]) ## doesn't work
+# 
+#         updateNumericInput(session,  inputId = Vme, value = saveFile[[Vme]])
+#         updateNumericInput(session,  inputId = Vk,  value = saveFile[[Vk]])
+#         
+#         updateNumericInput(session,  inputId = NR,  value = saveFile[[NR]])
+#         updateSliderInput(session,   inputId = Vit, value = saveFile[[Vit]])
+#         updateCheckboxInput(session, inputId = Drec_Ind,    value = saveFile[[Drec_Ind]])
+#         updateCheckboxInput(session, inputId = Drec_Trait,  value = saveFile[[Drec_Trait]])
+#         updateCheckboxInput(session, inputId = Dtime_Ind,   value = saveFile[[Dtime_Ind]])
+#         updateCheckboxInput(session, inputId = Dtime_Trait, value = saveFile[[Dtime_Trait]])
+#         
+#       })
+#       
+#     }),  
+# 
 #     output[[save_inputs]] <- downloadHandler(
 #       filename = function() {
 #         paste('inputs-', Sys.Date(), '.RData', sep="")
@@ -529,20 +647,7 @@ SVRFullModel <- function(myModule, input, output, session){
 #         saveFile <- reactiveValuesToList(input)
 #         save(saveFile, file = con)
 #       }
-#     ),
-
-#     observe({
-#       
-#       inFile <- input[[load_inputs]]
-#       if (is.null(inFile))
-#         return(NULL)
-# 
-#       load(inFile$datapath)
-#       isolate(
-#         updateNumericInput(session, inputId = NI, value = saveFile[[NI]])
-#       )
-#       
-#     })
+#     )
 
   )) # End return
 }
