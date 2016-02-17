@@ -1,4 +1,4 @@
-SVRGetSummaryVariances <- function(input,B,Vind,Vme,Vk,NT,step,nb.IS,trait,X1_state,X2_state,X_Interaction) {
+SVRGetSummaryVariances <- function(input,B,Vind,Ve,VG,NT,step,nb.IS,trait,X1_state,X2_state,X_Interaction) {
   
   myNT  <- as.numeric(input[[NT]]) 
   VCov  <- round(SQUID::Cor2CovMatrix(as.matrix(input[[Vind]])),2)
@@ -36,8 +36,8 @@ SVRGetSummaryVariances <- function(input,B,Vind,Vme,Vk,NT,step,nb.IS,trait,X1_st
 #                  2*VCov[X2+step, X1+step], # Cov Vslope1 and Vslope2
 #                  2*VCov[X1X2+step, X1+step], # Cov Vslope1 and Vslope12
 #                  2*VCov[X1X2+step, X2+step], # Cov Vslope1 and Vslope12
-                 input[[Vk]], # group variance
-                 input[[Vme]] # measurement error variance
+                 input[[VG]], # group variance
+                 input[[Ve]] # measurement error variance
                  )
 
   Vp             <- sum(Variances, na.rm = TRUE)

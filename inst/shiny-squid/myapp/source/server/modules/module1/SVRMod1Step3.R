@@ -7,8 +7,8 @@ c(
           list(
             numericInput("Mod1Step3_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod1Step3_Vind", "",data.frame(matrix(c(input$Mod1Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
-            numericInput("Mod1Step3_Vbx","", 1-input$Mod1Step3_Vi-input$Mod1Step3_Vme),
-            matrixInput2("Mod1Step3_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step3_Vi-input$Mod1Step3_Vme),0,0),1))),
+            numericInput("Mod1Step3_Vbx","", 1-input$Mod1Step3_Vi-input$Mod1Step3_Ve),
+            matrixInput2("Mod1Step3_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step3_Vi-input$Mod1Step3_Ve),0,0),1))),
             checkboxInput("Mod1Step3_X1_state", "", value = TRUE),
             checkboxInput("Mod1Step3_X1_ran_state", "", value = TRUE),
             checkboxInput("Mod1Step3_X1_ran_shared", "", value = FALSE),
@@ -61,7 +61,7 @@ c(
      	# Graph: density distribution of true values (Vp)
      	#        density distribution of blups (Vi)
      	#        density distribution of environnemental effect (Vx1)
-     	#        density distribution of deviation from blups (Vme)
+     	#        density distribution of deviation from blups (Ve)
      	output$Mod1Step3_plot <- renderPlot({ 
      	  
      	  data      <- Mod1Step3_output()
@@ -112,7 +112,7 @@ c(
    	  
    	  myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1",sep=""),
    	                                       paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step3_Vi),
-   	                                       paste("Residual variance ($V_{",EQ3$mean1," ",EQ2$env1,"}+V_",NOT$error,"$) =",input$Mod1Step3_Vme+input$Mod1Step3_Vbx),
+   	                                       paste("Residual variance ($V_{",EQ3$mean1," ",EQ2$env1,"}+V_",NOT$error,"$) =",input$Mod1Step3_Ve+input$Mod1Step3_Vbx),
    	                                       "Mean of the trait ($\\mu$) = 0"),
    	                        "Estimated" = c(paste("Total Phenotypic variance in sample ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vp,"...")),
                	                            paste("Sampled Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vi,"...")),

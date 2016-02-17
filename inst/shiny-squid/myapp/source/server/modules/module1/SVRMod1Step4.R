@@ -9,8 +9,8 @@ c(
           matrixInput2("Mod1Step4_Vind", "",data.frame(matrix(c(input$Mod1Step4_Vi,
                                                                 rep(0,(nb.IS*nb.IS)-1)),
                                                               nb.IS))),
-          numericInput("Mod1Step4_Vbx","", 1-input$Mod1Step4_Vi-input$Mod1Step4_Vme),
-          matrixInput2("Mod1Step4_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step4_Vi-input$Mod1Step4_Vme),0,0),1))),
+          numericInput("Mod1Step4_Vbx","", 1-input$Mod1Step4_Vi-input$Mod1Step4_Ve),
+          matrixInput2("Mod1Step4_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step4_Vi-input$Mod1Step4_Ve),0,0),1))),
           checkboxInput("Mod1Step4_X1_state", "", value = TRUE),
           checkboxInput("Mod1Step4_X1_ran_state", "", value = TRUE),
           numericInput("Mod1Step4_X1_ran_V","", 1, min = 0, max = 1, step = 0.001)
@@ -52,7 +52,7 @@ c(
           # Make a mixed effect model to extract variances and slope      
           data$Vp            <- round(var(data$sampled_Data$Phenotype),2)
           data$Vi            <- round(RANDEF[1],2)
-          data$Vme           <- round(RANDEF[2],2)
+          data$Ve           <- round(RANDEF[2],2)
           data$B1            <- round(FIXEF["X1"],2)
           data$se.B1         <- round(SE.FIXEF["X1"],2)
           data$phenotypeMean <- round(mean(data$sampled_Data$Phenotype),2)
@@ -110,17 +110,17 @@ c(
         }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
       }),
 
-      # Table : display true and measured values (Vp, Vme, mean and Beta es)
+      # Table : display true and measured values (Vp, Ve, mean and Beta es)
       output$Mod1Step4_summary_table <- renderUI({ 
         
         data <- Mod1Step4_output()
         
         myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step4_Vi),
-                                               paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step4_Vme),
+                                               paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step4_Ve),
                                                "Mean of the trait ($\\mu$) = 0",
                                                paste("Slope of environmental effect ($",EQ3$mean1,"$) =",round(input$Mod1Step4_B[1,2],2))),
                               "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
-                                              paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vme,"...")),
+                                              paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Ve,"...")),
                                               paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(data),data$phenotypeMean,"...")),
                                               paste("Estimated slope of environmental effect ($",NOT$mean,"'_1$) =  "    ,ifelse(!is.null(data),paste(data$B1,"\U00b1", data$se.B1, sep=" "),"..."))) 
                              )  

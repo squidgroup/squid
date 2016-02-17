@@ -1,5 +1,5 @@
 # UI: Module 6 Step 2
-span( 
+span(
     
     h4(Mod6Step2_txt$title),           # Text: title
     
@@ -47,7 +47,7 @@ span(
     getSliderInput("Mod6Step2_Vi", Modules_VAR$Vi),
     
     # Measurement error variance  
-    getSliderInput("Mod6Step2_Vme", Modules_VAR$Vme),
+    getSliderInput("Mod6Step2_Ve", Modules_VAR$Ve),
     
     # Variance of Mean Environment effects in the slope (V Beta1 X1)
     getSliderInput("Mod6Step2_Vbx", Modules_VAR$Vb1x1),
@@ -55,7 +55,7 @@ span(
     #Individual-specific response to an environmental effect (random slopes) variance (VS) :
     getSliderInput("Mod6Step2_Vs", Modules_VAR$Vs),
     
-    # Correlation between I and S (CorIS ): 
+    # Correlation between I and S (CorIS ):
     getSliderInput("Mod6Step2_CorIS", Modules_VAR$CorIS),
     
     # Hidden variable:
@@ -72,11 +72,11 @@ span(
     
     p(HTML(Mod6Step2_txt$results)),    # Text: results
     
-    # Table : display true and measured values (Vp, Vi and mean)      
+    # Table : display true and measured values (Vp, Vi and mean)
     uiOutput("Mod6Step2_summary_table"),
     
     (HTML(Mod6Step2_txt$para5)),       # Text: paragraph 5
-
+    
     p(plotOutput("Mod6Step2_plot", width = "700px")),
     
     p(HTML(Mod6Step2_txt$para6)),       # Text: paragraph 6
@@ -96,6 +96,4 @@ span(
     bsButton("Mod6Step2GotoStep1", label = "<< Previous Step (1)", style = Modules_VAR$StepLink$style), # Go to previous step       
     span(Modules_VAR$StepLink$sep, class="step-Link"),
     bsButton("Mod6Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
-    
-
 )

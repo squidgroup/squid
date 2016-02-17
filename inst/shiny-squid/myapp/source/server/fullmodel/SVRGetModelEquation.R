@@ -6,12 +6,8 @@ SVRGetModelEquation <- function(myModule, name, input, nb.IS){
   X1_state        <- input[[paste(myModule, "X1_state", sep="_")]]
   X2_state        <- input[[paste(myModule, "X2_state", sep="_")]]
   X_Interaction   <- input[[paste(myModule, "X_Interaction", sep="_")]]
-#   EG_state        <- input[[paste(myModule, "EG_state", sep="")]]
-#   EG_ran_V        <- input[[paste(myModule, "EG_ran_V", sep="")]]
-#   ES_state        <- input[[paste(myModule, "ES_state", sep="")]]
-#   ES_ran_V        <- input[[paste(myModule, "ES_ran_V", sep="")]]
-  Vk              <- input[[paste(myModule, "Vk", sep="_")]]
-  Vme             <- input[[paste(myModule, "Vme", sep="_")]]
+  VG              <- input[[paste(myModule, "VG", sep="_")]]
+  Ve              <- input[[paste(myModule, "Ve", sep="_")]]
   
   myEqu <- paste(
     "$$",NOT[[paste("trait.",name,sep="")]],"_{",NOT$time,NOT$ind,NOT$group,"}=",
@@ -43,10 +39,8 @@ SVRGetModelEquation <- function(myModule, name, input, nb.IS){
       ifelse(X_Interaction != 0 & Vind[nb.IS+X1X2,nb.IS+X1X2] > 0, EQ[[paste("dev12.",name,sep="")]],""),
       ifelse(X_Interaction != 0 & (B[1,nb.IS+X1X2] > 0 || Vind[nb.IS+X1X2,nb.IS+X1X2] > 0), paste(")",EQ[["env12"]],"+", sep=""), ""),
       
-#       ifelse(EG_state != 0 & EG_ran_V > 0, "EG+", ""),
-#       ifelse(ES_state != 0 & ES_ran_V > 0, "ES+", ""),
-      ifelse(Vk  > 0,paste(EQ[[paste("group.",name,sep="")]],"+",sep=""),""),
-      ifelse(Vme > 0,EQ[[paste("error.",name,sep="")]],""),
+      ifelse(VG  > 0, paste(EQ[[paste("group.",name,sep="")]],"+",sep=""),""),
+      ifelse(Ve  > 0, EQ[[paste("error.",name,sep="")]],""),
       "$$", sep="")
   
   if(substr(myEqu, nchar(myEqu)-2, nchar(myEqu)) == "+$$") myEqu <- paste(substr(myEqu, 1, nchar(myEqu)-3),"$$", sep="")

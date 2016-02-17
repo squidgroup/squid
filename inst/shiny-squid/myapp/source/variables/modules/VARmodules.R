@@ -68,8 +68,8 @@ Modules_VAR <- list(
                     "errorTxt"    = ""
   ),
   
-  # Measurement error variance (Vme)
-  "Vme"  = list("label"       = paste("Measurement error variance ($V_",NOT$error,"$):",sep=""),
+  # Measurement error variance (Ve)
+  "Ve"   = list("label"       = paste("Measurement error variance ($V_",NOT$error,"$):",sep=""),
                 "infoTxt"     = "Measurement error variance",
                 "value"       = 0.05,
                 "min"         = 0,

@@ -14,7 +14,7 @@ c(
           list(
             numericInput("Mod6Step3_NP", "", 100),
             numericInput("Mod6Step3_Tmax", "", Modules_VAR$Tmax$max),
-            numericInput("Mod6Step3_Vme", "", 0.05),
+            numericInput("Mod6Step3_Ve", "", 0.05),
             matrixInput2("Mod6Step3_Vind", "", Mod6Step3updateVind(nb.IS)),
             matrixInput2("Mod6Step3_B", "",data.frame(matrix(c(0.5,0.5,0,0),1))),
             checkboxInput("Mod6Step3_X1_state", "", value = TRUE),

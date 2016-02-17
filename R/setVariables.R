@@ -27,8 +27,8 @@ setVariables <- function(input, module, environments){
   inputNames <- list(
     "B"              = paste(module,"B", sep = "_"),      
     "Vind"           = paste(module,"Vind", sep = "_"),
-    "Vme"            = paste(module,"Vme", sep = "_"),
-    "Vk"             = paste(module,"Vk", sep = "_"),
+    "Ve"             = paste(module,"Ve", sep = "_"),
+    "VG"             = paste(module,"VG", sep = "_"),
     "Tmax"           = paste(module,"Tmax", sep = "_"),      
     "Time_sampling"  = paste(module,"Time_sampling", sep = "_"),
     "Vit"            = paste(module,"Vit", sep = "_"),
@@ -54,8 +54,8 @@ setVariables <- function(input, module, environments){
   # Variance 
   V <- list(
     "Vp"     = 1,          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)              
-    "Vme"    = ifelse(inputNames$Vme %in% names(input),input[[inputNames$Vme]],1e-10), # Measurement error variance
-    "Vk"     = ifelse(inputNames$Vk %in% names(input),input[[inputNames$Vk]],0) # Higher-level variance
+    "Ve"     = ifelse(inputNames$Ve %in% names(input),input[[inputNames$Ve]],1e-10), # Measurement error variance
+    "VG"     = ifelse(inputNames$VG %in% names(input),input[[inputNames$VG]],0) # Higher-level variance
   )
   
   x <- ifelse(inputNames$Tmax %in% names(input),input[[inputNames$Tmax]],1)

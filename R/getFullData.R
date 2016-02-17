@@ -46,19 +46,19 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
     
     ############################################## 
     # Higher-level grouping variance (h)  
-    if(V$Vk == 0){
+    if(V$VG == 0){
       G   <- vector(N$NI*N$NT*N$NP*N$NS, mode = "double")
     }else{
-      G   <- rep(rep(rnorm(N$NK*N$NT*N$NP, Mu, sqrt(V$Vk)), each=N$NI/N$NK), each=N$NS)
+      G   <- rep(rep(rnorm(N$NK*N$NT*N$NP, Mu, sqrt(V$VG)), each=N$NI/N$NK), each=N$NS)
     }
       
     ############################################## 
     # Measurement error variance (me)  
-    ME           <- rnorm(N$NI*N$NT*N$NP*N$NS, Mu, sqrt(V$Vme))
+    e           <- rnorm(N$NI*N$NT*N$NP*N$NS, Mu, sqrt(V$Ve))
     
     ############################################## 
     # Phenotypic equation
-    Phenotype    <-  rowSums((B + ind) * X) + G + ME
+    Phenotype    <-  rowSums((B + ind) * X) + G + e
     
     ############################################## 
     
@@ -97,7 +97,7 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
                                "X2"               = X[,variables$X2],
                                "X1X2"             = X[,variables$X1X2],
                                "G"                = G,
-                               "e"                = ME)
+                               "e"                = e)
 
   return(full_Data)
 

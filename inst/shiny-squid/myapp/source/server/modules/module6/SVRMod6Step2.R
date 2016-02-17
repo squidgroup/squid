@@ -83,7 +83,7 @@ c(
                         paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod6Step2_Vi),
                         paste("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$) =",input$Mod6Step2_Vs),
                         paste("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$) =",input$Mod6Step2_CorIS),
-                        paste("Residual variance ($V_",NOT$error,"$) =",input$Mod6Step2_Vme)),
+                        paste("Residual variance ($V_",NOT$error,"$) =",input$Mod6Step2_Ve)),
         "Estimated" = c("$\\text{Fixed effects}$",
                         paste("Sampled mean of the trait ($",NOT$mean,"'_0$) =",ifelse(!is.null(data),data$B0,"...")),
                         paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'_1$) =",ifelse(!is.null(data),data$B1,"...")),

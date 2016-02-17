@@ -23,14 +23,14 @@ span(
                
                fixedRow(
                  column(width = 3,
-                        
-                        getNumericInput("FModSbyS_Tmax", FullModel_VAR$Tmax, "FModSbyS_error_Tmax") 
+                
+                        getNumericInput("FModSbyS_Tmax", FullModel_VAR$Tmax, "FModSbyS_error_Tmax")
                  ),
                  column(width = 3,
-                        getNumericInput("FModSbyS_NP", FullModel_VAR$NP, "FModSbyS_error_NP")                  
+                        getNumericInput("FModSbyS_NP", FullModel_VAR$NP, "FModSbyS_error_NP")
                  )
                ),
-               fixedRow(                     
+               fixedRow(
                  column(width = 3,
                         getNumericInput("FModSbyS_NI", FullModel_VAR$NI, "FModSbyS_error_NI")
                  ),
@@ -38,14 +38,14 @@ span(
                         getSelectInput("FModSbyS_NT", FullModel_VAR$NT)
                  ),
                  column(width = 3,
-                        getNumericInput("FModSbyS_NK", FullModel_VAR$NK, "FModSbyS_error_NK") 
+                        getNumericInput("FModSbyS_NK", FullModel_VAR$NK, "FModSbyS_error_NK")
                  )
                )
          )
       )
-    ),   
+    ),
     
-    h4("Environment design"),    
+    h4("Environment design"),
     
     p(HTML(fullmodelTxt$inputEnvironment_1)),
     p(HTML(fullmodelTxt$inputEnvironment_2)),
@@ -100,15 +100,15 @@ span(
                uiOutput("FModSbyS_Vind_UI"), 
                fixedRow(                     
                  column(width = 6,
-                        getNumericInput("FModSbyS_Vme", FullModel_VAR$Vme, "FModSbyS_error_Vme")                   
+                        getNumericInput("FModSbyS_Ve", FullModel_VAR$Ve, "FModSbyS_error_Ve")                   
                  ),
                  column(width = 6,
-                        getNumericInput("FModSbyS_Vk", FullModel_VAR$Vk, "FModSbyS_error_Vk")
+                        getNumericInput("FModSbyS_VG", FullModel_VAR$VG, "FModSbyS_error_VG")
                  )
                )
              )
       )
-    ), 
+    ),
     
     h4("Variances Summary"),
     p(HTML(fullmodelTxt$inputVarSummary)),
@@ -126,9 +126,9 @@ span(
     p(HTML(fullmodelTxt$inputSamplingDesign_3)),
     fixedRow(
       column(width = 9,
-       wellPanel(                                      
+       wellPanel(
          fixedRow(
-           column(width = 6,                         
+           column(width = 6,
                   fixedRow(
                     column(6,
                            getNumericInput("FModSbyS_NR", FullModel_VAR$NR, "FModSbyS_error_NR")
@@ -138,10 +138,9 @@ span(
                            textOutput("FModSbyS_SampTime")
                     )
                   ),
-                  # getNumericInput("FModSbyS_Vit", FullModel_VAR$Vit, "FModSbyS_error_Vit")
                   getSliderInput("FModSbyS_Vit", FullModel_VAR$Vit)
            ),
-           column(width = 6,                     
+           column(width = 6,
                   h6("Number of records:", getIcon("FModSbyS_Checkbox_NbRecords_Info")),
                   bsTooltip("FModSbyS_Checkbox_NbRecords_Info", FullModel_VAR$Checkbox_NbRecords$infoTxt, "top"),
                   getCheckboxInput("FModSbyS_Drec_Ind", FullModel_VAR$Drec_Ind),
@@ -164,5 +163,4 @@ span(
     uiOutput("FModSbyS_runButtonError"),
     p("")
   )
-  
 )

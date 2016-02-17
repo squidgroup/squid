@@ -4,7 +4,7 @@
 #################################################################
 #################################################################
 
-# suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(dplyr))
 
 #### Variables ####
 source("./source/variables/general/VARgeneral.R",local=TRUE)
@@ -30,6 +30,7 @@ source("./source/utilities/testInputBMatrix.R",local=TRUE)
 source("./source/utilities/testInputVindMatrix.R",local=TRUE)
 source("./source/utilities/getTable.R",local=TRUE)
 source("./source/utilities/runPowerAnalysis.R",local=TRUE)
+source("./source/utilities/error_msg.R",local=TRUE)
 
 #### Inputs ####
 source("./source/inputs/getNumericInput.R",local=TRUE)

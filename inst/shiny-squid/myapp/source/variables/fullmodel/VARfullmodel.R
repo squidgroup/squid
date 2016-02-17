@@ -234,8 +234,8 @@ FullModel_VAR <- list(
   ),
   
   
-  # Measurement error variance (Vme)
-  "Vme"  = list("label"       = "Measurement error variance",
+  # Measurement error variance (Ve)
+  "Ve"   = list("label"       = "Measurement error variance",
                 "infoTxt"     = "Measurement error variance.",
                 "value"       = 0.01,
                 "min"         = 0,
@@ -244,8 +244,8 @@ FullModel_VAR <- list(
                 "errorTxt"    = "Measurement error variance must be a positive number."
   ),
   
-  # Higher-level grouping variance (Vk)
-  "Vk"  = list("label"        = "Higher-level grouping variance",
+  # Higher-level grouping variance (VG)
+  "VG"  = list("label"        = "Higher-level grouping variance",
                 "infoTxt"     = "Higher-level grouping variance.",
                 "value"       = 0,
                 "min"         = 0,
@@ -289,14 +289,14 @@ FullModel_VAR <- list(
                    "max"       = "" ,
                    "errorTxt"  = "Population mean values must be numbers."),
   
-  "Bnames" = c(paste("$",EQ$mean0.1,"$",sep=""), 
-               paste("$",EQ$mean1.1,EQ2$env1,"$",sep=""), 
-               paste("$",EQ$mean2.1,EQ2$env2,"$",sep=""),
-               paste("$",EQ$mean12.1,EQ2$env12,"$",sep=""),
-               paste("$",EQ$mean0.2,"$",sep=""), 
-               paste("$",EQ$mean1.2,EQ2$env1,"$",sep=""), 
-               paste("$",EQ$mean2.2,EQ2$env2,"$",sep=""),
-               paste("$",EQ$mean12.2,EQ2$env12,"$",sep="")),
+  "Bnames" = c(paste0("$",EQ$mean0.1,"$"), 
+               paste0("$",EQ$mean1.1,EQ2$env1,"$"), 
+               paste0("$",EQ$mean2.1,EQ2$env2,"$"),
+               paste0("$",EQ$mean12.1,EQ2$env12,"$"),
+               paste0("$",EQ$mean0.2,"$",sep=""), 
+               paste0("$",EQ$mean1.2,EQ2$env1,"$"), 
+               paste0("$",EQ$mean2.2,EQ2$env2,"$"),
+               paste0("$",EQ$mean12.2,EQ2$env12,"$")),
   
   "Vind"   = list( "label"     = "Individual Variance/Correlation matrix",
                    "infoTxt"   = "Individual Variance/Correlation matrix. Variances are on the matrix diagonal and correlation values are below the matrix diagonal.",
@@ -309,14 +309,14 @@ FullModel_VAR <- list(
                    "errorTxt1" = "Variance values must be a positive number.",
                    "errorTxt2"  = "Correlation values must be a number between -1 and 1.") ,
   
-  "Vindnames" = c(paste("$",EQ2$dev0.1,"$",sep=""), 
-                  paste("$",EQ2$dev1.1,EQ2$env1,"$",sep=""), 
-                  paste("$",EQ2$dev2.1,EQ2$env2,"$",sep=""), 
-                  paste("$",EQ2$dev12.1,EQ2$env12,"$",sep=""),
-                  paste("$",EQ2$dev0.2,"$",sep=""), 
-                  paste("$",EQ2$dev1.2,EQ2$env1,"$",sep=""), 
-                  paste("$",EQ2$dev2.2,EQ2$env2,"$",sep=""), 
-                  paste("$",EQ2$dev12.2,EQ2$env12,"$",sep="")),
+  "Vindnames" = c(paste0("$",EQ2$dev0.1,"$"), 
+                  paste0("$",EQ2$dev1.1,EQ2$env1,"$"), 
+                  paste0("$",EQ2$dev2.1,EQ2$env2,"$"), 
+                  paste0("$",EQ2$dev12.1,EQ2$env12,"$"),
+                  paste0("$",EQ2$dev0.2,"$"), 
+                  paste0("$",EQ2$dev1.2,EQ2$env1,"$"), 
+                  paste0("$",EQ2$dev2.2,EQ2$env2,"$"), 
+                  paste0("$",EQ2$dev12.2,EQ2$env12,"$")),
   
   "Checkbox_NbRecords" = list( "infoTxt" = "Number of records sampled."),
 

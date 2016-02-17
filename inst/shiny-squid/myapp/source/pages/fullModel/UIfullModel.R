@@ -1,13 +1,12 @@
-
-fixedPage( HTML("<div id='FullModel'>"), 
+fixedPage( HTML("<div id='FullModel'>"),
   h2("Full model simulation (express access)"),
   
   # Inputs and Outputs tabset panel
-  tabsetPanel(id = "FMod_TabsetPanel", type = "pills", 
-              
+  tabsetPanel(id = "FMod_TabsetPanel", type = "pills",
+    
     # Inputs panel
     tabPanel("Inputs",
-             
+    
      wellPanel(
        h4("Model equation"),
        uiOutput('FMod_myEquations')
@@ -22,34 +21,34 @@ fixedPage( HTML("<div id='FullModel'>"),
      p(),
      
      conditionalPanel(
-       condition = "0",         
-       uiOutput('FMod_B_UI_hidden'),    
+       condition = "0",
+       uiOutput('FMod_B_UI_hidden'),
        uiOutput('FMod_Vind_UI_hidden'),
        getCheckboxInput("FMod_X1_state", FullModel_VAR$X1$state),
        getCheckboxInput("FMod_X2_state", FullModel_VAR$X2$state)
-     ),  
+     ),
       
-     navlistPanel(  
+     navlistPanel(
        
-       well   = TRUE,  
+       well   = TRUE,
        fluid  = FALSE,
        widths = c(3,9),
        # selected = "Variances Summary",
      
        # Simulation Design
        tabPanel("Simulation design",
-          wellPanel(         
+          wellPanel(
             h4("Simulation design"),
-            fixedRow(                     
+            fixedRow(
               column(width = 3,
-                     
-                     getNumericInput("FMod_Tmax", FullModel_VAR$Tmax, "FMod_error_Tmax") 
+              
+                     getNumericInput("FMod_Tmax", FullModel_VAR$Tmax, "FMod_error_Tmax")
               ),
               column(width = 3,
                      getNumericInput("FMod_NP", FullModel_VAR$NP, "FMod_error_NP")
               )
             ),
-            fixedRow(                     
+            fixedRow(
               column(width = 3,
                      getNumericInput("FMod_NI", FullModel_VAR$NI, "FMod_error_NI")
               ),
@@ -57,19 +56,19 @@ fixedPage( HTML("<div id='FullModel'>"),
                      getSelectInput("FMod_NT", FullModel_VAR$NT)
               ),
               column(width = 3,
-                       getNumericInput("FMod_NK", FullModel_VAR$NK, "FMod_error_NK") 
+                       getNumericInput("FMod_NK", FullModel_VAR$NK, "FMod_error_NK")
               )
             )
-          )        
+          )
        ), # End: Simulation design
        
        # Environement design
        tabPanel("Environment design",
-                
-         wellPanel(         
+         
+         wellPanel(
            h4("Environment design"),
            tabsetPanel(id = "FMod_Environment_tabsePanel", type = "pills",
-                       
+           
                # X1 ------------------------------------------------------------
                tabPanel(paste("$",EQ2$env1,"$",sep=""), UIenvironment("FMod", "X1", TRUE)),
                
@@ -98,16 +97,16 @@ fixedPage( HTML("<div id='FullModel'>"),
             uiOutput("FMod_Vind_UI"), 
             fixedRow(
               column(width = 6,
-                     getNumericInput("FMod_Vme", FullModel_VAR$Vme, "FMod_error_Vme")
+                     getNumericInput("FMod_Ve", FullModel_VAR$Ve, "FMod_error_Ve")
               ),
               column(width = 6,
-                     getNumericInput("FMod_Vk", FullModel_VAR$Vk, "FMod_error_Vk")
+                     getNumericInput("FMod_VG", FullModel_VAR$VG, "FMod_error_VG")
               )
             )
             
           )
        ), # End: Individual variances design
-
+      
       # Variances Summary
       tabPanel("Variances Summary",
                wellPanel(
@@ -149,7 +148,7 @@ fixedPage( HTML("<div id='FullModel'>"),
   
     # Outputs panel
   tabPanel("Outputs",
-
+  
     bsButton("FMod_rerunButton", label = FullModel_VAR$ReRun$label, icon= FullModel_VAR$ReRun$icon, class="runButton",style = FullModel_VAR$ReRun$style),
     downloadButton("FMod_download_sampled", label = FullModel_VAR$download_sampled$label),
     downloadButton("FMod_download_raw", label = FullModel_VAR$download_raw$label),

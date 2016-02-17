@@ -1,0 +1,47 @@
+---
+title: "vignette"
+author: "Hassen Allegue"
+date: "February 17, 2016"
+output: html_document
+---
+
+```{r, results='asis', echo=FALSE}
+# Source general variable (model synthax)
+source("../../variables/general/VARgeneral.R")
+
+Input       <- c(paste0("$", NOT$meanVector),      # VB
+                 paste0("$V",NOT$groupV),      # VG
+                 paste0("$V",NOT$error)        # Ve
+                )
+
+#   "Bnames" = c(paste0("$",EQ$mean0.1,"$"), 
+#                paste0("$",EQ$mean1.1,EQ2$env1,"$"), 
+#                paste0("$",EQ$mean2.1,EQ2$env2,"$"),
+#                paste0("$",EQ$mean12.1,EQ2$env12,"$"),
+#                paste0("$",EQ$mean0.2,"$",sep=""), 
+#                paste0("$",EQ$mean1.2,EQ2$env1,"$"), 
+#                paste0("$",EQ$mean2.2,EQ2$env2,"$"),
+#                paste0("$",EQ$mean12.2,EQ2$env12,"$")),
+
+
+mathExp     <- c(paste0("$[",EQ$mean0.1,",",
+                              EQ$mean1.1,EQ2$env1,",",
+                              EQ$mean2.1,EQ2$env2,",",
+                              EQ$mean12.1,EQ2$env12,"]$"),      # B
+                 paste0("$V",NOT$groupV, "$"),                  # VG
+                 paste0("$V",NOT$error,"$")                     # Ve
+                )
+
+description <- c("Population mean values",            # VB
+                 "Higher-level grouping variance",    # VG
+                 "Measurement error variance"         # Ve
+                )
+
+# Create table
+myTable <- data.frame(Input, mathExp, description)
+colnames(myTable) <- c("Input", "Mathematical\nexpression", "Description")
+
+# Display table
+pander::pandoc.table(myTable, keep.line.breaks = TRUE, justify = c('left'))
+```
+

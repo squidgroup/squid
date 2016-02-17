@@ -110,7 +110,7 @@ c(
     Mod3Step3_table <- function(data){
       
       myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step3_Vi),
-                                             paste("Measurement error variance ($V_",NOT$error,"$) =",input$Mod3Step3_Vme),
+                                             paste("Measurement error variance ($V_",NOT$error,"$) =",input$Mod3Step3_Ve),
                                              paste("Environmental variance ($V_",NOT$env,"$) =",input$Mod3Step3_Vbx),
                                              paste("Mean environmental effect ($",EQ3$mean1,"$) =",round(input$Mod3Step3_B[2],2))),
                             "Totally unknown environment" = c(paste("Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
@@ -144,9 +144,9 @@ c(
       updateSliderInput(session, "Mod3Step3_Vit2", value = input$Mod3Step3_Vit)
     }),
 
-    output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Vme),2)*100,"%)")}),
-    output$Mod3Step3_Vme_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vme / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Vme),2)*100,"%)")}),
-    output$Mod3Step3_Vbx_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vbx / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Vme),2)*100,"%)")}),
+    output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
+    output$Mod3Step3_Ve_proportion <- renderText({paste0("(",round(input$Mod3Step3_Ve / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
+    output$Mod3Step3_Vbx_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vbx / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
 
     ######### Manage errors #########
     # display error message

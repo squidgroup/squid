@@ -6,7 +6,7 @@ c(
       output$Mod1Step2_hidden <- renderUI({
         list(
           numericInput("Mod1Step2_Tmax", "", Modules_VAR$Tmax$max),
-          matrixInput2("Mod1Step2_Vind", "",data.frame(matrix(c(1-input$Mod1Step2_Vme,rep(0,(nb.IS*nb.IS)-1)),nb.IS)))
+          matrixInput2("Mod1Step2_Vind", "",data.frame(matrix(c(1-input$Mod1Step2_Ve,rep(0,(nb.IS*nb.IS)-1)),nb.IS)))
         )
       }),
       outputOptions(output, "Mod1Step2_hidden", suspendWhenHidden = FALSE),
@@ -27,8 +27,8 @@ c(
           RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
           data$Vi            <- round(RANDEF[1],2)
-          data$Vme           <- round(RANDEF[2],2)
-          data$Vp            <- data$Vi + data$Vme
+          data$Ve            <- round(RANDEF[2],2)
+          data$Vp            <- data$Vi + data$Ve
           data$phenotypeMean <- round(mean(data$sampled_Data$Phenotype),2)
           data$R             <- round(data$Vi / data$Vp,2)
           
@@ -48,9 +48,9 @@ c(
           
           Vp        <- paste("V'",NOT$total," = " , data$Vp)
           Vi        <- paste("V'",NOT$devI, " = " , data$Vi)
-          Vme       <- paste("V'",NOT$error," = ", data$Vme)
+          Ve        <- paste("V'",NOT$error," = ", data$Ve)
           
-          myFactor  <- factor(rep(c(Vp,Vi,Vme), each=length(data$sampled_Data$Phenotype)), levels=c(Vp,Vi,Vme))                
+          myFactor  <- factor(rep(c(Vp,Vi,Ve), each=length(data$sampled_Data$Phenotype)), levels=c(Vp,Vi,Ve))                
           mydata    <- data.frame(dens  = c(data$sampled_Data$Phenotype,data$sampled_Data$I, data$sampled_Data$e),
                                   lines = myFactor)
           
@@ -69,12 +69,12 @@ c(
       output$Mod1Step2_summary_table <- renderUI({ 
         
         myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1"),
-                                            paste("Individual variance ($V_",NOT$devI,"$) =",1-input$Mod1Step2_Vme),
-                                            paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step2_Vme),
+                                            paste("Individual variance ($V_",NOT$devI,"$) =",1-input$Mod1Step2_Ve),
+                                            paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step2_Ve),
                                             "Mean of the trait ($\\mu$) = 0"),
                               "Estimated"= c(paste("Total Sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vp,"...")),
                                              paste("Sampled Individual variance ($V'_",NOT$devI,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vi,"...")),
-                                             paste("Residual variance of sample ($V'_",NOT$residual,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vme,"...")),
+                                             paste("Residual variance of sample ($V'_",NOT$residual,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Ve,"...")),
                                              paste("Sampled mean of the trait ($\\mu'$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$phenotypeMean,"...")))
                               )
                   

@@ -1,6 +1,6 @@
 # UI: Module 1 Step 2
 span( 
-           
+  
   h4(Mod1Step2_txt$title),           # Text: title
   
   p(HTML(Mod1Step2_txt$subgoal)),    # Text: subgoal
@@ -11,13 +11,13 @@ span(
   getSliderInput("Mod1Step2_NI", Modules_VAR$NI),
   
   # Measurement error variance
-  getSliderInput("Mod1Step2_Vme", Modules_VAR$Vme),
+  getSliderInput("Mod1Step2_Ve", Modules_VAR$Ve),
   
   p(HTML(Mod1Step2_txt$para1)),   # Text: paragraph 1
   
   # Number of trait expressions (Tmax)
   getSliderInput("Mod1Step2_NR", Modules_VAR$Tmax),
-        
+  
   # Hidden variable:
   # Mod1Step2_Tmax: simulation time
   # Mod1Step2_Vind: Intercepts and slopes (Co)variance matrix
@@ -25,7 +25,7 @@ span(
     condition = "0",
     uiOutput("Mod1Step2_hidden")
   ),
-       
+  
   p(),
   # Simulation run button
   bsButton("Mod1Step2_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
@@ -42,8 +42,8 @@ span(
     plotOutput("Mod1Step2_plot", width = Modules_VAR$Plot$width),
     p(HTML(Mod1Step2_txt$para3)),  # Text: paragraph 3
   
-    # Table : display true and measured values (Vp, Vi, Vme and mean)  
-    uiOutput("Mod1Step2_summary_table"),          
+    # Table : display true and measured values (Vp, Vi, Vme and mean)
+    uiOutput("Mod1Step2_summary_table"),
     p(HTML(Mod1Step2_txt$point)),  # Text: point
   
     # Repeatability equation
@@ -67,6 +67,4 @@ span(
   bsButton("Mod1Step2GotoStep1", label = "<< Previous Step (1)", style = Modules_VAR$StepLink$style), # Go to previous step       
   span(Modules_VAR$StepLink$sep, class="step-Link"),
   bsButton("Mod1Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
-  
-
 )

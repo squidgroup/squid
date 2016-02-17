@@ -3,7 +3,7 @@ c(
     ######### Set hidden variables #########    
       output$Mod1Step1_hidden <- renderUI({
         # Intercepts and slopes (Co)variance matrix
-        matrixInput2("Mod1Step1_Vind", "",data.frame(matrix(c(1-input$Mod1Step1_Vme,rep(0,(nb.IS*nb.IS)-1)),nb.IS)))
+        matrixInput2("Mod1Step1_Vind", "",data.frame(matrix(c(1-input$Mod1Step1_Ve,rep(0,(nb.IS*nb.IS)-1)),nb.IS)))
       }),
       outputOptions(output, "Mod1Step1_hidden", suspendWhenHidden = FALSE),
 
@@ -60,8 +60,8 @@ c(
         
           myTable <- data.frame(
             "True"= c(paste("Total Phenotypic variance ($V_",NOT$total,"$) = 1",sep=""),
-                      paste("Individual Variance ($V_",NOT$devI,"$) = ",1-input$Mod1Step1_Vme,sep=""),
-                      paste("Residual variance ($V_",NOT$error,"$) = ",input$Mod1Step1_Vme,sep=""),
+                      paste("Individual Variance ($V_",NOT$devI,"$) = ",1-input$Mod1Step1_Ve,sep=""),
+                      paste("Residual variance ($V_",NOT$error,"$) = ",input$Mod1Step1_Ve,sep=""),
                       "mean of the trait ($\\mu$) = 0"),
             "Estimated" = c(paste("Total Sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step1_output()),Mod1Step1_output()$Vp,"..."),sep=""),
                             "",

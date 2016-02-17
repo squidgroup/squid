@@ -7,9 +7,9 @@ SVRFullModel <- function(myModule, input, output, session){
   NT                 <- paste(myModule, "NT", sep="_")
   NP                 <- paste(myModule, "NP", sep="_")
   NI                 <- paste(myModule, "NI", sep="_")
-  Vme                <- paste(myModule, "Vme", sep="_")
+  Ve                 <- paste(myModule, "Ve", sep="_")
   NK                 <- paste(myModule, "NK", sep="_")
-  Vk                 <- paste(myModule, "Vk", sep="_")
+  VG                 <- paste(myModule, "VG", sep="_")
   NR                 <- paste(myModule, "NR", sep="_")
   Vit                <- paste(myModule, "Vit", sep="_")
 
@@ -124,8 +124,8 @@ SVRFullModel <- function(myModule, input, output, session){
   error_X2_ran_corr     <- paste(myModule, "error_X2_ran_corr", sep="_")
   error_NI              <- paste(myModule, "error_NI", sep="_")
   error_NK              <- paste(myModule, "error_NK", sep="_")
-  error_Vme             <- paste(myModule, "error_Vme", sep="_")
-  error_Vk              <- paste(myModule, "error_Vk", sep="_")
+  error_Ve             <- paste(myModule, "error_Ve", sep="_")
+  error_VG              <- paste(myModule, "error_VG", sep="_")
   error_NR              <- paste(myModule, "error_NR", sep="_")
   error_B               <- paste(myModule, "error_B", sep="_")
   error_Vind            <- paste(myModule, "error_Vind", sep="_")
@@ -384,11 +384,11 @@ SVRFullModel <- function(myModule, input, output, session){
                   "Explanation" = Explanation
                 )
       
-      mySummary <- SVRGetSummaryVariances(input,B,Vind,Vme,Vk,NT,0,nb.IS,NOT$trait.1,X1_state,X2_state,X_Interaction)
+      mySummary <- SVRGetSummaryVariances(input,B,Vind,Ve,VG,NT,0,nb.IS,NOT$trait.1,X1_state,X2_state,X_Interaction)
       myTable   <- cbind(myTable,mySummary)
       
       if(input[[NT]] > 1){
-        mySummary <- SVRGetSummaryVariances(input,B,Vind,Vme,Vk,NT,nb.IS,nb.IS,NOT$trait.2,X1_state,X2_state,X_Interaction)
+        mySummary <- SVRGetSummaryVariances(input,B,Vind,Ve,VG,NT,nb.IS,nb.IS,NOT$trait.2,X1_state,X2_state,X_Interaction)
         myTable   <- cbind(myTable,mySummary)
         myTable   <- subset(myTable, Trait.y != "0 (0%)" | Trait.z != "0 (0%)")
       }else{
@@ -415,20 +415,20 @@ SVRFullModel <- function(myModule, input, output, session){
          !testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)       || 
          !testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)       || 
          !testInput(input[[NI]], FullModel_VAR$NI, TRUE, FALSE)                      ||
-         !testInput(input[[Vme]], FullModel_VAR$Vme, FALSE, FALSE)                   ||
-         !testInput(input[[Vk]], FullModel_VAR$Vk, FALSE, FALSE)                     ||
+         !testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
+         !testInput(input[[VG]], FullModel_VAR$VG, FALSE, FALSE)                     ||
          !testInput(input[[NK]], FullModel_VAR$NK, TRUE, FALSE, TRUE)                ||
          !testInput(input[[NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
          !testInputBMatrix(input[[B]] , FullModel_VAR$B, FALSE)                      ||
          !testInputVindMatrix(input[[Vind]] , FullModel_VAR$Vind, FALSE)){
         return(TRUE)
       } 
-       return(FALSE)       
+       return(FALSE)
     }),
      
      # Display error message
      output[[runButtonError]] <- renderUI({
-       if(isError()){         
+       if(isError()){
          error_msg(FullModel_VAR$Run$errorTxt)
        }else{
          NULL
@@ -461,9 +461,9 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[error_X1_ran_corr]]    <- renderUI({testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
      output[[error_X2_ran_corr]]    <- renderUI({testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
      output[[error_NI]]              <- renderUI({testInput(input[[NI]], FullModel_VAR$NI, TRUE, TRUE)}),
-     output[[error_Vme]]             <- renderUI({testInput(input[[Vme]], FullModel_VAR$Vme, FALSE, TRUE)}),
+     output[[error_Ve]]             <- renderUI({testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, TRUE)}),
      output[[error_NK]]              <- renderUI({testInput(input[[NK]], FullModel_VAR$NK, TRUE, TRUE, TRUE)}),
-     output[[error_Vk]]              <- renderUI({testInput(input[[Vk]], FullModel_VAR$Vk, FALSE, TRUE)}),
+     output[[error_VG]]              <- renderUI({testInput(input[[VG]], FullModel_VAR$VG, FALSE, TRUE)}),
      output[[error_NR]] <- renderUI({
           input[[Tmax]];input[[Vit]];
           testInput(input[[NR]], FullModel_VAR$NR, TRUE, TRUE) 
@@ -625,8 +625,8 @@ SVRFullModel <- function(myModule, input, output, session){
 #         # environment interaction
 #         updateCheckboxInput(session, inputId = X_Interaction, value = saveFile[[X_Interaction]]) ## doesn't work
 # 
-#         updateNumericInput(session,  inputId = Vme, value = saveFile[[Vme]])
-#         updateNumericInput(session,  inputId = Vk,  value = saveFile[[Vk]])
+#         updateNumericInput(session,  inputId = Ve, value = saveFile[[Ve]])
+#         updateNumericInput(session,  inputId = VG,  value = saveFile[[VG]])
 #         
 #         updateNumericInput(session,  inputId = NR,  value = saveFile[[NR]])
 #         updateSliderInput(session,   inputId = Vit, value = saveFile[[Vit]])

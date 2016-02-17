@@ -1,20 +1,20 @@
 # UI: Module 3 Step 1
-span( 
-    
+span(
+  
   h4(Mod3Step1_txt$title),           # Text: title
   
   p(HTML(Mod3Step1_txt$subgoal)),    # Text: subgoal
   p(HTML(Mod3Step1_txt$intro)),      # Text: introduction
   p(HTML(Mod3Step1_txt$exercise)),   # Text: exercise
 
-  p(HTML(Mod3Step1_txt$para1)),      # Text: paragraph 1 
+  p(HTML(Mod3Step1_txt$para1)),      # Text: paragraph 1
   
-  # Among-individual variance (Vi) 
+  # Among-individual variance (Vi)
   getSliderInput("Mod3Step1_Vi", Modules_VAR$Vi),
   # getNumericInput("Mod3Step1_Vi", Modules_VAR$Vi, "Mod3Step1_error_Vi"),
   
-  # Measurement error variance  
-  getSliderInput("Mod3Step1_Vme", Modules_VAR$Vme),
+  # Measurement error variance
+  getSliderInput("Mod3Step1_Ve", Modules_VAR$Ve),
 
   conditionalPanel(
     condition = "0",
@@ -35,7 +35,6 @@ span(
           <figcaption><b>Figure:</b> two examples of 4 individuals that are sampled 5 times each and that among-individual variance in timing of sampling ($',general_VAR$btwIndVarTimSamp,'$) is 0.1 (left) and 0.9 (right).</figcaption>
           </figure>',sep=""))
   ),
-  
   
   p(HTML(Mod3Step1_txt$para4)),       # Text: paragraph 4
   
@@ -76,8 +75,7 @@ span(
   div(class="line"),
   
   # Go to next step
-  bsButton("Mod3Step1GotoStep2", 
+  bsButton("Mod3Step1GotoStep2",
            label = "Next Step (2) >>",
            style = Modules_VAR$StepLink$style)
-  
 )

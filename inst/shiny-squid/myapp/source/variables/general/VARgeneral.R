@@ -23,8 +23,8 @@ NOT <-list(
   "residual"       = "r",
   "total"          = "P",
   "repeatability"  = "R",
-  "mu"             = "\\mu"
-  
+  "mu"             = "\\mu",
+  "meanVector"     = "B"
 )
 
 # Model equation components

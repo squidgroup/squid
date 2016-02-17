@@ -1,6 +1,6 @@
 # UI: Module 1 Step 4
-span( 
-           
+span(
+
   h4(Mod1Step4_txt$title),            # Text: title
   
   p(HTML(Mod1Step4_txt$subgoal)),     # Text: subgoal
@@ -8,17 +8,13 @@ span(
   p(HTML(Mod1Step4_txt$exercise)),    # Text: exercise
   
   #Number of individuals
-  # getNumericInput("Mod1Step4_NI", Modules_VAR$NI, "Mod1Step4_error_NI"),
   getSliderInput("Mod1Step4_NI", Modules_VAR$NI),
   
-  
-  # Among-individual variance (Vi)      
-  # getNumericInput("Mod1Step4_Vi", Modules_VAR$Vi, "Mod1Step4_error_Vi"),
+  # Among-individual variance (Vi)
   getSliderInput("Mod1Step4_Vi", Modules_VAR$Vi),
   
   # Measurement error variance (Vme)
-  # getNumericInput("Mod1Step4_Vme", Modules_VAR$Vme, "Mod1Step4_error_Vme"),
-  getSliderInput("Mod1Step4_Vme", Modules_VAR$Vme),
+  getSliderInput("Mod1Step4_Ve", Modules_VAR$Ve),
   
   # Environment effects variance
   wellPanel(
@@ -63,7 +59,7 @@ span(
     plotOutput("Mod1Step4_plot2", width = Modules_VAR$Plot$width),
   
   p(HTML(Mod1Step4_txt$para6)),   # Text: paragraph 6
-  p(HTML(Mod1Step4_txt$point)),   # Text: point    
+  p(HTML(Mod1Step4_txt$point)),   # Text: point
   
   p(HTML(module1_txt$statModTitle)),
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
@@ -77,6 +73,5 @@ span(
   
   div(class="line"),
   
-  bsButton("Mod1Step4GotoStep3", label = "<< Previous Step (3)", style="link") # Go to previous step      
-
+  bsButton("Mod1Step4GotoStep3", label = "<< Previous Step (3)", style="link") # Go to previous step
 )

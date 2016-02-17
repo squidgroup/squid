@@ -5,7 +5,7 @@ span(
     
     p(HTML(Mod6Step1_txt$subgoal)),    # Text: subgoal
     p(HTML(Mod6Step1_txt$intro)),      # Text: introduction
-    p(HTML(Mod6Step1_txt$exercise)),    # Text: exercise     
+    p(HTML(Mod6Step1_txt$exercise)),    # Text: exercise
     
     p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=
             (",EQ3$mean0,"+
@@ -13,7 +13,7 @@ span(
             ",EQ3$mean1,NOT$env,"_{",NOT$time, NOT$ind,"}+
             ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
     
-    p(HTML(Mod6Step1_txt$para1)),    # Text: paragraph 1   
+    p(HTML(Mod6Step1_txt$para1)),    # Text: paragraph 1
     
     p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=
             (",EQ3$mean0,"+
@@ -22,18 +22,18 @@ span(
             ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
     
     p(HTML(Mod6Step1_txt$para2)),    # Text: paragraph 2
-
-    # Number of individuals               
+    
+    # Number of individuals
     getSliderInput("Mod6Step1_NI", Modules_VAR$NI),
     
     # Number of trait expressions sampled
     getSliderInput("Mod6Step1_NR", Modules_VAR$NR),
     
-    # Among-individual variance (Vi) 
+    # Among-individual variance (Vi)
     getSliderInput("Mod6Step1_Vi", Modules_VAR$Vi),
     
-    # Measurement error variance  
-    getSliderInput("Mod6Step1_Vme", Modules_VAR$Vme),
+    # Measurement error variance
+    getSliderInput("Mod6Step1_Ve", Modules_VAR$Ve),
     
     # Variance of Mean Environment effects in the slope (V Beta1 X1)
     getSliderInput("Mod6Step1_Vbx", Modules_VAR$Vb1x1),
@@ -57,15 +57,15 @@ span(
     
     (HTML(Mod6Step1_txt$results)),    # Text: results
     
-    # Table : display true and measured values (Vp, Vi and mean)      
+    # Table : display true and measured values (Vp, Vi and mean)
     uiOutput("Mod6Step1_summary_table"),
     
-    (HTML(Mod6Step1_txt$para4)),    # Text: paragraph 
+    (HTML(Mod6Step1_txt$para4)),    # Text: paragraph
     
     # Phenotype against environment figure
-    p(plotOutput("Mod6Step1_plot", width = Modules_VAR$Plot$width)),  
+    p(plotOutput("Mod6Step1_plot", width = Modules_VAR$Plot$width)),
     
-    p(HTML(Mod6Step1_txt$point)),   # Text: point 
+    p(HTML(Mod6Step1_txt$point)),   # Text: point
     
     p(HTML(module1_txt$statModTitle)),
     p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=
@@ -84,12 +84,10 @@ span(
     p(paste0("$$V_{",NOT$devS,NOT$env,"}=V_",NOT$devS,"V_",NOT$env,"+E(",NOT$env,")V_",NOT$devS,"$$")),
     p(paste0("Note that $V_",NOT$env,"$ is the true variance in ",NOT$env,", and E(",NOT$env,") is the true mean of ",NOT$env,".")),
     
-
     div(class="line"),
     
     # Go to next step
-    bsButton("Mod6Step1GotoStep2", 
+    bsButton("Mod6Step1GotoStep2",
              label = "Next Step (2) >>",
              style = Modules_VAR$StepLink$style)
-
 )

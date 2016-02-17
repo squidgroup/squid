@@ -1,6 +1,6 @@
 # UI: Module 6 Step 3
-span( 
-  
+span(
+    
     h4(Mod6Step3_txt$title),           # Text: title
     p(HTML(Mod6Step3_txt$subgoal)),    # Text: subgoal
     p(HTML(Mod6Step3_txt$intro)),      # Text: introduction
@@ -23,7 +23,7 @@ span(
                   "225" = 225,
                   "400" = 400,
                   "900" = 900)),
-
+   
    # Hidden variable:
     conditionalPanel(
       condition = "0",
@@ -31,7 +31,7 @@ span(
     ),
     
     p(HTML(Mod6Step3_txt$para3)),       # Text: paragraph 3
-
+    
     # Table 
     uiOutput("Mod6Step3_summary_table"),
     
@@ -42,7 +42,7 @@ span(
      p(),
    
     p(tags$b("Results")),
-
+    
     p(plotOutput("Mod6Step3_plot", width = "700px")),
             
     p(HTML(Mod6Step3_txt$para4)),       # Text: paragraph 4
