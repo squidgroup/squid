@@ -56,7 +56,7 @@ fixedPage( HTML("<div id='FullModel'>"),
                      getSelectInput("FMod_NT", FullModel_VAR$NT)
               ),
               column(width = 3,
-                       getNumericInput("FMod_NK", FullModel_VAR$NK, "FMod_error_NK")
+                       getNumericInput("FMod_NG", FullModel_VAR$NG, "FMod_error_NG")
               )
             )
           )
@@ -126,11 +126,11 @@ fixedPage( HTML("<div id='FullModel'>"),
                 getNumericInput("FMod_NR", FullModel_VAR$NR, "FMod_error_NR")
               ),
               column(3,
-                getLabel("FMod_SampTime", FullModel_VAR$SampTime),
+                getLabel("FMod_SampTime_Label", FullModel_VAR$SampTime),
                 textOutput("FMod_SampTime")
               )
             ),
-            getSliderInput("FMod_Vit", FullModel_VAR$Vit),
+            getSliderInput("FMod_Visj", FullModel_VAR$Visj),
             
             h6("Number of records:", getIcon("FMod_Checkbox_NbRecords_Info")),
             bsTooltip("FMod_Checkbox_NbRecords_Info", FullModel_VAR$Checkbox_NbRecords$infoTxt, "top"),

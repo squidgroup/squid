@@ -1,7 +1,7 @@
 #Server functions for module 6 step 3
 c(
 
-    ######### Set variables #########  
+  ######### Set variables #########  
     Mod6Step3updateVind <- function(nb.IS){
       df <- matrix(rep(0,nb.IS^2),nb.IS)
       diag(df)[1] <- 0.5
@@ -18,9 +18,9 @@ c(
             matrixInput2("Mod6Step3_Vind", "", Mod6Step3updateVind(nb.IS)),
             matrixInput2("Mod6Step3_B", "",data.frame(matrix(c(0.5,0.5,0,0),1))),
             checkboxInput("Mod6Step3_X1_state", "", value = TRUE),
-            checkboxInput("Mod6Step3_X1_ran_state", "", value = TRUE),
-            checkboxInput("Mod6Step3_X1_ran_shared", "", value = TRUE),
-            numericInput("Mod6Step3_X1_ran_V","", 1, min = 0, max = 1, step = 0.001),
+            checkboxInput("Mod6Step3_X1_sto_state", "", value = TRUE),
+            checkboxInput("Mod6Step3_X1_sto_shared", "", value = TRUE),
+            numericInput("Mod6Step3_X1_sto_V","", 1, min = 0, max = 1, step = 0.001),
             checkboxInput("Mod6Step3_Dtime_Ind", "", value = FALSE)
           )
       }),

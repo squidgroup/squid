@@ -31,7 +31,7 @@ setVariables <- function(input, module, environments){
     "VG"             = paste(module,"VG", sep = "_"),
     "Tmax"           = paste(module,"Tmax", sep = "_"),      
     "Time_sampling"  = paste(module,"Time_sampling", sep = "_"),
-    "Vit"            = paste(module,"Vit", sep = "_"),
+    "Visj"           = paste(module,"Visj", sep = "_"),
     "Drec_Ind"       = paste(module,"Drec_Ind", sep = "_"),
     "Drec_Trait"     = paste(module,"Drec_Trait", sep = "_"),
     "Dtime_Ind"      = paste(module,"Dtime_Ind", sep = "_"),
@@ -41,7 +41,7 @@ setVariables <- function(input, module, environments){
     "NI"             = paste(module,"NI", sep = "_"),
     "NT"             = paste(module,"NT", sep = "_"),
     "NR"             = paste(module,"NR", sep = "_"),
-    "NK"             = paste(module,"NK", sep = "_"),
+    "NG"             = paste(module,"NG", sep = "_"),
     "PB"             = paste(module,"PB", sep = "_")
   )
   
@@ -77,7 +77,7 @@ setVariables <- function(input, module, environments){
     "Tsamp"    = y[2]-y[1]+1,                 # Total sampling time
     "TsampI"   = 0,                           # Sampling time per individual
     
-    "Vit"  = ifelse(inputNames$Vit %in% names(input),input[[inputNames$Vit]],0), # Among-individual variance in timing of sampling (between 0 and 1)
+    "Visj"  = ifelse(inputNames$Visj %in% names(input),input[[inputNames$Visj]],0), # Among-individual variance in timing of sampling (between 0 and 1)
     
     "Drec_Ind"    = ifelse(inputNames$Drec_Ind    %in% names(input),input[[inputNames$Drec_Ind]],TRUE),            
     # Difference in number of records among individuals
@@ -98,7 +98,7 @@ setVariables <- function(input, module, environments){
     "NR_Fixe"     = ifelse(inputNames$NR_Fixe %in% names(input),input[[inputNames$NR_Fixe]],TRUE) # if TRUE the same NR for all the populations
   )
   
-  Time$TsampI <- ifelse(Time$Vit > 0.95, round(Time$Tsamp*0.05,0), round(Time$Tsamp*(1-Time$Vit),0)) 
+  Time$TsampI <- ifelse(Time$Visj > 0.95, round(Time$Tsamp*0.05,0), round(Time$Tsamp*(1-Time$Visj),0)) 
   Time$TsampI <- ifelse(Time$TsampI != 0, Time$TsampI, 1)
   
   N <- list(
@@ -108,7 +108,7 @@ setVariables <- function(input, module, environments){
     "NS"  = (Time$Tmax - Time$Tmin + 1)/Time$TS,                                   # Number of step of time 
     "NR"  = ifelse(inputNames$NR %in% names(input),input[[inputNames$NR]],1),      # Number of mean records by individual (between 1 and inf) 
     "NRI" = NULL,                                                                  # Number of records for each individual
-    "NK"  = ifelse(inputNames$NK %in% names(input),input[[inputNames$NK]],1)       # Number of high-level groups
+    "NG"  = ifelse(inputNames$NG %in% names(input),input[[inputNames$NG]],1)       # Number of high-level groups
   )
   
   # Vind0 : Random intercept Variance (among-individual variance)

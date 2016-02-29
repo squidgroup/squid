@@ -59,20 +59,21 @@ getEnvironment <- function(environment, N, visualization){
       output <- output + outputTMP
     }
     
-    # Random environment effect
-    if(environment$ran$state){
+    # Stochastic environment effect
+    if(environment$sto$state){
       
-      if(environment$ran$shared){
+      if(environment$sto$shared){
         
-        outputTMP <- rnorm(N$NS, environment$ran$Mu, sqrt(environment$ran$V))
-        if(environment$ran$autocorrelation) outputTMP <- decayRate(outputTMP, environment$ran$corr, N$NS)
+        outputTMP <- rnorm(N$NS, environment$sto$Mu, sqrt(environment$sto$V))
+        
+        if(environment$sto$autocor_state) outputTMP <- decayRate(outputTMP, environment$sto$corr, N$NS)
         outputTMP <- rep(outputTMP, NB)
         
       }else{
-        outputTMP <-  rnorm(N$NS*NB, environment$ran$Mu, sqrt(environment$ran$V))
-        if(environment$ran$autocorrelation){
+        outputTMP <-  rnorm(N$NS*NB, environment$sto$Mu, sqrt(environment$sto$V))
+        if(environment$sto$autocor_state){
           for(i in 1:NB)
-            outputTMP[((N$NS*(i-1))+1):(N$NS*i)] <- decayRate(outputTMP[((N$NS*(i-1))+1):(N$NS*i)], environment$ran$corr, N$NS)
+            outputTMP[((N$NS*(i-1))+1):(N$NS*i)] <- decayRate(outputTMP[((N$NS*(i-1))+1):(N$NS*i)], environment$sto$corr, N$NS)
         }
       }
       

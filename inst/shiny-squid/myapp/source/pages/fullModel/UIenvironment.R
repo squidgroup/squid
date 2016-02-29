@@ -5,7 +5,7 @@ UIenvironment <- function(Mod, name, isShared){
       fluidRow(
          column(6,
           wellPanel( 
-             UIspecificEnvironment(Mod, name, "ran", isShared)
+             UIspecificEnvironment(Mod, name, "sto", isShared)
            )
          ),                 
          column(6,
@@ -24,7 +24,7 @@ UIenvironment <- function(Mod, name, isShared){
       ),
       
       conditionalPanel(
-        condition = paste("input.",Mod,"_",name,"_ran_state == 1 || input.",
+        condition = paste("input.",Mod,"_",name,"_sto_state == 1 || input.",
                           Mod,"_",name,"_lin_state == 1 || input.",
                           Mod,"_",name,"_cyc_state == 1", sep=""),
 

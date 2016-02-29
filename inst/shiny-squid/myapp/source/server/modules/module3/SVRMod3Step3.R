@@ -11,9 +11,9 @@ c(
         
         checkboxInput("Mod3Step3_X1_state", "", value = TRUE),
         
-        checkboxInput("Mod3Step3_X1_ran_state", "", value = ifelse(input$Mod3Step3_X_select %in% c("ran","auto"),TRUE,FALSE)),
-        checkboxInput("Mod3Step3_X1_ran_autocorrelation", "", value = ifelse(input$Mod3Step3_X_select == "auto",TRUE,FALSE)),
-        checkboxInput("Mod3Step3_X1_ran_shared", "", value = input$Mod3Step3_X_Shared),
+        checkboxInput("Mod3Step3_X1_sto_state", "", value = ifelse(input$Mod3Step3_X_select %in% c("sto","auto"),TRUE,FALSE)),
+        checkboxInput("Mod3Step3_X1_sto_autocor_state", "", value = ifelse(input$Mod3Step3_X_select == "auto",TRUE,FALSE)),
+        checkboxInput("Mod3Step3_X1_sto_shared", "", value = input$Mod3Step3_X_Shared),
         
         checkboxInput("Mod3Step3_X1_lin_state", "", value = ifelse(input$Mod3Step3_X_select == "lin",TRUE,FALSE)),
         checkboxInput("Mod3Step3_X1_lin_shared", "", value = input$Mod3Step3_X_Shared),
@@ -98,7 +98,7 @@ c(
       
       myInput <- list("Mod3Step3_Preview_Tmax"      = Modules_VAR$Tmax$max,
                       "Mod3Step3_Preview_NI"        = input$Mod3Step3_NI,
-                      "Mod3Step3_Preview_Vit"       = input$Mod3Step3_Vit,
+                      "Mod3Step3_Preview_Visj"       = input$Mod3Step3_Visj,
                       "Mod3Step3_Preview_NR"        = input$Mod3Step3_NR,
                       "Mod3Step3_Preview_Dtime_Ind" = FALSE
       )
@@ -137,11 +137,11 @@ c(
     }),
 
     observe({
-      updateSliderInput(session, "Mod3Step3_Vit", value = input$Mod3Step3_Vit2)
+      updateSliderInput(session, "Mod3Step3_Visj", value = input$Mod3Step3_Visj2)
     }),
 
     observe({
-      updateSliderInput(session, "Mod3Step3_Vit2", value = input$Mod3Step3_Vit)
+      updateSliderInput(session, "Mod3Step3_Visj2", value = input$Mod3Step3_Visj)
     }),
 
     output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
@@ -152,15 +152,15 @@ c(
     # display error message
     observe({
       if(
-        !testInput(input$Mod3Step3_X1_ran_V, FullModel_VAR$ranV, FALSE, FALSE) ||
-        !testInput(input$Mod3Step3_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, FALSE)){
+        !testInput(input$Mod3Step3_X1_sto_V, FullModel_VAR$stoV, FALSE, FALSE) ||
+        !testInput(input$Mod3Step3_X1_sto_corr, FullModel_VAR$stoCorr, FALSE, FALSE)){
         updateButton(session, "Mod3Step3_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
       }else{
         updateButton(session, "Mod3Step3_Run", disabled = FALSE, style = Modules_VAR$Run$style)
       }
     }),
 
-    output$Mod3Step3_error_ran_V     <- renderUI({testInput(input$Mod3Step3_X1_ran_V, FullModel_VAR$ranV, FALSE, TRUE)}),
-    output$Mod3Step3_error_ran_corr  <- renderUI({testInput(input$Mod3Step3_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, TRUE)})
+    output$Mod3Step3_error_sto_V     <- renderUI({testInput(input$Mod3Step3_X1_sto_V, FullModel_VAR$stoV, FALSE, TRUE)}),
+    output$Mod3Step3_error_sto_corr  <- renderUI({testInput(input$Mod3Step3_X1_sto_corr, FullModel_VAR$stoCorr, FALSE, TRUE)})
     
   ) # End return

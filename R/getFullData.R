@@ -49,7 +49,7 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
     if(V$VG == 0){
       G   <- vector(N$NI*N$NT*N$NP*N$NS, mode = "double")
     }else{
-      G   <- rep(rep(rnorm(N$NK*N$NT*N$NP, Mu, sqrt(V$VG)), each=N$NI/N$NK), each=N$NS)
+      G   <- rep(rep(rnorm(N$NG*N$NT*N$NP, Mu, sqrt(V$VG)), each=N$NI/N$NG), each=N$NS)
     }
       
     ############################################## 

@@ -80,7 +80,7 @@ FullModel_VAR <- list(
                 paste("$",NOT$trait.2,"$")),
   
   # Number of High-level groups
-  "NK"  = list("label"       = "Higher-level groups",
+  "NG"  = list("label"       = "Higher-level groups",
                "infoTxt"     = "Number of higher-level groups. Number of groups must be lower than number of individuals. Number of individuals must be divisible by number of groups.",
                "value"       = 1,
                "min"         = 1,
@@ -120,7 +120,7 @@ FullModel_VAR <- list(
   ),
   
   # Stochastic environmental effect
-  "ran"     = list( "state" = list("label"    = "Add stochastic environment effect", 
+  "sto"     = list( "state" = list("label"    = "Add stochastic environment effect", 
                                   "infoTxt"   = "Generate a stochastic environmental effect following a normal distribution with mean 0 and variance that you could input below.",
                                   "value"     = FALSE),
                     "share" = list("label"    = "Shared environment", 
@@ -129,7 +129,7 @@ FullModel_VAR <- list(
   ),
   
   # Environemental effect variance (stochastic)
-  "ranV"   = list( "label"       = "Variance",
+  "stoV"   = list( "label"       = "Variance",
                    "infoTxt"     = "Environmental effect variance of a normal distribution around mean 0.",
                    "value"       = 1,
                    "min"         = 0,
@@ -139,13 +139,13 @@ FullModel_VAR <- list(
   ),
   
   # Environemental autocorrelation effect 
-  "ran_autocorrelation" = list("label"    = "Add autocorrelation", 
+  "sto_autocor_state" = list("label"    = "Add autocorrelation", 
                                "infoTxt"  = "Incorporate auto-correlation within the stochastic and normal environmental values.",
                                "value"    = FALSE
   ),
   
   # Environemental decay effect correlation
-  "ranCorr"   = list(  "label"        = "Correlation",
+  "stoCorr"   = list(  "label"        = "Correlation",
                         "infoTxt"     = "Correlation value between two consecutive environmental values (note that a decay rate is applied on correlation values and will decreases them more the time between environmental values is large).",
                         "value"       = 0.5,
                         "min"         = 0,
@@ -272,7 +272,7 @@ FullModel_VAR <- list(
   ),
   
   # Among-individual variance in timing of sampling
-  "Vit"   = list(  "label"      = "Among-individual variance in timing of sampling",
+  "Visj"   = list(  "label"      = "Among-individual variance in timing of sampling",
                     "infoTxt"   = "Among-individual variance in timing of sampling.",
                     "value"     = 0.0,
                     "min"       = 0.0,

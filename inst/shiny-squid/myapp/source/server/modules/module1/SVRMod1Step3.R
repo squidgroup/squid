@@ -2,7 +2,7 @@
 c(
   
     ######### Set variables #########    
-      # Set hidden variables (Tmax, Vi, X1_state, X1_ran_V and NR)
+      # Set hidden variables (Tmax, Vi, X1_state, X1_sto_V and NR)
        output$Mod1Step3_hidden <- renderUI({
           list(
             numericInput("Mod1Step3_Tmax", "", Modules_VAR$Tmax$max),
@@ -10,9 +10,9 @@ c(
             numericInput("Mod1Step3_Vbx","", 1-input$Mod1Step3_Vi-input$Mod1Step3_Ve),
             matrixInput2("Mod1Step3_B", "",data.frame(matrix(c(0,sqrt(1-input$Mod1Step3_Vi-input$Mod1Step3_Ve),0,0),1))),
             checkboxInput("Mod1Step3_X1_state", "", value = TRUE),
-            checkboxInput("Mod1Step3_X1_ran_state", "", value = TRUE),
-            checkboxInput("Mod1Step3_X1_ran_shared", "", value = FALSE),
-            numericInput("Mod1Step3_X1_ran_V","", 1, min = 0, max = 1, step = 0.001)
+            checkboxInput("Mod1Step3_X1_sto_state", "", value = TRUE),
+            checkboxInput("Mod1Step3_X1_sto_shared", "", value = FALSE),
+            numericInput("Mod1Step3_X1_sto_V","", 1, min = 0, max = 1, step = 0.001)
           )
         }),
  	outputOptions(output, "Mod1Step3_hidden", suspendWhenHidden = FALSE),

@@ -2,7 +2,7 @@
 c(
   
     ######### Set variables #########    
-      # Set hidden variables (Tmax, Vi, ES_state, ES_ran_V and NR)
+      # Set hidden variables (Tmax, Vi, ES_state, ES_sto_V and NR)
        output$Mod3Step2_hidden <- renderUI({
           list(
             numericInput("Mod3Step2_Tmax", "", Modules_VAR$Tmax$max),
@@ -13,9 +13,9 @@ c(
             
             checkboxInput("Mod3Step2_X1_state", "", value = TRUE),
             
-            checkboxInput("Mod3Step2_X1_ran_state", "", value = ifelse(input$Mod3Step2_X_select %in% c("ran","auto"),TRUE,FALSE)),
-            checkboxInput("Mod3Step2_X1_ran_autocorrelation", "", value = ifelse(input$Mod3Step2_X_select == "auto",TRUE,FALSE)),
-            checkboxInput("Mod3Step2_X1_ran_shared", "", value = input$Mod3Step2_X_Shared),
+            checkboxInput("Mod3Step2_X1_sto_state", "", value = ifelse(input$Mod3Step2_X_select %in% c("sto","auto"),TRUE,FALSE)),
+            checkboxInput("Mod3Step2_X1_sto_autocor_state", "", value = ifelse(input$Mod3Step2_X_select == "auto",TRUE,FALSE)),
+            checkboxInput("Mod3Step2_X1_sto_shared", "", value = input$Mod3Step2_X_Shared),
             
             checkboxInput("Mod3Step2_X1_lin_state", "", value = ifelse(input$Mod3Step2_X_select == "lin",TRUE,FALSE)),
             checkboxInput("Mod3Step2_X1_lin_shared", "", value = input$Mod3Step2_X_Shared),
@@ -62,7 +62,7 @@ c(
  	  
  	  myInput <- list("Mod3Step2_Preview_Tmax" = Modules_VAR$Tmax$max,
  	                  "Mod3Step2_Preview_NI" = input$Mod3Step2_NI,
- 	                  "Mod3Step2_Preview_Vit" = input$Mod3Step2_Vit,
+ 	                  "Mod3Step2_Preview_Visj" = input$Mod3Step2_Visj,
  	                  "Mod3Step2_Preview_NR" = input$Mod3Step2_NR,
  	                  "Mod3Step2_Preview_Dtime_Ind" = FALSE
  	                  )
@@ -90,14 +90,14 @@ c(
      	# display error message
      	observe({
      	  if(
-     	     !testInput(input$Mod3Step2_X1_ran_V, FullModel_VAR$ranV, FALSE, FALSE) ||
-     	     !testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, FALSE)){
+     	     !testInput(input$Mod3Step2_X1_sto_V, FullModel_VAR$stoV, FALSE, FALSE) ||
+     	     !testInput(input$Mod3Step2_X1_sto_corr, FullModel_VAR$stoCorr, FALSE, FALSE)){
      	    updateButton(session, "Mod3Step2_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
      	  }else{
      	    updateButton(session, "Mod3Step2_Run", disabled = FALSE, style = Modules_VAR$Run$style)
      	  }
      	}),
- 	    output$Mod3Step2_error_ran_V     <- renderUI({testInput(input$Mod3Step2_X1_ran_V, FullModel_VAR$ranV, FALSE, TRUE)}),
- 	    output$Mod3Step2_error_ran_corr  <- renderUI({testInput(input$Mod3Step2_X1_ran_corr, FullModel_VAR$ranCorr, FALSE, TRUE)})
+ 	    output$Mod3Step2_error_sto_V     <- renderUI({testInput(input$Mod3Step2_X1_sto_V, FullModel_VAR$stoV, FALSE, TRUE)}),
+ 	    output$Mod3Step2_error_sto_corr  <- renderUI({testInput(input$Mod3Step2_X1_sto_corr, FullModel_VAR$stoCorr, FALSE, TRUE)})
 
   ) # End return

@@ -13,14 +13,13 @@ createEnvironment <- function(input, module, environment){
   # extract environment parameters from the general inputs
   inputNames <- list(
     "state"               = paste(module, environment, "state", sep = "_"),
-    # "myModule"            = paste(myModule, myEnv, "myModule", sep = "_"),
-    # Random effect
-    "ran_state"           = paste(module, environment, "ran_state", sep = "_"),
-    "ran_shared"          = paste(module, environment, "ran_shared", sep = "_"),
-    "ran_Mu"              = paste(module, environment, "ran_Mu", sep = "_"),
-    "ran_V"               = paste(module, environment, "ran_V", sep = "_"),
-    "ran_autocorrelation" = paste(module, environment, "ran_autocorrelation", sep = "_"),
-    "ran_corr"            = paste(module, environment, "ran_corr", sep = "_"),
+    # Stochastic effect
+    "sto_state"           = paste(module, environment, "sto_state", sep = "_"),
+    "sto_shared"          = paste(module, environment, "sto_shared", sep = "_"),
+    "sto_Mu"              = paste(module, environment, "sto_Mu", sep = "_"),
+    "sto_V"               = paste(module, environment, "sto_V", sep = "_"),
+    "sto_autocor_state"   = paste(module, environment, "sto_autocor_state", sep = "_"),
+    "sto_corr"            = paste(module, environment, "sto_corr", sep = "_"),
     # Linear effect
     "lin_state"           = paste(module, environment, "lin_state", sep = "_"),
     "lin_shared"          = paste(module, environment, "lin_shared", sep = "_"),
@@ -43,19 +42,19 @@ createEnvironment <- function(input, module, environment){
     # the state of the environment (if TRUE is activated otherwise it's not)
     "state"  = ifelse(inputNames$state %in% names(input),input[[inputNames$state]],FALSE),
     
-    # Random effect (normal distribution)
-    #   state: the state of the random environmental effect (TRUE is activated, FALSE is not)
+    # Stochastic effect (normal distribution)
+    #   state: the state of the stichastic environmental effect (TRUE is activated, FALSE is not)
     #   shared: if this effect is shared among individuals (TRUE is shared, FLASE is not)
     #   Mu: mean of the normal distribution
     #   v: variance of the normal distribution
     #   autocorrelation: utilization of autocorrelation (TRUE autorrelation is added FALSE is not)
     #   corr: correlation value between two consecutive values used for the autocorrelation (between 0 and 1)
-    "ran"  = list("state"           = ifelse(inputNames$ran_state %in% names(input),input[[inputNames$ran_state]],FALSE),
-                  "shared"          = ifelse(inputNames$ran_shared %in% names(input),input[[inputNames$ran_shared]],TRUE),
+    "sto"  = list("state"           = ifelse(inputNames$sto_state %in% names(input),input[[inputNames$sto_state]],FALSE),
+                  "shared"          = ifelse(inputNames$sto_shared %in% names(input),input[[inputNames$sto_shared]],TRUE),
                   "Mu"              = 0,
-                  "V"               = ifelse(inputNames$ran_V %in% names(input),input[[inputNames$ran_V]],1),
-                  "autocorrelation" = ifelse(inputNames$ran_autocorrelation %in% names(input),input[[inputNames$ran_autocorrelation]],FALSE), 
-                  "corr"            = ifelse(inputNames$ran_corr %in% names(input),input[[inputNames$ran_corr]],0)),
+                  "V"               = ifelse(inputNames$sto_V %in% names(input),input[[inputNames$sto_V]],1),
+                  "autocor_state"   = ifelse(inputNames$sto_autocor_state %in% names(input),input[[inputNames$sto_autocor_state]],FALSE), 
+                  "corr"            = ifelse(inputNames$sto_corr %in% names(input),input[[inputNames$sto_corr]],0)),
     
     # Linear effect (environment = Intercept + Slope x Time)
     #   state: the state of the linear environmental effect (TRUE is activated, FALSE is not)

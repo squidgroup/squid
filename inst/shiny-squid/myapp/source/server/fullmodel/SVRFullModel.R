@@ -8,10 +8,10 @@ SVRFullModel <- function(myModule, input, output, session){
   NP                 <- paste(myModule, "NP", sep="_")
   NI                 <- paste(myModule, "NI", sep="_")
   Ve                 <- paste(myModule, "Ve", sep="_")
-  NK                 <- paste(myModule, "NK", sep="_")
+  NG                 <- paste(myModule, "NG", sep="_")
   VG                 <- paste(myModule, "VG", sep="_")
   NR                 <- paste(myModule, "NR", sep="_")
-  Vit                <- paste(myModule, "Vit", sep="_")
+  Visj                <- paste(myModule, "Visj", sep="_")
 
   B                  <- paste(myModule, "B", sep="_")
   B_temp             <- paste(myModule, "B_temp", sep="_")
@@ -26,11 +26,11 @@ SVRFullModel <- function(myModule, input, output, session){
   Vind_UI_hidden     <- paste(myModule, "Vind_UI_hidden", sep="_")
   
   X1_state           <- paste(myModule, "X1_state", sep="_")
-  X1_ran_state       <- paste(myModule, "X1_ran_state", sep="_")
-  X1_ran_shared      <- paste(myModule, "X1_ran_shared", sep="_")
-  X1_ran_V           <- paste(myModule, "X1_ran_V", sep="_")
-  X1_ran_autocorrelation <- paste(myModule, "X1_ran_autocorrelation", sep="_")
-  X1_ran_corr        <- paste(myModule, "X1_ran_corr", sep="_")
+  X1_sto_state       <- paste(myModule, "X1_sto_state", sep="_")
+  X1_sto_shared      <- paste(myModule, "X1_sto_shared", sep="_")
+  X1_sto_V           <- paste(myModule, "X1_sto_V", sep="_")
+  X1_sto_autocor_state <- paste(myModule, "X1_sto_autocor_state", sep="_")
+  X1_sto_corr        <- paste(myModule, "X1_sto_corr", sep="_")
   X1_lin_state       <- paste(myModule, "X1_lin_state", sep="_")
   X1_lin_Intercept   <- paste(myModule, "X1_lin_Intercept", sep="_")
   X1_lin_Slope       <- paste(myModule, "X1_lin_Slope", sep="_")
@@ -47,11 +47,11 @@ SVRFullModel <- function(myModule, input, output, session){
   
   
   X1_state           <- paste(myModule, "X1_state", sep="_")
-  X1_ran_state       <- paste(myModule, "X1_ran_state", sep="_")
-  X1_ran_shared      <- paste(myModule, "X1_ran_shared", sep="_")
-  X1_ran_V           <- paste(myModule, "X1_ran_V", sep="_")
-  X1_ran_autocorrelation <- paste(myModule, "X1_ran_autocorrelation", sep="_")
-  X1_ran_corr        <- paste(myModule, "X1_ran_corr", sep="_")
+  X1_sto_state       <- paste(myModule, "X1_sto_state", sep="_")
+  X1_sto_shared      <- paste(myModule, "X1_sto_shared", sep="_")
+  X1_sto_V           <- paste(myModule, "X1_sto_V", sep="_")
+  X1_sto_autocor_state <- paste(myModule, "X1_sto_autocor_state", sep="_")
+  X1_sto_corr        <- paste(myModule, "X1_sto_corr", sep="_")
   X1_lin_state       <- paste(myModule, "X1_lin_state", sep="_")
   X1_lin_Intercept   <- paste(myModule, "X1_lin_Intercept", sep="_")
   X1_lin_Slope       <- paste(myModule, "X1_lin_Slope", sep="_")
@@ -67,11 +67,11 @@ SVRFullModel <- function(myModule, input, output, session){
   X1_plotEnvironment <- paste(myModule, "X1_plotEnvironment", sep="_")
   
   X2_state           <- paste(myModule, "X2_state", sep="_")
-  X2_ran_state       <- paste(myModule, "X2_ran_state", sep="_")
-  X2_ran_shared      <- paste(myModule, "X2_ran_shared", sep="_")
-  X2_ran_V           <- paste(myModule, "X2_ran_V", sep="_")
-  X2_ran_autocorrelation <- paste(myModule, "X2_ran_autocorrelation", sep="_")
-  X2_ran_corr        <- paste(myModule, "X2_ran_corr", sep="_")
+  X2_sto_state       <- paste(myModule, "X2_sto_state", sep="_")
+  X2_sto_shared      <- paste(myModule, "X2_sto_shared", sep="_")
+  X2_sto_V           <- paste(myModule, "X2_sto_V", sep="_")
+  X2_sto_autocor_state <- paste(myModule, "X2_sto_autocor_state", sep="_")
+  X2_sto_corr        <- paste(myModule, "X2_sto_corr", sep="_")
   X2_lin_state       <- paste(myModule, "X2_lin_state", sep="_")
   X2_lin_Intercept   <- paste(myModule, "X2_lin_Intercept", sep="_")
   X2_lin_Slope       <- paste(myModule, "X2_lin_Slope", sep="_")
@@ -118,12 +118,12 @@ SVRFullModel <- function(myModule, input, output, session){
   
   error_Tmax            <- paste(myModule, "error_Tmax", sep="_")
   error_NP              <- paste(myModule, "error_NP", sep="_")    
-  error_X1_ran_V        <- paste(myModule, "error_X1_ran_V", sep="_")
-  error_X2_ran_V        <- paste(myModule, "error_X2_ran_V", sep="_")
-  error_X1_ran_corr     <- paste(myModule, "error_X1_ran_corr", sep="_")
-  error_X2_ran_corr     <- paste(myModule, "error_X2_ran_corr", sep="_")
+  error_X1_sto_V        <- paste(myModule, "error_X1_sto_V", sep="_")
+  error_X2_sto_V        <- paste(myModule, "error_X2_sto_V", sep="_")
+  error_X1_sto_corr     <- paste(myModule, "error_X1_sto_corr", sep="_")
+  error_X2_sto_corr     <- paste(myModule, "error_X2_sto_corr", sep="_")
   error_NI              <- paste(myModule, "error_NI", sep="_")
-  error_NK              <- paste(myModule, "error_NK", sep="_")
+  error_NG              <- paste(myModule, "error_NG", sep="_")
   error_Ve             <- paste(myModule, "error_Ve", sep="_")
   error_VG              <- paste(myModule, "error_VG", sep="_")
   error_NR              <- paste(myModule, "error_NR", sep="_")
@@ -280,7 +280,7 @@ SVRFullModel <- function(myModule, input, output, session){
      
      # update the sampling time length for each individual    
      output[[SampTime]] <- renderText({ 
-       FullModel_VAR$NR$max <<- round(input[[Tmax]]*(1-input[[Vit]])) 
+       FullModel_VAR$NR$max <<- round(input[[Tmax]]*(1-input[[Visj]])) 
      }),
 
      # Update sampling time checkbox relative to the sampling record checkbox
@@ -291,7 +291,7 @@ SVRFullModel <- function(myModule, input, output, session){
        if(!input[[Drec_Ind]] & input[[Dtime_Ind]])       updateCheckboxInput(session, Drec_Ind,   value = TRUE)
        if(!input[[Drec_Trait]] & input[[Dtime_Trait]])   updateCheckboxInput(session, Drec_Trait, value = TRUE)  
        
-       if(input[[Vit]] > 0){
+       if(input[[Visj]] > 0){
          updateCheckboxInput(session, Dtime_Ind,   value = FALSE)
          updateCheckboxInput(session, Dtime_Trait,   value = FALSE)
        }
@@ -303,20 +303,20 @@ SVRFullModel <- function(myModule, input, output, session){
 
       # Update environment states
       observe({
-         ifelse(input[[X1_ran_state]] || input[[X1_lin_state]]|| input[[X1_cyc_state]], 
+         ifelse(input[[X1_sto_state]] || input[[X1_lin_state]]|| input[[X1_cyc_state]], 
                 updateCheckboxInput(session, X1_state, value = TRUE), 
                 updateCheckboxInput(session, X1_state, value = FALSE))
         
         # Update X2 environment state
-        ifelse(input[[X2_ran_state]] || input[[X2_lin_state]]|| input[[X2_cyc_state]], 
+        ifelse(input[[X2_sto_state]] || input[[X2_lin_state]]|| input[[X2_cyc_state]], 
                updateCheckboxInput(session, X2_state, value = TRUE), 
                updateCheckboxInput(session, X2_state, value = FALSE))
         
-        if(!input[[X1_ran_state]]) updateCheckboxInput(session, X1_ran_shared, value = TRUE)
+        if(!input[[X1_sto_state]]) updateCheckboxInput(session, X1_sto_shared, value = TRUE)
         if(!input[[X1_lin_state]]) updateCheckboxInput(session, X1_lin_shared, value = TRUE)
         if(!input[[X1_cyc_state]]) updateCheckboxInput(session, X1_cyc_shared, value = TRUE)
         
-        if(!input[[X2_ran_state]]) updateCheckboxInput(session, X2_ran_shared, value = TRUE)  
+        if(!input[[X2_sto_state]]) updateCheckboxInput(session, X2_sto_shared, value = TRUE)  
         if(!input[[X2_lin_state]]) updateCheckboxInput(session, X2_lin_shared, value = TRUE)
         if(!input[[X2_cyc_state]]) updateCheckboxInput(session, X2_cyc_shared, value = TRUE)
         
@@ -405,19 +405,19 @@ SVRFullModel <- function(myModule, input, output, session){
 
      isError <- reactive({
        
-      FullModel_VAR$NR$max    <<- round(input[[Tmax]]*(1-input[[Vit]])) 
-      FullModel_VAR$NK$modulo <<- input[[NI]] 
+      FullModel_VAR$NR$max    <<- round(input[[Tmax]]*(1-input[[Visj]])) 
+      FullModel_VAR$NG$modulo <<- input[[NI]] 
       
       if(!testInput(input[[Tmax]], FullModel_VAR$Tmax, TRUE, FALSE)                  ||
          !testInput(input[[NP]], FullModel_VAR$NP, TRUE, FALSE)                      ||            
-         !testInput(input[[X1_ran_V]], FullModel_VAR$ranV, FALSE, FALSE)             ||
-         !testInput(input[[X2_ran_V]], FullModel_VAR$ranV, FALSE, FALSE)             ||
-         !testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)       || 
-         !testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, FALSE)       || 
+         !testInput(input[[X1_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
+         !testInput(input[[X2_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
+         !testInput(input[[X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
+         !testInput(input[[X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
          !testInput(input[[NI]], FullModel_VAR$NI, TRUE, FALSE)                      ||
          !testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
          !testInput(input[[VG]], FullModel_VAR$VG, FALSE, FALSE)                     ||
-         !testInput(input[[NK]], FullModel_VAR$NK, TRUE, FALSE, TRUE)                ||
+         !testInput(input[[NG]], FullModel_VAR$NG, TRUE, FALSE, TRUE)                ||
          !testInput(input[[NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
          !testInputBMatrix(input[[B]] , FullModel_VAR$B, FALSE)                      ||
          !testInputVindMatrix(input[[Vind]] , FullModel_VAR$Vind, FALSE)){
@@ -456,16 +456,16 @@ SVRFullModel <- function(myModule, input, output, session){
     
      output[[error_Tmax]]            <- renderUI({testInput(input[[Tmax]], FullModel_VAR$Tmax, TRUE, TRUE)}),
      output[[error_NP]]              <- renderUI({testInput(input[[NP]], FullModel_VAR$NP, TRUE, TRUE)}),     
-     output[[error_X1_ran_V]]        <- renderUI({testInput(input[[X1_ran_V]], FullModel_VAR$ranV, FALSE, TRUE)}),
-     output[[error_X2_ran_V]]        <- renderUI({testInput(input[[X2_ran_V]], FullModel_VAR$ranV, FALSE, TRUE)}),
-     output[[error_X1_ran_corr]]    <- renderUI({testInput(input[[X1_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
-     output[[error_X2_ran_corr]]    <- renderUI({testInput(input[[X2_ran_corr]], FullModel_VAR$ranCorr, FALSE, TRUE)}),
+     output[[error_X1_sto_V]]        <- renderUI({testInput(input[[X1_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
+     output[[error_X2_sto_V]]        <- renderUI({testInput(input[[X2_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
+     output[[error_X1_sto_corr]]    <- renderUI({testInput(input[[X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
+     output[[error_X2_sto_corr]]    <- renderUI({testInput(input[[X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
      output[[error_NI]]              <- renderUI({testInput(input[[NI]], FullModel_VAR$NI, TRUE, TRUE)}),
      output[[error_Ve]]             <- renderUI({testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, TRUE)}),
-     output[[error_NK]]              <- renderUI({testInput(input[[NK]], FullModel_VAR$NK, TRUE, TRUE, TRUE)}),
+     output[[error_NG]]              <- renderUI({testInput(input[[NG]], FullModel_VAR$NG, TRUE, TRUE, TRUE)}),
      output[[error_VG]]              <- renderUI({testInput(input[[VG]], FullModel_VAR$VG, FALSE, TRUE)}),
      output[[error_NR]] <- renderUI({
-          input[[Tmax]];input[[Vit]];
+          input[[Tmax]];input[[Visj]];
           testInput(input[[NR]], FullModel_VAR$NR, TRUE, TRUE) 
        }),
      output[[error_B]]               <- renderUI({testInputBMatrix(input[[B]] , FullModel_VAR$B, TRUE)}),
@@ -571,16 +571,16 @@ SVRFullModel <- function(myModule, input, output, session){
 #         updateNumericInput(session, inputId = Tmax, value = saveFile[[Tmax]])
 #         updateNumericInput(session, inputId = NP,   value = saveFile[[NP]])
 #         updateNumericInput(session, inputId = NI,   value = saveFile[[NI]])
-#         updateNumericInput(session, inputId = NK,   value = saveFile[[NK]])
+#         updateNumericInput(session, inputId = NG,   value = saveFile[[NG]])
 #         updateSelectInput(session,  inputId = NT,   selected = saveFile[[NT]])
 # 
 #         # Environment X1
 #           # Stochastic environment
-#           updateCheckboxInput(session, inputId = X1_ran_state,  value = saveFile[[X1_ran_state]])
-#           updateNumericInput(session,  inputId = X1_ran_V,      value = saveFile[[X1_ran_V]])
-#           updateCheckboxInput(session, inputId = X1_ran_autocorrelation,  value = saveFile[[X1_ran_autocorrelation]])
-#           updateNumericInput(session,  inputId = X1_ran_corr,   value = saveFile[[X1_ran_corr]])
-#           updateCheckboxInput(session, inputId = X1_ran_shared, value = saveFile[[X1_ran_shared]])
+#           updateCheckboxInput(session, inputId = X1_sto_state,  value = saveFile[[X1_sto_state]])
+#           updateNumericInput(session,  inputId = X1_sto_V,      value = saveFile[[X1_sto_V]])
+#           updateCheckboxInput(session, inputId = X1_sto_autocor_state,  value = saveFile[[X1_sto_autocor_state]])
+#           updateNumericInput(session,  inputId = X1_sto_corr,   value = saveFile[[X1_sto_corr]])
+#           updateCheckboxInput(session, inputId = X1_sto_shared, value = saveFile[[X1_sto_shared]])
 #           
 #           # Linear environment
 #           updateCheckboxInput(session, inputId = X1_lin_state,     value = saveFile[[X1_lin_state]])
@@ -600,11 +600,11 @@ SVRFullModel <- function(myModule, input, output, session){
 #           
 #         # Environment X2
 #           # Stochastic environment
-#           updateCheckboxInput(session, inputId = X2_ran_state,  value = saveFile[[X2_ran_state]])
-#           updateNumericInput(session,  inputId = X2_ran_V,      value = saveFile[[X2_ran_V]])
-#           updateCheckboxInput(session, inputId = X2_ran_autocorrelation,  value = saveFile[[X2_ran_autocorrelation]])
-#           updateNumericInput(session,  inputId = X2_ran_corr,   value = saveFile[[X2_ran_corr]])
-#           updateCheckboxInput(session, inputId = X2_ran_shared, value = saveFile[[X2_ran_shared]])
+#           updateCheckboxInput(session, inputId = X2_sto_state,  value = saveFile[[X2_sto_state]])
+#           updateNumericInput(session,  inputId = X2_sto_V,      value = saveFile[[X2_sto_V]])
+#           updateCheckboxInput(session, inputId = X2_sto_autocor_state,  value = saveFile[[X2_sto_autocor_state]])
+#           updateNumericInput(session,  inputId = X2_sto_corr,   value = saveFile[[X2_sto_corr]])
+#           updateCheckboxInput(session, inputId = X2_sto_shared, value = saveFile[[X2_sto_shared]])
 #           
 #           # Linear environment
 #           updateCheckboxInput(session, inputId = X2_lin_state,     value = saveFile[[X2_lin_state]])
@@ -629,7 +629,7 @@ SVRFullModel <- function(myModule, input, output, session){
 #         updateNumericInput(session,  inputId = VG,  value = saveFile[[VG]])
 #         
 #         updateNumericInput(session,  inputId = NR,  value = saveFile[[NR]])
-#         updateSliderInput(session,   inputId = Vit, value = saveFile[[Vit]])
+#         updateSliderInput(session,   inputId = Visj, value = saveFile[[Visj]])
 #         updateCheckboxInput(session, inputId = Drec_Ind,    value = saveFile[[Drec_Ind]])
 #         updateCheckboxInput(session, inputId = Drec_Trait,  value = saveFile[[Drec_Trait]])
 #         updateCheckboxInput(session, inputId = Dtime_Ind,   value = saveFile[[Dtime_Ind]])

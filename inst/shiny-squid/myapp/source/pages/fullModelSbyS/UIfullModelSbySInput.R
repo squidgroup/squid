@@ -38,7 +38,7 @@ span(
                         getSelectInput("FModSbyS_NT", FullModel_VAR$NT)
                  ),
                  column(width = 3,
-                        getNumericInput("FModSbyS_NK", FullModel_VAR$NK, "FModSbyS_error_NK")
+                        getNumericInput("FModSbyS_NG", FullModel_VAR$NG, "FModSbyS_error_NG")
                  )
                )
          )
@@ -134,11 +134,11 @@ span(
                            getNumericInput("FModSbyS_NR", FullModel_VAR$NR, "FModSbyS_error_NR")
                     ),
                     column(6,
-                           getLabel("FModSbyS_SampTime", FullModel_VAR$SampTime),
+                           getLabel("FModSbyS_SampTime_Label", FullModel_VAR$SampTime),
                            textOutput("FModSbyS_SampTime")
                     )
                   ),
-                  getSliderInput("FModSbyS_Vit", FullModel_VAR$Vit)
+                  getSliderInput("FModSbyS_Visj", FullModel_VAR$Visj)
            ),
            column(width = 6,
                   h6("Number of records:", getIcon("FModSbyS_Checkbox_NbRecords_Info")),

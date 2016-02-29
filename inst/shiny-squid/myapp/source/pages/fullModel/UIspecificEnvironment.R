@@ -3,8 +3,8 @@ UIspecificEnvironment <- function(Mod, name, type, isShared){
   return(
     span(
       switch(type, 
-       # random environment with a normal distribution
-       ran ={ 
+       # Stochastic environment with a normal distribution
+       sto ={ 
          span(
             getCheckboxInput(paste(Mod,name,type,"state", sep="_"), FullModel_VAR[[type]][["state"]]),
             
@@ -13,16 +13,16 @@ UIspecificEnvironment <- function(Mod, name, type, isShared){
               
                 fluidRow(
                   column(6,
-                     getNumericInput(paste(Mod,name,type,"V", sep="_"), FullModel_VAR$ranV, paste(Mod,"error",name,type,"V", sep="_"))
+                     getNumericInput(paste(Mod,name,type,"V", sep="_"), FullModel_VAR$stoV, paste(Mod,"error",name,type,"V", sep="_"))
                    ),
                   column(6,
                     # Add decay rate (autocorrelation)
-                    getCheckboxInput(paste(Mod,name,type,"autocorrelation", sep="_"), FullModel_VAR$ran_autocorrelation),
+                    getCheckboxInput(paste(Mod,name,type,"autocor_state", sep="_"), FullModel_VAR$sto_autocor_state),
                     conditionalPanel(
-                      condition = paste("input.",Mod,"_",name,"_",type,"_autocorrelation == 1", sep=""),
+                      condition = paste("input.",Mod,"_",name,"_",type,"_autocor_state == 1", sep=""),
                       
                       getNumericInput(paste(Mod,name,type,"corr", sep="_"), 
-                                     FullModel_VAR$ranCorr, 
+                                     FullModel_VAR$stoCorr, 
                                      paste(Mod,"error",name,type,"corr",sep="_")) 
                     )
                   ),
@@ -50,7 +50,7 @@ UIspecificEnvironment <- function(Mod, name, type, isShared){
                column(12, getCheckboxInput(paste(Mod,name,type,"shared", sep="_"), FullModel_VAR[[type]][["share"]])),
                conditionalPanel(
                  condition = paste("input.",Mod,"_",name,"_",type,"_shared == 0", sep=""), 
-                 getNumericInput(paste(Mod,name,type,"V", sep="_"), FullModel_VAR$ranV, paste(Mod,"error",name,type,"V", sep="_"))
+                 getNumericInput(paste(Mod,name,type,"V", sep="_"), FullModel_VAR$stoV, paste(Mod,"error",name,type,"V", sep="_"))
                )
              )
            )
@@ -80,7 +80,7 @@ UIspecificEnvironment <- function(Mod, name, type, isShared){
                column(12, getCheckboxInput(paste(Mod,name,type,"shared", sep="_"), FullModel_VAR[[type]][["share"]])),
                conditionalPanel(
                  condition = paste("input.",Mod,"_",name,"_",type,"_shared == 0", sep=""), 
-                 getNumericInput(paste(Mod,name,type,"V", sep="_"), FullModel_VAR$ranV, paste(Mod,"error",name,type,"V", sep="_"))
+                 getNumericInput(paste(Mod,name,type,"V", sep="_"), FullModel_VAR$stoV, paste(Mod,"error",name,type,"V", sep="_"))
                )
              )
            )

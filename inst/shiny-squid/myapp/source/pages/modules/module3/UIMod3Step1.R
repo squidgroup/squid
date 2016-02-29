@@ -40,7 +40,7 @@ span(
   
   # Number of records (NR)
   getSliderInput("Mod3Step1_NR", Modules_VAR$NR),
-  getSliderInput("Mod3Step1_Vit", Modules_VAR$Vit),
+  getSliderInput("Mod3Step1_Visj", Modules_VAR$Visj),
   
   p(HTML(Mod3Step1_txt$para5)),       # Text: paragraph 5
   

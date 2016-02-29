@@ -154,7 +154,7 @@ Modules_VAR <- list(
   ),
   
   # Among-individual variance in timing of sampling
-  "Vit"   = list(  "label"       = "Among-individual variance in timing of sampling:",
+  "Visj"   = list(  "label"       = "Among-individual variance in timing of sampling:",
                    "infoTxt"     = "Among-individual variance in timing of sampling.",
                    "value"       = 0.5,
                    "min"         = 0,
@@ -171,7 +171,7 @@ Modules_VAR <- list(
   # Number of trait per individual
   "Env_types" = list( "label"       = "Environment types",
                       "infoTxt"     = "",
-                      "value"       = c("Stochastic" = "ran",
+                      "value"       = c("Stochastic" = "sto",
                                         "Autocorrelated" = "auto",
                                         "Linear" = "lin",
                                         "Cyclic" = "cyc")
