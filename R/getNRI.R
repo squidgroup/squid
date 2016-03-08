@@ -11,8 +11,8 @@ getNRI <- function(N, Time){
   
   # Generate record number for each individual with a poisson distribution 
   # with a lamda equal to NR 
-  if(!Time$Drec_Ind){
-    if(!Time$Drec_Trait){
+  if(!Time$NR_ind){
+    if(!Time$NR_trait){
       # Difference in records number among individuals and traits
       NRI <- as.integer(rpois(nbSample.NT, N$NR)) 
     }else{
@@ -21,7 +21,7 @@ getNRI <- function(N, Time){
       NRI <- rep(NRI, N$NT)
     }
   }else{
-    if(!Time$Drec_Trait){
+    if(!Time$NR_trait){
       # Difference in records number among Traits and  same among individuals
       NRI <- NULL
       myFun  <- function(i){

@@ -12,8 +12,8 @@ getTxUniform <- function(N, Time){
     diff        <- (Time$Tsamp - Time$TsampI)/2
     MuInterval  <- c((Mu-diff):(Mu+diff))
     
-    if(!Time$Dtime_Ind){      
-      if(!Time$Dtime_Trait){
+    if(!Time$ST_ind){      
+      if(!Time$ST_trait){
         
         # Difference in sampling time among individuals and traits
         # Generate individual mean time sampling
@@ -50,7 +50,7 @@ getTxUniform <- function(N, Time){
       
     }else{
       
-      if(!Time$Dtime_Trait){
+      if(!Time$ST_trait){
         
         # Difference in sampling time among Traits and same among individuals
         

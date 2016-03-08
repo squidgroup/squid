@@ -8,7 +8,7 @@
 #'
 #' @return               list of all model variables
 #'
-setVariables <- function(input, module, environments){
+setVariables <- function(input, module, environments, sep){
   
   ##############################################################
   ################## VARIABLES DECLARATION #####################
@@ -25,24 +25,24 @@ setVariables <- function(input, module, environments){
   )
   
   inputNames <- list(
-    "B"              = paste(module,"B", sep = "_"),      
-    "Vind"           = paste(module,"Vind", sep = "_"),
-    "Ve"             = paste(module,"Ve", sep = "_"),
-    "VG"             = paste(module,"VG", sep = "_"),
-    "Tmax"           = paste(module,"Tmax", sep = "_"),      
-    "Time_sampling"  = paste(module,"Time_sampling", sep = "_"),
-    "Visj"           = paste(module,"Visj", sep = "_"),
-    "Drec_Ind"       = paste(module,"Drec_Ind", sep = "_"),
-    "Drec_Trait"     = paste(module,"Drec_Trait", sep = "_"),
-    "Dtime_Ind"      = paste(module,"Dtime_Ind", sep = "_"),
-    "Dtime_Trait"    = paste(module,"Dtime_Trait", sep = "_"),
-    "NR_Fixe"        = paste(module,"NR_Fixe", sep = "_"),
-    "NP"             = paste(module,"NP", sep = "_"),
-    "NI"             = paste(module,"NI", sep = "_"),
-    "NT"             = paste(module,"NT", sep = "_"),
-    "NR"             = paste(module,"NR", sep = "_"),
-    "NG"             = paste(module,"NG", sep = "_"),
-    "PB"             = paste(module,"PB", sep = "_")
+    "B"              = paste(module,"B"            , sep = sep),      
+    "Vind"           = paste(module,"Vind"         , sep = sep),
+    "Ve"             = paste(module,"Ve"           , sep = sep),
+    "VG"             = paste(module,"VG"           , sep = sep),
+    "Tmax"           = paste(module,"Tmax"         , sep = sep),      
+    "Time_sampling"  = paste(module,"Time_sampling", sep = sep),
+    "Visj"           = paste(module,"Visj"         , sep = sep),
+    "NR_ind"         = paste(module,"NR_ind"       , sep = sep),
+    "NR_trait"       = paste(module,"NR_trait"     , sep = sep),
+    "ST_ind"         = paste(module,"ST_ind"       , sep = sep),
+    "ST_trait"       = paste(module,"ST_trait"     , sep = sep),
+    "NR_Fixe"        = paste(module,"NR_Fixe"      , sep = sep),
+    "NP"             = paste(module,"NP"           , sep = sep),
+    "NI"             = paste(module,"NI"           , sep = sep),
+    "NT"             = paste(module,"NT"           , sep = sep),
+    "NR"             = paste(module,"NR"           , sep = sep),
+    "NG"             = paste(module,"NG"           , sep = sep),
+    "PB"             = paste(module,"PB"           , sep = sep)
   )
   
   ##############################################################
@@ -71,7 +71,6 @@ setVariables <- function(input, module, environments){
     "Tmin"     = 1,                           # Start time
     "Tmax"     = x,                           # End time
     "TS"       = 1,                           # Time step value
-    
     "Ts"       = y[1],                        # Start time of sampling
     "Te"       = y[2],                        # End time of sampling (Max = Tmax)
     "Tsamp"    = y[2]-y[1]+1,                 # Total sampling time
@@ -79,23 +78,23 @@ setVariables <- function(input, module, environments){
     
     "Visj"  = ifelse(inputNames$Visj %in% names(input),input[[inputNames$Visj]],0), # Among-individual variance in timing of sampling (between 0 and 1)
     
-    "Drec_Ind"    = ifelse(inputNames$Drec_Ind    %in% names(input),input[[inputNames$Drec_Ind]],TRUE),            
-    # Difference in number of records among individuals
+    "NR_ind"   = ifelse(inputNames$NR_ind    %in% names(input),input[[inputNames$NR_ind]],TRUE),            
+    # Number of records among individuals
+	# TRUE  : same number in records for all individuals
     # FALSE : different number of records among individuals
-    # TRUE  : same number in records for all individuals
-    "Drec_Trait"  = ifelse(inputNames$Drec_Trait  %in% names(input),input[[inputNames$Drec_Trait]],TRUE),        
-    # Difference in number of records among traits within individuals
-    # FALSE : different number of records among traits whitin individuals
-    # TRUE  : same number of records among traits within individuals
-    "Dtime_Ind"   = ifelse(inputNames$Dtime_Ind   %in% names(input),input[[inputNames$Dtime_Ind]],TRUE),          
-    # Difference in sampling time among individuals
+    "NR_trait" = ifelse(inputNames$NR_trait  %in% names(input),input[[inputNames$NR_trait]],TRUE),        
+    # Number of records among traits within individuals
+	# TRUE  : same number of records among traits within individuals
+    # FALSE : different number of records among traits whitin individua    
+    "ST_ind"   = ifelse(inputNames$ST_ind   %in% names(input),input[[inputNames$ST_ind]],TRUE),          
+    # Sampling time among individuals
+	# TRUE  : same sampling time among individuals
     # FALSE : different sampling time individuals
-    # TRUE  : same sampling time among individuals
-    "Dtime_Trait" = ifelse(inputNames$Dtime_Trait %in% names(input),input[[inputNames$Dtime_Trait]],TRUE),     
-    # Difference in sampling time among traits within individuals
+    "ST_trait" = ifelse(inputNames$ST_trait %in% names(input),input[[inputNames$ST_trait]],TRUE),     
+    # Sampling time among traits within individuals
+	# TRUE  : same sampling time among traits within individuals
     # FALSE : different sampling time among traits whitin individuals
-    # TRUE  : same sampling time among traits within individuals
-    "NR_Fixe"     = ifelse(inputNames$NR_Fixe %in% names(input),input[[inputNames$NR_Fixe]],TRUE) # if TRUE the same NR for all the populations
+    "NR_Fixe"  = ifelse(inputNames$NR_Fixe %in% names(input),input[[inputNames$NR_Fixe]],TRUE) # if TRUE the same NR for all the populations
   )
   
   Time$TsampI <- ifelse(Time$Visj > 0.95, round(Time$Tsamp*0.05,0), round(Time$Tsamp*(1-Time$Visj),0)) 
@@ -149,7 +148,6 @@ setVariables <- function(input, module, environments){
   }else{
     B <- matrix(0,N$NI*N$NS*N$NP*N$NT, Variables$nb.IS)
   }
-  
   
   return(list("Mu"= Mu,"N" = N, "B" = B, "V" = V, "Time" = Time, "Variables" = Variables))
   

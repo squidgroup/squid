@@ -1,0 +1,172 @@
+/*.navbar-static-top{
+  
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.myPage{
+  padding-top: 100px;
+}*/
+
+.clear{
+  clear: both;
+}
+
+#logo{
+  margin: 10px;
+}
+
+#FModSideBar .MathJax_Display{
+  text-align: left;
+  margin: 0;
+}
+
+#FModSideBar .row-fluid{
+  border-bottom: 1px dotted #666666;
+}
+
+p{
+  text-align:justify;
+}
+
+figure{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.shiny-text-output{
+  margin: 0 0 10px;  
+}
+
+
+i{
+  cursor:pointer;
+}
+
+/* Modules */
+
+.myTutorial h3{
+  margin-bottom: 20px;
+  border-bottom: 2px solid;
+}
+
+.myTutorial h4, .readme h4{
+  margin: 0 0 20px 0;
+  padding: 15px 0;
+  border-top: 2px solid #08c;
+  border-bottom: 2px solid #08c;
+  color:#08c;
+}
+
+h5 {
+  font-weight: bold;
+}
+
+.myPage .nav{
+  margin: 10px 0 20px 0;
+}
+
+.shiny-plot-output{
+  margin-bottom: 10px;
+}
+
+.button-link{
+   background:none!important;
+   border:none; 
+   padding:0!important;    
+   cursor: pointer;
+   color: #08c;
+   font-size: 15px;
+}
+
+.button-link:hover{
+  color: #015a86;
+  text-decoration: underline;
+}   
+
+.step-Link{
+  color: #08c;
+}
+
+
+#FullModel h4, #Simulation h4{
+  margin: 0 0 10px 0;
+  color:#08c;
+}
+
+.line{
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
+  margin: 20px 0 10px 0;
+}
+
+.invisible{visibility: hidden;}
+
+.CoVarMat_noInput, .BMat_noInput{background-color: #c8c9cb;}
+.CoVarMat_Var    {background-color: #CECEF6;}
+.CoVarMat_Covar  {background-color: #f2f29d;}
+
+.BMat_input      {background-color: #f0c39b;}
+
+table input{
+  width: 40px;
+}
+table {
+  border-color:#000;
+}
+
+.table-header{
+  text-align: center!important;
+}
+
+.space{height:50px}
+
+
+.shiny-output-error-validation{
+  color: red;
+}
+
+
+input[type=checkbox] + span {
+  color: #777;
+  font-style: italic;
+} 
+
+input[type=checkbox]:checked + span {
+    color: #000;
+    font-weight: bold;
+    font-style: normal;
+}
+
+input[type="number"]{
+    width: 100px;
+}
+
+.selectize-control{
+    width: 100px;
+}
+
+.noMargin{
+  margin-left: 0 !important;
+}
+
+.shiny-text-output {
+  margin: 10px 0;
+}
+
+.footer{
+  min-height: 100px;
+  
+}
+
+.runningIndicators {
+  margin: 0 20px;
+}
+
+.runButton{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+

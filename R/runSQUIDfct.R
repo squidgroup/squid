@@ -12,7 +12,7 @@
 #' @example 
 #' runSQUIDfct()
 #'
-runSQUIDfct <- function(input=list(), module="", shinyUI = FALSE){ 
+runSQUIDfct <- function(input=list(), module=NULL, plot=FALSE){ 
   
   # Main function of the full model that simulates individual phenotypes over time
   # and then samples within those phenotypes according to specific sampling design
@@ -32,11 +32,14 @@ runSQUIDfct <- function(input=list(), module="", shinyUI = FALSE){
   #################### INPUT VARIABLES  ########################
   ##############################################################  
   
+  # Set seperator character
+  sep <- ifelse(is.null(module), "", "_")
+  
   # Set up environmental variables
-  environments <- setEnvironments(input, module)
+  environments <- setEnvironments(input, module, sep)
   
   # Set up other variables
-  variables <- setVariables(input, module, environments)
+  variables    <- setVariables(input, module, environments, sep)
   
   Mu        <- variables$Mu
   N         <- variables$N
@@ -58,7 +61,7 @@ runSQUIDfct <- function(input=list(), module="", shinyUI = FALSE){
   
   #######################################################################################
   ## Display results
-  if(shinyUI) 
+  if(plot) 
     output[["myPlot"]]     <- displayResults(N, Time, output[["full_Data"]], output[["sampled_Data"]])
   
   #######################################################################################

@@ -19,13 +19,13 @@ getEnvironment <- function(environment, N, visualization){
     # Linear environment effect
     if(environment$lin$state){
       if(environment$lin$shared){ 
-        outputTMP <- environment$lin$Intercept + (environment$lin$Slope*(1:N$NS))
+        outputTMP <- environment$lin$intercept + (environment$lin$slope*(1:N$NS))
         output    <- rep(outputTMP, NB)
       }else{
-        Intercept <-  rep(rnorm(NB, environment$lin$Intercept, sqrt(environment$lin$V)), each = N$NS)
-        Slope     <-  rep(rnorm(NB, environment$lin$Slope, sqrt(environment$lin$V)), each = N$NS)
+        intercept <-  rep(rnorm(NB, environment$lin$intercept, sqrt(environment$lin$V)), each = N$NS)
+        slope     <-  rep(rnorm(NB, environment$lin$slope, sqrt(environment$lin$V)), each = N$NS)
         myTime    <-  rep(1:N$NS, NB)
-        output    <-  Intercept + (Slope * myTime)
+        output    <-  intercept + (slope * myTime)
       }
     }
       
@@ -33,8 +33,8 @@ getEnvironment <- function(environment, N, visualization){
     if(environment$cyc$state){
       if(environment$cyc$shared){
         
-        A <- abs(environment$cyc$Amplitude)       # |A| = the amplitude
-        B <- (2*pi) / abs(environment$cyc$Period) # 2pi/|B| = the period
+        A <- abs(environment$cyc$amplitude)       # |A| = the amplitude
+        B <- (2*pi) / abs(environment$cyc$period) # 2pi/|B| = the period
         C <- -1 * environment$cyc$Hshift * B      # -C/B = the phase shift (horizontal shift)
         h <- environment$cyc$Vshift               # vertical shift
         
@@ -43,13 +43,13 @@ getEnvironment <- function(environment, N, visualization){
         
       }else{
         
-        Amplitude <-  rep(rnorm(NB, environment$cyc$Amplitude, sqrt(environment$cyc$V)), each = N$NS)
-        Period    <-  rep(rnorm(NB, environment$cyc$Period,    sqrt(environment$cyc$V)), each = N$NS)
+        amplitude <-  rep(rnorm(NB, environment$cyc$amplitude, sqrt(environment$cyc$V)), each = N$NS)
+        period    <-  rep(rnorm(NB, environment$cyc$period,    sqrt(environment$cyc$V)), each = N$NS)
         Hshift    <-  rep(rnorm(NB, environment$cyc$Hshift,    sqrt(environment$cyc$V)), each = N$NS)
         Vshift    <-  rep(rnorm(NB, environment$cyc$Vshift,    sqrt(environment$cyc$V)), each = N$NS)
         
-        A <- abs(Amplitude)       # |A| = the amplitude
-        B <- (2*pi) / abs(Period) # 2pi/|B| = the period
+        A <- abs(amplitude)       # |A| = the amplitude
+        B <- (2*pi) / abs(period) # 2pi/|B| = the period
         C <- -1 * Hshift * B      # -C/B = the phase shift (horizontal shift)f
         h <- Vshift               # vertical shift
         

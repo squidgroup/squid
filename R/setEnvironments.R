@@ -7,14 +7,14 @@
 #' 
 #' @return               list of the environments used to generete SQUID world.
 #'
-setEnvironments <- function(input, module){
+setEnvironments <- function(input, module, sep){
   
   # Create a list object for each environment
-  X1 <- createEnvironment(input, module, "X1")
-  X2 <- createEnvironment(input, module, "X2")
+  X1 <- createEnvironment(input, module, "X1", sep)
+  X2 <- createEnvironment(input, module, "X2", sep)
   
   #Interaction
-  X_Interaction <-  paste(module,"X_Interaction", sep = "_")
+  X_Interaction <-  paste(module,"X_Interaction", sep = sep)
   
   envionments <- list(
     "X1" = X1,

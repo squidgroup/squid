@@ -3,14 +3,11 @@
 displayResults <- function(N, Time, full_Data, sampled_Data){ 
     
   # subset data
-  full_Data    <- full_Data %>%
-                    dplyr::filter(Trait == 1, Replicate == 1, Individual <= 20)
-  
-  sampled_Data <- sampled_Data %>%
-                    dplyr::filter(Trait == 1, Replicate == 1, Individual <= 20)
+  full_Data2    <- copy(data.table::as.data.table(full_Data))[   Trait == 1 & Replicate == 1 & Individual <= 20]
+  sampled_Data2 <- copy(data.table::as.data.table(sampled_Data))[Trait == 1 & Replicate == 1 & Individual <= 20]
   
   # Display phenotype
-  plot_TotPhen <-  ggplot2::ggplot(data=full_Data, ggplot2::aes(x     = Time, 
+  plot_TotPhen <-  ggplot2::ggplot(data=full_Data2, ggplot2::aes(x     = Time, 
                                                                 y     = Phenotype, 
                                                                 color = as.factor(Individual), 
                                                                 group = Individual)) +
@@ -24,7 +21,7 @@ displayResults <- function(N, Time, full_Data, sampled_Data){
   
 
   #Display sampling phenotype
-  plot_SampPhen <-  ggplot2::ggplot(data=sampled_Data, ggplot2::aes(x     = Time, 
+  plot_SampPhen <-  ggplot2::ggplot(data=sampled_Data2, ggplot2::aes(x     = Time, 
                                                                     y     = Phenotype, 
                                                                     color = as.factor(Individual), 
                                                                     group = Individual)) +
@@ -37,7 +34,7 @@ displayResults <- function(N, Time, full_Data, sampled_Data){
                                     ggplot2::theme(legend.position="none")
   
   # Display sampling time
-  plot_SampTime <-  ggplot2::ggplot(data=sampled_Data, ggplot2::aes(x     = Time, 
+  plot_SampTime <-  ggplot2::ggplot(data=sampled_Data2, ggplot2::aes(x     = Time, 
                                                                     y     = Individual_Trait, 
                                                                     color = as.factor(Individual), 
                                                                     group = Individual)) +
@@ -49,7 +46,7 @@ displayResults <- function(N, Time, full_Data, sampled_Data){
                                     ggplot2::theme(legend.position="none")
   
   # Display environment X1
-  plot_X1 <-  ggplot2::ggplot(data=full_Data, ggplot2::aes(x     = Time, 
+  plot_X1 <-  ggplot2::ggplot(data=full_Data2, ggplot2::aes(x     = Time, 
                                                            y     = X1, 
                                                            color = as.factor(Individual), 
                                                            group = Individual)) +
@@ -62,7 +59,7 @@ displayResults <- function(N, Time, full_Data, sampled_Data){
                               ggplot2::theme(legend.position="none")
   
   # Display environment X2
-  plot_X2 <-  ggplot2::ggplot(data=full_Data, ggplot2::aes(x     = Time, 
+  plot_X2 <-  ggplot2::ggplot(data=full_Data2, ggplot2::aes(x     = Time, 
                                                            y     = X2, 
                                                            color = as.factor(Individual), 
                                                            group = Individual)) +
@@ -75,7 +72,7 @@ displayResults <- function(N, Time, full_Data, sampled_Data){
                               ggplot2::theme(legend.position="none")
   
   # Display environment X1X2
-  plot_X1X2 <-  ggplot2::ggplot(data=full_Data, ggplot2::aes(x     = Time, 
+  plot_X1X2 <-  ggplot2::ggplot(data=full_Data2, ggplot2::aes(x     = Time, 
                                                              y     = X1X2, 
                                                              color = as.factor(Individual), 
                                                              group = Individual)) +

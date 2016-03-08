@@ -8,32 +8,32 @@
 #'
 #' @return               list of an environment object.
 #'
-createEnvironment <- function(input, module, environment){
+createEnvironment <- function(input, module, environment, sep){
   
   # extract environment parameters from the general inputs
   inputNames <- list(
-    "state"               = paste(module, environment, "state", sep = "_"),
+    "state"               = paste(module, paste(environment, "state", sep="_"), sep = sep),
     # Stochastic effect
-    "sto_state"           = paste(module, environment, "sto_state", sep = "_"),
-    "sto_shared"          = paste(module, environment, "sto_shared", sep = "_"),
-    "sto_Mu"              = paste(module, environment, "sto_Mu", sep = "_"),
-    "sto_V"               = paste(module, environment, "sto_V", sep = "_"),
-    "sto_autocor_state"   = paste(module, environment, "sto_autocor_state", sep = "_"),
-    "sto_corr"            = paste(module, environment, "sto_corr", sep = "_"),
+    "sto_state"           = paste(module, paste(environment, "sto_state", sep="_"), sep = sep),
+    "sto_shared"          = paste(module, paste(environment, "sto_shared", sep="_"), sep = sep),
+    "sto_Mu"              = paste(module, paste(environment, "sto_Mu", sep="_"), sep = sep),
+    "sto_V"               = paste(module, paste(environment, "sto_V", sep="_"), sep = sep),
+    "sto_autocor_state"   = paste(module, paste(environment, "sto_autocor_state", sep="_"), sep = sep),
+    "sto_corr"            = paste(module, paste(environment, "sto_corr", sep="_"), sep = sep),
     # Linear effect
-    "lin_state"           = paste(module, environment, "lin_state", sep = "_"),
-    "lin_shared"          = paste(module, environment, "lin_shared", sep = "_"),
-    "lin_V"               = paste(module, environment, "lin_V", sep = "_"),
-    "lin_Intercept"       = paste(module, environment, "lin_Intercept", sep = "_"),
-    "lin_Slope"           = paste(module, environment, "lin_Slope", sep = "_"),
+    "lin_state"           = paste(module, paste(environment, "lin_state", sep="_"), sep = sep),
+    "lin_shared"          = paste(module, paste(environment, "lin_shared", sep="_"), sep = sep),
+    "lin_V"               = paste(module, paste(environment, "lin_V", sep="_"), sep = sep),
+    "lin_intercept"       = paste(module, paste(environment, "lin_intercept", sep="_"), sep = sep),
+    "lin_slope"           = paste(module, paste(environment, "lin_slope", sep="_"), sep = sep),
     # Cyclic effect
-    "cyc_state"           = paste(module, environment, "cyc_state", sep = "_"),
-    "cyc_shared"          = paste(module, environment, "cyc_shared", sep = "_"),
-    "cyc_V"               = paste(module, environment, "cyc_V", sep = "_"),
-    "cyc_Amplitude"       = paste(module, environment, "cyc_Amplitude", sep = "_"),
-    "cyc_Period"          = paste(module, environment, "cyc_Period", sep = "_"),
-    "cyc_Hshift"          = paste(module, environment, "cyc_Hshift", sep = "_"),
-    "cyc_Vshift"          = paste(module, environment, "cyc_Vshift", sep = "_")
+    "cyc_state"           = paste(module, paste(environment, "cyc_state", sep="_"), sep = sep),
+    "cyc_shared"          = paste(module, paste(environment, "cyc_shared", sep="_"), sep = sep),
+    "cyc_V"               = paste(module, paste(environment, "cyc_V", sep="_"), sep = sep),
+    "cyc_amplitude"       = paste(module, paste(environment, "cyc_amplitude", sep="_"), sep = sep),
+    "cyc_period"          = paste(module, paste(environment, "cyc_period", sep="_"), sep = sep),
+    "cyc_Hshift"          = paste(module, paste(environment, "cyc_Hshift", sep="_"), sep = sep),
+    "cyc_Vshift"          = paste(module, paste(environment, "cyc_Vshift", sep="_"), sep = sep)
   )
   
   # Create a list of the environment object
@@ -49,7 +49,7 @@ createEnvironment <- function(input, module, environment){
     #   v: variance of the normal distribution
     #   autocorrelation: utilization of autocorrelation (TRUE autorrelation is added FALSE is not)
     #   corr: correlation value between two consecutive values used for the autocorrelation (between 0 and 1)
-    "sto"  = list("state"           = ifelse(inputNames$sto_state %in% names(input),input[[inputNames$sto_state]],FALSE),
+    "sto"  = list("state"           = ifelse(inputNames$sto_state  %in% names(input),input[[inputNames$sto_state]],FALSE),
                   "shared"          = ifelse(inputNames$sto_shared %in% names(input),input[[inputNames$sto_shared]],TRUE),
                   "Mu"              = 0,
                   "V"               = ifelse(inputNames$sto_V %in% names(input),input[[inputNames$sto_V]],1),
@@ -64,8 +64,8 @@ createEnvironment <- function(input, module, environment){
     #   Slope: slope of the linear equation
     "lin"  = list("state"     = ifelse(inputNames$lin_state %in% names(input),input[[inputNames$lin_state]],FALSE),
                   "shared"    = ifelse(inputNames$lin_shared %in% names(input),input[[inputNames$lin_shared]],TRUE),
-                  "Intercept" = ifelse(inputNames$lin_Intercept %in% names(input),input[[inputNames$lin_Intercept]],0),
-                  "Slope"     = ifelse(inputNames$lin_Slope %in% names(input),input[[inputNames$lin_Slope]],1),
+                  "intercept" = ifelse(inputNames$lin_intercept %in% names(input),input[[inputNames$lin_intercept]],0),
+                  "slope"     = ifelse(inputNames$lin_slope %in% names(input),input[[inputNames$lin_slope]],1),
                   "V"         = ifelse(inputNames$lin_V %in% names(input),input[[inputNames$lin_V]],1)),
     
     # Linear effect (environment = Intercept + Slope x Time)
@@ -76,8 +76,8 @@ createEnvironment <- function(input, module, environment){
     #   Slope: slope of the linear equation
     "cyc"  = list("state"     = ifelse(inputNames$cyc_state %in% names(input),input[[inputNames$cyc_state]],FALSE),
                   "shared"    = ifelse(inputNames$cyc_shared %in% names(input),input[[inputNames$cyc_shared]],TRUE),
-                  "Amplitude" = ifelse(inputNames$cyc_Amplitude %in% names(input),input[[inputNames$cyc_Amplitude]],10),
-                  "Period"    = ifelse(inputNames$cyc_Period %in% names(input),input[[inputNames$cyc_Period]],10),
+                  "amplitude" = ifelse(inputNames$cyc_amplitude %in% names(input),input[[inputNames$cyc_amplitude]],10),
+                  "period"    = ifelse(inputNames$cyc_period %in% names(input),input[[inputNames$cyc_period]],10),
                   "Hshift"    = ifelse(inputNames$cyc_Hshift %in% names(input),input[[inputNames$cyc_Hshift]],0), 
                   "Vshift"    = ifelse(inputNames$cyc_Vshift %in% names(input),input[[inputNames$cyc_Vshift]],0),
                   "V"         = ifelse(inputNames$cyc_V %in% names(input),input[[inputNames$cyc_V]],1))

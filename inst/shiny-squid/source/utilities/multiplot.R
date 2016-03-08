@@ -1,14 +1,3 @@
-#' multiplot
-#'
-#' @description          Multiple plot function
-#' 
-#' @param ...            ggplot objects
-#' @param plotlist       list of ggplot objects
-#' @param cols           Number of columns in layout
-#' @param layout         A matrix specifying the layout. If present, 'cols' is ignored.
-#'
-#' @return               list of an environment object.
-#'
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   # require(grid)
   

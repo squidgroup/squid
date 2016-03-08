@@ -11,8 +11,9 @@
 #'
 showEnvironment <- function(input, module, envName){
   
-  envObject <- setEnvironments(input, module)
-  modelVar  <- setVariables(input, module, envObject)
+  sep       <- ifelse(is.null(module), "", "_")
+  envObject <- setEnvironments(input, module, sep)
+  modelVar  <- setVariables(input, module, envObject, sep)
   envData   <- getEnvironment(envObject[[envName]], modelVar$N, TRUE)
   
   myData   <- data.frame("envData"  = envData, 

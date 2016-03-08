@@ -4,7 +4,7 @@
 #' @import dplyr
 #' @export
 runSQUIDapp <- function() {
-  appDir <- system.file("shiny-squid", "myapp", package = "SQUID")
+  appDir <- system.file("shiny-squid", package = "SQUID")
   if (appDir == "") {
     stop("Could not find example directory. Try re-installing `squid`.", call. = FALSE)
   }
