@@ -2,15 +2,19 @@
 % Please edit documentation in R/runSQUIDfct.R
 \name{runSQUIDfct}
 \alias{runSQUIDfct}
-\title{run SQUiD function without graphical user interface}
+\title{run SQUID without graphical user interface}
 \usage{
 runSQUIDfct(input = list(), module = NULL, plot = FALSE,
   X_previsualization = NULL)
 }
 \arguments{
-\item{input}{list of the model variables.}
+\item{input}{list of the model input paramters (see details section).}
 
-\item{module}{character of the module name when used with SQUID shiny app.}
+\item{module}{character of the module name. This argument is only used by SQUID app.}
+
+\item{plot}{logical value. When TRUE plots of the results are included into the output list.}
+
+\item{X_previsualization}{character of the environment names. This argument is only used by SQUID app.}
 }
 \value{
 list with a data.frame of the full data generated and a data.frame 
