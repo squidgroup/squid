@@ -1,18 +1,45 @@
-#' plotEnvironment
-#'
-#' @description          create and plot a simulated environment
-#'
-#' @param input          list of the environment variables.
-#' @param module         character of the module name (default is NULL). This parameter is used by SQUID app.
-#' @param envName        character of the name of the environment (default is NULL). This parameter is used by SQUID app.
-#'
-#' @return               vector of number of records per individual and trait
-#' @export
-#'
+# @title Plot an environmental effect
+#
+# @description          \code{plotEnvironment} generates and plots the time serie of an environmental effect values.
+#
+# @param input          list providing the environmental effect parameters (see details).
+# @param module         character of the module name. This parameter is only used by SQUID app.
+# @param envName        character of the name of the environment. This parameter is only used by SQUID app.
+#
+# @return               a \href{https://cran.r-project.org/web/packages/ggplot2/index.html}{ggplot2} plot
+# 
+# @details
+# 
+# The argument \code{input} is a list that contains all the parameters needed to generate the desired environment effect. All possible parameters are presented below including their default value if not defined.
+#
+# \itemize{
+#    \item{sto_state: }{(default FALSE) logical value. If TRUE a stochastic environmental effect will be added to the total environmental effect.}
+#    \item{sto_V: }{(default 1) }
+#    \item{sto_autocor_state: }{(default FALSE) }
+#    \item{sto_corr: }{(default 0) }
+#    \item{lin_intercept: }{(default FALSE) }
+#    \item{lin_slope: }{(default FALSE) }
+#    
+# }
+# 
+# @examples
+# input <- list()
+#
+# # Stochastic environmental effect
+# input$sto_state  <- TRUE
+# 
+# # Linear environmental effect
+# input$lin_state  <- TRUE
+#
+# plotEnvironment(input)
+# 
+#
+#
 plotEnvironment <- function(input, module=NULL, envName=NULL){
   
-  sep <- ifelse(is.null(module), "", "_")
-  myX <- createEnvironment(input, module, envName, sep)
+  sep         <- ifelse(is.null(module), "", "_")
+  input$state <- TRUE
+  myX         <- createEnvironment(input, module, envName, sep)
   
   inputNames <- list(
     "NI"             = paste(module, "NI"  , sep = sep),
@@ -34,7 +61,6 @@ plotEnvironment <- function(input, module=NULL, envName=NULL){
   )
   
   envData  <- getEnvironment(myX, N, TRUE)
-  
   myData   <- data.frame("envData"  = envData, 
                          "x"        = rep(1:N$NS, N$NI),
                          "colour"   = as.factor(rep(1:N$NI, each = N$NS)))
@@ -44,7 +70,6 @@ plotEnvironment <- function(input, module=NULL, envName=NULL){
                               ggplot2::xlab("Time") +
                               ggplot2::ylab("Environment") + 
                               ggplot2::theme(legend.position="none")
-  
+ 
   return(myPlot)
 }
-

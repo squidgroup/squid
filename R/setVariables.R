@@ -1,13 +1,13 @@
-#' setVariables
-#'
-#' @description          test and initialize input variables
-#' 
-#' @param input          list of all the inputs used to run the model.
-#' @param module         character of the name of the module.
-#' @param environment    list of the model environments.
-#'
-#' @return               list of all model variables
-#'
+# setVariables
+#
+# @description          test and initialize input variables
+# 
+# @param input          list of all the inputs used to run the model.
+# @param module         character of the name of the module.
+# @param environment    list of the model environments.
+#
+# @return               list of all model variables
+#
 setVariables <- function(input, module, environments, sep){
   
   ##############################################################

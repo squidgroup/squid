@@ -1,9 +1,9 @@
-#' getNRI
-#'
-#' @description          generate number of records for each individual
-#'
-#' @return               vector of number of records per individual and trait
-#'
+# getNRI
+#
+# @description          generate number of records for each individual
+#
+# @return               vector of number of records per individual and trait
+#
 getNRI <- function(N, Time){
   
   nbSample.NT   <- N$NI*N$NP*N$NT

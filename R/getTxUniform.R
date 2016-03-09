@@ -1,9 +1,9 @@
-#' getTxUniform
-#'
-#' @description          generate the sampling time for each individual, each trait and each population
-#'
-#' @return               matrix of sampling time
-#'
+# getTxUniform
+#
+# @description          generate the sampling time for each individual, each trait and each population
+#
+# @return               matrix of sampling time
+#
 getTxUniform <- function(N, Time){  
     
   if(Time$Tsamp > 1){

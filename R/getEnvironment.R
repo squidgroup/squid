@@ -1,9 +1,9 @@
-#' getEnvironment
-#'
-#' @description          generate the model environment
-#'
-#' @return               vector of the environment values
-#'
+# getEnvironment
+#
+# @description          generate the model environment
+#
+# @return               vector of the environment values
+#
 getEnvironment <- function(environment, N, visualization){
   
   if(!visualization){

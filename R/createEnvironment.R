@@ -1,13 +1,13 @@
-#' createEnvironment
-#'
-#' @description          create an environment object
-#' 
-#' @param input          list of all the inputs used to run the model.
-#' @param module         character of the name of the module.
-#' @param environment    character of the environment name.
-#'
-#' @return               list of an environment object.
-#'
+# createEnvironment
+#
+# @description          create an environment object
+# 
+# @param input          list of all the inputs used to run the model.
+# @param module         character of the name of the module.
+# @param environment    character of the environment name.
+#
+# @return               list of an environment object.
+#
 createEnvironment <- function(input, module, environment, sep){
   
   sep2 <- ifelse(is.null(environment), "", "_")

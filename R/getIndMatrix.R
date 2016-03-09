@@ -1,9 +1,9 @@
-#' getIndMatrix
-#'
-#' @description          generate indviduals randome effects (intercepts and slopes) 
-#'
-#' @return               matrix of individuals random effects  in the intercepts and slopes.
-#'
+# getIndMatrix
+#
+# @description          generate indviduals randome effects (intercepts and slopes) 
+#
+# @return               matrix of individuals random effects  in the intercepts and slopes.
+#
 getIndMatrix <- function(N, Mu, VCov, Variables){
   
   # Generate the ind matrix the multivariate normal distribution

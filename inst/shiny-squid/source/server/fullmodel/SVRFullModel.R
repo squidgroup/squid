@@ -304,8 +304,8 @@ SVRFullModel <- function(myModule, input, output, session){
 
       }),
 
-      output[[X1_plotEnvironment]] <- renderPlot({SQUID::plotEnvironment(input, myModule, "X1")}),
-      output[[X2_plotEnvironment]] <- renderPlot({SQUID::plotEnvironment(input, myModule, "X2")}),
+      output[[X1_plotEnvironment]] <- renderPlot({SQUID::runSQUIDfct(input, myModule, X_previsualization="X1")}),
+      output[[X2_plotEnvironment]] <- renderPlot({SQUID::runSQUIDfct(input, myModule, X_previsualization="X2")}),
      
     ######################################################################################
     ############################### VARIANCES SUMMARY ####################################

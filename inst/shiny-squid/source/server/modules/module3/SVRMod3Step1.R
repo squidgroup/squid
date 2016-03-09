@@ -9,9 +9,12 @@ c(
             numericInput("Mod3Step1_NI", "", 100),
             matrixInput2("Mod3Step1_Vind", "",data.frame(matrix(c(input$Mod3Step1_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
             matrixInput2("Mod3Step1_B", "",data.frame(matrix(c(0,sqrt(input$Mod3Step1_Vbx),0,0),1))),
+            
             checkboxInput("Mod3Step1_X1_state", "", value = TRUE),
+            
             checkboxInput("Mod3Step1_X1_sto_state", "", value = FALSE),
             checkboxInput("Mod3Step1_X1_lin_state", "", value = TRUE),
+            
             checkboxInput("Mod3Step1_ST_ind", "", value = FALSE)
           )
         }),
@@ -47,11 +50,11 @@ c(
  	  
  	  input$Mod3Step1_previewPlot
  	  
- 	  myInput <- list("Mod3Step1_Preview_Tmax"      = Modules_VAR$Tmax$max,
- 	                  "Mod3Step1_Preview_NI"        = input$Mod3Step1_NI,
- 	                  "Mod3Step1_Preview_Vit"       = input$Mod3Step1_Vit,
- 	                  "Mod3Step1_Preview_NR"        = input$Mod3Step1_NR,
- 	                  "Mod3Step1_Preview_Dtime_Ind" = FALSE
+ 	  myInput <- list("Mod3Step1_Preview_Tmax"   = Modules_VAR$Tmax$max,
+ 	                  "Mod3Step1_Preview_NI"     = input$Mod3Step1_NI,
+ 	                  "Mod3Step1_Preview_Visj"   = input$Mod3Step1_Visj,
+ 	                  "Mod3Step1_Preview_NR"     = input$Mod3Step1_NR,
+ 	                  "Mod3Step1_Preview_ST_ind" = FALSE
  	                  )
  	  # Call app main function
  	  data <- SQUID::runSQUIDfct(myInput, "Mod3Step1_Preview", TRUE)

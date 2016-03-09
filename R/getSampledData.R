@@ -1,9 +1,9 @@
-#' getSampledData
-#'
-#' @description          extract sampling data from the real data
-#'
-#' @return               data.frame of sampled model data
-#'
+# getSampledData
+#
+# @description          extract sampling data from the real data
+#
+# @return               data.frame of sampled model data
+#
 getSampledData <- function(N, Time, full_Data){
 
     # get number of records for each individual

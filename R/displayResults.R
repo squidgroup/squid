@@ -1,5 +1,4 @@
 ### Display results
-
 displayResults <- function(N, Time, full_Data, sampled_Data){ 
     
   # subset data

@@ -8,11 +8,12 @@
 #'
 #' @return               list with a data.frame of the full data generated and a data.frame 
 #'                       of the sampled data.
+#'                       
+#' @import data.table
+#'                        
 #' @export
-#' @example 
-#' runSQUIDfct()
-#'
-runSQUIDfct <- function(input=list(), module=NULL, plot=FALSE){ 
+#' 
+runSQUIDfct <- function(input=list(), module=NULL, plot=FALSE, X_previsualization=NULL){ 
   
   # Main function of the full model that simulates individual phenotypes over time
   # and then samples within those phenotypes according to specific sampling design
@@ -48,24 +49,46 @@ runSQUIDfct <- function(input=list(), module=NULL, plot=FALSE){
   Time      <- variables$Time
   variables <- variables$Variables
   
-  # Initialize output
-  output <- list()
+  if(is.null(X_previsualization)){
+    
+    # Initialize output
+    output <- list()
+    
+    #######################################################################################
+    ## Generate my phenotype traits
+    output[["full_Data"]]    <- getFullData(Mu, N, B, r, V, Time, variables, environments)
+    
+    ####################################################################################### 
+    ## Get Sampling data  
+    output[["sampled_Data"]] <- getSampledData(N, Time, output[["full_Data"]])
+    
+    #######################################################################################
+    ## Display results
+    if(plot) 
+      output[["myPlot"]]     <- displayResults(N, Time, output[["full_Data"]], output[["sampled_Data"]])
+    
+    #######################################################################################
+    
+  }else{
+    
+    if(X_previsualization %in% c("X1", "X2")){
+      ### Generate environment for previsualization
+      X <- getEnvironment(environments[[X_previsualization]], N, TRUE)
+      
+      myData   <- data.frame("envData"  = X, 
+                             "x"        = rep(1:N$NS, N$NI),
+                             "colour"   = as.factor(rep(1:N$NI, each = N$NS)))
+      
+      output   <- ggplot2::ggplot(myData, ggplot2::aes(y=envData, x=x, colour=colour)) +
+                                  ggplot2::geom_point() +
+                                  ggplot2::xlab("Time") +
+                                  ggplot2::ylab("Environment") + 
+                                  ggplot2::theme(legend.position="none")
+    }else{
+      stop("X_previsualization is not a valid environment tag.")
+    }
+  }
   
-  #######################################################################################
-  ## Generate my phenotype traits
-  output[["full_Data"]]    <- getFullData(Mu, N, B, r, V, Time, variables, environments)
-  
-  ####################################################################################### 
-  ## Get Sampling data  
-  output[["sampled_Data"]] <- getSampledData(N, Time, output[["full_Data"]])
-  
-  #######################################################################################
-  ## Display results
-  if(plot) 
-    output[["myPlot"]]     <- displayResults(N, Time, output[["full_Data"]], output[["sampled_Data"]])
-  
-  #######################################################################################
-
   return(output)
   
 }

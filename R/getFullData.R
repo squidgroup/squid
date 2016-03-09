@@ -1,9 +1,9 @@
-#' get_full_data
-#'
-#' @description          generate data for each phenotype trait
-#'
-#' @return               data.frame full model data
-#'
+# get_full_data
+#
+# @description          generate data for each phenotype trait
+#
+# @return               data.frame full model data
+#
 getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
   
     #############################################  
@@ -20,12 +20,13 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
     }else{
       ind          <- matrix(0,  N$NI*N$NS*N$NP*N$NT, variables$nb.IS)  
     }   
+  
+    #######################################################################################
+    # Create environmnetal effect values 
     
-    ##############################################  
-    # Environement value 
     X                <- matrix(0,  N$NI*N$NS*N$NP, variables$nb.IS)    
     X[,variables$B0] <- 1 # Intercept (slope is by default = 1 ) 
-
+    
     ### Generate environments
     if(environments$X1$state){
       X[,variables$X1] <- getEnvironment(environments$X1, N, FALSE)
@@ -40,7 +41,7 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
     
     # Interaction 
     if(environments$Interaction) X[,variables$X1X2] <- X[,variables$X1]*X[,variables$X2]
-
+    
     # Add environment for all traits
     X <- repmat(X,N$NT,1)
     
@@ -58,7 +59,7 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
     
     ############################################## 
     # Phenotypic equation
-    Phenotype    <-  rowSums((B + ind) * X) + G + e
+    Phenotype   <-  rowSums((B + ind) * X) + G + e
     
     ############################################## 
     
