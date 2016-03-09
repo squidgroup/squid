@@ -28,7 +28,7 @@ c(
         }),
  	outputOptions(output, "Mod3Step2_hidden", suspendWhenHidden = FALSE),
  	
- 	  output$Mod3Step2_X1_plot <- renderPlot({SQUID::showEnvironment(input, "Mod3Step2" , "X1")}),
+ 	  output$Mod3Step2_X1_plot <- renderPlot({SQUID::plotEnvironment(input, "Mod3Step2" , "X1")}),
       
     ######### Run simulation #########
    	# Run simulation and return results

@@ -2,6 +2,5 @@
 
 export(runSQUIDapp)
 export(runSQUIDfct)
-export(showEnvironment)
-export(Cor2CovMatrix)
+export(plotEnvironment)
 import(dplyr, data.table)

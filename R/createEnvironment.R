@@ -10,30 +10,32 @@
 #'
 createEnvironment <- function(input, module, environment, sep){
   
+  sep2 <- ifelse(is.null(environment), "", "_")
+  
   # extract environment parameters from the general inputs
   inputNames <- list(
-    "state"               = paste(module, paste(environment, "state", sep="_"), sep = sep),
+    "state"               = paste(module, paste(environment, "state", sep=sep2), sep = sep),
     # Stochastic effect
-    "sto_state"           = paste(module, paste(environment, "sto_state", sep="_"), sep = sep),
-    "sto_shared"          = paste(module, paste(environment, "sto_shared", sep="_"), sep = sep),
-    "sto_Mu"              = paste(module, paste(environment, "sto_Mu", sep="_"), sep = sep),
-    "sto_V"               = paste(module, paste(environment, "sto_V", sep="_"), sep = sep),
-    "sto_autocor_state"   = paste(module, paste(environment, "sto_autocor_state", sep="_"), sep = sep),
-    "sto_corr"            = paste(module, paste(environment, "sto_corr", sep="_"), sep = sep),
+    "sto_state"           = paste(module, paste(environment, "sto_state", sep=sep2), sep = sep),
+    "sto_shared"          = paste(module, paste(environment, "sto_shared", sep=sep2), sep = sep),
+    "sto_Mu"              = paste(module, paste(environment, "sto_Mu", sep=sep2), sep = sep),
+    "sto_V"               = paste(module, paste(environment, "sto_V", sep=sep2), sep = sep),
+    "sto_autocor_state"   = paste(module, paste(environment, "sto_autocor_state", sep=sep2), sep = sep),
+    "sto_corr"            = paste(module, paste(environment, "sto_corr", sep=sep2), sep = sep),
     # Linear effect
-    "lin_state"           = paste(module, paste(environment, "lin_state", sep="_"), sep = sep),
-    "lin_shared"          = paste(module, paste(environment, "lin_shared", sep="_"), sep = sep),
-    "lin_V"               = paste(module, paste(environment, "lin_V", sep="_"), sep = sep),
-    "lin_intercept"       = paste(module, paste(environment, "lin_intercept", sep="_"), sep = sep),
-    "lin_slope"           = paste(module, paste(environment, "lin_slope", sep="_"), sep = sep),
+    "lin_state"           = paste(module, paste(environment, "lin_state", sep=sep2), sep = sep),
+    "lin_shared"          = paste(module, paste(environment, "lin_shared", sep=sep2), sep = sep),
+    "lin_V"               = paste(module, paste(environment, "lin_V", sep=sep2), sep = sep),
+    "lin_intercept"       = paste(module, paste(environment, "lin_intercept", sep=sep2), sep = sep),
+    "lin_slope"           = paste(module, paste(environment, "lin_slope", sep=sep2), sep = sep),
     # Cyclic effect
-    "cyc_state"           = paste(module, paste(environment, "cyc_state", sep="_"), sep = sep),
-    "cyc_shared"          = paste(module, paste(environment, "cyc_shared", sep="_"), sep = sep),
-    "cyc_V"               = paste(module, paste(environment, "cyc_V", sep="_"), sep = sep),
-    "cyc_amplitude"       = paste(module, paste(environment, "cyc_amplitude", sep="_"), sep = sep),
-    "cyc_period"          = paste(module, paste(environment, "cyc_period", sep="_"), sep = sep),
-    "cyc_Hshift"          = paste(module, paste(environment, "cyc_Hshift", sep="_"), sep = sep),
-    "cyc_Vshift"          = paste(module, paste(environment, "cyc_Vshift", sep="_"), sep = sep)
+    "cyc_state"           = paste(module, paste(environment, "cyc_state", sep=sep2), sep = sep),
+    "cyc_shared"          = paste(module, paste(environment, "cyc_shared", sep=sep2), sep = sep),
+    "cyc_V"               = paste(module, paste(environment, "cyc_V", sep=sep2), sep = sep),
+    "cyc_amplitude"       = paste(module, paste(environment, "cyc_amplitude", sep=sep2), sep = sep),
+    "cyc_period"          = paste(module, paste(environment, "cyc_period", sep=sep2), sep = sep),
+    "cyc_Hshift"          = paste(module, paste(environment, "cyc_Hshift", sep=sep2), sep = sep),
+    "cyc_Vshift"          = paste(module, paste(environment, "cyc_Vshift", sep=sep2), sep = sep)
   )
   
   # Create a list of the environment object

@@ -33,6 +33,7 @@ source("./source/utilities/getTable.R",local=TRUE)
 source("./source/utilities/runPowerAnalysis.R",local=TRUE)
 source("./source/utilities/error_msg.R",local=TRUE)
 source("./source/utilities/multiplot.R",local=TRUE)
+source("./source/utilities/Cor2CovMatrix.R",local=TRUE)
 
 #### Inputs ####
 source("./source/inputs/getNumericInput.R",local=TRUE)
