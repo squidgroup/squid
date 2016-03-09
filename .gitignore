@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Rbuildignore
+*.Rproj
+*.html
+*.Renviron
+inst/shiny-squid/rsconnect/
+inst/shiny-squid/shinyapps/
