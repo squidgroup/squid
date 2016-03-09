@@ -1,7 +1,7 @@
 SVRGetSummaryVariances <- function(input,B,Vind,Ve,VG,NT,step,nb.IS,trait,X1_state,X2_state,X_Interaction) {
   
   myNT  <- as.numeric(input[[NT]]) 
-  VCov  <- round(SQUID::Cor2CovMatrix(as.matrix(input[[Vind]])),2)
+  VCov  <- round(Cor2CovMatrix(as.matrix(input[[Vind]])),2)
   
   B2    <- as.matrix(input[[B]])
   

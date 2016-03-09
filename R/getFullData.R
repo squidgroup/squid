@@ -11,7 +11,7 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
     if(sum(diag(V$Vind)) != 0){
       # Random intercept and slope (Co)Variance matrix
 #         VCov       <- cppGetVCovMatrix(V$Vind) 
-        VCov       <- SQUID::Cor2CovMatrix(V$Vind)
+        VCov       <- Cor2CovMatrix(V$Vind)
         
       ### Generate random intercept and slope for each individual and trait
       ind          <- getIndMatrix(N, Mu, VCov, variables)
