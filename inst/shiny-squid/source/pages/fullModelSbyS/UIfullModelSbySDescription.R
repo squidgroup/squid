@@ -54,10 +54,9 @@ myVarCovMatrix       <- paste(
 $$",sep="")
 
 myK      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$groupV,"})$$", sep="")
-
 myM      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$error,"})$$", sep="")
 
-span(
+c(
 
   # Description page 
   p(HTML(fullmodelTxt$ModelDesciption_intro_1)),
@@ -70,8 +69,7 @@ span(
              
       h4("Model equation"),
       
-      source("./source/pages/fullModelSbyS/UImodelEquation.R",local=TRUE)[["value"]],
-      # UImodelEquation(),
+      source("./source/pages/fullModelSbyS/UIfullModelEquation.R",local=TRUE)[["value"]],
      
       myDefinitionTable,
       
