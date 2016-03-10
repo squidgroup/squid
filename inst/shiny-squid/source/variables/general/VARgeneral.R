@@ -64,7 +64,7 @@ EQ <- list(
   
 )
 
-# Model equation components (without indices: time, individual and group)
+# Model components (without indices: time, individual and group)
 EQ2 <- list(
 
   "dev0.1"       = paste(NOT$devI,"_",NOT$trait.1,sep=""),

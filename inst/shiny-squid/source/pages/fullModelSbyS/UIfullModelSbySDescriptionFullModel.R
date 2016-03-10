@@ -56,74 +56,46 @@ $$",sep="")
 myK      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$groupV,"})$$", sep="")
 myM      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$error,"})$$", sep="")
 
-c(
+span( 
+	p(HTML(fullmodelTxt$SimModel_intro)),   
+		 
+	h4("Model equation"),
 
-  # Description page 
-  p(HTML(fullmodelTxt$ModelDesciption_intro_1)),
+	source("./source/pages/fullModelSbyS/UIfullModelEquation.R",local=TRUE)[["value"]],
 
-  tabsetPanel(id = "FModSbyS_Description_TabsetPanel", type = "tabs", 
-    
-    tabPanel("Simulation model",           
-              
-      p(HTML(fullmodelTxt$SimModel_intro)),   
-             
-      h4("Model equation"),
-      
-      source("./source/pages/fullModelSbyS/UIfullModelEquation.R",local=TRUE)[["value"]],
-     
-      myDefinitionTable,
-      
-      p(HTML(fullmodelTxt$modelEquation_1)),
-      p(HTML(fullmodelTxt$modelEquation_2)),
-      p(HTML(fullmodelTxt$modelEquation_3)),
-      p(HTML(fullmodelTxt$modelEquation_4)),
-      p(HTML(fullmodelTxt$modelEquation_5)),
-      p(HTML(fullmodelTxt$modelEquation_6)),
-      p(HTML(fullmodelTxt$modelEquation_7)),
-      
-      h4("Individual specific responses"),
-      p(HTML(fullmodelTxt$indSpecResponses)),
-      myVarCovMatrix,
-      
-      h4("Environments"),
-      p(HTML(fullmodelTxt$environment_1)),
-      p(HTML(fullmodelTxt$environment_2)),
-      p(HTML(fullmodelTxt$environment_3)),
-      p(HTML(fullmodelTxt$environment_4)),
-      p(HTML(fullmodelTxt$environment_5)),
-      p(HTML(fullmodelTxt$environment_6)),
-      p(HTML('<figure>
-              <img src="pictures/Environment_examples.jpg" alt="The Pulpit Rock">
-              <figcaption><b>Figure 1:</b> example of 3 environmental effects. 
-                                      (Left) Linear trend with some stochasticity 
-                                      (Middle) Cyclic pattern with linear trend and some stochasticity. 
-                                      (Right) Autocorrelation of 0.7 added to stochastic values.</figcaption>
-              </figure>')
-        ),
-      p(HTML(fullmodelTxt$environment_7)),
-      
-      h4("High-level grouping and measurement error"),
-      p(HTML(fullmodelTxt$groupingNerror)),
-      myK,
-      myM
-    
-    ), # End Simulation model
-    
-    tabPanel("Sampling design", 
-             
-      p(HTML(fullmodelTxt$samplingDesign_1)),
-      p(HTML(fullmodelTxt$samplingDesign_2)),
-      
-      p(HTML(
-        paste('<figure>
-          <img src="pictures/Vit_examples.jpg" alt="The Pulpit Rock">
-          <figcaption><b>Figure 1:</b> example of 2 sampling designs where the among-individual variance in timing of sampling ($',general_VAR$btwIndVarTimSamp,'$) is 0.1 (left) and 0.9 (right).</figcaption>
-          </figure>',sep=""))
-        ),
-      
-      p(HTML(fullmodelTxt$samplingDesign_3)),
-      p(HTML(fullmodelTxt$samplingDesign_4))
-             
-    ) # End Sampling design
-  )
+	myDefinitionTable,
+
+	p(HTML(fullmodelTxt$modelEquation_1)),
+	p(HTML(fullmodelTxt$modelEquation_2)),
+	p(HTML(fullmodelTxt$modelEquation_3)),
+	p(HTML(fullmodelTxt$modelEquation_4)),
+	p(HTML(fullmodelTxt$modelEquation_5)),
+	p(HTML(fullmodelTxt$modelEquation_6)),
+	p(HTML(fullmodelTxt$modelEquation_7)),
+
+	h4("Individual specific responses"),
+	p(HTML(fullmodelTxt$indSpecResponses)),
+	myVarCovMatrix,
+
+	h4("Environments"),
+	p(HTML(fullmodelTxt$environment_1)),
+	p(HTML(fullmodelTxt$environment_2)),
+	p(HTML(fullmodelTxt$environment_3)),
+	p(HTML(fullmodelTxt$environment_4)),
+	p(HTML(fullmodelTxt$environment_5)),
+	p(HTML(fullmodelTxt$environment_6)),
+	p(HTML('<figure>
+		  <img src="pictures/Environment_examples.jpg" alt="The Pulpit Rock">
+		  <figcaption><b>Figure 1:</b> example of 3 environmental effects. 
+								  (Left) Linear trend with some stochasticity 
+								  (Middle) Cyclic pattern with linear trend and some stochasticity. 
+								  (Right) Autocorrelation of 0.7 added to stochastic values.</figcaption>
+		  </figure>')
+	),
+	p(HTML(fullmodelTxt$environment_7)),
+
+	h4("High-level grouping and measurement error"),
+	p(HTML(fullmodelTxt$groupingNerror)),
+	myK,
+	myM
 )
