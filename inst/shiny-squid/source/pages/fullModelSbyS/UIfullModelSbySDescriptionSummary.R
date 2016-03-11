@@ -1,7 +1,8 @@
 
 myTable <- getTable(data.frame(
   
-  "Component"          = c("$\\text{Fixed effects}$",
+  "Component"          = c("Component",
+                           "$\\text{Fixed effects}$",
                            paste0("$",EQ3$mean0 ,"$"),
                            paste0("$",EQ3$mean1 ,EQ2$env1 ,"$"),
                            paste0("$",EQ3$mean2 ,EQ2$env2 ,"$"),
@@ -22,7 +23,8 @@ myTable <- getTable(data.frame(
                            paste0("$",NOT$trait.1,"$ or $",NOT$trait.2,"$")
   ),
   
-  "Explanation"        = c("",
+  "Explanation"        = c("Explanation",
+                           "",
                            "Population mean",
                            paste0("Population-average response to an environmental effect $",EQ2$env1,"$ (with variance $V_{",EQ2$env1,"}$)"),
                            paste0("Population-average response to an environmental effect $",EQ2$env2,"$ (with variance $V_{",EQ2$env2,"}$)"),
@@ -43,7 +45,8 @@ myTable <- getTable(data.frame(
                            paste0("Total phenotypic variance")
   ),
   
-  "Variance\ncomponent<sup>b</sup>" = c("",
+  "Variance.component" = c("Variance component $^b$",
+                           "",
                            "-",
                            paste0("$V_{",EQ3$mean1 ,"}=",EQ3$mean1 ,"^2V_{",EQ2$env1,"}$"),
                            paste0("$V_{",EQ3$mean2 ,"}=",EQ3$mean2 ,"^2V_{",EQ2$env2,"}$"),
@@ -64,7 +67,8 @@ myTable <- getTable(data.frame(
                            paste0("$V_",NOT$total,"$")
   ),
   
-  "Remarks"            = c("",
+  "Remarks"            = c("Remarks",
+                           "",
                            "-",
                            paste0("In SQuID $V_{",EQ2$env1,"}=1$."),
                            paste0("In SQuID $V_{",EQ2$env2,"}=1$."),
@@ -85,8 +89,7 @@ myTable <- getTable(data.frame(
                            "-"
   )
   
- )
-)
+ ), header=TRUE)
 
 span(
   p(fullmodelTxt$summaryStepbyStep),

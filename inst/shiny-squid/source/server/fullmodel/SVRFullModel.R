@@ -313,7 +313,8 @@ SVRFullModel <- function(myModule, input, output, session){
 
     output[[variancesTable]] <- renderUI({  
     
-      VarianceNames <- c("$\\text{Fixed effects}$",
+      myTable <- data.frame(
+        "Variance"    = c("$\\text{Fixed effects}$",
                          paste("$V_{",EQ3$mean1,EQ2$env1,"}$",sep=""),
                          paste("$V_{",EQ3$mean2,EQ2$env2,"}$",sep=""),
                          paste("$V_{",EQ3$mean12,EQ2$env12,"}$",sep=""),
@@ -331,9 +332,9 @@ SVRFullModel <- function(myModule, input, output, session){
                          paste("$V_",NOT$groupV,"$",sep=""),
                          paste("$V_",NOT$error,"$",sep=""),
                          paste("$V_",NOT$total,"$",sep="")
-                         )
-      
-      Explanation  <- c(" ",
+                        ),
+
+      "Explanation" = c(" ",
                         paste("Population-average response to an environmental effect $",EQ2$env1,"$ variance",sep=""),
                         paste("Population-average response to an environmental effect $",EQ2$env2,"$ variance",sep=""),
                         paste("Population-average response interaction to two environmental effect $",EQ2$env1,"$ and $",EQ2$env2,"$ variance",sep=""),
@@ -356,26 +357,24 @@ SVRFullModel <- function(myModule, input, output, session){
                         "Higher-level grouping variance (clusters, groups, families etc.)", 
                         "Measurement error variance", 
                         "Total phenotypic variance"
-                      )
-      
-      myTable <- data.frame(
-                  "Variance"    = VarianceNames,
-                  "Explanation" = Explanation
-                )
-      
+                      ),
+        stringsAsFactors = FALSE
+      )
+
       mySummary <- SVRGetSummaryVariances(input,B,Vind,Ve,VG,NT,0,nb.IS,NOT$trait.1,X1_state,X2_state,X_Interaction)
       myTable   <- cbind(myTable,mySummary)
-      
+
       if(input[[NT]] > 1){
         mySummary <- SVRGetSummaryVariances(input,B,Vind,Ve,VG,NT,nb.IS,nb.IS,NOT$trait.2,X1_state,X2_state,X_Interaction)
         myTable   <- cbind(myTable,mySummary)
         myTable   <- subset(myTable, Trait.y != "0 (0%)" | Trait.z != "0 (0%)")
+        myTable   <- rbind(c("Variance", "Explanation", "Trait y", "Trait z"),myTable)
       }else{
-        myTable <- subset(myTable, Trait.y != "0 (0%)")
+        myTable   <- subset(myTable, Trait.y != "0 (0%)")
+        myTable   <- rbind(c("Variance", "Explanation", "Trait y"),myTable)
       }
 
-      getTable(myTable)
-      
+      getTable(myTable, header=TRUE)
     }),
 
     ######################################################################################
@@ -475,66 +474,69 @@ SVRFullModel <- function(myModule, input, output, session){
     output[[Data_Description_Table]] <- renderUI({
 
       myTable <- data.frame(
-        "Output data variable"= c("Replicate",
-                              "Individual",
-                              "Individual_Trait",
-                              "Trait",
-                              "Time",
-                              "Phenotype",
-                              "Beta0",
-                              "Beta1",
-                              "Beta2",
-                              "Beta12",
-                              "I",
-                              "S1",
-                              "S2",
-                              "S12",
-                              "X1",
-                              "X2",
-                              "X12",
-                              "G",
-                              "e"),
-        "Mathematical symbol" = c("",
-                    paste0("$",NOT$ind,"$"),
-                    "",
-                    paste0("$",NOT$trait.1,"$ (1) and $",NOT$trait.2,"$ (2)"),
-                    paste0("$",NOT$time,"$"),
-                    paste0("$",EQ$phen.1,"$ and $",EQ$phen.2,"$"),
-                    paste0("$",EQ3$mean0,"$"),
-                    paste0("$",EQ3$mean1,"$"),
-                    paste0("$",EQ3$mean2,"$"),
-                    paste0("$",EQ3$mean12,"$"),
-                    paste0("$",NOT$devI,"$"),
-                    paste0("$",EQ3$dev1,"$"),
-                    paste0("$",EQ3$dev2,"$"),
-                    paste0("$",EQ3$dev12,"$"),
-                    paste0("$",EQ2$env1,"$"),
-                    paste0("$",EQ2$env2,"$"),
-                    paste0("$",EQ2$env12,"$"),
-                    paste0("$",NOT$groupV,"$"),
-                    paste0("$",NOT$error,"$")),
-        "Description" = c("Replicate identification",
-                    "Individual identification",
-                    "Individual-trait identification",
-                    "Trait identification",
-                    "Time step values",
-                    "Individual phenotype",
-                    "Population phenotypic mean",
-                    paste0("Population mean response to environmental influences $",EQ2$env1,"$."),
-                    paste0("Population mean response to environmental influences $",EQ2$env2,"$."),
-                    paste0("Population mean response to environmental influences $",EQ2$env12,"$."),
-                    paste0("Individual-specific deviations (random-intercepts) from population phenotypic mean $",EQ3$mean0,"$."),
-                    paste0("Individual-specific response to environmental influence $",EQ2$env1,"$ (random-slope)."),
-                    paste0("Individual-specific response to environmental influence $",EQ2$env2,"$ (random-slope)."),
-                    paste0("Individual-specific response to environmental influence $",EQ2$env12,"$ (random-slope)."),
-                    paste0("Environmental gradient ($",EQ2$env1,"$)."),
-                    paste0("Environmental gradient ($",EQ2$env2,"$)."),
-                    paste0("Environmental gradient ($",EQ2$env12,"$)."),
-                    paste0("Higher-level grouping value."),
-                    paste0("Measurement error."))
+        "Output data variable"= c("Output data variable",
+                                  "Replicate",
+                                  "Individual",
+                                  "Individual_Trait",
+                                  "Trait",
+                                  "Time",
+                                  "Phenotype",
+                                  "Beta0",
+                                  "Beta1",
+                                  "Beta2",
+                                  "Beta12",
+                                  "I",
+                                  "S1",
+                                  "S2",
+                                  "S12",
+                                  "X1",
+                                  "X2",
+                                  "X12",
+                                  "G",
+                                  "e"),
+        "Mathematical symbol" = c("Mathematical symbol",
+                                  "",
+                                  paste0("$",NOT$ind,"$"),
+                                  "",
+                                  paste0("$",NOT$trait.1,"$ (1) and $",NOT$trait.2,"$ (2)"),
+                                  paste0("$",NOT$time,"$"),
+                                  paste0("$",EQ$phen.1,"$ and $",EQ$phen.2,"$"),
+                                  paste0("$",EQ3$mean0,"$"),
+                                  paste0("$",EQ3$mean1,"$"),
+                                  paste0("$",EQ3$mean2,"$"),
+                                  paste0("$",EQ3$mean12,"$"),
+                                  paste0("$",NOT$devI,"$"),
+                                  paste0("$",EQ3$dev1,"$"),
+                                  paste0("$",EQ3$dev2,"$"),
+                                  paste0("$",EQ3$dev12,"$"),
+                                  paste0("$",EQ2$env1,"$"),
+                                  paste0("$",EQ2$env2,"$"),
+                                  paste0("$",EQ2$env12,"$"),
+                                  paste0("$",NOT$groupV,"$"),
+                                  paste0("$",NOT$error,"$")),
+        "Description" = c("Description",
+                          "Replicate identification",
+                          "Individual identification",
+                          "Individual-trait identification",
+                          "Trait identification",
+                          "Time step values",
+                          "Individual phenotype",
+                          "Population phenotypic mean",
+                          paste0("Population mean response to environmental influences $",EQ2$env1,"$."),
+                          paste0("Population mean response to environmental influences $",EQ2$env2,"$."),
+                          paste0("Population mean response to environmental influences $",EQ2$env12,"$."),
+                          paste0("Individual-specific deviations (random-intercepts) from population phenotypic mean $",EQ3$mean0,"$."),
+                          paste0("Individual-specific response to environmental influence $",EQ2$env1,"$ (random-slope)."),
+                          paste0("Individual-specific response to environmental influence $",EQ2$env2,"$ (random-slope)."),
+                          paste0("Individual-specific response to environmental influence $",EQ2$env12,"$ (random-slope)."),
+                          paste0("Environmental gradient ($",EQ2$env1,"$)."),
+                          paste0("Environmental gradient ($",EQ2$env2,"$)."),
+                          paste0("Environmental gradient ($",EQ2$env12,"$)."),
+                          paste0("Higher-level grouping value."),
+                          paste0("Measurement error."))
       )  
       
-      return(getTable(myTable))
+      return(getTable(myTable, header=TRUE))
       
     })#,
 

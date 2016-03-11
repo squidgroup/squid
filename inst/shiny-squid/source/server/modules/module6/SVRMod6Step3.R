@@ -69,15 +69,17 @@ c(
       output$Mod6Step3_summary_variance_table <- renderUI({
         
         myTable <- data.frame(
-          "Summary of Variances"= c("$\\text{Fixed effects}$",
-                          paste0("Mean of the trait ($",EQ3$mean0,"$)"),
-                          paste0("Population-specific slope of the environmental effect ($",EQ3$mean1,"$)"),
-                          "$\\text{Random effects}$",
-                          paste0("Individual variance ($V_",NOT$devI,"$)"),
-                          paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$)"),
-                          paste0("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$)"),
-                          paste0("Residual variance ($V_",NOT$error,"$)")),
-          "Value" = c("",
+          "Summary of Variances"= c("Summary of Variances",
+                                    "$\\text{Fixed effects}$",
+                                    paste0("Mean of the trait ($",EQ3$mean0,"$)"),
+                                    paste0("Population-specific slope of the environmental effect ($",EQ3$mean1,"$)"),
+                                    "$\\text{Random effects}$",
+                                    paste0("Individual variance ($V_",NOT$devI,"$)"),
+                                    paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$)"),
+                                    paste0("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$)"),
+                                    paste0("Residual variance ($V_",NOT$error,"$)")),
+          "Value" = c("Value",
+                      "",
                       "0.5",
                       "0.5", 
                       "",
@@ -87,7 +89,7 @@ c(
                       "0.05")
         )  
         
-        return(getTable(myTable))
+        return(getTable(myTable, header=TRUE))
         
     }),
 
@@ -125,7 +127,9 @@ c(
         )  
       }
       
-      return(getTable(myTable))
+      myTable <- rbind(c("Observations", "Individuals", "Repeats per individual"),myTable)
+      
+      return(getTable(myTable, header=TRUE))
       
     }),
 

@@ -1,18 +1,24 @@
 # test if the number is an integer
-getTable  <- function(myTable){ 
+getTable  <- function(myTable, header=FALSE){ 
+  
+  if(header){
+    tableNames <- myTable[1,]
+    start      <- 2  
+  }else{
+    tableNames <- names(myTable)
+    start      <- 1   
+  }
   
   myHTMLTable <- tags$table(class = "table table-striped table-hover dataTable", 
                             tags$thead(
-                              tags$tr(lapply(names(myTable), function(name) { tags$th(name) }))
+                              tags$tr(lapply(tableNames, function(name) { tags$th(name) }))
                             ),
-                            tags$tbody(lapply(1:nrow(myTable), function(row) {            
+                            tags$tbody(lapply(start:nrow(myTable), function(row) {            
                               tags$tr(lapply(1:ncol(myTable), function(col) {
-                                tags$td(withMathJax(myTable[row, col]))
+                                tags$td(myTable[row, col])
                               }))
                             }))
                   )
-  
-  return(myHTMLTable)
-  
+  return(withMathJax(myHTMLTable))
 }
 

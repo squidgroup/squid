@@ -50,7 +50,7 @@ SVRGetSummaryVariances <- function(input,B,Vind,Ve,VG,NT,step,nb.IS,trait,X1_sta
   Proportion <- as.character(Proportion)
   Proportion[Proportion == "(NA%)"] <- " "
   
-  myTable <- data.frame(paste(Value,Proportion))
+  myTable <- data.frame(paste(Value,Proportion), stringsAsFactors = FALSE)
   names(myTable) <- paste("Trait.", trait, sep="")
   
   

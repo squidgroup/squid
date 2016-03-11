@@ -12,7 +12,7 @@ fixedPage(
       tabPanel("Description", 
         # Description page 
         p(HTML(fullmodelTxt$ModelDesciption_intro_1)),       
-        tabsetPanel(id = "FModSbyS_Description_TabsetPanel", type = "tabs", selected="Model summary",
+        tabsetPanel(id = "FModSbyS_Description_TabsetPanel", type = "tabs", selected="Bivariate model",
           
           # Full model description
           tabPanel("Simulation model", 
@@ -21,6 +21,10 @@ fixedPage(
           # Model Summary
           tabPanel("Model summary", 
                    source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionSummary.R",local=TRUE)[["value"]]
+          ),
+          # Bivariate Model Summary
+          tabPanel("Bivariate model", 
+                   source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionBivariateSummary.R",local=TRUE)[["value"]]
           ),
           # Sampling design description
           tabPanel("Sampling design", 
