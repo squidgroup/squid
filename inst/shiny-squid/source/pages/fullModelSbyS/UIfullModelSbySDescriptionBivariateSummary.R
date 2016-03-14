@@ -11,9 +11,10 @@ myTable <- getTable(data.frame(
                            paste0("$COV_{",NOT$devS,"_",NOT$trait.1,",",NOT$devS,"_",NOT$trait.2,"}$"),
                            paste0("$COV_{",NOT$devS,"_{1",NOT$trait.1,"},",NOT$devS,"_{2",NOT$trait.2,"}}$"),
                            paste0("$COV_{",NOT$devS,"_{12",NOT$trait.1,"},",NOT$devI,"_",NOT$trait.2,"}$"),
-                          
-                          
-                          ""
+                           paste0("$COV_{",NOT$devS,"_{12",NOT$trait.1,"},",NOT$devS,"_",NOT$trait.2,"}$"),
+                           paste0("$COV_{",NOT$devS,"_{12",NOT$trait.1,"},",NOT$devS,"_{12",NOT$trait.2,"}}$"),
+                           paste0("$COV_{",NOT$groupV,"_",NOT$trait.1,",",NOT$groupV,"_",NOT$trait.2,"}$"),
+                           paste0("$COV_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$")
   ),
   
   "Explanation"        = c("Explanation",
@@ -42,7 +43,18 @@ myTable <- getTable(data.frame(
                            paste0("Individual-specific covariance between a reaction norm slope interaction between 
                                   two environmental effects $(",EQ2$env1,", ",EQ2$env2,")$ for trait $",NOT$trait.1,"$ and an intercept for trait $",NOT$trait.2,"$; 
                                   exists also for the reverse scenario (i.e., $COV_{",NOT$devI,"_",NOT$trait.1,",",NOT$devS,"_{12",NOT$trait.2,"}}$)"),
-                           ""
+                           paste0("Individual-specific covariance between a reaction norm slope interaction between 
+                                  two environmental effects $(",EQ2$env1,", ",EQ2$env2,")$ for trait $",NOT$trait.1,"$ and a slope for trait $",NOT$trait.2,"$ 
+                                  (i.e., linear within-individual response to environmental effect $",EQ2$env1,"$ or  $",EQ2$env2,"$), 
+                                  resulting in, respectively, $COV_{",NOT$devS,"_{12",NOT$trait.1,"},",NOT$devS,"_{1",NOT$trait.2,"}}$ or 
+                                  $COV_{",NOT$devS,"_{12",NOT$trait.1,"},",NOT$devS,"_{2",NOT$trait.2,"}}$; 
+                                  exists also for reverse scenarios ($COV_{",NOT$devS,"_{1",NOT$trait.1,"},",NOT$devS,"_{12",NOT$trait.2,"}}$, 
+                                  $COV_{",NOT$devS,"_{2",NOT$trait.1,"},",NOT$devS,"_{12",NOT$trait.2,"}}$)."),
+                           paste0("Individual-specific covariance between a reaction norm slope interaction between 
+                                  two environmental effects $(",EQ2$env1,", ",EQ2$env2,")$ for trait $",NOT$trait.1,"$ and the same 
+                                  slope interaction for trait $",NOT$trait.2,"$."),
+                           paste0("Higher-order covariance between reaction norm intercepts for traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$."),
+                           paste0("Measurement error covariance between reaction norm intercepts for traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$.")
 
   )
  ), header=TRUE)
@@ -50,8 +62,7 @@ myTable <- getTable(data.frame(
 span(
   p(HTML(fullmodelTxt$bivariateStepbyStep)),
   div(class="line"),
-  myTable,
-  div(class="line")
+  myTable
 )
 
 
