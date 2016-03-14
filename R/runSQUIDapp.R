@@ -1,6 +1,6 @@
 #' @title run SQUID app 
 #'
-#' @description \code{runSQUIDapp} runs SQUID app as a web interface that has been developed with the \href{http://shiny.rstudio.com/}{shiny} package.
+#' @description \code{runSQUIDapp} runs SQUID app as a web interface that has been developed with the package \href{http://shiny.rstudio.com/}{shiny}.
 #' 
 #' SQuID is made to help researchers to become familiar with multilevel variation, and to build up sampling designs for their study. SQuID is built up as a series of modules that guide the user into situations of increasing complexity to explore the dynamics between the way records are collected and estimates of parameters of specific interest; The last module is the full model simulation package that allows the user to generate data sets that can then be used to run analyses in the statistical package of their choice for specific research questions.
 #' 

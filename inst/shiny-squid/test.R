@@ -3,6 +3,14 @@ require(grid)
 
 input <- list()
 
+input$Tmax <- 100 # default = 1
+input$Time_sampling <- c(1,100)
+
+input$NP <- 1 # default = 1
+input$NI <- 5 # default = 1
+input$NT <- 1 # default = 1
+input$NG <- 1 # default = 1
+
 input$B    <- matrix(c(0,0.3,0,0),1)
 input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
                             1   , 0.5  , 0 , 0,
@@ -34,7 +42,7 @@ input$VG <- 0
 # 2)
   
 # Environment X1
-  input$X1_state      <- TRUE
+  input$X1_state      <- TRUE # default = FALSE
   # Stochastic
     input$X1_sto_state  <- TRUE  # default = FALSE
     input$X1_sto_shared <- TRUE  # default = TRUE
@@ -80,22 +88,14 @@ input$VG <- 0
     input$X2_cyc_Vshift    <- 0     # default = 0
 
 input$X_Interaction <- TRUE # default = FALSE
-    
-input$Tmax <- 100 # default = 1
-input$Time_sampling <- c(1,100)
 
-input$NP <- 1 # default = 1
-input$NI <- 5 # default = 1
-input$NT <- 1 # default = 1
-input$NR <- 5 # default = 1
-input$NG <- 1 # default = 1
+input$Visj <- 0
+input$NR   <- 5 # default = 1
 
 input$NR_ind   <- TRUE # default = TRUE
 input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- TRUE # default = TRUE
 input$ST_trait <- TRUE # default = TRUE
-
-input$Visj <- 0
 
 data <- SQUID::runSQUIDfct(input=input, plot=TRUE)
 

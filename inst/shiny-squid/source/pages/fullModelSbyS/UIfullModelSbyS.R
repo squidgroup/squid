@@ -12,7 +12,7 @@ fixedPage(
       tabPanel("Description", 
         # Description page 
         p(HTML(fullmodelTxt$ModelDesciption_intro_1)),       
-        tabsetPanel(id = "FModSbyS_Description_TabsetPanel", type = "tabs", selected="Bivariate model",
+        tabsetPanel(id = "FModSbyS_Description_TabsetPanel", type = "tabs", selected="Simulation model",
           
           # Full model description
           tabPanel("Simulation model", 
