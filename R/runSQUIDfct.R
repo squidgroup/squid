@@ -26,26 +26,53 @@
 #'  \code{NT}   \tab 1 \tab Positive integer of the number of traits for each individual. SQUID allows a maximum of 2 traits. \cr
 #'  \code{NG}   \tab 1 \tab Positive integer of the number of higher-level groups. \code{NG} must be lower than the number of individuals. \cr
 #'  
-#'  \code{X1_state}     \tab \code{FALSE} \tab Logical  \cr
-#'  \code{X1_sto_state} \tab \code{FALSE} \tab Logical  \cr
-#'  \code{X1_sto_shared}\tab \code{TRUE}  \tab Logical   \cr
-#'  \code{X1_sto_V}     \tab 1            \tab Numeric \cr
+#'  \code{X1_state}     \tab \code{FALSE} \tab Logical value. If \code{TRUE}, 
+#'                                             an environmental effect x1 will be added to the model equation.  \cr
+#'  \code{X1_sto_state} \tab \code{FALSE} \tab Logical value. If \code{TRUE},
+#'                                             a stochastic environmental effect will be added to the environmental effect x1.
+#'                                             The stochastic environmental effect values have a normal distribution around 0 and a variance of \code{X1_sto_V}\cr
+#'  \code{X1_sto_shared}\tab \code{TRUE}  \tab Logical avlue. If \code{TRUE}, 
+#'                                             the stochastic environmental effect included in the environmental effect x1 
+#'                                             will be shared between individuals. 
+#'                                             If \code{FALSE}, each individual will experience a different stochastic 
+#'                                             environmental effect within the environmental effect x1 
+#'                                             (i.e. a new stochastic environmental effect is generated for each individual).\cr
+#'  \code{X1_sto_V}     \tab 1            \tab Numeric value of the variance used to generate a normal distributed 
+#'                                             stochastic environmental effect within the environmental effect x1.\cr
 #'  
-#'  \code{X1_sto_autocor_state} \tab \code{FALSE} \tab Logical \cr
-#'  \code{X1_sto_corr}          \tab 0            \tab Numeric (between 0 and 1) \cr
+#'  \code{X1_sto_autocor_state} \tab \code{FALSE} \tab Logical value.  If \code{TRUE}, an autocorrelation effect will be 
+#'                                                     added to the stochastic environemental effect within the environmental effect x1. \cr
+#'  \code{X1_sto_corr}          \tab 0            \tab Numeric value. The correlation value ranging from 0 to 1 
+#'                                                     that characterizes the magnitude of the temporal autocorrelation. \cr
 #'  
-#'  \code{X1_lin_state}     \tab \code{FALSE} \tab Logical \cr
-#'  \code{X1_lin_shared}    \tab \code{TRUE}  \tab Logical \cr
-#'  \code{X1_lin_intercept} \tab 0            \tab Numeric \cr
-#'  \code{X1_lin_slope}     \tab 1            \tab Numeric \cr
-#'  \code{X1_lin_V}         \tab 1            \tab Numeric \cr
+#'  \code{X1_lin_state}     \tab \code{FALSE} \tab Logical value. If \code{TRUE}, a linear trend will be added the environmental effect x1. \cr
+#'  \code{X1_lin_shared}    \tab \code{TRUE}  \tab Logical avlue. If \code{TRUE}, 
+#'                                             the linear trend included in the environmental effect x1 
+#'                                             will be shared between individuals. 
+#'                                             If \code{FALSE}, each individual will experience a different linear trend 
+#'                                             within the environmental effect x1. 
+#'                                             A new linear trend is generated for each individual by varying the intercept 
+#'                                             and the slope of the linear equation fowlling a normal distribution where 
+#'                                             the mean is the intercept and the slope value itself and the variance is \code{X1_lin_V}. \cr
+#'  \code{X1_lin_intercept} \tab 0            \tab Numeric value of the intercept of the linear trend included into the environmental effect x1. \cr
+#'  \code{X1_lin_slope}     \tab 1            \tab Numeric value of the slope of the linear trend included into the environmental effect x1. \cr
+#'  \code{X1_lin_V}         \tab 1            \tab Numeric value of the variance used to generate different (unshared) linear trend effect for each individual within the environmnetal effect x1. \cr
 #'  
-#'  \code{X1_cyc_state}     \tab \code{FALSE} \tab Logical \cr
-#'  \code{X1_cyc_shared}    \tab \code{TRUE}  \tab Logical \cr
-#'  \code{X1_cyc_amplitude} \tab 10           \tab Positive numeric \cr
-#'  \code{X1_cyc_period}    \tab 10           \tab Positive numeric \cr
-#'  \code{X1_cyc_Hshift}    \tab 0            \tab Numeric \cr
-#'  \code{X1_cyc_Vshift}    \tab 0            \tab Numeric \cr
+#'  \code{X1_cyc_state}     \tab \code{FALSE} \tab Logical value. If \code{TRUE}, a cyclic trend will be added the environmental effect x1. \cr
+#'  \code{X1_cyc_shared}    \tab \code{TRUE}  \tab Logical avlue. If \code{TRUE}, 
+#'                                                 the cyclic trend included in the environmental effect x1 
+#'                                                 will be shared between individuals. 
+#'                                                 If \code{FALSE}, each individual will experience a different cyclic trend 
+#'                                                 within the environmental effect x1.
+#'                                                 A new cyclic trend is generated for each individual by varying the amplitude, 
+#'                                                 the period, the horizontal shif and the vertical shift 
+#'                                                 of the cyclic equation following a normal distribution where 
+#'                                                 the mean is the parameter value itself and the variance is \code{X1_cyc_V}. \cr
+#'  \code{X1_cyc_amplitude} \tab 10           \tab Positive numeric value of the amplitude of the cyclic trend included into the environmental effect x1. \cr
+#'  \code{X1_cyc_period}    \tab 10           \tab Positive numeric value of the period of the cyclic trend included into the environmental effect x1. \cr
+#'  \code{X1_cyc_Hshift}    \tab 0            \tab Positive numeric value of the horizontal shift of the cyclic trend included into the environmental effect x1. \cr
+#'  \code{X1_cyc_Vshift}    \tab 0            \tab Positive numeric value of the vertical shift of the cyclic trend included into the environmental effect x1. \cr
+#'  \code{X1_cyc_V}         \tab 0            \tab Numeric value of the variance used to generate different (unshared) cycluc trend effect for each individual within the environmnetal effect x1. \cr
 #'  
 #'  
 #'  \strong{Parameter name} \tab \strong{Default value} \tab \strong{Description}

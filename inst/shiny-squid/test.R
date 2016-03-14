@@ -63,6 +63,7 @@ input$VG <- 0
     input$X1_cyc_period    <- 10    # default = 10 
     input$X1_cyc_Hshift    <- 0     # default = 0
     input$X1_cyc_Vshift    <- 0     # default = 0
+	input$X1_cyc_V         <- 0     # default = 0
 
 # Environment X2
     input$X2_state      <- TRUE

@@ -31,11 +31,11 @@ createEnvironment <- function(input, module, environment, sep){
     # Cyclic effect
     "cyc_state"           = paste(module, paste(environment, "cyc_state", sep=sep2), sep = sep),
     "cyc_shared"          = paste(module, paste(environment, "cyc_shared", sep=sep2), sep = sep),
-    "cyc_V"               = paste(module, paste(environment, "cyc_V", sep=sep2), sep = sep),
     "cyc_amplitude"       = paste(module, paste(environment, "cyc_amplitude", sep=sep2), sep = sep),
     "cyc_period"          = paste(module, paste(environment, "cyc_period", sep=sep2), sep = sep),
     "cyc_Hshift"          = paste(module, paste(environment, "cyc_Hshift", sep=sep2), sep = sep),
-    "cyc_Vshift"          = paste(module, paste(environment, "cyc_Vshift", sep=sep2), sep = sep)
+    "cyc_Vshift"          = paste(module, paste(environment, "cyc_Vshift", sep=sep2), sep = sep),
+    "cyc_V"               = paste(module, paste(environment, "cyc_V", sep=sep2), sep = sep)
   )
   
   # Create a list of the environment object
