@@ -52,7 +52,7 @@ c(
  	  
  	  myInput <- list("Mod3Step1_Preview_Tmax"   = Modules_VAR$Tmax$max,
  	                  "Mod3Step1_Preview_NI"     = input$Mod3Step1_NI,
- 	                  "Mod3Step1_Preview_Visj"   = input$Mod3Step1_Visj,
+ 	                  "Mod3Step1_Preview_Vhsi"   = input$Mod3Step1_Vhsi,
  	                  "Mod3Step1_Preview_NR"     = input$Mod3Step1_NR,
  	                  "Mod3Step1_Preview_ST_ind" = FALSE
  	                  )

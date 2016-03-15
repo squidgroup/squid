@@ -98,7 +98,7 @@ c(
       
       myInput <- list("Mod3Step3_Preview_Tmax"   = Modules_VAR$Tmax$max,
                       "Mod3Step3_Preview_NI"     = input$Mod3Step3_NI,
-                      "Mod3Step3_Preview_Visj"   = input$Mod3Step3_Visj,
+                      "Mod3Step3_Preview_Vhsi"   = input$Mod3Step3_Vhsi,
                       "Mod3Step3_Preview_NR"     = input$Mod3Step3_NR,
                       "Mod3Step3_Preview_ST_ind" = FALSE
       )
@@ -140,11 +140,11 @@ c(
     }),
 
     observe({
-      updateSliderInput(session, "Mod3Step3_Visj", value = input$Mod3Step3_Visj2)
+      updateSliderInput(session, "Mod3Step3_Vhsi", value = input$Mod3Step3_Vhsi2)
     }),
 
     observe({
-      updateSliderInput(session, "Mod3Step3_Visj2", value = input$Mod3Step3_Visj)
+      updateSliderInput(session, "Mod3Step3_Vhsi2", value = input$Mod3Step3_Vhsi)
     }),
 
     output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),

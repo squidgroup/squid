@@ -31,7 +31,7 @@ setVariables <- function(input, module, environments, sep){
     "VG"             = paste(module,"VG"           , sep = sep),
     "Tmax"           = paste(module,"Tmax"         , sep = sep),      
     "Time_sampling"  = paste(module,"Time_sampling", sep = sep),
-    "Visj"           = paste(module,"Visj"         , sep = sep),
+    "Vhsi"           = paste(module,"Vhsi"         , sep = sep),
     "NR_ind"         = paste(module,"NR_ind"       , sep = sep),
     "NR_trait"       = paste(module,"NR_trait"     , sep = sep),
     "ST_ind"         = paste(module,"ST_ind"       , sep = sep),
@@ -76,7 +76,7 @@ setVariables <- function(input, module, environments, sep){
     "Tsamp"    = y[2]-y[1]+1,                 # Total sampling time
     "TsampI"   = 0,                           # Sampling time per individual
     
-    "Visj"  = ifelse(inputNames$Visj %in% names(input),input[[inputNames$Visj]],0), # Among-individual variance in timing of sampling (between 0 and 1)
+    "Vhsi"  = ifelse(inputNames$Vhsi %in% names(input),input[[inputNames$Vhsi]],0), # Among-individual variance in timing of sampling (between 0 and 1)
     
     "NR_ind"   = ifelse(inputNames$NR_ind    %in% names(input),input[[inputNames$NR_ind]],TRUE),            
     # Number of records among individuals
@@ -97,7 +97,7 @@ setVariables <- function(input, module, environments, sep){
     "NR_Fixe"  = ifelse(inputNames$NR_Fixe %in% names(input),input[[inputNames$NR_Fixe]],TRUE) # if TRUE the same NR for all the populations
   )
   
-  Time$TsampI <- ifelse(Time$Visj > 0.95, round(Time$Tsamp*0.05,0), round(Time$Tsamp*(1-Time$Visj),0)) 
+  Time$TsampI <- ifelse(Time$Vhsi > 0.95, round(Time$Tsamp*0.05,0), round(Time$Tsamp*(1-Time$Vhsi),0)) 
   Time$TsampI <- ifelse(Time$TsampI != 0, Time$TsampI, 1)
   
   N <- list(

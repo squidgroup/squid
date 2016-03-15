@@ -29,7 +29,7 @@ span(
   
   # inputs
   getSliderInput("Mod3Step2_NR",  Modules_VAR$NR),
-  getSliderInput("Mod3Step2_Visj", Modules_VAR$Visj),
+  getSliderInput("Mod3Step2_Vhsi", Modules_VAR$Vhsi),
   
   p(HTML(Mod3Step2_txt$para3)),      # Text: paragraph 3
   

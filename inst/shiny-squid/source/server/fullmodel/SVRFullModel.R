@@ -11,7 +11,7 @@ SVRFullModel <- function(myModule, input, output, session){
   NG                 <- paste(myModule, "NG", sep="_")
   VG                 <- paste(myModule, "VG", sep="_")
   NR                 <- paste(myModule, "NR", sep="_")
-  Visj                <- paste(myModule, "Visj", sep="_")
+  Vhsi                <- paste(myModule, "Vhsi", sep="_")
 
   B                  <- paste(myModule, "B", sep="_")
   B_temp             <- paste(myModule, "B_temp", sep="_")
@@ -259,7 +259,7 @@ SVRFullModel <- function(myModule, input, output, session){
      
      # update the sampling time length for each individual    
      output[[SampTime]] <- renderText({ 
-       FullModel_VAR$NR$max <<- round(input[[Tmax]]*(1-input[[Visj]])) 
+       FullModel_VAR$NR$max <<- round(input[[Tmax]]*(1-input[[Vhsi]])) 
      }),
 
      # Update sampling time checkbox relative to the sampling record checkbox
@@ -270,7 +270,7 @@ SVRFullModel <- function(myModule, input, output, session){
        if(!input[[NR_ind]]   & input[[ST_ind]])     updateCheckboxInput(session, NR_ind,   value = TRUE)
        if(!input[[NR_trait]] & input[[ST_trait]])   updateCheckboxInput(session, NR_trait, value = TRUE)  
        
-       if(input[[Visj]] > 0){
+       if(input[[Vhsi]] > 0){
          updateCheckboxInput(session, ST_ind,   value = FALSE)
          updateCheckboxInput(session, ST_trait,   value = FALSE)
        }
@@ -383,7 +383,7 @@ SVRFullModel <- function(myModule, input, output, session){
 
      isError <- reactive({
        
-      FullModel_VAR$NR$max    <<- round(input[[Tmax]]*(1-input[[Visj]])) 
+      FullModel_VAR$NR$max    <<- round(input[[Tmax]]*(1-input[[Vhsi]])) 
       FullModel_VAR$NG$modulo <<- input[[NI]] 
       
       if(!testInput(input[[Tmax]], FullModel_VAR$Tmax, TRUE, FALSE)                  ||
@@ -443,7 +443,7 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[error_NG]]              <- renderUI({testInput(input[[NG]], FullModel_VAR$NG, TRUE, TRUE, TRUE)}),
      output[[error_VG]]              <- renderUI({testInput(input[[VG]], FullModel_VAR$VG, FALSE, TRUE)}),
      output[[error_NR]] <- renderUI({
-          input[[Tmax]];input[[Visj]];
+          input[[Tmax]];input[[Vhsi]];
           testInput(input[[NR]], FullModel_VAR$NR, TRUE, TRUE) 
        }),
      output[[error_B]]               <- renderUI({testInputBMatrix(input[[B]] , FullModel_VAR$B, TRUE)}),
@@ -610,7 +610,7 @@ SVRFullModel <- function(myModule, input, output, session){
 #         updateNumericInput(session,  inputId = VG,  value = saveFile[[VG]])
 #         
 #         updateNumericInput(session,  inputId = NR,  value = saveFile[[NR]])
-#         updateSliderInput(session,   inputId = Visj, value = saveFile[[Visj]])
+#         updateSliderInput(session,   inputId = Vhsi, value = saveFile[[Vhsi]])
 #         updateCheckboxInput(session, inputId = NR_ind,    value = saveFile[[NR_ind]])
 #         updateCheckboxInput(session, inputId = NR_trait,  value = saveFile[[NR_trait]])
 #         updateCheckboxInput(session, inputId = ST_ind,   value = saveFile[[ST_ind]])

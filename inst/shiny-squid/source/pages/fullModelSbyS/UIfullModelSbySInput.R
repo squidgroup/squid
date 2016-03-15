@@ -138,7 +138,7 @@ span(
                            textOutput("FModSbyS_SampTime")
                     )
                   ),
-                  getSliderInput("FModSbyS_Visj", FullModel_VAR$Visj)
+                  getSliderInput("FModSbyS_Vhsi", FullModel_VAR$Vhsi)
            ),
            column(width = 6,
                   h6("Number of records:", getIcon("FModSbyS_Checkbox_NbRecords_Info")),

@@ -37,7 +37,7 @@ span(
   p(HTML(Mod3Step3_txt$para2)),      # Text: paragraph 2
   
   getSliderInput("Mod3Step3_NR",  Modules_VAR$NR),
-  getSliderInput("Mod3Step3_Visj", Modules_VAR$Visj),
+  getSliderInput("Mod3Step3_Vhsi", Modules_VAR$Vhsi),
   
   p(),
   plotOutput("Mod3Step3_previewPlot", width = Modules_VAR$Plot$width),
@@ -79,7 +79,7 @@ span(
   
   p(HTML(Mod3Step3_txt$para8)),      # Text: paragraph 8
   
-  getSliderInput("Mod3Step3_Visj2", Modules_VAR$Visj),
+  getSliderInput("Mod3Step3_Vhsi2", Modules_VAR$Vhsi),
   
   p(),
   # Simulation run button

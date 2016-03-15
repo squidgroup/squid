@@ -19,8 +19,8 @@ input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
                           ), 
                           4)
 
-input$Ve <- 0.05
-input$VG <- 0
+input$Ve <- 0.05 # Default 0
+input$VG <- 0    # Default 0
 
 
 # input$Vind <- matrix(c(0.7,  1  , 1   , 1   , 1   , 1   , 1   , 1  ,
@@ -90,16 +90,18 @@ input$VG <- 0
 
 input$X_Interaction <- TRUE # default = FALSE
 
-input$Visj <- 0
-input$NR   <- 5 # default = 1
+input$Vhsi <- 0
+input$NR   <- 20 # default = 1
 
 input$NR_ind   <- TRUE # default = TRUE
 input$NR_trait <- TRUE # default = TRUE
-input$ST_ind   <- TRUE # default = TRUE
+input$ST_ind   <- FALSE # default = TRUE
 input$ST_trait <- TRUE # default = TRUE
 
 data <- SQUID::runSQUIDfct(input=input, plot=TRUE)
 
+
+print(data$myPlot$plotSampTime)
 
 print(SQUID::multiplot(data$myPlot$plotX1,
                 data$myPlot$plotX2,

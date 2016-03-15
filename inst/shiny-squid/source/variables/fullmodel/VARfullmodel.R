@@ -272,7 +272,7 @@ FullModel_VAR <- list(
   ),
   
   # Among-individual variance in timing of sampling
-  "Visj"   = list(  "label"      = "Among-individual variance in timing of sampling",
+  "Vhsi"   = list(  "label"      = "Among-individual variance in timing of sampling",
                     "infoTxt"   = "Among-individual variance in timing of sampling.",
                     "value"     = 0.0,
                     "min"       = 0.0,

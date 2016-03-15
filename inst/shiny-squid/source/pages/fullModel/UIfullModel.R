@@ -130,7 +130,7 @@ fixedPage( HTML("<div id='FullModel'>"),
                 textOutput("FMod_SampTime")
               )
             ),
-            getSliderInput("FMod_Visj", FullModel_VAR$Visj),
+            getSliderInput("FMod_Vhsi", FullModel_VAR$Vhsi),
             
             h6("Number of records:", getIcon("FMod_Checkbox_NbRecords_Info")),
             bsTooltip("FMod_Checkbox_NbRecords_Info", FullModel_VAR$Checkbox_NbRecords$infoTxt, "top"),
