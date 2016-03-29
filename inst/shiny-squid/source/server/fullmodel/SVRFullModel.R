@@ -218,7 +218,7 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
          # Call app main function
-         data <- SQUID::runSQUIDfct(input, myModule, TRUE) 
+         data <- SQUID::runSQUIDfct(input, myModule, plot=TRUE) 
          
          names(data$full_Data)    <- outputNames
          names(data$sampled_Data) <- outputNames
