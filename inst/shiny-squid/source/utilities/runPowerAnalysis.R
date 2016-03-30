@@ -9,7 +9,7 @@ runPowerAnalysis <- function(input, ModStep, NI, NR){
       input2[[paste0(ModStep,"_NI")]] <- NI[index] 
       input2[[paste0(ModStep,"_NR")]] <- NR[index] 
     
-      df <- SQUID::runSQUIDfct(input2, ModStep)
+      df <- SQUID::squidR(input2, module=ModStep)
       
 #       df <- as.data.table(df$sampled_Data)
 #       df <- df[ , .(Replicate, Individual, Phenotype, X1)]

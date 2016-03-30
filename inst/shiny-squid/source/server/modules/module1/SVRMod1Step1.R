@@ -17,7 +17,7 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function      
-        data <- SQUID::runSQUIDfct(input, "Mod1Step1") 
+        data <- SQUID::squidR(input, module="Mod1Step1") 
         
         data$Vp              <- round(var(data$sampled_Data$Phenotype),2)
         data$phenotypeMean   <- round(mean(data$sampled_Data$Phenotype),2)

@@ -11,7 +11,7 @@ input$NI <- 5 # default = 1
 input$NT <- 1 # default = 1
 input$NG <- 1 # default = 1
 
-input$B    <- matrix(c(0,0.3,0,0), nrow=1)
+input$B    <- c(0,0.3,0,0)
 input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
                             1   , 0.5  , 0 , 0,
                             0   , 0  , 0 , 0,
@@ -101,14 +101,15 @@ input$ST_trait <- TRUE # default = TRUE
 data <- SQUID::runSQUIDfct(input=input, plot=TRUE)
 
 
+
 print(data$myPlot$plotSampTime)
 
-print(SQUID::multiplot(data$myPlot$plotX1,
+print(multiplot(data$myPlot$plotX1,
                 data$myPlot$plotX2,
                 data$myPlot$plotX1X2,
                 cols=1))
 
-print(SQUID::multiplot(data$myPlot$plotTotPhen,
+print(multiplot(data$myPlot$plotTotPhen,
                 data$myPlot$plotSampPhen,
                 data$myPlot$plotSampTime,
                 cols=1))

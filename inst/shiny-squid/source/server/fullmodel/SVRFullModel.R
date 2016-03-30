@@ -137,7 +137,7 @@ SVRFullModel <- function(myModule, input, output, session){
                            input[[X_Interaction]],
                            BisNew,
                            myB), 
-        uiOutput(error_B))
+             uiOutput(error_B))
      }),
       
      output[[B_UI_hidden]] <- renderUI({
@@ -218,7 +218,7 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
          # Call app main function
-         data <- SQUID::runSQUIDfct(input, myModule, plot=TRUE) 
+         data <- SQUID::squidR(input, myModule, plot=TRUE) 
          
          names(data$full_Data)    <- outputNames
          names(data$sampled_Data) <- outputNames

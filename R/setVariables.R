@@ -137,13 +137,13 @@ setVariables <- function(input, module, environments, sep){
   
   # Population mean in the intercept and the slopes
   if(inputNames$B %in% names(input)){
-    B <- input[[inputNames$B]]
+    B <- matrix(input[[inputNames$B]], nrow=1)
     
     if(!environments$X1$state)    B[seq(from=Variables$X1, to=Variables$X1+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
     if(!environments$X2$state)    B[seq(from=Variables$X2, to=Variables$X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
     if(!environments$Interaction) B[seq(from=Variables$X1X2, to=Variables$X1X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)] <- 0 
     
-    B <- repmat(as.matrix(B),N$NI*N$NS*N$NP,1)
+    B <- repmat(as.matrix(B),N$NI*N$NS*N$NP, 1)
     B <- reshapeMat(B, Variables$nb.IS)
   }else{
     B <- matrix(0,N$NI*N$NS*N$NP*N$NT, Variables$nb.IS)

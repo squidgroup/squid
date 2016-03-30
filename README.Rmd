@@ -29,7 +29,7 @@ devtools::install_github("Haycen/SQUID")
 
 # run SQuID
 library(SQUID)
-runSQUIDapp()
+squidApp()
 ```
 
 #### Biological goals

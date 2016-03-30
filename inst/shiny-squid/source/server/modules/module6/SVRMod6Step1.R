@@ -34,7 +34,7 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
-        data <- SQUID::runSQUIDfct(input, "Mod6Step1")  
+        data <- SQUID::squidR(input, module="Mod6Step1")  
         
         LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$sampled_Data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
