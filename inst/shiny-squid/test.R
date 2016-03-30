@@ -11,7 +11,7 @@ input$NI <- 5 # default = 1
 input$NT <- 1 # default = 1
 input$NG <- 1 # default = 1
 
-input$B    <- matrix(c(0,0.3,0,0),1)
+input$B    <- matrix(c(0,0.3,0,0), nrow=1)
 input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
                             1   , 0.5  , 0 , 0,
                             0   , 0  , 0 , 0,
