@@ -266,8 +266,8 @@ input$NI   <- 20  # 20 individuals per replicate population
 input$NT   <- 1   # 1 trait per individual
 
 # in this simulation model, only one environmental gradient (x1) is added
-input$X1_state      <- TRUE # turn on the environmental gradient x1
-input$X1_sto_state  <- TRUE # add a stochastic environmental effect to the environmental effect x1
+input$X1_state      <- TRUE  # turn on the environmental gradient x1
+input$X1_sto_state  <- TRUE  # add a stochastic environmental effect to the environmental effect x1
 input$X1_sto_shared <- FALSE # the stochastic environmental effect included into the environmental effect x1
                              # is not shared among individual. 
                              # Each individual will experience a  different stochastic environmental effect.                  
@@ -279,7 +279,17 @@ input$X1_lin_state <- TRUE # add a linear trend to the environmental effect x1.
                            # the default parameters for the linear trend will be used 
                            # (an intercept of 0, a slope of 1 and the linear trend will be shared among individuals)
 
-input$B    <- matrix(c(0.1, 0.1, 0, 0), nrow = 1)
+# define the population mean values vector.
+# the population mean (fixed intercept) and
+# the population mean response to environmental influences x1 (fixed slope) 
+# are set to 0.1.
+input$B    <- c(0.1, 0.1, 0, 0)
+                                                  
+# define the individual variance/correlation matrix (squared matrix; 4x4)
+# the individual-specific deviation (random intercept; VI) variance is set to 0.7.
+# the individual-specific response to an environmental effect x1 (random slope; VS1) is set to 0.5.
+# the correlation between the individual-specific deviation (I) and the individual-specific response 
+# to an environmental effect x1 (S1) is set to -0.7.                                                     
 input$Vind <- matrix(c(0.7  , 0   , 0 , 0,
                        -0.7 , 0.5 , 0 , 0,
                        0    , 0   , 0 , 0,
@@ -296,7 +306,10 @@ input$ST_ind <- FALSE # individuals are not sampled at the time
 
 ## run the model ##
 
-squidR(input)
+output <- squidR(input, plot=TRUE)
+
+# plot the individual phenotype values over time
+print(output$myPlot$plot_TotPhen) 
 
 }
 \seealso{

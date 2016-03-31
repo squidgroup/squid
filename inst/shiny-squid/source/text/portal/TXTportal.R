@@ -91,6 +91,6 @@ portal_txt <- list(
                                 using the module &ldquo;Full model&rdquo; and the option &ldquo;Step-by-step&rdquo;. 
                                 Once you understand how SQuID works, the &ldquo;Express model&rdquo; version 
                                 will work best. Finally, we have SQuID available as an R function 
-                                &ldquo;runSQUIDfct()&rdquo; for those interested in doing efficient simulations." 
+                                &ldquo;squidR()&rdquo; for those interested in doing efficient simulations." 
 
 )

@@ -1,4 +1,4 @@
-#' @title run SQuID application 
+#' run SQuID application 
 #'
 #' @description \code{squidApp} runs SQuID application as a web interface that has been developed with the package \href{http://shiny.rstudio.com/}{shiny}.
 #' 
@@ -9,12 +9,13 @@
 #' @param launch.browser        \code{logical}; If \code{TRUE} (default), the system's default web browser will be launched automatically after the app is started. If \code{FALSE} the app will be launched in an interactive session only. The value of this parameter can also be a function to call with the application's URL.
 #' @param ...                   any argument that could be passed to the function \code{\link[shiny]{runApp}} from the \pkg{shiny} package.
 #'
+#' @return NULL
+#'
 #' @details
 #' SQuID application will by default show up on your default web browser as a web site. In order to use properly the SQuID application, we encourage you to start by reading the documentation on the portal page. From there you will be guided through SQuID application according to your experience and knowledge of multilevel modelling.    
 #' 
 #' For more advanced and efficient simulations, SQuID is also available as an R function \code{\link{squidR}}.
 #' 
-#' @return NULL
 #' 
 #' @seealso \code{\link{squidR}}
 #' 
