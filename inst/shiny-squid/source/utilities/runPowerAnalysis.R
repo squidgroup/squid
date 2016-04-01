@@ -1,4 +1,3 @@
-
 runPowerAnalysis <- function(input, ModStep, NI, NR){
 
   input2 <- reactiveValuesToList(input)
@@ -25,7 +24,7 @@ runPowerAnalysis <- function(input, ModStep, NI, NR){
       
   }
 
-  # res[ ,, by=list(Replicate, nIndividual, nRecord)]
+  # lmerRes <- res[ ,.(Parameter=c("Vi", "Vs", "CORis"), Value=), by=list(Replicate, nIndividual, nRecord)]
   
   lmerRes <- res %>%
                 dplyr::group_by(Replicate, nIndividual, nRecord) %>%
@@ -45,3 +44,15 @@ lmerall <- function(df){
                             "Value"      = c(Vintercepts, Vslopes, corIS))
   return(res)
 }
+
+
+# lmerall <- function(df){    
+#   modIDS      <- lme4::lmer(Phenotype~ X1 + (X1|Individual), data=df)
+#   vcs         <- lme4::VarCorr(modIDS)
+#   Vintercepts <- vcs$Individual[1,1]
+#   Vslopes     <- vcs$Individual[2,2]
+#   corIS       <- stats::cov2cor(vcs$Individual[,])[2]
+#   res         <- data.frame("Parameter"  = c("Vi", "Vs", "CORis"), 
+#                             "Value"      = c(Vintercepts, Vslopes, corIS))
+#   return(res)
+# }

@@ -16,9 +16,11 @@ span(
   # Measurement error variance
   getSliderInput("Mod1Step3_Ve", Modules_VAR$Ve),
   
-  # Environment effects variance (Vx1)
-  uiOutput("Mod1Step3_Vbx_txt"),
-  uiOutput("Mod1Step3_error_Vesu"),
+  # Environment effects variance
+  wellPanel(
+    uiOutput("Mod1Step3_Vbx_txt"),
+    uiOutput("Mod1Step3_error_Vbx")
+  ),
   
   # Number of trait expressions (NR)
   getSliderInput("Mod1Step3_NR", Modules_VAR$Tmax),

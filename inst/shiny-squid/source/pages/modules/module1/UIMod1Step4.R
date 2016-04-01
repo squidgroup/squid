@@ -13,7 +13,7 @@ span(
   # Among-individual variance (Vi)
   getSliderInput("Mod1Step4_Vi", Modules_VAR$Vi),
   
-  # Measurement error variance (Vme)
+  # Measurement error variance (Ve)
   getSliderInput("Mod1Step4_Ve", Modules_VAR$Ve),
   
   # Environment effects variance
