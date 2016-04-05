@@ -106,12 +106,16 @@ $(document).ready(function(){
     }
   });*/
   
-  $(".btn-link, #FMod_runButton, #FModSbyS_runButton").click(function() {
+  $(".linkToModuleSteps, #FMod_runButton, #FModSbyS_runButton").click(function() {
      $(window).scrollTop(0);
   });
   
   $(".runningIndicators").hide();
   // Running simulation indicator
+  $( ".runButton" ).click(function() {
+    $('#isRunning').attr('checked', true);
+    $(".runningIndicators").show();
+  });
   $("#isRunning").change(function() {
     if($(this).is(':checked')){
       $(".runningIndicators").show();
@@ -120,9 +124,4 @@ $(document).ready(function(){
     }
   });
   
-  $( ".runButton" ).click(function() {
-    $('#isRunning').attr('checked', true);
-    $(".runningIndicators").show();
-  });
- 
 });

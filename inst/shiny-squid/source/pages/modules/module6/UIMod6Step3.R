@@ -37,7 +37,7 @@ span(
     
      p(),
      # Simulation run button
-     bsButton("Mod6Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
+     actionButton("Mod6Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
      runningIndicator(),
      p(),
    
@@ -49,5 +49,5 @@ span(
    
    div(class="line"),
    
-   bsButton("Mod6Step3GotoStep2", label = "<< Previous Step (2)", style = Modules_VAR$StepLink$style) # Go to previous step      
+   actionLink("Mod6Step3GotoStep2", label = "<< Previous Step (2)", class= "linkToModuleSteps") # Go to previous step      
 )

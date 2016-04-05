@@ -24,9 +24,8 @@ License: MIT
 LazyData: true
 Imports:
     shiny (>= 0.13.0),
-    shinyBS (>= 0.61),
+    shinyBS,
     ggplot2 (>= 2.0.0),
-    cowplot (>= 0.6.0), 
     lattice (>= 0.20-33),
     grid (>= 3.2.3),
     MASS (>= 7.3-45),

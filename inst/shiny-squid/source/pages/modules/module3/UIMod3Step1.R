@@ -44,14 +44,15 @@ span(
   
   p(HTML(Mod3Step1_txt$para5)),       # Text: paragraph 5
   
-  bsButton("Mod3Step1_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, style = Modules_VAR$Refresh$style),
+  actionButton("Mod3Step1_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
+  # bsButton("Mod3Step1_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, style = Modules_VAR$Refresh$style),
   p(),
   plotOutput("Mod3Step1_previewPlot", width = Modules_VAR$Plot$width),
   
   
   p(),
   # Simulation run button
-  bsButton("Mod3Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
+  actionButton("Mod3Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
   p(),
   
@@ -75,7 +76,7 @@ span(
   div(class="line"),
   
   # Go to next step
-  bsButton("Mod3Step1GotoStep2",
+  actionLink("Mod3Step1GotoStep2",
            label = "Next Step (2) >>",
-           style = Modules_VAR$StepLink$style)
+           class= "linkToModuleSteps")
 )

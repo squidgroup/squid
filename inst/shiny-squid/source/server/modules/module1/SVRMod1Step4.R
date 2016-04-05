@@ -136,9 +136,9 @@ c(
     ######### Manage errors #########
       observe({
         if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
-          updateButton(session, "Mod1Step4_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
+          disableActionButton("Mod1Step4_Run", session, "true")
         }else{
-          updateButton(session, "Mod1Step4_Run", disabled = FALSE, style = Modules_VAR$Run$style)
+          disableActionButton("Mod1Step4_Run", session, "false")
         }
       }),
       output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})

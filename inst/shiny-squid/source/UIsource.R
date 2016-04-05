@@ -1,5 +1,4 @@
-suppressPackageStartupMessages(library(shinyBS))
-suppressPackageStartupMessages(library(cowplot))
+library(shinyBS)
 
 #### Variables ####
 source("./source/variables/general/VARgeneral.R",local=TRUE)

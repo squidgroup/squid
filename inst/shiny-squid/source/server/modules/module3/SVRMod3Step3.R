@@ -112,7 +112,7 @@ c(
       myTable <- data.frame("True"       = c("True",
                                              paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step3_Vi),
                                              paste("Measurement error variance ($V_",NOT$error,"$) =",input$Mod3Step3_Ve),
-                                             paste("Environmental variance ($V_",NOT$env,"$) =",input$Mod3Step3_Vbx),
+                                             paste("Phenotypic variance due to known environment ($V_{",EQ3$mean1,EQ2$env1,"}$) =",input$Mod3Step3_Vbx),
                                              paste("Mean environmental effect ($",EQ3$mean1,"$) =",round(input$Mod3Step3_B[2],2))),
                             "Totally unknown environment" = c("Totally unknown environment",
                                                               paste("Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
@@ -122,7 +122,7 @@ c(
                             "Environment known" = c("Environment known",
                                                     paste("Individual variance ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi_2,"...")),
                                                     paste("Residual variance ($V'_",NOT$residual,"$) = ", ifelse(!is.null(data),data$Vr_2,"...")),
-                                                    paste0("Environmental variance ($V'_",NOT$env,"$) = ", ifelse(!is.null(data),data$B1_2^2,"...")),
+                                                    paste0("Phenotypic variance due to known environment ($V_{",EQ3$mean1,EQ2$env1,"}$) = ", ifelse(!is.null(data),data$B1_2^2,"...")),
                                                     paste0("Mean environmental effect ($",NOT$mean,"'_1$) =", ifelse(!is.null(data),data$B1_2,"...")))
       )  
     
