@@ -25,8 +25,8 @@ source("./source/utilities/info_msg.R",local=TRUE)
 source("./source/utilities/getLabel.R",local=TRUE)
 
 ########
-source("./source/pages/fullmodel/UIenvironment.R",local=TRUE)
-source("./source/pages/fullmodel/UIspecificEnvironment.R",local=TRUE)
+source("./source/pages/fullModel/UIenvironment.R",local=TRUE)
+source("./source/pages/fullModel/UIspecificEnvironment.R",local=TRUE)
 
 #####
 c()
