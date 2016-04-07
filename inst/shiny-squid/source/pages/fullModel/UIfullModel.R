@@ -12,8 +12,8 @@ fixedPage( HTML("<div id='FullModel'>"),
        uiOutput('FMod_myEquations')
      ),
       
-     bsButton("FMod_runButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton", style = FullModel_VAR$Run$style),
-#      downloadButton("FMod_save_inputs", label = FullModel_VAR$save$label),
+     actionButton("FMod_runButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton"),
+     #      downloadButton("FMod_save_inputs", label = FullModel_VAR$save$label),
 #      fileInput("FMod_load_inputs", label = FullModel_VAR$load$label, accept=c(".RData")),
      runningIndicator(),
      p(),
@@ -132,13 +132,11 @@ fixedPage( HTML("<div id='FullModel'>"),
             ),
             getSliderInput("FMod_Vhsi", FullModel_VAR$Vhsi),
             
-            h6("Number of records:", getIcon("FMod_Checkbox_NbRecords_Info")),
-            bsTooltip("FMod_Checkbox_NbRecords_Info", FullModel_VAR$Checkbox_NbRecords$infoTxt, "top"),
+            h6("Number of records:", getIcon( FullModel_VAR$Checkbox_NbRecords$infoTxt)),
             getCheckboxInput("FMod_NR_ind", FullModel_VAR$NR_ind),
             getCheckboxInput("FMod_NR_trait", FullModel_VAR$NR_trait),
             
-            h6(c("Sampling times:", getIcon("FMod_Checkbox_SamTime_Info"))),
-            bsTooltip("FMod_Checkbox_SamTime_Info", FullModel_VAR$Checkbox_SamTime$infoTxt, "top"),
+            h6(c("Sampling times:", getIcon(FullModel_VAR$Checkbox_SamTime$infoTxt))),
             getCheckboxInput("FMod_ST_ind", FullModel_VAR$ST_ind),
             getCheckboxInput("FMod_ST_trait", FullModel_VAR$ST_trait)
           )
@@ -149,7 +147,7 @@ fixedPage( HTML("<div id='FullModel'>"),
     # Outputs panel
   tabPanel("Outputs",
   
-    bsButton("FMod_rerunButton", label = FullModel_VAR$ReRun$label, icon= FullModel_VAR$ReRun$icon, class="runButton",style = FullModel_VAR$ReRun$style),
+    actionButton("FMod_rerunButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton"),
     downloadButton("FMod_download_sampled", label = FullModel_VAR$download_sampled$label),
     downloadButton("FMod_download_raw", label = FullModel_VAR$download_raw$label),
     runningIndicator(),

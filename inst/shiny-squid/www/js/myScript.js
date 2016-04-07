@@ -2,6 +2,12 @@
 $(document).ready(function(){ 
   
   // Connect the tooltip contain to each icon 
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+	});
+  
+  
+  
   /*$('i.info').each(function() {
   
     var myElement = $(this);

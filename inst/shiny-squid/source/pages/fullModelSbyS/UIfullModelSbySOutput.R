@@ -5,7 +5,7 @@ span(
   p(HTML(fullmodelTxt$output_4)),
   p(HTML(fullmodelTxt$output_5)),
   
-  bsButton("FModSbyS_rerunButton", label = FullModel_VAR$ReRun$label, icon= FullModel_VAR$ReRun$icon, class="runButton", style = FullModel_VAR$ReRun$style),       
+  actionButton("FModSbyS_rerunButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton"),
   downloadButton("FModSbyS_download_sampled", label = FullModel_VAR$download_sampled$label),
   downloadButton("FModSbyS_download_raw", label = FullModel_VAR$download_raw$label),
   runningIndicator(),

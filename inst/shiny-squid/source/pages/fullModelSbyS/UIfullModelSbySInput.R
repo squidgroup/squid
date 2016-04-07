@@ -141,12 +141,10 @@ span(
                   getSliderInput("FModSbyS_Vhsi", FullModel_VAR$Vhsi)
            ),
            column(width = 6,
-                  h6("Number of records:", getIcon("FModSbyS_Checkbox_NbRecords_Info")),
-                  bsTooltip("FModSbyS_Checkbox_NbRecords_Info", FullModel_VAR$Checkbox_NbRecords$infoTxt, "top"),
+                  h6("Number of records:", getIcon(FullModel_VAR$Checkbox_NbRecords$infoTxt)),
                   getCheckboxInput("FModSbyS_NR_ind", FullModel_VAR$NR_ind),
                   getCheckboxInput("FModSbyS_NR_trait", FullModel_VAR$NR_trait),
-                  h6(c("Sampling times:", getIcon("FModSbyS_Checkbox_SamTime_Info"))),
-                  bsTooltip("FModSbyS_Checkbox_SamTime_Info", FullModel_VAR$Checkbox_SamTime$infoTxt, "top"),
+                  h6(c("Sampling times:", getIcon(FullModel_VAR$Checkbox_SamTime$infoTxt))),
                   getCheckboxInput("FModSbyS_ST_ind", FullModel_VAR$ST_ind),
                   getCheckboxInput("FModSbyS_ST_trait", FullModel_VAR$ST_trait)  
            )
@@ -156,7 +154,7 @@ span(
     ),
     
     p(HTML(fullmodelTxt$inputRun)),
-    bsButton("FModSbyS_runButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton", style = FullModel_VAR$Run$style),
+    actionButton("FModSbyS_runButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton"),
     # downloadButton("FModSbyS_save", label = FullModel_VAR$save$label),
     runningIndicator(),
     p(),

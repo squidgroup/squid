@@ -92,9 +92,9 @@ c(
      	  if(
      	     !testInput(input$Mod3Step2_X1_sto_V, FullModel_VAR$stoV, FALSE, FALSE) ||
      	     !testInput(input$Mod3Step2_X1_sto_corr, FullModel_VAR$stoCorr, FALSE, FALSE)){
-     	    updateButton(session, "Mod3Step2_Run", disabled = TRUE, style = Modules_VAR$Run$invalidStyle)
+     	  	disableActionButton("Mod3Step2_Run", session, "true")
      	  }else{
-     	    updateButton(session, "Mod3Step2_Run", disabled = FALSE, style = Modules_VAR$Run$style)
+     	  	disableActionButton("Mod3Step2_Run", session, "false")
      	  }
      	}),
  	    output$Mod3Step2_error_sto_V     <- renderUI({testInput(input$Mod3Step2_X1_sto_V, FullModel_VAR$stoV, FALSE, TRUE)}),

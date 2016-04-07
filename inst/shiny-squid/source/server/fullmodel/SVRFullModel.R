@@ -304,8 +304,8 @@ SVRFullModel <- function(myModule, input, output, session){
 
       }),
 
-      output[[X1_plotEnvironment]] <- renderPlot({SQUID::runSQUIDfct(input, myModule, X_previsualization="X1")}),
-      output[[X2_plotEnvironment]] <- renderPlot({SQUID::runSQUIDfct(input, myModule, X_previsualization="X2")}),
+      output[[X1_plotEnvironment]] <- renderPlot({SQUID::squidR(input, module=myModule, X_previsualization="X1")}),
+      output[[X2_plotEnvironment]] <- renderPlot({SQUID::squidR(input, module=myModule, X_previsualization="X2")}),
      
     ######################################################################################
     ############################### VARIANCES SUMMARY ####################################
@@ -422,13 +422,13 @@ SVRFullModel <- function(myModule, input, output, session){
      
      ######### Manage errors #########
      # display error message and disable button if so
-     observe({       
-       if(isError()){         
-         updateButton(session, runButton, disabled = TRUE, style = FullModel_VAR$Run$invalidStyle)
-         updateButton(session, rerunButton, disabled = TRUE, style = FullModel_VAR$ReRun$invalidStyle)     
+     observe({
+       if(isError()){ 
+         disableActionButton(runButton, session, "true")
+         disableActionButton(rerunButton, session, "true")
        }else{
-         updateButton(session, runButton, disabled = FALSE, style = FullModel_VAR$Run$style)
-         updateButton(session, rerunButton, disabled = FALSE, style = FullModel_VAR$ReRun$style)
+         disableActionButton(runButton, session, "false")
+         disableActionButton(rerunButton, session, "false")
        }
      }),
     

@@ -1,5 +1,3 @@
-library(shinyBS)
-
 #### Variables ####
 source("./source/variables/general/VARgeneral.R",local=TRUE)
 source("./source/variables/fullmodel/VARfullmodel.R",local=TRUE)
