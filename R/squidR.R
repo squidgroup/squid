@@ -332,6 +332,9 @@ squidR <- function(input=list(), plot=FALSE, module=NULL, X_previsualization=NUL
   # Set up other variables
   variables    <- setVariables(input, module, environments, sep)
   
+  cat("test")
+  
+  
   Mu        <- variables$Mu
   N         <- variables$N
   B         <- variables$B

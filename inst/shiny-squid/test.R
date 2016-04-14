@@ -98,7 +98,7 @@ input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- FALSE # default = TRUE
 input$ST_trait <- TRUE # default = TRUE
 
-data <- SQUID::runSQUIDfct(input=input, plot=TRUE)
+data <- SQUID::squidR(input=input, plot=TRUE)
 
 
 

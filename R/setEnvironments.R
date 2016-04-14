@@ -19,7 +19,11 @@ setEnvironments <- function(input, module, sep){
   envionments <- list(
     "X1" = X1,
     "X2" = X2,
-    "Interaction" = ifelse(X_Interaction %in% names(input) && X1$state && X2$state,input[[X_Interaction]],FALSE)
+    "Interaction" = ifelse(X_Interaction %in% names(input) && X1$state && X2$state,try(check_one_boolean(obj=input[[X_Interaction]], 
+    																																																		 obj_name=paste0("input[[",X_Interaction,"]]"), 
+    																																																		 longcalling, 
+    																																																		 expression, 
+    																																																		 but.not.seen.in.Error)),FALSE)
   )
   
   return(envionments)
