@@ -1,18 +1,14 @@
 # test if the input is valid
-testInput  <- function(input, inputConf, isInteger, errorOutput, modulo=FALSE){ 
+testInput  <- function(input, inputConf, isInteger, errorOutput, extraCondition=FALSE){ 
     
   validInput <- TRUE
   
-  if(!is.numeric(input) || (isInteger & !testInteger(input))){
+  if(!is.numeric(input) || (isInteger & !testInteger(input)) || extraCondition){
     validInput <- FALSE
   }else{
     
     if(inputConf$min != "") if(input < inputConf$min) validInput <- FALSE
     if(inputConf$max != "") if(input > inputConf$max) validInput <- FALSE
-  }
-  
-  if(modulo && validInput){
-    if(inputConf$modulo %% input != 0) validInput <- FALSE
   }
   
   if(errorOutput){

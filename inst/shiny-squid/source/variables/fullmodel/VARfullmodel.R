@@ -67,7 +67,8 @@ FullModel_VAR <- list(
                    "min"         = 1,
                    "max"         = "",
                    "step"        = 1,
-                   "errorTxt"    = "Number of individuals must be an integer superior or equal to 1."
+                   "errorTxt"    = "Number of individuals must be an integer superior or equal to 1.
+                                    Number of individuals must also be divisible by the number of higher-level groups."
   ),
   
   # Number of trait per individual

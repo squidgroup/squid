@@ -12,7 +12,6 @@ getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
       # Random intercept and slope (Co)Variance matrix
 #         VCov       <- cppGetVCovMatrix(V$Vind) 
         VCov       <- Cor2CovMatrix(V$Vind)
-        
       ### Generate random intercept and slope for each individual and trait
       ind          <- getIndMatrix(N, Mu, VCov, variables)
 #       ind          <- cppGetIndMatrix(N$NI, N$NP, rep(Mu,nrow(VCov)), VCov, variables$nb.IS)

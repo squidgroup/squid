@@ -165,29 +165,50 @@ setVariables <- function(input, module, environments, sep){
 																		minimum=1),
     							 1),      # Number of mean records by individual (between 1 and inf) 
     "NRI" = NULL,                                                                  # Number of records for each individual
-    "NG"  = ifelse(inputNames$NG %in% names(input),input[[inputNames$NG]],1)       # Number of high-level groups
+    "NG"  = ifelse(inputNames$NG %in% names(input),
+                   error_management(input[[inputNames$NG]], 
+                                    inputNames$NG, 
+                                    "check_one_integer",
+                                    minimum=1),
+                   1)       # Number of high-level groups
   )
+  
+  # check if Ni is divisible by NG
+  if(N$NI %% N$NG != 0){
+    stop(paste0("input[[",inputNames$NI,"]] (number of individuals) must be divisible by input[[",inputNames$NG,"]] (number of higher-level groups)."), 
+         call. = FALSE)
+  }
   
   # Vind0 : Random intercept Variance (among-individual variance)
   # Vind1 : Random slope variance 1   (within-individual variance)
   # Vind2 : Random slope variance 2   (within-individual variance)
   # Vind3 : Random slope variance 3   (within-individual variance)
-  
   if(inputNames$Vind %in% names(input)){
     V$Vind <- as.matrix(input[[inputNames$Vind]])
+    V$Vind <- error_management(V$Vind, inputNames$Vind, 
+                               "check_matrix", 
+                               nb_col=Variables$nb.IS*N$NT, 
+                               nb_row=Variables$nb.IS*N$NT)
     
-        if(!environments$X1$state){
-          V$Vind[seq(from=Variables$X1, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
-          V$Vind[ ,seq(from=Variables$X1, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
-        }
-        if(!environments$X2$state){
-          V$Vind[seq(from=Variables$X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
-          V$Vind[ ,seq(from=Variables$X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
-        }
-        if(!environments$Interaction){
-          V$Vind[seq(from=Variables$X1X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
-          V$Vind[ ,seq(from=Variables$X1X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
-        }
+    tmp_Vind       <- V$Vind
+    diag(tmp_Vind) <- 0
+    if(any(diag(V$Vind) < 0) || any(tmp_Vind < -1) || any(tmp_Vind > 1)){
+      stop(paste0("input[[",inputNames$Vind,"]] is a variance/correlation matrix. The variances are on the matrix diagonal and must be postive numeric numbers. The correlation values are on the lower half of the matrix and must be between -1 and 1."), 
+      call. = FALSE)
+    }
+    
+    if(!environments$X1$state){
+      V$Vind[seq(from=Variables$X1, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
+      V$Vind[ ,seq(from=Variables$X1, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
+    }
+    if(!environments$X2$state){
+      V$Vind[seq(from=Variables$X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
+      V$Vind[ ,seq(from=Variables$X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
+    }
+    if(!environments$Interaction){
+      V$Vind[seq(from=Variables$X1X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS), ] <- 0 
+      V$Vind[ ,seq(from=Variables$X1X2, to=(Variables$nb.IS*N$NT), by=Variables$nb.IS)] <- 0 
+    }
 
   }else{
     V$Vind <- matrix(0,Variables$nb.IS, Variables$nb.IS)
@@ -196,6 +217,7 @@ setVariables <- function(input, module, environments, sep){
   # Population mean in the intercept and the slopes
   if(inputNames$B %in% names(input)){
     B <- matrix(input[[inputNames$B]], nrow=1)
+    B <- error_management(B, inputNames$B, "check_matrix", nb_col=Variables$nb.IS*N$NT, nb_row=1)
     
     if(!environments$X1$state)    B[seq(from=Variables$X1, to=Variables$X1+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
     if(!environments$X2$state)    B[seq(from=Variables$X2, to=Variables$X2+(Variables$nb.IS*(N$NT-1)), by=Variables$nb.IS)]     <- 0 
@@ -207,6 +229,6 @@ setVariables <- function(input, module, environments, sep){
     B <- matrix(0,N$NI*N$NS*N$NP*N$NT, Variables$nb.IS)
   }
   
-  return(list("Mu"= Mu,"N" = N, "B" = B, "V" = V, "Time" = Time, "Variables" = Variables))
+  return(list("Mu"=Mu,"N"=N, "B"=B, "V"=V, "Time"=Time, "Variables"=Variables))
   
 }

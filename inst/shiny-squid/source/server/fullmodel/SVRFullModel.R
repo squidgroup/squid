@@ -69,7 +69,6 @@ SVRFullModel <- function(myModule, input, output, session){
   
   runButton          <- paste(myModule, "runButton", sep="_")
   runButtonError     <- paste(myModule, "runButtonError", sep="_")
-  
   rerunButton        <- paste(myModule, "rerunButton", sep="_")
   rerunButtonError   <- paste(myModule, "rerunButtonError", sep="_")
   
@@ -392,10 +391,10 @@ SVRFullModel <- function(myModule, input, output, session){
          !testInput(input[[X2_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
          !testInput(input[[X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
          !testInput(input[[X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
-         !testInput(input[[NI]], FullModel_VAR$NI, TRUE, FALSE)                      ||
+         !testInput(input[[NI]], FullModel_VAR$NI, TRUE, FALSE, (input[[NI]]%%input[[NG]] != 0)) ||
          !testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
          !testInput(input[[VG]], FullModel_VAR$VG, FALSE, FALSE)                     ||
-         !testInput(input[[NG]], FullModel_VAR$NG, TRUE, FALSE, TRUE)                ||
+         !testInput(input[[NG]], FullModel_VAR$NG, TRUE, FALSE, (input[[NI]]%%input[[NG]] != 0)) ||
          !testInput(input[[NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
          !testInputBMatrix(input[[B]] , FullModel_VAR$B, FALSE)                      ||
          !testInputVindMatrix(input[[Vind]] , FullModel_VAR$Vind, FALSE)){
@@ -438,9 +437,9 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[error_X2_sto_V]]        <- renderUI({testInput(input[[X2_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
      output[[error_X1_sto_corr]]     <- renderUI({testInput(input[[X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
      output[[error_X2_sto_corr]]     <- renderUI({testInput(input[[X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
-     output[[error_NI]]              <- renderUI({testInput(input[[NI]], FullModel_VAR$NI, TRUE, TRUE)}),
+     output[[error_NI]]              <- renderUI({testInput(input[[NI]], FullModel_VAR$NI, TRUE, TRUE, (input[[NI]]%%input[[NG]] != 0))}),
      output[[error_Ve]]              <- renderUI({testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, TRUE)}),
-     output[[error_NG]]              <- renderUI({testInput(input[[NG]], FullModel_VAR$NG, TRUE, TRUE, TRUE)}),
+     output[[error_NG]]              <- renderUI({testInput(input[[NG]], FullModel_VAR$NG, TRUE, TRUE, (input[[NI]]%%input[[NG]] != 0))}),
      output[[error_VG]]              <- renderUI({testInput(input[[VG]], FullModel_VAR$VG, FALSE, TRUE)}),
      output[[error_NR]] <- renderUI({
           input[[Tmax]];input[[Vhsi]];

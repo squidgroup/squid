@@ -7,7 +7,7 @@ input$Tmax <- 100 # default = 1
 input$Time_sampling <- c(1,100)
 
 input$NP <- 1 # default = 1
-input$NI <- 5 # default = 1
+input$NI <- 10 # default = 1
 input$NT <- 1 # default = 1
 input$NG <- 1 # default = 1
 
@@ -17,7 +17,9 @@ input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
                             0   , 0  , 0 , 0,
                             0   , 0  , 0 , 0    
                           ), 
-                          4)
+                          4, byrow = TRUE)
+
+test <- input$Vind
 
 input$Ve <- 0.05 # Default 0
 input$VG <- 0    # Default 0
