@@ -83,12 +83,12 @@ displayResults <- function(N, Time, full_Data, sampled_Data){
                                 ggplot2::ylab("Environment X1X2") +
                                 ggplot2::theme(legend.position="none")
           
-   myPlot <- list("plotX1"       = plot_X1, 
-                  "plotX2"       = plot_X2,
-                  "plotX1X2"     = plot_X1X2,
-                  "plotTotPhen"  = plot_TotPhen, 
-                  "plotSampPhen" = plot_SampPhen, 
-                  "plotSampTime" = plot_SampTime)
+   myPlot <- list("X1"       = plot_X1, 
+                  "X2"       = plot_X2,
+                  "X1X2"     = plot_X1X2,
+                  "totPhen"  = plot_TotPhen, 
+                  "sampPhen" = plot_SampPhen, 
+                  "sampTime" = plot_SampTime)
   
   return(myPlot)
 }

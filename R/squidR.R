@@ -7,6 +7,7 @@
 #' 
 #' @param input          A list of the model input parameters (see Details).
 #' @param plot           logical; If \code{FALSE} (default), \code{squidR} does not include the simulation plots into the output list (see Value).
+#' @param data           A data.frame
 #' @param module         A character of the module name. This argument is only used by SQuID app.
 #' @param X_previsualization A character of the environment name. This argument is only used by SQuID app.
 #'
@@ -303,7 +304,7 @@
 #' @import data.table
 #' @export
 #' 
-squidR <- function(input=list(), plot=FALSE, module=NULL, X_previsualization=NULL){ 
+squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsualization=NULL){ 
   
   # Main function of the full model that simulates individual phenotypes over time
   # and then samples within those phenotypes according to specific sampling design
@@ -346,16 +347,20 @@ squidR <- function(input=list(), plot=FALSE, module=NULL, X_previsualization=NUL
     
     #######################################################################################
     ## Generate my phenotype traits
-    output[["full_Data"]]    <- getFullData(Mu, N, B, r, V, Time, variables, environments)
+    if(is.null(data)){
+      output[["full_data"]]    <- getFullData(Mu, N, B, r, V, Time, variables, environments)
+    }else{
+      output[["full_data"]]    <- data
+    }
     
     ####################################################################################### 
     ## Get Sampling data  
-    output[["sampled_Data"]] <- getSampledData(N, Time, output[["full_Data"]])
+    output[["sampled_data"]] <- getSampledData(N, Time, output[["full_data"]])
     
     #######################################################################################
     ## Display results
     if(plot) 
-      output[["myPlot"]]     <- displayResults(N, Time, output[["full_Data"]], output[["sampled_Data"]])
+      output[["plots"]]     <- displayResults(N, Time, output[["full_data"]], output[["sampled_data"]])
     
     #######################################################################################
     

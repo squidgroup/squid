@@ -92,28 +92,28 @@ input$VG <- 0    # Default 0
 
 input$X_Interaction <- TRUE # default = FALSE
 
-input$Vhsi <- 0
-input$NR   <- 20 # default = 1
+input$Vhsi <- 0.85
+input$NR   <- 10 # default = 1
 
 input$NR_ind   <- TRUE # default = TRUE
 input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- FALSE # default = TRUE
 input$ST_trait <- TRUE # default = TRUE
 
-data <- SQUID::squidR(input=input, plot=TRUE)
+data <- squid::squidR(input=input, plot=TRUE, data=data$full_data)
 
 
 
 print(data$myPlot$plotSampTime)
 
-print(multiplot(data$myPlot$plotX1,
-                data$myPlot$plotX2,
-                data$myPlot$plotX1X2,
+print(multiplot(data$plot$X1,
+                data$plot$X2,
+                data$plot$X1X2,
                 cols=1))
 
-print(multiplot(data$myPlot$plotTotPhen,
-                data$myPlot$plotSampPhen,
-                data$myPlot$plotSampTime,
+print(multiplot(data$plot$totPhen,
+                data$plot$sampPhen,
+                data$plot$sampTime,
                 cols=1))
 
 #--------------------------------------------------------------------------------------------
