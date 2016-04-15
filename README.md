@@ -1,4 +1,4 @@
-# SQUID package
+# squid package
 
 
 
@@ -14,10 +14,10 @@ To install from GitHub:
 
 ```
 # install.packages("devtools")
-devtools::install_github("Haycen/SQUID")
+devtools::install_github("hallegue/squid")
 
-# run SQuID
-library(SQUID)
+# run squid
+library(squid)
 squidApp()
 ```
 

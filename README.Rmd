@@ -25,7 +25,7 @@ To install from GitHub:
 
 ```
 # install.packages("devtools")
-devtools::install_github("Haycen/squid")
+devtools::install_github("hallegue/squid")
 
 # run squid
 library(squid)
