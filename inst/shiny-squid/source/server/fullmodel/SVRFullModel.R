@@ -217,7 +217,7 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
          # Call app main function
-         data <- SQUID::squidR(input, myModule, plot=TRUE) 
+         data <- squid::squidR(input, myModule, plot=TRUE) 
          
          names(data$full_Data)    <- outputNames
          names(data$sampled_Data) <- outputNames
@@ -303,8 +303,8 @@ SVRFullModel <- function(myModule, input, output, session){
 
       }),
 
-      output[[X1_plotEnvironment]] <- renderPlot({SQUID::squidR(input, module=myModule, X_previsualization="X1")}),
-      output[[X2_plotEnvironment]] <- renderPlot({SQUID::squidR(input, module=myModule, X_previsualization="X2")}),
+      output[[X1_plotEnvironment]] <- renderPlot({squid::squidR(input, module=myModule, X_previsualization="X1")}),
+      output[[X2_plotEnvironment]] <- renderPlot({squid::squidR(input, module=myModule, X_previsualization="X2")}),
      
     ######################################################################################
     ############################### VARIANCES SUMMARY ####################################

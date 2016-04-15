@@ -1,4 +1,4 @@
-#' run SQuID application 
+#' run squid application 
 #'
 #' @description \code{squidApp} runs SQuID application as a web interface that has been developed with the package \href{http://shiny.rstudio.com/}{shiny}.
 #' 
@@ -28,9 +28,9 @@
 #' 
 squidApp <- function(launch.browser=TRUE, ...) {
   
-  appDir <- system.file("shiny-squid", package = "SQUID")
+  appDir <- system.file("shiny-squid", package = "squid")
   
-  if (appDir == "") stop("Could not find SQuID application directory. Try re-installing `SQUID` package.", call. = FALSE)
+  if (appDir == "") stop("Could not find squid application directory. Try re-installing `squid` package.", call. = FALSE)
   
   shiny::runApp(appDir=appDir, launch.browser=launch.browser, display.mode="normal", ...)
 }

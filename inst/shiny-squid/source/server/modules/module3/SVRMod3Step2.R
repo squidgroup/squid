@@ -28,7 +28,7 @@ c(
         }),
  	outputOptions(output, "Mod3Step2_hidden", suspendWhenHidden = FALSE),
  	
- 	  output$Mod3Step2_X1_plot <- renderPlot({SQUID::squidR(input, module="Mod3Step2" , X_previsualization="X1")}),
+ 	  output$Mod3Step2_X1_plot <- renderPlot({squid::squidR(input, module="Mod3Step2" , X_previsualization="X1")}),
       
     ######### Run simulation #########
    	# Run simulation and return results
@@ -41,7 +41,7 @@ c(
    	    updateCheckboxInput(session, "isRunning", value = TRUE)
    	    
    	    # Call app main function
-   	    data <- SQUID::squidR(input, module="Mod3Step2")  
+   	    data <- squid::squidR(input, module="Mod3Step2")  
    	    
    	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_Data)
    	    RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
@@ -67,7 +67,7 @@ c(
  	                  "Mod3Step2_Preview_ST_ind" = FALSE
  	                  )
  	  # Call app main function
- 	  data <- SQUID::squidR(myInput, module="Mod3Step2_Preview", plot=TRUE)
+ 	  data <- squid::squidR(myInput, module="Mod3Step2_Preview", plot=TRUE)
  	  print(data$myPlot$plotSampTime)
  	}),
  	

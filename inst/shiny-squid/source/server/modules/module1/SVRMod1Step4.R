@@ -45,7 +45,7 @@ c(
           updateCheckboxInput(session, "isRunning", value = TRUE)
 
           # Call app main function
-          data <- SQUID::squidR(input, module="Mod1Step4")
+          data <- squid::squidR(input, module="Mod1Step4")
           
           LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_Data)
           

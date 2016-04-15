@@ -21,7 +21,7 @@ c(
           updateCheckboxInput(session, "isRunning", value = TRUE)
           
           # Call app main function
-          data <- SQUID::squidR(input, module="Mod1Step2") 
+          data <- squid::squidR(input, module="Mod1Step2") 
           
           LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_Data)
           RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov

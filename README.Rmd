@@ -1,5 +1,5 @@
 ---
-title: "SQUID package"
+title: "squid package"
 output: 
   html_document: 
     keep_md: yes
@@ -25,10 +25,10 @@ To install from GitHub:
 
 ```
 # install.packages("devtools")
-devtools::install_github("Haycen/SQUID")
+devtools::install_github("Haycen/squid")
 
-# run SQuID
-library(SQUID)
+# run squid
+library(squid)
 squidApp()
 ```
 

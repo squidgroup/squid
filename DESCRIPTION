@@ -1,4 +1,4 @@
-Package: SQUID
+Package: squid
 Title: Statistical Quantification of Individual Differences
 Version: 0.1.0
 Authors@R:c(
