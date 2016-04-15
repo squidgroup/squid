@@ -43,7 +43,7 @@ c(
    	    # Call app main function
    	    data <- squid::squidR(input, module="Mod3Step2")  
    	    
-   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_Data)
+   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_data)
    	    RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
    	    
    	    data$Vi        <- round(RANDEF[1],2)
@@ -68,7 +68,7 @@ c(
  	                  )
  	  # Call app main function
  	  data <- squid::squidR(myInput, module="Mod3Step2_Preview", plot=TRUE)
- 	  print(data$myPlot$plotSampTime)
+ 	  print(data$plots$sampTime)
  	}),
  	
    	# Display results (table)

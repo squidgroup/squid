@@ -168,12 +168,15 @@ setVariables <- function(input, module, environments, sep){
     "NG"  = ifelse(inputNames$NG %in% names(input),
                    error_management(input[[inputNames$NG]], 
                                     inputNames$NG, 
-                                    "check_one_integer",
-                                    minimum=1),
+                                    "check_one_integer"),
                    1)       # Number of high-level groups
   )
   
-  # check if Ni is divisible by NG
+  if(N$NG < 1 || N$NG > N$NI){
+    stop(paste0("input[[",inputNames$NG,"]] must be an integer between 1 and input[[",inputNames$NI,"]] (number of individuals)."), 
+         call. = FALSE)
+  }
+  # check if NI is divisible by NG
   if(N$NI %% N$NG != 0){
     stop(paste0("input[[",inputNames$NI,"]] (number of individuals) must be divisible by input[[",inputNames$NG,"]] (number of higher-level groups)."), 
          call. = FALSE)

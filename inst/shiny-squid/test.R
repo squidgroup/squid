@@ -9,7 +9,7 @@ input$Time_sampling <- c(1,100)
 input$NP <- 1 # default = 1
 input$NI <- 10 # default = 1
 input$NT <- 1 # default = 1
-input$NG <- 1 # default = 1
+input$NG <- 2 # default = 1
 
 input$B    <- c(0,0.3,0,0)
 input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
@@ -100,7 +100,7 @@ input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- FALSE # default = TRUE
 input$ST_trait <- TRUE # default = TRUE
 
-data <- squid::squidR(input=input, plot=TRUE, data=data$full_data)
+data <- squid::squidR(input=input, plot=TRUE)
 
 
 

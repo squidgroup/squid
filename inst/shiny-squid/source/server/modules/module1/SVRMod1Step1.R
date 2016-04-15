@@ -19,8 +19,8 @@ c(
         # Call app main function      
         data <- squid::squidR(input, module="Mod1Step1") 
         
-        data$Vp              <- round(var(data$sampled_Data$Phenotype),2)
-        data$phenotypeMean   <- round(mean(data$sampled_Data$Phenotype),2)
+        data$Vp              <- round(var(data$sampled_data$Phenotype),2)
+        data$phenotypeMean   <- round(mean(data$sampled_data$Phenotype),2)
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
@@ -36,9 +36,9 @@ c(
         
         if(!is.null(data)){                    
           
-          mydata    <- data.frame(dens = c(data$sampled_Data$Phenotype, data$sampled_Data$I)
+          mydata    <- data.frame(dens = c(data$sampled_data$Phenotype, data$sampled_data$I)
                                   , lines = rep(c(paste("Total phenotype (",NOT$trait.1,")",sep=""), 
-                                                  paste("Individual phenotype (",NOT$devI,")",sep="")), each = length(data$sampled_Data$Phenotype)))
+                                                  paste("Individual phenotype (",NOT$devI,")",sep="")), each = length(data$sampled_data$Phenotype)))
           
           print(lattice::densityplot(~dens, data=mydata, groups=lines,
                                       plot.points=TRUE, ref=TRUE, 

@@ -10,12 +10,12 @@ runPowerAnalysis <- function(input, ModStep, NI, NR){
     
       df <- squid::squidR(input2, module=ModStep)
       
-#       df <- as.data.table(df$sampled_Data)
+#       df <- as.data.table(df$sampled_data)
 #       df <- df[ , .(Replicate, Individual, Phenotype, X1)]
 #       df[ , ':=' (nIndividual = paste0("NI=",NI[index]), 
 #                   nRecord     = paste0("NR=",NR[index]))]
 
-      df <- df$sampled_Data
+      df <- df$sampled_data
       df <- df %>% 
               dplyr::select(Replicate, Individual, Phenotype, X1) %>% 
               dplyr::mutate(nIndividual=paste0("NI=",NI[index]), nRecord=paste0("NR=",NR[index]))

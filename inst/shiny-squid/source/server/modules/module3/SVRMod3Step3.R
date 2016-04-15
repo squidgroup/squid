@@ -41,13 +41,13 @@ c(
         # Call app main function
         data <- squid::squidR(input, module="Mod3Step3")  
         
-        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_Data)
+        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
         data$Vr        <- round(RANDEF[2],2)
         
-        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_Data)
+        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_data)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF2[1],2)
@@ -71,15 +71,15 @@ c(
         # Call app main function
         data <- squid::squidR(input, module="Mod3Step3")
         
-        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_Data)
+        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
         data$Vr        <- round(RANDEF[2],2)
         
-        data$sampled_Data$X1 <- input$Mod3Step3_Vbx_proportion * data$sampled_Data$X1
+        data$sampled_data$X1 <- input$Mod3Step3_Vbx_proportion * data$sampled_data$X1
         
-        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_Data)
+        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_data)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF2[1],2)
@@ -104,7 +104,7 @@ c(
       )
       # Call app main function
       data <- squid::squidR(myInput, module="Mod3Step3_Preview", plot=TRUE)
-      print(data$myPlot$plotSampTime)
+      print(data$plots$sampTime)
     }),
     
     Mod3Step3_table <- function(data){

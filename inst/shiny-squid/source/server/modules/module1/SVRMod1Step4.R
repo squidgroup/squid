@@ -47,19 +47,19 @@ c(
           # Call app main function
           data <- squid::squidR(input, module="Mod1Step4")
           
-          LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_Data)
+          LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_data)
           
           FIXEF    <- lme4::fixef(LMR)
           SE.FIXEF <- arm::se.fixef(LMR)
           RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
           # Make a mixed effect model to extract variances and slope      
-          data$Vp            <- round(var(data$sampled_Data$Phenotype),2)
+          data$Vp            <- round(var(data$sampled_data$Phenotype),2)
           data$Vi            <- round(RANDEF[1],2)
           data$Ve           <- round(RANDEF[2],2)
           data$B1            <- round(FIXEF["X1"],2)
           data$se.B1         <- round(SE.FIXEF["X1"],2)
-          data$phenotypeMean <- round(mean(data$sampled_Data$Phenotype),2)
+          data$phenotypeMean <- round(mean(data$sampled_data$Phenotype),2)
           
           updateCheckboxInput(session, "isRunning", value = FALSE)
           
@@ -77,7 +77,7 @@ c(
           
           isolate({ 
 
-            ggplot2::ggplot(data$sampled_Data, ggplot2::aes(x     = X1, 
+            ggplot2::ggplot(data$sampled_data, ggplot2::aes(x     = X1, 
                                                             y     = Phenotype)) +
               ggplot2::geom_point() + 
               ggplot2::geom_smooth(method = "lm", se = FALSE) + 
@@ -99,7 +99,7 @@ c(
         if(!is.null(data)){
           
           isolate({ 
-            ggplot2::ggplot(data$sampled_Data, ggplot2::aes(x     = X1, 
+            ggplot2::ggplot(data$sampled_data, ggplot2::aes(x     = X1, 
                                                             y     = Phenotype, 
                                                             color = as.factor(Individual),
                                                             group = as.factor(Individual))) +

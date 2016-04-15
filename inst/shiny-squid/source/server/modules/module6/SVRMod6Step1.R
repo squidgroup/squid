@@ -36,7 +36,7 @@ c(
         # Call app main function
         data <- squid::squidR(input, module="Mod6Step1")  
         
-        LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$sampled_Data)
+        LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$sampled_data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
@@ -86,7 +86,7 @@ c(
       if(!is.null(data)){                    
         
         print(
-          ggplot2::ggplot(data = data$sampled_Data, ggplot2::aes(y     = Phenotype, 
+          ggplot2::ggplot(data = data$sampled_data, ggplot2::aes(y     = Phenotype, 
                                                            x     = X1, 
                                                            color = as.factor(Individual))) +
                           ggplot2::stat_smooth(method = "lm", se=FALSE) + 

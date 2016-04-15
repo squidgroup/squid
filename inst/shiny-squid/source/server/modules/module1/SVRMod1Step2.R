@@ -23,13 +23,13 @@ c(
           # Call app main function
           data <- squid::squidR(input, module="Mod1Step2") 
           
-          LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_Data)
+          LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_data)
           RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
           data$Vi            <- round(RANDEF[1],2)
           data$Ve            <- round(RANDEF[2],2)
           data$Vp            <- data$Vi + data$Ve
-          data$phenotypeMean <- round(mean(data$sampled_Data$Phenotype),2)
+          data$phenotypeMean <- round(mean(data$sampled_data$Phenotype),2)
           data$R             <- round(data$Vi / data$Vp,2)
           
           updateCheckboxInput(session, "isRunning", value = FALSE)
@@ -50,8 +50,8 @@ c(
           Vi        <- paste("V'",NOT$devI, " = " , data$Vi)
           Ve        <- paste("V'",NOT$error," = ", data$Ve)
           
-          myFactor  <- factor(rep(c(Vp,Vi,Ve), each=length(data$sampled_Data$Phenotype)), levels=c(Vp,Vi,Ve))                
-          mydata    <- data.frame(dens  = c(data$sampled_Data$Phenotype,data$sampled_Data$I, data$sampled_Data$e),
+          myFactor  <- factor(rep(c(Vp,Vi,Ve), each=length(data$sampled_data$Phenotype)), levels=c(Vp,Vi,Ve))                
+          mydata    <- data.frame(dens  = c(data$sampled_data$Phenotype,data$sampled_data$I, data$sampled_data$e),
                                   lines = myFactor)
           
           print(lattice::densityplot(~dens|lines,data=mydata,
@@ -90,7 +90,7 @@ c(
         
         if(!is.null(Mod1Step2_output())){
           
-          data         <- Mod1Step2_output()$sampled_Data
+          data         <- Mod1Step2_output()$sampled_data
           phen_time1   <- subset(data, data$Time == data$Time[1], select=Phenotype)
           phen_time2   <- subset(data, data$Time == data$Time[2], select=Phenotype)
           

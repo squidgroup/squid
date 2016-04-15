@@ -217,10 +217,10 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
          # Call app main function
-         data <- squid::squidR(input, myModule, plot=TRUE) 
+         data <- squid::squidR(input=input, plot=TRUE, module=myModule) 
          
-         names(data$full_Data)    <- outputNames
-         names(data$sampled_Data) <- outputNames
+         names(data$full_data)    <- outputNames
+         names(data$sampled_data) <- outputNames
          
          updateCheckboxInput(session, "isRunning", value = FALSE)
          
@@ -233,9 +233,9 @@ SVRFullModel <- function(myModule, input, output, session){
           
        data <- myFullModel()
        #   print result graphs 
-       print(multiplot(data$myPlot$plotX1,                    
-                       data$myPlot$plotX2,
-                       data$myPlot$plotX1X2,
+       print(multiplot(data$plots$X1,                    
+                       data$plots$X2,
+                       data$plots$X1X2,
                        cols=1))
        
      }),
@@ -244,8 +244,8 @@ SVRFullModel <- function(myModule, input, output, session){
          
        data <- myFullModel() 
        #   print result graphs 
-       print(multiplot(data$myPlot$plotTotPhen,                    
-                       data$myPlot$plotSampPhen,                    
+       print(multiplot(data$plots$totPhen,                    
+                       data$plots$sampPhen,                    
                        cols=1))
        
      }),
@@ -253,7 +253,7 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[plotSamples]] <- renderPlot({
        data <- myFullModel()
        #   print result graphs 
-       print(data$myPlot$plotSampTime)
+       print(data$plots$sampTime)
      }),
      
      # update the sampling time length for each individual    
@@ -457,7 +457,7 @@ SVRFullModel <- function(myModule, input, output, session){
         paste('data-', Sys.Date(), '.csv', sep="")
       },
       content = function(con) {
-        write.csv(myFullModel()$sampled_Data, con)
+        write.csv(myFullModel()$sampled_data, con)
       }
     ),
 
@@ -466,7 +466,7 @@ SVRFullModel <- function(myModule, input, output, session){
         paste('data-', Sys.Date(), '.csv', sep="")
       },
       content = function(con) {
-        write.csv(myFullModel()$full_Data, con)
+        write.csv(myFullModel()$full_data, con)
       }
     ),
 
@@ -514,13 +514,13 @@ SVRFullModel <- function(myModule, input, output, session){
                                   paste0("$",NOT$groupV,"$"),
                                   paste0("$",NOT$error,"$")),
         "Description" = c("Description",
-                          "Replicate identification",
-                          "Individual identification",
-                          "Individual-trait identification",
-                          "Trait identification",
-                          "Time step values",
-                          "Individual phenotype",
-                          "Population phenotypic mean",
+                          "Replicate identifier.",
+                          "Individual identifier.",
+                          "Identifier fo each individual/trait combination.",
+                          "Trait identification.",
+                          "Time step values.",
+                          "Individual phenotype.",
+                          "Population phenotypic mean.",
                           paste0("Population mean response to environmental influences $",EQ2$env1,"$."),
                           paste0("Population mean response to environmental influences $",EQ2$env2,"$."),
                           paste0("Population mean response to environmental influences $",EQ2$env12,"$."),

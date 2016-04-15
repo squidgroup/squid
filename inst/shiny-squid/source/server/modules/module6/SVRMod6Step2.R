@@ -37,7 +37,7 @@ c(
         # Call app main function
         data <- squid::squidR(input, module="Mod6Step2")  
         
-        LMR      <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = data$sampled_Data)
+        LMR      <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = data$sampled_data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
         data$Vi        <- round(RANDEF[1],2)
@@ -48,7 +48,7 @@ c(
         data$B1        <- round(lme4::fixef(LMR)[2],2) 
         
         # Remove covariance
-        df   <- as.data.table(data$sampled_Data)
+        df   <- as.data.table(data$sampled_data)
         
         if(input$Mod6Step2_CorIS != 0){
           
@@ -120,8 +120,8 @@ c(
       if(!is.null(data)){
         
         data$df$covariance           <- "Without covariance"
-        data$sampled_Data$covariance <- "With covariance"
-        myDf <- rbind(data$sampled_Data, data$df)
+        data$sampled_data$covariance <- "With covariance"
+        myDf <- rbind(data$sampled_data, data$df)
         
         print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype, 
                                                         x     = X1, 
