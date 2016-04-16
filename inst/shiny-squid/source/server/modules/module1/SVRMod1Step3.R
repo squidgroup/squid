@@ -83,10 +83,15 @@ c(
      	                                      (data$sampled_data$B1 * data$sampled_data$X1) + data$sampled_data$e),
      	                            lines = myFactor)
      	    
-     	    print(lattice::densityplot(~dens|lines,data=mydata,
-     	                      plot.points = T,as.table=TRUE,
-     	                      xlab="Model component values",
-     	                      ylab="Density"))            
+     	    m <- ggplot2::ggplot(mydata, ggplot2::aes(dens, fill=lines, colour=lines)) +
+     	    	ggplot2::geom_density(alpha = 0.1) +
+     	    	ggplot2::geom_rug(ggplot2::aes(col=lines)) +
+     	    	ggplot2::facet_wrap(~ lines) +
+     	    	ggplot2::xlab("Model component values") +
+     	    	ggplot2::ylab("Density") + 
+     	    	ggplot2::theme(legend.position="none")
+     	    
+     	    print(m)
      	    
      	  }else{
      	    print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
@@ -102,12 +107,16 @@ c(
    	    data         <- Mod1Step3_output()$sampled_data
    	    phen_time1   <- subset(data, data$Time == data$Time[1], select=Phenotype)
    	    phen_time2   <- subset(data, data$Time == data$Time[2], select=Phenotype)
+   	    data_plot <- data.frame("phen_time1"=phen_time1$Phenotype, "phen_time2"=phen_time2$Phenotype)
+
+   	    m <- ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
+   	    	ggplot2::geom_point(size=3, color=color$color2) +
+   	    	ggplot2::xlab("First measurement") +
+   	    	ggplot2::ylab("Second measurement")
    	    
-   	    plot(phen_time2$Phenotype~phen_time1$Phenotype,
-   	         xlab="First measurement", 
-   	         ylab="Second measurement",
-   	         pch = 19,
-   	         col = color$color2)
+   	    print(m)
+   	    
+   	    
    	  }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
    	}),
  	

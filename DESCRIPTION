@@ -25,7 +25,6 @@ LazyData: true
 Imports:
     shiny (>= 0.13.0),
     ggplot2 (>= 2.0.0),
-    lattice (>= 0.20-33),
     grid (>= 3.2.3),
     MASS (>= 7.3-45),
     lme4 (>= 1.1-10),

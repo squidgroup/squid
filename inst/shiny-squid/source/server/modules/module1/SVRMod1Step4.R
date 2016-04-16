@@ -40,23 +40,22 @@ c(
         if(input$Mod1Step4_Run == 0) # if Run button is pressed
           return(NULL)
         
-        isolate({          
+        isolate({
           
           updateCheckboxInput(session, "isRunning", value = TRUE)
 
           # Call app main function
           data <- squid::squidR(input, module="Mod1Step4")
-          
-          LMR <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_data)
+          LMR  <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_data)
           
           FIXEF    <- lme4::fixef(LMR)
           SE.FIXEF <- arm::se.fixef(LMR)
           RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
           
-          # Make a mixed effect model to extract variances and slope      
+          # Make a mixed effect model to extract variances and slope
           data$Vp            <- round(var(data$sampled_data$Phenotype),2)
           data$Vi            <- round(RANDEF[1],2)
-          data$Ve           <- round(RANDEF[2],2)
+          data$Ve            <- round(RANDEF[2],2)
           data$B1            <- round(FIXEF["X1"],2)
           data$se.B1         <- round(SE.FIXEF["X1"],2)
           data$phenotypeMean <- round(mean(data$sampled_data$Phenotype),2)
@@ -64,12 +63,12 @@ c(
           updateCheckboxInput(session, "isRunning", value = FALSE)
           
           return(data)
-        })  
+        })
       }),
    	
     ######### Display results (graph) #########
-      # Graph: Individual phenotypes over environment  
-      output$Mod1Step4_plot1 <- renderPlot({       
+      # Graph: Individual phenotypes over environment
+      output$Mod1Step4_plot1 <- renderPlot({
         
         data      <- Mod1Step4_output()
         
@@ -77,10 +76,10 @@ c(
           
           isolate({ 
 
-            ggplot2::ggplot(data$sampled_data, ggplot2::aes(x     = X1, 
+            ggplot2::ggplot(data$sampled_data, ggplot2::aes(x     = X1,
                                                             y     = Phenotype)) +
               ggplot2::geom_point() + 
-              ggplot2::geom_smooth(method = "lm", se = FALSE) + 
+              ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
               ggplot2::ylab("Phenotype") + 
               ggplot2::ggtitle(bquote(italic(beta[1(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[1(true)]) == .(round(input$Mod1Step4_B[1,2],2)))))
@@ -103,10 +102,10 @@ c(
                                                             y     = Phenotype, 
                                                             color = as.factor(Individual),
                                                             group = as.factor(Individual))) +
-              ggplot2::geom_point() + 
-              ggplot2::geom_smooth(method = "lm", se = FALSE) + 
+              ggplot2::geom_point() +
+              ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
-              ggplot2::ylab("Phenotype per individual") + 
+              ggplot2::ylab("Phenotype per individual") +
               ggplot2::theme(legend.position="none")
 
           })
@@ -115,7 +114,7 @@ c(
       }),
 
       # Table : display true and measured values (Vp, Ve, mean and Beta es)
-      output$Mod1Step4_summary_table <- renderUI({ 
+      output$Mod1Step4_summary_table <- renderUI({
         
         data <- Mod1Step4_output()
         
@@ -142,5 +141,5 @@ c(
         }
       }),
       output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})
-                
+  
   ) # End return

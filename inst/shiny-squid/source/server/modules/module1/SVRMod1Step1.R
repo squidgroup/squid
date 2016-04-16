@@ -32,22 +32,23 @@ c(
       # Graph: density distribution of true and measured phenotypic values
       output$Mod1Step1_plot <- renderPlot({ 
         
-        data  <- Mod1Step1_output()          
+        data  <- Mod1Step1_output()
         
-        if(!is.null(data)){                    
+        if(!is.null(data)){
           
           mydata    <- data.frame(dens = c(data$sampled_data$Phenotype, data$sampled_data$I)
                                   , lines = rep(c(paste("Total phenotype (",NOT$trait.1,")",sep=""), 
                                                   paste("Individual phenotype (",NOT$devI,")",sep="")), each = length(data$sampled_data$Phenotype)))
           
-          print(lattice::densityplot(~dens, data=mydata, groups=lines,
-                                      plot.points=TRUE, ref=TRUE, 
-                                      col=c(color$color1, color$color2),
-                                      par.settings = list(superpose.line = list(col=c(color$color1, color$color2))),
-                                      auto.key = list(corner = c(0.95, 0.95)),
-                                      main="Distribution of total and individual phenotype values",
-                                      xlab="Phenotype values",
-                                      ylab="Density"))
+          m <- ggplot2::ggplot(mydata, ggplot2::aes(dens, fill = lines, colour = lines)) +
+          											ggplot2::geom_density(alpha = 0.1) +
+          											ggplot2::geom_rug(ggplot2::aes(col=lines)) +
+          											ggplot2::ggtitle("Distribution of total and individual phenotype values") +
+          											ggplot2::xlab("Phenotype values") +
+          											ggplot2::ylab("Density") + 
+          											ggplot2::theme(legend.title=ggplot2::element_blank())
+          
+          print(m)
           
         }else{
           print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))

@@ -50,15 +50,20 @@ c(
           Vi        <- paste("V'",NOT$devI, " = " , data$Vi)
           Ve        <- paste("V'",NOT$error," = ", data$Ve)
           
-          myFactor  <- factor(rep(c(Vp,Vi,Ve), each=length(data$sampled_data$Phenotype)), levels=c(Vp,Vi,Ve))                
+          myFactor  <- factor(rep(c(Vp,Vi,Ve), each=length(data$sampled_data$Phenotype)), levels=c(Vp,Vi,Ve))
           mydata    <- data.frame(dens  = c(data$sampled_data$Phenotype,data$sampled_data$I, data$sampled_data$e),
                                   lines = myFactor)
           
-          print(lattice::densityplot(~dens|lines,data=mydata,
-                            plot.points = T,
-                            xlab="Model component values",
-                            ylab="Density"))
+          m <- ggplot2::ggplot(mydata, ggplot2::aes(dens, fill=lines, colour=lines)) +
+		           ggplot2::geom_density(alpha = 0.1) +
+		           ggplot2::geom_rug(ggplot2::aes(col=lines)) +
+          	   ggplot2::facet_wrap(~ lines) +
+		           ggplot2::xlab("Model component values") +
+		           ggplot2::ylab("Density") + 
+		           ggplot2::theme(legend.position="none")
           
+          print(m)
+
         }else{
           print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
         }
@@ -93,12 +98,14 @@ c(
           data         <- Mod1Step2_output()$sampled_data
           phen_time1   <- subset(data, data$Time == data$Time[1], select=Phenotype)
           phen_time2   <- subset(data, data$Time == data$Time[2], select=Phenotype)
+          data_plot <- data.frame("phen_time1"=phen_time1$Phenotype, "phen_time2"=phen_time2$Phenotype)
           
-          plot(phen_time2$Phenotype~phen_time1$Phenotype, 
-               xlab="First measurement", 
-               ylab="Second measurement",
-               pch = 19,
-               col = color$color2)
+          m <- ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
+          	   ggplot2::geom_point(size=3, color=color$color2) +
+	          	 ggplot2::xlab("First measurement") +
+	          	 ggplot2::ylab("Second measurement")
+          
+          print(m)
           
         }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
       })
