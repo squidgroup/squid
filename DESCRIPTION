@@ -18,9 +18,11 @@ Description: SQuID is made to help researchers to become familiar with
     (Module 10) is the full model simulation package that allows the user to
     generate data sets that can then be used to run analyses in the statistical
     package of their choice for specific research questions.
+URL: https://github.com/hallegue/squid
+BugReports: https://github.com/hallegue/squid/issues
 Depends:
     R (>= 3.2.2)
-License: MIT
+License: MIT + file LICENSE
 LazyData: true
 Imports:
     shiny (>= 0.13.0),
