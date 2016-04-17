@@ -238,7 +238,7 @@ FullModel_VAR <- list(
   # Measurement error variance (Ve)
   "Ve"   = list("label"       = "Measurement error variance",
                 "infoTxt"     = "Measurement error variance.",
-                "value"       = 0.01,
+                "value"       = 0.05,
                 "min"         = 0,
                 "max"         = "",
                 "step"        = 0.01,

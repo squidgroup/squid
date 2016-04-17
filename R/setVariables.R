@@ -53,13 +53,13 @@ setVariables <- function(input, module, environments, sep){
   
   # Variance 
   V <- list(
-    "Vp"     = 1,          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)              
+    "Vp"     = 1,          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)
     "Ve"     = ifelse(inputNames$Ve %in% names(input),
     									error_management(input[[inputNames$Ve]], 
 																			 inputNames$Ve, 
 																			 "check_one_numeric",
 																			 minimum=0),
-    									1e-10), # Measurement error variance
+    									0), # Measurement error variance 1e-10
     "VG"     = ifelse(inputNames$VG %in% names(input),
     									error_management(input[[inputNames$VG]], 
 																			 inputNames$VG, 
