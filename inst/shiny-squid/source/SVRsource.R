@@ -4,7 +4,6 @@
 #################################################################
 #################################################################
 
-suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(data.table))
 
 #### Variables ####

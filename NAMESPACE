@@ -3,4 +3,3 @@
 export(squidApp)
 export(squidR)
 import(data.table)
-import(dplyr)

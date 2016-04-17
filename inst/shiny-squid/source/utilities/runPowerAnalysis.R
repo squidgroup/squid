@@ -10,43 +10,35 @@ runPowerAnalysis <- function(input, ModStep, NI, NR){
     
       df <- squid::squidR(input2, module=ModStep)
       
-#       df <- as.data.table(df$sampled_data)
-#       df <- df[ , .(Replicate, Individual, Phenotype, X1)]
-#       df[ , ':=' (nIndividual = paste0("NI=",NI[index]), 
-#                   nRecord     = paste0("NR=",NR[index]))]
+      df <- as.data.table(df$sampled_data)
+      df <- df[ , .(Replicate, Individual, Phenotype, X1)]
+      df[ , ':=' (nIndividual = paste0("NI=",NI[index]), 
+                  nRecord     = paste0("NR=",NR[index]))]
 
-      df <- df$sampled_data
-      df <- df %>% 
-              dplyr::select(Replicate, Individual, Phenotype, X1) %>% 
-              dplyr::mutate(nIndividual=paste0("NI=",NI[index]), nRecord=paste0("NR=",NR[index]))
+#       df <- df$sampled_data
+#       df <- df %>% 
+#               dplyr::select(Replicate, Individual, Phenotype, X1) %>% 
+#               dplyr::mutate(nIndividual=paste0("NI=",NI[index]), nRecord=paste0("NR=",NR[index]))
       
       res <- rbind(res, df)
       
   }
 
-  # lmerRes <- res[ ,.(Parameter=c("Vi", "Vs", "CORis"), Value=), by=list(Replicate, nIndividual, nRecord)]
+#   lmerRes <- res %>%
+#                 dplyr::group_by(Replicate, nIndividual, nRecord) %>%
+#                 dplyr::do(lmerall(.)) %>%
+#                 dplyr::tbl_df()
   
-  lmerRes <- res %>%
-                dplyr::group_by(Replicate, nIndividual, nRecord) %>%
-                dplyr::do(lmerall(.)) %>%
-                dplyr::tbl_df()
-
+  keycols = c("Replicate", "nIndividual", "nRecord")
+  setkeyv(res, keycols)
+  lmerRes  <- res[ ,.(Parameter=c("Vi", "Vs", "CORis"), Value=lmerall2(.SD)), 
+  								by=list(Replicate, nIndividual, nRecord),
+  								.SDcols=c("Phenotype", "X1", "Individual")]
+  
   return(lmerRes)
 }
 
-lmerall <- function(df){    
-  modIDS      <- lme4::lmer(Phenotype~ X1 + (X1|Individual), data=df)
-  vcs         <- lme4::VarCorr(modIDS)
-  Vintercepts <- vcs$Individual[1,1]
-  Vslopes     <- vcs$Individual[2,2]
-  corIS       <- stats::cov2cor(vcs$Individual[,])[2]
-  res         <- data.frame("Parameter"  = c("Vi", "Vs", "CORis"), 
-                            "Value"      = c(Vintercepts, Vslopes, corIS))
-  return(res)
-}
-
-
-# lmerall <- function(df){    
+# lmerall <- function(df){
 #   modIDS      <- lme4::lmer(Phenotype~ X1 + (X1|Individual), data=df)
 #   vcs         <- lme4::VarCorr(modIDS)
 #   Vintercepts <- vcs$Individual[1,1]
@@ -56,3 +48,14 @@ lmerall <- function(df){
 #                             "Value"      = c(Vintercepts, Vslopes, corIS))
 #   return(res)
 # }
+
+
+lmerall2 <- function(df){
+  modIDS      <- lme4::lmer(Phenotype~ X1 + (X1|Individual), data=df)
+  vcs         <- lme4::VarCorr(modIDS)
+  Vintercepts <- vcs$Individual[1,1]
+  Vslopes     <- vcs$Individual[2,2]
+  corIS       <- stats::cov2cor(vcs$Individual[,])[2]
+  res         <- c(Vintercepts, Vslopes, corIS)
+  return(res)
+}

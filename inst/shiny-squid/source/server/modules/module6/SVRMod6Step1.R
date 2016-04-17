@@ -81,9 +81,9 @@ c(
     
     output$Mod6Step1_plot <- renderPlot({ 
       
-      data  <- Mod6Step1_output()          
+      data  <- Mod6Step1_output()
       
-      if(!is.null(data)){                    
+      if(!is.null(data)){
         
         print(
           ggplot2::ggplot(data = data$sampled_data, ggplot2::aes(y     = Phenotype, 
