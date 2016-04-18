@@ -30,5 +30,5 @@ Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation i
 \code{\link{squidR}}
 }
 \examples{
-squidApp()
+\donttest{squidApp()}
 }
