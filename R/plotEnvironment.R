@@ -37,6 +37,8 @@
 #
 plotEnvironment <- function(input, module=NULL, envName=NULL){
   
+  x<-colour<-NULL
+  
   sep         <- ifelse(is.null(module), "", "_")
   input$state <- TRUE
   myX         <- createEnvironment(input, module, envName, sep)

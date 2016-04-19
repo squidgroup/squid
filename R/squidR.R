@@ -1,3 +1,6 @@
+#' @export
+#' @import data.table
+#' 
 squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsualization=NULL){ 
   
   # Main function of the full model that simulates individual phenotypes over time
@@ -17,6 +20,9 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
   ##############################################################
   #################### INPUT VARIABLES  ########################
   ##############################################################  
+  
+  # utils::globalVariables(c("Trait", "Replicate", "Individual", "Phenotype", "Individual_Trait", "X1", "X2", "longcalling", "but.not.seen.in.Error", "x", "colour", "r", "envData", "x", "colour"))
+  
   
   # Set seperator character
   sep <- ifelse(is.null(module), "", "_")
@@ -61,6 +67,9 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
   }else{
     
     if(X_previsualization %in% c("X1", "X2")){
+    
+      x<-r<-envData<-colour<-NULL
+      
       ### Generate environment for previsualization
       X <- getEnvironment(environments[[X_previsualization]], N, TRUE)
       

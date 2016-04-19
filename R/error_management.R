@@ -1,5 +1,7 @@
 error_management <- function(obj, obj_name="", type=NULL, minimum=NULL, maximum=NULL, nb_col=NULL, nb_row=NULL){
 	
+  longcalling<-but.not.seen.in.Error<-NULL
+  
 	obj_name <- paste0("input[[",obj_name,"]]")
 	
 	if(type == "check_one_boolean"){

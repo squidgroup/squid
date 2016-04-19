@@ -1,4 +1,11 @@
+#' @export
+#' 
 squidApp <- function(launch.browser=TRUE, ...) {
+  
+  f   <- factor(c("a", "b"))
+  res <- lme4::dummy(f)
+  cat.var <- rep(1:2, 2)
+  res <- dim(arm::contr.bayes.unordered(cat.var))
   
   appDir <- system.file("shiny-squid", package = "squid")
   

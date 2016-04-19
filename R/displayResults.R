@@ -1,6 +1,8 @@
 ### Display results
 displayResults <- function(N, Time, full_Data, sampled_Data){ 
     
+  Trait<-Replicate<-Individual<-Phenotype<-Individual_Trait<-X1<-X2<-X1X2<-NULL
+  
   # subset data
   full_Data2    <- copy(data.table::as.data.table(full_Data))[   Trait == 1 & Replicate == 1 & Individual <= 20]
   sampled_Data2 <- copy(data.table::as.data.table(sampled_Data))[Trait == 1 & Replicate == 1 & Individual <= 20]

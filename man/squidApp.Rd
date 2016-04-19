@@ -22,7 +22,7 @@ SQuID application will by default show up on your default web browser. In order 
 For more advanced and efficient simulations, SQuID is also available as an R function \code{\link{squidR}}.
 }
 \section{References}{
-Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Réale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. Methods in Ecology and Evolution, submitted manuscript.
+Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. Methods in Ecology and Evolution, submitted manuscript.
 
 Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation in behaviour: mixed-effect modelling approaches. Journal of Animal Ecology, 82: 39-54.
 }
@@ -30,5 +30,5 @@ Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation i
 \code{\link{squidR}}
 }
 \examples{
-\donttest{squidApp()}
+\dontrun{squidApp()}
 }
