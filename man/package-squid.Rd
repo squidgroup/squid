@@ -30,3 +30,4 @@ Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L
 
 Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation in behaviour: mixed-effect modelling approaches. Journal of Animal Ecology, 82: 39-54.
 }
+
