@@ -7,9 +7,9 @@ input$Tmax <- 100 # default = 1
 input$Time_sampling <- c(1,100)
 
 input$NP <- 1 # default = 1
-input$NI <- 10 # default = 1
+input$NI <- 3 # default = 1
 input$NT <- 1 # default = 1
-input$NG <- 2 # default = 1
+input$NG <- 1 # default = 1
 
 input$B    <- c(0,0.3,0,0)
 input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
@@ -50,8 +50,8 @@ input$VG <- 0    # Default 0
     input$X1_sto_shared <- TRUE  # default = TRUE
     input$X1_sto_V      <- 1     # default = 1
   # Autocorrelate
-    input$X1_sto_autocor_state   <- TRUE # default = FALSE
-    input$X1_sto_corr            <- 0.9     # default = 0
+    input$X1_sto_autocor_state   <- FALSE # default = FALSE
+    input$X1_sto_corr            <- 0.7     # default = 0
   # Linear
     input$X1_lin_state      <- FALSE  # default = FALSE
     input$X1_lin_shared     <- TRUE   # default = TRUE
@@ -59,7 +59,7 @@ input$VG <- 0    # Default 0
     input$X1_lin_slope      <- 1      # default = 1
     input$X1_lin_V          <- 0      # default = 1
   # Cyclic
-    input$X1_cyc_state     <- FALSE # default = FALSE
+    input$X1_cyc_state     <- TRUE # default = FALSE
     input$X1_cyc_shared    <- TRUE  # default = TRUE
     input$X1_cyc_amplitude <- 10    # default = 10
     input$X1_cyc_period    <- 10    # default = 10 
@@ -72,7 +72,7 @@ input$VG <- 0    # Default 0
     # Stochastic
     input$X2_sto_state  <- TRUE  # default = FALSE
     input$X2_sto_shared <- TRUE  # default = TRUE
-    input$X2_sto_V      <- 1     # default = 1
+    input$X2_sto_V      <- 5     # default = 1
     # Autocorrelate
     input$X2_sto_autocor_state   <- TRUE # default = FALSE
     input$X2_sto_corr            <- 0.9     # default = 0
@@ -110,6 +110,9 @@ print(multiplot(data$plot$X1,
                 data$plot$X2,
                 data$plot$X1X2,
                 cols=1))
+
+ggsave(data$plot$X2, file="shared.pdf")
+ggsave(data$plot$X2, file="unshared.pdf")
 
 print(multiplot(data$plot$totPhen,
                 data$plot$sampPhen,

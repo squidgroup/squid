@@ -12,9 +12,9 @@ myTable <-  data.frame(
                                  paste("$",NOT$groupV,"_",NOT$group,"$",sep=""),
                                  paste("$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"}$",sep="")
                                 ),
-              "Explanations" = c("Instance of time",
-                                "Individual identity",
-                                "Group identity",
+              "Explanations" = c("Instance of time.",
+                                "Individual identifier.",
+                                "Group identifier.",
                                 paste("Phenotypic value of trait $",NOT$trait.1,"$ at instance $",NOT$time,"$ for individual $",NOT$ind,"$ within group $",NOT$group,"$.",sep=""),
                                 paste("Phenotypic value of trait $",NOT$trait.2,"$ at instance $",NOT$time,"$ for individual $",NOT$ind,"$ within group $",NOT$group,"$.",sep=""),
                                 "Population mean",
@@ -22,7 +22,7 @@ myTable <-  data.frame(
                                 paste("Population mean response to environmental influences $",NOT$env,"$.",sep=""),
                                 paste("Individual-specific response to environmental influences $",NOT$env,"$ (random-slope) for individual $",NOT$ind,"$.",sep=""),
                                 paste("Higher-level grouping for each group $",NOT$group,"$.",sep=""),
-                                paste("Measurement error for the individual $",NOT$ind,"$ and at time $",NOT$time,"$.",sep="")
+                                paste("Measurement error for the individual $",NOT$ind,"$ and the group $",NOT$group,"$ at time $",NOT$time,"$.",sep="")
               )
 )
 
@@ -53,8 +53,8 @@ myVarCovMatrix       <- paste(
     \\end{pmatrix} 
 $$",sep="")
 
-myK      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$groupV,"})$$", sep="")
-myM      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$error,"})$$", sep="")
+myG      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$groupV,"})$$", sep="")
+mye      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$error,"})$$", sep="")
 
 span( 
 	p(HTML(fullmodelTxt$SimModel_intro)),   
@@ -85,7 +85,7 @@ span(
 	p(HTML(fullmodelTxt$environment_5)),
 	p(HTML(fullmodelTxt$environment_6)),
 	p(HTML('<figure>
-		  <img src="pictures/Environment_examples.jpg" alt="The Pulpit Rock">
+		  <img src="pictures/Environment_examples.jpg" alt="Environmental effects.">
 		  <figcaption><b>Figure 1:</b> example of 3 environmental effects. 
 								  (Left) Linear trend with some stochasticity 
 								  (Middle) Cyclic pattern with linear trend and some stochasticity. 
@@ -93,9 +93,14 @@ span(
 		  </figure>')
 	),
 	p(HTML(fullmodelTxt$environment_7)),
+	p(HTML('<figure>
+		  <img src="pictures/Environment_examples.jpg" alt="Shared and unshared environmental effects">
+		  <figcaption><b>Figure 2:</b> example of 2 environmental effects, one shared (left) and one unshared (right).</figcaption>
+		  </figure>')
+	),
 
 	h4("High-level grouping and measurement error"),
 	p(HTML(fullmodelTxt$groupingNerror)),
-	myK,
-	myM
+	myG,
+	mye
 )

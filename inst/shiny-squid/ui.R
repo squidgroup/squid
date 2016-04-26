@@ -43,7 +43,7 @@ shinyUI(
     
     # Background page
     tabPanel("Background", # Title
-             icon=icon("home", "fa-fw"),
+             icon=icon("folder-open", "fa-fw"),
              # Background container
              tags$div(class="myPage myTutorial",
                 fixedPage(
@@ -83,7 +83,7 @@ shinyUI(
              tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
     ), # End tabPanel Full Model 
 
-    # People page
+    # About us page
     tabPanel("About us", icon=icon("users", "fa-users"),
        tags$div(class="myPage myTutorial",
         fixedPage(
@@ -98,6 +98,19 @@ shinyUI(
           )
         )
        )
+    ), # End tabPanel About us
+
+    # Contact us page
+    tabPanel("Contact us", icon=icon("envelope", "fa-users"),
+             tags$div(class="myPage myTutorial",
+                fixedPage(
+                  wellPanel( 
+                    h2("Contact us"),
+                    p("Visit us on ", a("Github.", href="https://github.com/hallegue/squid", target="_blank")),
+                    p("Report a ", a("bug.", href="https://github.com/hallegue/squid/issues", target="_blank"))
+                  )
+                )
+             )
     ), # End tabPanel People
 
     # Footer

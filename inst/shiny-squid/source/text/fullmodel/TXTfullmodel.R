@@ -22,15 +22,15 @@ fullmodelTxt <- list(
   # Step by step page
   
   "fullModelSbyS_intro_1"     = "The full model of SQuID allows the user to generate data sets of 
-                                  individuals repeatedly expressing phenotypes, for one or different trait, in uniform time. 
+                                  individuals repeatedly expressing phenotypes, for one or two traits, in uniform time. 
                                   The user has thus the flexibility to add different variance components that will form the 
                                   phenotype of the individual at each time step, and to set up a relative importance to each component. 
-                                  SQuID also allows the user to collect a subsample of the simulated phenotypes, 
+                                  SQuID also allows the user to collect a sample of the simulated phenotypes (i.e. the operational data set), 
                                   according to specific sampling design. Finally, the user has the opportunity 
-                                  to download the operational data set for further analyses. ",
-  "fullModelSbyS_intro_2"     = "In this page, we will introduce you step by step how to use our full module. 
+                                  to download the operational data set for further analyses.",
+  "fullModelSbyS_intro_2"     = "In this page, we will introduce to you step by step how to use our full module. 
                                 In case you are already familiar with the full model we invite to switch to the 
-                                full model express page that is more straightforward.  ",
+                                full model express page, which is more straightforward.  ",
   
   
   # Step by step description
@@ -39,17 +39,17 @@ fullmodelTxt <- list(
                                   phenotype values and the model used to create the sampling design.",
   
   
-  "SimModel_intro"      = "As a first step, we generate phenotype values of individuals that belong to a study population. 
+  "SimModel_intro"      = "As a first step, we generate phenotype values of individuals that belong to a study population (i.e. replicate world). 
                           Phenotypic values of each trait are calculated using 
-                          the phenotypic equation described below. ",
+                          the phenotypic equation described below.",
   
   "modelEquation_1"     = paste("The equation represents the model that generated phenotypic values ($",EQ$phen.1,"$ or $",EQ$phen.2,"$) of 
                            two traits for each individual $",NOT$ind,"$ and at each instance of time $",NOT$time,"$, in each group $",NOT$group,"$.", sep=""),
-  "modelEquation_2"     = paste("It should be noted that subscripts are organised to represents the different hierarchical 
-                           levels involved into the generation of the value of the trait: subscript $",NOT$time,"$ stands for the 
+  "modelEquation_2"     = paste("It should be noted that subscripts are organised to represent the different hierarchical 
+                           levels involved in the generation of the value of the trait: subscript $",NOT$time,"$ stands for the 
                            instance at which the traits is measured for the individual $",NOT$ind,"$, within group $",NOT$group,"$. 
-                           Finally subscript $",NOT$trait.1,"$ or $",NOT$trait.2,"$ refers to the trait generated.", sep=""),
-  "modelEquation_3"     = paste("At first sight we can see that the value of the trait $",NOT$trait.1,"$ for individual $",NOT$ind,"$ 
+                           Finally subscript $",NOT$trait.1,"$ or $",NOT$trait.2,"$ refers to the two traits generated.", sep=""),
+  "modelEquation_3"     = paste("At first sight we can see that the phenotypic value of the trait $",NOT$trait.1,"$ for individual $",NOT$ind,"$ 
                           at instance $",NOT$time,"$ in group $",NOT$group,"$ is the sum of a series of components. 
                           Let's first decompose the equation into all of its components, and we then will see how each of the 
                           components is generated:", sep=""),
@@ -84,31 +84,33 @@ fullmodelTxt <- list(
   
   "indSpecResponses"    = paste("Below we show the way we generate the different values of each individual-level random effect for 
                           both traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$. The vector of individual deviation of the intercept and slopes for 
-                          the two traits follows a multivariate normal distribution (MNV) of mean 0 and variance/covariance 
-                          matrix structure $\\Omega_{",NOT$devI,NOT$devS,"}$. On the right hand side is shown the matrix of variance/covariance 
+                          the two traits follows a multivariate normal distribution (MNV) with a zero-mean and covariance/variance 
+                          matrix structure $\\Omega_{",NOT$devI,NOT$devS,"}$. On the right hand side is shown (co)variance matrix 
                           $\\Omega_{",NOT$devI,NOT$devS,"}$. Values of variance stand along the diagonal of the matrix (i.e. respectively, 
-                          variance of intercepts $V_{",NOT$devI,NOT$trait.1,"}$ for $",NOT$trait.1,"$, variance of slopes 
-                          $V_{",NOT$devS,NOT$trait.1,"}$ for $",NOT$trait.1,"$, variance 
-                          of intercepts $V_{",NOT$devI,NOT$trait.2,"}$ for $",NOT$trait.2,"$ and variance of slopes $V_{",NOT$devS,NOT$trait.2,"}$ for $",NOT$trait.2,"$). 
-                          Covariance values between intercepts, slopes, and intercepts and slopes lie below the diagonal. 
-                          When building up phenotypic design the program lets you specify all of these (co)variance values.",sep=""),
-  
-  
+                          the among-individual variance in intercepts for $",NOT$trait.1,"$ $(V_{",NOT$devI,NOT$trait.1,"})$, the among-individual variance in slopes 
+                          for $",NOT$trait.1,"$ $(V_{",NOT$devS,NOT$trait.1,"})$, the among-individual variance in intercepts for $",NOT$trait.2,"$ $(V_{",NOT$devI,NOT$trait.2,"})$ 
+                          and the among-individual variance in slopes for $",NOT$trait.2,"$ $(V_{",NOT$devS,NOT$trait.2,"})$). 
+                          Covariance values between intercepts (e.g. $Cov_{", EQ2$dev0.1, ",", EQ2$dev0.2,"}$), 
+                          slopes (e.g. $Cov_{", EQ2$dev1.1, ",", EQ2$dev1.2,"}$), 
+                          and intercepts and slopes (e.g. $Cov_{", EQ2$dev0.1, ",", EQ2$dev1.1,"}$) lie below the diagonal. 
+                          When building up phenotypic design the program lets you specify all of these (co)variance values. 
+                          Note that in SQuID inputs the correlation/variance matrix is asked instead of the (co)variance matrix. 
+                          This is more convenient for users while correlations range between -1 and 1.",sep=""),
   "environment_1"       = "SQuID allows you to generate different structures by which the environment changes over time: 
                           <ol><li>stochastic</li> <li>temporally auto-correlated</li> <li>linear</li> <li>cyclic</li></ol>",
   "environment_2"       = paste("For the first structure (<b>stochastic</b>), environmental values $",NOT$env,"_{",NOT$random,NOT$time,"}$ are 
-                          generated using a Normal distribution with mean 0 and variance $V_",NOT$random,"$. 
-                          $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,V_",NOT$random,")$$
+                          generated using a Normal distribution with mean 0 and variance $V_{",NOT$env,"_",NOT$random,"}$. 
+                          $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,\\sqrt{V_{",NOT$env,"_",NOT$random,"}})$$
                           This means that environmental values will be totally 
-                          stochastic and uncorrelated from time to time. This simple situation is not the most realistic 
-                          (i.e. it is hard to think of an environmental factor that is completely stochastically distributed in time). 
+                          stochastic and uncorrelated from one time point to the next. This simple situation is not the most realistic 
+                          (i.e., it is hard to think of an environmental factor that is completely stochastically distributed in time). 
                           The other options are more complex but also more realistic.",sep=""),
   "environment_3"       = paste("For the <b>temporally auto-correlated</b> $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ 
                           we assume that two values of the environment close in time 
-                          are more similar than two values far apart from each other (i.e. positive autocorrelation). 
+                          are more similar than two values further apart from each other (i.e., positive autocorrelation). 
                           Environmental values $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ are generated 
                           as the product of a stochastic value by a decay function.
-                          $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,V_",NOT$random,")\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
+                          $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,\\sqrt{V_{",NOT$env,"_",NOT$random,"}})\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
                           where $\\Delta ",NOT$time,"$ is the time interval between two instances of the study period, and $\\alpha$
                           is the decay rate, a measure of how fast the correlation decays with time.
                           $$\\alpha=ln(autocor)$$
@@ -122,11 +124,11 @@ fullmodelTxt <- list(
                           for example mimicking phenology during a season or long-term environmental changes.",sep=""),
   "environment_5"       = paste("If you are interested in mimicking daily or seasonal fluctuations you can choose a <b>cyclic</b> 
                           (sinusoidal) environmental variation, according to a sinusoidal equation.
-                          $$",NOT$env,"_{",NOT$cyclic,NOT$time,"}=a\\times sin(b.",NOT$time,"+c)+d$$
+                          $$",NOT$env,"_{",NOT$cyclic,NOT$time,"}=a\\times sin(b.",NOT$time,"+c)+v$$
                           where $\\lvert a\\rvert$ is the amplitude, 
                           $2\\pi/\\lvert b\\rvert$ the period, 
                           $-c/\\lvert b\\rvert$ the horizontal shift, 
-                          and $d$ the vertical shift.
+                          and $v$ the vertical shift.
                           You can therefore change the shape of the cyclic curve by setting the different parameters.",sep=""),
   "environment_6"       = "By adding up the different options together you can create environmental data with combinations of effects. 
                           Adding the four options together (the most complex situation) will generate environmental data 
@@ -134,16 +136,16 @@ fullmodelTxt <- list(
   "environment_7"       = paste("The environment could be also <b>shared</b> or <b>unshared</b> among individuals. 
                           A shared environment between individuals means that it is general to all the individuals 
                           within the population. All individuals will experience the same environment even 
-                          if the environment could vary over time. In this case only one environment ($",NOT$env,"$) 
+                          if the environment would vary over time. In this case, only one environment ($",NOT$env,"$) 
                           will be generated using the different options described above. 
                           An unshared environment between individuals means that each individual 
                           will experience a specific environment. For instance, if we have 3 individuals 
-                          in our population 3 different environments $",NOT$env,"_1$,$",NOT$env,"_2$,and $",NOT$env,"_3$ will be generated for 
-                          respectively the individual 1, 2, and 3. Although these environments are different, 
+                          in our population 3 different environments $",NOT$env,"_{",NOT$ind,"=a}$, $",NOT$env,"_{",NOT$ind,"=b}$, and $",NOT$env,"_{",NOT$ind,"=c}$ will be generated for 
+                          respectively the individual a, b, and c. Although these environments are different, 
                           they follow the same general trend defined by environment options described 
                           previously (stochastic, auto-correlated, linear, and cyclic). 
                           In order to create multiple environments from one environment configuration, 
-                          we apply a variability around each parameter (e.g. the intercept of the 
+                          we apply variability around each parameter (e.g. the intercept of the 
                           linear effect or the amplitude of the cyclic effect) that follows 
                           a normal distribution.",sep=""),
   "groupingNerror"      = paste("The high-level grouping term ($",NOT$groupV,"$) is generated from 
@@ -152,7 +154,7 @@ fullmodelTxt <- list(
                           of mean 0 and variance $V_",NOT$error,"$.",sep=""),
   
   
-  "samplingDesign_1"    = "As a second step, we collect a subsample of previously simulated phenotypic values according 
+  "samplingDesign_1"    = "As a second step, we retrieve a subsample of previously simulated phenotypic values according 
                           to a specific sampling design. The sampling design between individuals 
                           could vary by multiple parameters such as the number of records sampled, 
                           and the instance of those records.",
@@ -227,7 +229,7 @@ fullmodelTxt <- list(
                             the period, the horizontal shift and the vertical shift for the cyclic effect.
                             Therefore, if you select the three options you can create linearly increasing 
                             environmental values with some cyclic and stochastic variation from time to time.",
-  "inputEnvironment_4"    = "For each environment type (stochastic, linear and cyclic) you can also choose whether that 
+  "inputEnvironment_4"    = "For each environment type (stochastic, linear and cyclic), you can also choose whether that 
                             environmental effect is shared or not between individuals by checking or not 
                             the &ldquo;Shared environment&rdquo; checkbox. For instance, you could decide to share 
                             the stochastic and linear environmental effects between individuals while the 

@@ -42,7 +42,7 @@ portal_txt <- list(
                                 and the way data are sampled among and within individuals can have strong implications 
                                 on the outcome of the model. This is why we considered it was necessary to produce a 
                                 simulation tool that could help new users interested in decomposing phenotypic variance 
-                                to get more familiar with the concept of hierarchical organisation of traits, with mixed 
+                                to get more familiar with the concept of hierarchical organization of traits, with mixed 
                                 models and to avoid pitfalls caused by inappropriate sampling.',
       
       "background_title"     = "Background",

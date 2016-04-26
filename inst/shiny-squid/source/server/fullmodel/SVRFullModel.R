@@ -517,7 +517,7 @@ SVRFullModel <- function(myModule, input, output, session){
                           "Replicate identifier.",
                           "Individual identifier.",
                           "Identifier fo each individual/trait combination.",
-                          "Trait identification.",
+                          "Trait identifier.",
                           "Time step values.",
                           "Individual phenotype.",
                           "Population phenotypic mean.",
