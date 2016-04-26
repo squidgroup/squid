@@ -20,6 +20,8 @@ SQuID is based on a mathematical model that creates a group of individuals (i.e.
 SQuID application will by default show up on your default web browser. In order to use properly the SQuID application, we encourage you to start by reading the documentation on the portal page. From there you will be guided through SQuID application according to your experience and knowledge of multilevel modelling.
 
 For more advanced and efficient simulations, SQuID is also available as an R function \code{\link{squidR}}.
+
+Note that while the SQuID application is running, your \code{R} session will be busy. Then, in order to exit the SQuID application mode, you have to press the "Esc" key while you are on your \code{R} session window.
 }
 \section{References}{
 Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. Methods in Ecology and Evolution, submitted manuscript.
@@ -30,5 +32,8 @@ Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation i
 \code{\link{squidR}}
 }
 \examples{
+# run SQuID application
 \dontrun{squidApp()}
+
+# press the "Esc" key to exit SQuID application mode. 
 }
