@@ -41,6 +41,24 @@ shinyUI(
              
     ), # End tabPanel Portal
     
+    # Background page
+    tabPanel("Background", # Title
+             icon=icon("home", "fa-fw"),
+             # Background container
+             tags$div(class="myPage myTutorial",
+                fixedPage(
+                  wellPanel( 
+                    h4(portal_txt$background_title),
+                    p(HTML(portal_txt$background_content_1)),
+                    p(HTML(portal_txt$background_content_2)),
+                    h4(portal_txt$parag1_title),
+                    p(HTML(portal_txt$parag1_contents))
+                  )
+                )
+             )
+             
+    ), # End tabPanel Background
+    
     # Modules page
     tabPanel("Modules", # Title
              icon=icon("tasks", "fa-fw"), # Icon
