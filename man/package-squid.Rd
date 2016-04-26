@@ -22,7 +22,7 @@ SQuID has two main functions; \code{\link{squidApp}} and \code{\link{squidR}}.
 This function runs the SQuID application which is a browser-based interface created with the \href{http://shiny.rstudio.com/}{shiny} package. SQuID is built up as a series of modules that guide the user into situations of increasing complexity to explore the phenotypic equation model and the dynamics between the way phenotypes are sampled and the estimation of parameters of specific interest; The last module is the full model simulation that allows the user to generate data sets that can then be used to run analyses in the statistical package of their choice for specific research questions. For most of the modules, the simulated data set is automatically fed into a statistical model in R and the main results of the analysis shown in an output. For the full model the user has the opportunity to download the operational data set for further analyses. The SQuID application also has a tab (Full model (Step by step)) describing in details the SQuID full model.
 }
 \subsection{squidR}{
-This function is traditional R function that allows data generation and sampling without the browser-based interface. This function can be used for more advanced and efficient simulations once you understand how SQuID works. squidR can be easily included in R scripts.
+This function is a traditional R function that allows data generation and sampling without the browser-based interface. This function can be used for more advanced and efficient simulations once you understand how SQuID works. squidR can be easily included in R scripts.
 }
 }
 \section{References}{

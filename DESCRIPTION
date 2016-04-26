@@ -10,14 +10,16 @@ Authors@R:c(
     person("Shinichi", "Nakagawa"   , email = "itchyshin@gmail.com"               , role = "aut"),
     person("Holger"  , "Schielzeth" , email = "holger.schielzeth@uni-bielefeld.de", role = "aut"),
     person("Dave"    , "Westneat"   , email = "david.westneat@uky.edu"            , role = "aut"))
-Description: SQuID is made to help researchers to become familiar with
-    multilevel variation, and to build up sampling designs for their study. SQuID
-    is built up as a series of modules that guide the user into situations of
-    increasing complexity to explore the dynamics between the way records are
-    collected and estimates of parameters of specific interest; The last modules
-    (Module 10) is the full model simulation package that allows the user to
-    generate data sets that can then be used to run analyses in the statistical
-    package of their choice for specific research questions.
+Description: A simulation-based tool made to help researchers to become familiar with
+    multilevel variations, and to build up sampling designs for their study. 
+    This tool has two main objectives: First, it provides an educational tool useful for students, 
+    teachers and researchers who want to learn to use mixed-effects models. 
+    Users can experience how the mixed-effects model framework can be used to understand 
+    distinct biological phenomena by interactively exploring simulated multilevel data. 
+    Second, it offers research opportunities to those who are already familiar with 
+    mixed-effects models, as it enables the generation of datasets that users may download 
+    and use for a range of simulation-based statistical analyses such as power 
+    and sensitivity analysis of multilevel and multivariate data.
 URL: https://github.com/hallegue/squid
 BugReports: https://github.com/hallegue/squid/issues
 Depends:
