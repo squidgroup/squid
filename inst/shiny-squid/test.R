@@ -102,6 +102,8 @@ input$ST_trait <- TRUE # default = TRUE
 
 data <- squid::squidR(input=input, plot=TRUE)
 
+data <- squid::squidR(X_previsualization = "X1")
+
 
 
 print(data$myPlot$plotSampTime)

@@ -1,7 +1,7 @@
 Package: squid
 Title: Statistical Quantification of Individual Differences
 Version: 0.1.0
-Authors@R:c(
+Authors@R: c(
     person("Hassen"  , "Allegue"    , email = "h.allegue@oceans.ubc.ca"           , role = c("aut","cre")),
     person("Yimen"   , "Araya"      , email = "yimencr@gmail.com"                 , role = "aut"),
     person("Niels"   , "Dingemanse" , email = "ndingemanse@orn.mpg.de"            , role = "aut"),
@@ -35,3 +35,4 @@ Imports:
     arm (>= 1.8-6),
     data.table (>= 1.9.6)
 RoxygenNote: 5.0.1
+Suggests: testthat

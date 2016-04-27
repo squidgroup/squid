@@ -3,26 +3,15 @@
 #' 
 squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsualization=NULL){ 
   
-  # Main function of the full model that simulates individual phenotypes over time
-  # and then samples within those phenotypes according to specific sampling design
-  #
-  # Args:
-  #   input: list contains all the inputs used to run the model 
-  #          (for more details see setEnvironments and setVariables functions).
-  #   module: name of the module.
-  
-  # Returns:
-  #   Return a list with:
-  #     full_Data   : continous phenotypic data (raw data)
-  #     sampled_Data: sampled phenotypic data
-  #     myPlot      : plots of the simulation results
-  
   ##############################################################
   #################### INPUT VARIABLES  ########################
   ##############################################################  
-  
-  # utils::globalVariables(c("Trait", "Replicate", "Individual", "Phenotype", "Individual_Trait", "X1", "X2", "longcalling", "but.not.seen.in.Error", "x", "colour", "r", "envData", "x", "colour"))
-  
+
+  # check inputs
+  if(!is.list(input)) stop("input must be a list.")
+  if(!is.logical(plot)) stop("plot must be logical.")
+  if(!is.null(data) && (!is.data.frame(data) || ncol(data) != 19)) stop("data must be the full data returned by squidR (output$full_data).")
+  if(!is.null(module) && !is.character(module)) stop("module must be NULL or a string.")
   
   # Set seperator character
   sep <- ifelse(is.null(module), "", "_")
