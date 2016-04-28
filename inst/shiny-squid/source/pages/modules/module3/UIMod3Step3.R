@@ -39,6 +39,7 @@ span(
   getSliderInput("Mod3Step3_NR",  Modules_VAR$NR),
   getSliderInput("Mod3Step3_Vhsi", Modules_VAR$Vhsi),
   
+  actionButton("Mod3Step3_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
   p(),
   plotOutput("Mod3Step3_previewPlot", width = Modules_VAR$Plot$width),
   p(),

@@ -33,8 +33,7 @@ span(
   
   p(HTML(Mod3Step2_txt$para3)),      # Text: paragraph 3
   
-  actionButton("Mod3Step2_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
-  # bsButton("Mod3Step2_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, style = Modules_VAR$Refresh$style),
+  actionButton("Mod3Step2_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
   p(),
   plotOutput("Mod3Step2_previewPlot", width = Modules_VAR$Plot$width),
   

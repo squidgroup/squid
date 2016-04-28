@@ -58,16 +58,16 @@ c(
  	
  	output$Mod3Step2_previewPlot <- renderPlot({ 
  	  
- 	  input$Mod3Step2_previewPlot
+ 	  input$Mod3Step2_previewPlot_btn
  	  
- 	  myInput <- list("Mod3Step2_Preview_Tmax"   = Modules_VAR$Tmax$max,
- 	                  "Mod3Step2_Preview_NI"     = input$Mod3Step2_NI,
- 	                  "Mod3Step2_Preview_Vhsi"   = input$Mod3Step2_Vhsi,
- 	                  "Mod3Step2_Preview_NR"     = input$Mod3Step2_NR,
- 	                  "Mod3Step2_Preview_ST_ind" = FALSE
+ 	  myInput <- list("Preview_Tmax"   = Modules_VAR$Tmax$max,
+ 	                  "Preview_NI"     = input$Mod3Step2_NI,
+ 	                  "Preview_Vhsi"   = input$Mod3Step2_Vhsi,
+ 	                  "Preview_NR"     = input$Mod3Step2_NR,
+ 	                  "Preview_ST_ind" = FALSE
  	                  )
  	  # Call app main function
- 	  data <- squid::squidR(myInput, module="Mod3Step2_Preview", plot=TRUE)
+ 	  data <- squid::squidR(myInput, module="Preview", plot=TRUE)
  	  print(data$plots$sampTime)
  	}),
  	

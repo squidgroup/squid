@@ -88,6 +88,8 @@ SVRFullModel <- function(myModule, input, output, session){
   NR_trait        <- paste(myModule, "NR_trait", sep="_")
   ST_ind          <- paste(myModule, "ST_ind", sep="_")
   ST_trait        <- paste(myModule, "ST_trait", sep="_")
+  preview_sampling_design     <- paste(myModule, "preview_sampling_design", sep="_")
+  preview_sampling_design_btn <- paste(myModule, "preview_sampling_design_btn", sep="_")
   
   download_sampled      <- paste(myModule, "download_sampled", sep="_")
   download_raw          <- paste(myModule, "download_raw", sep="_")
@@ -274,7 +276,24 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, ST_trait,   value = FALSE)
        }
      }),
-
+     
+     output[[preview_sampling_design]] <- renderPlot({ 
+       
+       input[[preview_sampling_design_btn]]
+       myInput <- list("Sampling_Preview_Tmax"     = input[[Tmax]],
+                       "Sampling_Preview_NI"       = input[[NI]],
+                       "Sampling_Preview_Vhsi"     = input[[Vhsi]],
+                       "Sampling_Preview_NR"       = input[[NR]],
+                       "Sampling_Preview_ST_ind"   = input[[ST_ind]],
+                       "Sampling_Preview_ST_trait" = input[[ST_trait]],
+                       "Sampling_Preview_NR_ind"   = input[[NR_ind]],
+                       "Sampling_Preview_NR_trait" = input[[NR_trait]]
+       )
+       # Call app main function
+       data <- squid::squidR(myInput, module="Sampling_Preview", plot=TRUE)
+       print(data$plots$sampTime)
+     }),
+     
      ######################################################################################
      ################################## ENVIRONMENT #######################################
      ######################################################################################

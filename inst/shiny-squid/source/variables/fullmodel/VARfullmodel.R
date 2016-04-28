@@ -282,6 +282,13 @@ FullModel_VAR <- list(
                     "errorTxt"  = "Among-individual variance in timing of sampling must be a number between 0 and 0.95."
   ),
   
+  # Sampling time length
+  "SampDesign_preview"   = list( "label"       = "Preview of the sampling design",
+                                 "infoTxt"     = "Preview of the sampling design defined by the user.",
+                                 "value"       = "",                       
+                                 "errorTxt"    = ""
+  ),
+  
   # Mean Environemental effect
   "B"      = list( "label"     = "Population mean values",
                    "infoTxt"   = "Population mean values (fixed intercepts and slopes for each trait).",

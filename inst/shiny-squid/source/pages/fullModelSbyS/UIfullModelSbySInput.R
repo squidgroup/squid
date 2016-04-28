@@ -124,6 +124,7 @@ span(
     p(HTML(fullmodelTxt$inputSamplingDesign_1)),
     p(HTML(fullmodelTxt$inputSamplingDesign_2)),
     p(HTML(fullmodelTxt$inputSamplingDesign_3)),
+    p(HTML(fullmodelTxt$inputSamplingDesign_4)),
     fixedRow(
       column(width = 9,
        wellPanel(
@@ -148,7 +149,14 @@ span(
                   getCheckboxInput("FModSbyS_ST_ind", FullModel_VAR$ST_ind),
                   getCheckboxInput("FModSbyS_ST_trait", FullModel_VAR$ST_trait)  
            )
-         )
+         ),
+         
+         p(),
+         getLabel("FModSbyS_preview_sampling_design_Label", FullModel_VAR$SampDesign_preview),
+         p(),
+         actionButton("FModSbyS_preview_sampling_design_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
+         plotOutput("FModSbyS_preview_sampling_design")
+         
        )
       )
     ),

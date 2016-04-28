@@ -138,7 +138,13 @@ fixedPage( HTML("<div id='FullModel'>"),
             
             h6(c("Sampling times:", getIcon(FullModel_VAR$Checkbox_SamTime$infoTxt))),
             getCheckboxInput("FMod_ST_ind", FullModel_VAR$ST_ind),
-            getCheckboxInput("FMod_ST_trait", FullModel_VAR$ST_trait)
+            getCheckboxInput("FMod_ST_trait", FullModel_VAR$ST_trait),
+            
+            p(),
+            getLabel("FMod_preview_sampling_design_Label", FullModel_VAR$SampDesign_preview),
+            p(),
+            actionButton("FMod_preview_sampling_design_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
+            plotOutput("FMod_preview_sampling_design")
           )
        ) # End: Sampling design
      )

@@ -44,8 +44,7 @@ span(
   
   p(HTML(Mod3Step1_txt$para5)),       # Text: paragraph 5
   
-  actionButton("Mod3Step1_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
-  # bsButton("Mod3Step1_previewPlot", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, style = Modules_VAR$Refresh$style),
+  actionButton("Mod3Step1_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
   p(),
   plotOutput("Mod3Step1_previewPlot", width = Modules_VAR$Plot$width),
   

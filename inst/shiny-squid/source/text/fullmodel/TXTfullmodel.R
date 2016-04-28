@@ -311,6 +311,13 @@ fullmodelTxt <- list(
                             individuals&rdquo; SQuID will automatically consider that the number of 
                             sampled records is the same between individuals in addition that records are taken
                             at the same time.",
+  "inputSamplingDesign_4"= paste0('Finally, SQuID offers a previsualization of the sampling design. 
+                            The figure shows when the trait $',NOT$trait.1,'$ of the first 5 individuals will be sampled. 
+                            The preview figure will be updated automatically when the user changes one 
+                            of the sampling parameters. Note that the sampling design displayed is 
+                            just one of many possible examples. We suggest to press the "Refresh" button 
+                            in order to visualize other possible examples of sampling designs that are generated 
+                            according to the rules defined by the entered parameters.'),
   
   "inputRun"             = "It is now time to run your simulation and to check the output in the output tab. 
                             Note that if any inputs have been improperly entered the run button will be 
