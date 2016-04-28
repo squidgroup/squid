@@ -8,10 +8,14 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
   ##############################################################  
 
   # check inputs
-  if(!is.list(input)) stop("input must be a list.")
-  if(!is.logical(plot)) stop("plot must be logical.")
-  if(!is.null(data) && (!is.data.frame(data) || ncol(data) != 19)) stop("data must be the full data returned by squidR (output$full_data).")
-  if(!is.null(module) && !is.character(module)) stop("module must be NULL or a string.")
+  if(!is.list(input)) 
+    stop("input must be a list.")
+  if(!is.logical(plot) || length(plot) != 1) 
+    stop("plot must be one logical element.")
+  if(!is.null(data) && (!is.data.frame(data) || ncol(data) != 19)) 
+    stop("data must be the full data returned by squidR (output$full_data).")
+  if(!is.null(module) && (!is.character(module) || length(module) != 1)) 
+    stop("module must be a one string element.")
   
   # Set seperator character
   sep <- ifelse(is.null(module), "", "_")
@@ -55,7 +59,7 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
     
   }else{
     
-    if(X_previsualization %in% c("X1", "X2")){
+    if(length(X_previsualization) == 1 && X_previsualization %in% c("X1", "X2")){
     
       x<-r<-envData<-colour<-NULL
       
