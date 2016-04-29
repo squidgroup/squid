@@ -13,7 +13,7 @@ path <- "./inst/shiny-squid/"
 image <- paste0("<img id='logo' src='",path,"www/pictures/logo_2.png' align='left' alt='SQuID' style='padding-right:20px;'>")
 ```
 
-### Statistical Quantification of Individual Differences: an educational and statistical package for understanding multi-level phenotypic data in the mixed modelling framework.
+### Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models
 
 
 #### Brief description

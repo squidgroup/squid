@@ -2,7 +2,7 @@
 \name{squid}
 \alias{squid}
 \alias{squid-package}
-\title{SQUID - Statistical Quantification of Individual Differences: an educational and statistical package for understanding multi-level phenotypic data in the mixed modelling framework.}
+\title{SQUID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models}
 \description{
 SQuID stands for \strong{S}tatistical \strong{Qu}antification of \strong{I}ndividual \strong{D}ifferences and is the product of the SQuID working group. The package aims to help scholars who, like us, are interested in understanding patterns of phenotypic variance. Individual differences are the raw material for natural selection to act on and hence the basis of evolutionary adaptation. Understanding the sources of phenotypic variance is thus a most essential feature of biological investigation and mixed effects models offer a great, albeit challenging tool. Disseminating the properties, potentials and interpretational challenges in the research community is thus a foremost goal of SQuID.
 
