@@ -25,7 +25,8 @@ Mod1Step1_txt <- list(
                   Generally measurement error variance should not be high, ideally lower then 5% of 
                   the total variance (i.e. if $V_",NOT$total,"=1$ then $V_",NOT$error,"=0.05$), 
                   but of course some traits can be associated 
-                  with much higher measurement error:",sep=""),
+                  with much higher measurement error.
+                  Note that for this module, the total variance ($V_",NOT$total,"$) is restrained to 1.",sep=""),
   
   "point"      = paste("<b>Point:</b> The variance of measures ($V'_",NOT$total,"$) is often higher than the variance 
                   of true individual variance ($V_",NOT$devI,"$) if there is measurement error 
@@ -145,7 +146,8 @@ Mod1Step3_txt <- list(
                         measured thus cannot be included in the statistical analysis.
                         You can now try several combinations of $V_",NOT$error,"$ and $V_",NOT$devI,"$ 
                         to see how $V_{",EQ3$mean1," ",EQ2$env1,"}$ changes 
-                        and how this affects the estimates of repeatability and variance components.",sep=""),
+                        and how this affects the estimates of repeatability and variance components.
+                        Remember that these variances must add up to 1.",sep=""),
   "para1"    = "Once again you can calculate repeatability as",
   "point"    = paste("<b>Point:</b> We can now estimate a particular variance component of $V_",NOT$total,"$ that 
                         represents among-individual differences that are consistent through time. This variance is also 
@@ -186,7 +188,8 @@ Mod1Step4_txt <- list(
                 and specific and measured (i.e. known) environmental effects 
                 ($V_{",EQ3$mean1," ",EQ2$env1,"}$) on the phenotype of an individual.<br> 
                 As before, you can set $V_",NOT$error,"$, $V_",NOT$devI,"$  and $V_{",EQ3$mean1," ",EQ2$env1,"}$, 
-                but we suggest you use the same values you did in Step 3.",sep=""),
+                but we suggest you use the same values you did in Step 3.
+                Remember that these variances must add up to 1.",sep=""),
   "para1"    = "At this point, we want to introduce the idea of &lsquo;analysis&rsquo; models. 
                 These are equations that specify effects producing each individual data point. 
                 In essence, the analysis model is an attempt to describe the real world. 
