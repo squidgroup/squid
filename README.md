@@ -2,7 +2,7 @@
 
 
 
-### Statistical Quantification of Individual Differences: an educational and statistical package for understanding multi-level phenotypic data in the mixed modelling framework.
+### Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models
 
 
 #### Brief description
