@@ -47,20 +47,20 @@ input$VG <- 0    # Default 0
   input$X1_state      <- TRUE # default = FALSE
   # Stochastic
     input$X1_sto_state  <- TRUE  # default = FALSE
-    input$X1_sto_shared <- TRUE  # default = TRUE
+    input$X1_sto_shared <- FALSE  # default = TRUE
     input$X1_sto_V      <- 1     # default = 1
   # Autocorrelate
     input$X1_sto_autocor_state   <- FALSE # default = FALSE
     input$X1_sto_corr            <- 0.7     # default = 0
   # Linear
-    input$X1_lin_state      <- FALSE  # default = FALSE
-    input$X1_lin_shared     <- TRUE   # default = TRUE
+    input$X1_lin_state      <- TRUE  # default = FALSE
+    input$X1_lin_shared     <- FALSE   # default = TRUE
     input$X1_lin_intercept  <- 0      # default = 0
     input$X1_lin_slope      <- 1      # default = 1
     input$X1_lin_V          <- 0      # default = 1
   # Cyclic
     input$X1_cyc_state     <- TRUE # default = FALSE
-    input$X1_cyc_shared    <- TRUE  # default = TRUE
+    input$X1_cyc_shared    <- FALSE  # default = TRUE
     input$X1_cyc_amplitude <- 10    # default = 10
     input$X1_cyc_period    <- 10    # default = 10 
     input$X1_cyc_Hshift    <- 0     # default = 0
@@ -71,20 +71,20 @@ input$VG <- 0    # Default 0
     input$X2_state      <- TRUE
     # Stochastic
     input$X2_sto_state  <- TRUE  # default = FALSE
-    input$X2_sto_shared <- TRUE  # default = TRUE
+    input$X2_sto_shared <- FALSE  # default = TRUE
     input$X2_sto_V      <- 5     # default = 1
     # Autocorrelate
     input$X2_sto_autocor_state   <- TRUE # default = FALSE
     input$X2_sto_corr            <- 0.9     # default = 0
     # Linear
     input$X2_lin_state      <- TRUE  # default = FALSE
-    input$X2_lin_shared     <- TRUE   # default = TRUE
+    input$X2_lin_shared     <- FALSE   # default = TRUE
     input$X2_lin_intercept  <- 0      # default = 0
     input$X2_lin_slope      <- 1      # default = 1
     input$X2_lin_V          <- 0      # default = 1
     # Cyclic
     input$X2_cyc_state     <- TRUE # default = FALSE
-    input$X2_cyc_shared    <- TRUE  # default = TRUE
+    input$X2_cyc_shared    <- FALSE  # default = TRUE
     input$X2_cyc_amplitude <- 10    # default = 10
     input$X2_cyc_period    <- 10    # default = 10 
     input$X2_cyc_Hshift    <- 0     # default = 0
@@ -102,9 +102,7 @@ input$ST_trait <- TRUE # default = TRUE
 
 data <- squid::squidR(input=input, plot=TRUE)
 
-data <- squid::squidR(X_previsualization = "X1")
-
-
+squid::squidR(X_previsualization = "X2")
 
 print(data$myPlot$plotSampTime)
 
@@ -113,15 +111,42 @@ print(multiplot(data$plot$X1,
                 data$plot$X1X2,
                 cols=1))
 
-ggsave(data$plot$X2, file="shared.pdf")
-ggsave(data$plot$X2, file="unshared.pdf")
-
 print(multiplot(data$plot$totPhen,
                 data$plot$sampPhen,
                 data$plot$sampTime,
                 cols=1))
 
 #--------------------------------------------------------------------------------------------
+
+# shared and unshared environment
+
+# Env1 <- data$full_data$X2
+# Env2 <- data$full_data$X2
+# ind  <- data$full_data$Individual
+# 
+# data <- data.frame("Time"=rep(1:100, 3*2),"val" = c(Env1, Env2), "ind"=rep(ind, 2),"type"=c(rep("Shared", 300), rep("Unshared", 300)))
+# 
+# 
+# plot_X2 <-  ggplot2::ggplot(data=data, ggplot2::aes(x     = Time,
+# 																										y     = val,
+# 																										color = as.factor(ind))) +
+# 	ggplot2::geom_point() +
+# 	ggplot2::geom_line() +
+# 	ggplot2::xlim(0, 100) +
+# 	facet_wrap(~ type)   +
+# 	ggplot2::xlab("Time") +
+# 	ggplot2::ylab("Environmental values") +
+# 	ggplot2::theme(legend.position="none")
+# 
+# plot(plot_X2)
+# 
+# ggsave(plot_X2, file="plot_X2.pdf", scale = 1)
+
+#--------------------------------------------------------------------------------------------
+
+
+
+
 
 LMR <- lmer(Phenotype ~ 1 + X1 + (X1|Individual), data = test)
 summary(LMR)

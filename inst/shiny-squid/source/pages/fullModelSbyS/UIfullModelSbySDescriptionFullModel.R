@@ -94,8 +94,9 @@ span(
 	),
 	p(HTML(fullmodelTxt$environment_7)),
 	p(HTML('<figure>
-		  <img src="pictures/Environment_examples.jpg" alt="Shared and unshared environmental effects">
-		  <figcaption><b>Figure 2:</b> example of 2 environmental effects, one shared (left) and one unshared (right).</figcaption>
+		  <img src="pictures/shared_vs_unshared_examples.jpg" alt="Shared and unshared environmental effects">
+		  <figcaption><b>Figure 2:</b> example of 2 environments, one shared (left) and one unshared (right) between 3 individuals. 
+																	 Both environments have been generated with stochastic, linear, and cyclic effect.</figcaption>
 		  </figure>')
 	),
 
