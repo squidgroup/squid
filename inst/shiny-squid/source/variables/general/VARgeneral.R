@@ -64,6 +64,32 @@ EQ <- list(
   
 )
 
+# Model components (without trait)
+EQ1 <- list(
+	
+	"phen"       = paste(NOT$trait.1,"_{",NOT$time,NOT$ind,NOT$group,"}",spe=""),
+	
+	"mean0"      = paste(NOT$mean,"_0",sep=""),
+	"dev0"       = paste(NOT$devI,"_",NOT$ind,sep=""),
+	
+	"mean1"      = paste(NOT$mean,"_1",sep=""),
+	"dev1"       = paste(NOT$devS,"_{1",NOT$ind,"}",sep=""),
+	"env1"       = paste(NOT$env,"_{1",NOT$time,NOT$ind,"}",sep=""),
+	
+	"mean2"      = paste(NOT$mean,"_2",sep=""),
+	"dev2"       = paste(NOT$devS,"_{2",NOT$ind,"}",sep=""),
+	"env2"       = paste(NOT$env,"_{2",NOT$time,NOT$ind,"}",sep=""),
+	
+	"mean12"     = paste(NOT$mean,"_{12}",sep=""),
+	"dev12"      = paste(NOT$devS,"_{12",NOT$ind,"}",sep=""),
+	"env12"      = paste(NOT$env,"_{1",NOT$time,NOT$ind,"}.",NOT$env,"_{2",NOT$time,NOT$ind,"}",sep=""),
+	
+	"group"      = paste(NOT$groupV,"_",NOT$group,sep=""),
+	
+	"error"      = paste(NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"}",sep="")
+	
+)
+
 # Model components (without indices: time, individual and group)
 EQ2 <- list(
 

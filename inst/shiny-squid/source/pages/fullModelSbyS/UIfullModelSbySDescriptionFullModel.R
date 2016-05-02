@@ -22,7 +22,7 @@ myTable <-  data.frame(
                                 paste("Population mean response to environmental influences $",NOT$env,"$.",sep=""),
                                 paste("Individual-specific response to environmental influences $",NOT$env,"$ (random-slope) for individual $",NOT$ind,"$.",sep=""),
                                 paste("Higher-level grouping for each group $",NOT$group,"$.",sep=""),
-                                paste("Measurement error for the individual $",NOT$ind,"$ and the group $",NOT$group,"$ at time $",NOT$time,"$.",sep="")
+                                paste("Residual for the individual $",NOT$ind,"$ and the group $",NOT$group,"$ at time $",NOT$time,"$.",sep="")
               )
 )
 
@@ -57,7 +57,7 @@ myG      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$gro
 mye      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$error,"})$$", sep="")
 
 span( 
-	p(HTML(fullmodelTxt$SimModel_intro)),   
+	p(HTML(fullmodelTxt$SimModel_intro)), 
 		 
 	h4("Model equation"),
 
@@ -100,7 +100,7 @@ span(
 		  </figure>')
 	),
 
-	h4("High-level grouping and measurement error"),
+	h4("High-level grouping and residual"),
 	p(HTML(fullmodelTxt$groupingNerror)),
 	myG,
 	mye

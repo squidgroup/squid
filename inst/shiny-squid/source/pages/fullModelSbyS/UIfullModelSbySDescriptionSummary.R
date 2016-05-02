@@ -41,7 +41,7 @@ myTable <- getTable(data.frame(
                            paste0("Covariance between random-slopes in response to an environmental effect $",EQ2$env1,"$ and individual-specific response interaction to two environmental effects $(",EQ2$env1,", ",EQ2$env2,")$."),
                            paste0("Covariance between random-slopes in response to an environmental effect $",EQ2$env2,"$ and individual-specific response interaction to two environmental effects $(",EQ2$env1,", ",EQ2$env2,")$."),
                            paste0("Higher-level grouping variance (clusters, groups, families etc.)"),
-                           paste0("Measurement error"),
+                           paste0("Residual (unaccounted effect on the phenotype)"),
                            paste0("Total phenotypic variance")
   ),
   

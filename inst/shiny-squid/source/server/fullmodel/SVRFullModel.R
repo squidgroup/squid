@@ -373,7 +373,7 @@ SVRFullModel <- function(myModule, input, output, session){
 #                               and individual-specific response interaction to two environmental effects ($",EQ2$env1,"$, $",EQ2$env2,"$).",sep=""),
 #                         
                         "Higher-level grouping variance (clusters, groups, families etc.)", 
-                        "Measurement error variance", 
+                        "Residual variance", 
                         "Total phenotypic variance"
                       ),
         stringsAsFactors = FALSE
@@ -551,7 +551,7 @@ SVRFullModel <- function(myModule, input, output, session){
                           paste0("Environmental gradient ($",EQ2$env2,"$)."),
                           paste0("Environmental gradient ($",EQ2$env12,"$)."),
                           paste0("Higher-level grouping value."),
-                          paste0("Measurement error."))
+                          paste0("Residual."))
       )  
       
       return(getTable(myTable, header=TRUE))

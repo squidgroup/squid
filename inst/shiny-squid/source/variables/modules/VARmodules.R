@@ -68,14 +68,14 @@ Modules_VAR <- list(
                     "errorTxt"    = ""
   ),
   
-  # Measurement error variance (Ve)
-  "Ve"   = list("label"       = paste("Measurement error variance ($V_",NOT$error,"$):",sep=""),
-                "infoTxt"     = "Measurement error variance",
+  # Residual variance (Ve)
+  "Ve"   = list("label"       = paste("Residual variance ($V_",NOT$error,"$):",sep=""),
+                "infoTxt"     = "Variance of unaccounted effect on the phenotype.",
                 "value"       = 0.05,
                 "min"         = 0.01,
                 "max"         = 1,
                 "step"        = 0.01,
-                "errorTxt"    = "Measurement error variance ($V_",NOT$error,"$) must be a number between 0 and 1."
+                "errorTxt"    = "Residual variance ($V_",NOT$error,"$) must be a number between 0 and 1."
   ),
   
   # Number of trait expressions (NR)

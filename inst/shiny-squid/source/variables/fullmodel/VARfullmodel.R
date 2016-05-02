@@ -235,14 +235,14 @@ FullModel_VAR <- list(
   ),
   
   
-  # Measurement error variance (Ve)
-  "Ve"   = list("label"       = "Measurement error variance",
-                "infoTxt"     = "Measurement error variance.",
+  # Residual variance (Ve)
+  "Ve"   = list("label"       = "Residual variance",
+                "infoTxt"     = "Variance of unaccounted effect on the phenotype.",
                 "value"       = 0.05,
                 "min"         = 0,
                 "max"         = "",
                 "step"        = 0.01,
-                "errorTxt"    = "Measurement error variance must be a positive number."
+                "errorTxt"    = "Residual variance must be a positive number."
   ),
   
   # Higher-level grouping variance (VG)
@@ -298,13 +298,13 @@ FullModel_VAR <- list(
                    "errorTxt"  = "Population mean values must be numbers."),
   
   "Bnames" = c(paste0("$",EQ$mean0.1,"$"), 
-               paste0("$",EQ$mean1.1,EQ2$env1,"$"), 
-               paste0("$",EQ$mean2.1,EQ2$env2,"$"),
-               paste0("$",EQ$mean12.1,EQ2$env12,"$"),
+               paste0("$",EQ$mean1.1,"$"), 
+               paste0("$",EQ$mean2.1,"$"),
+               paste0("$",EQ$mean12.1,"$"),
                paste0("$",EQ$mean0.2,"$",sep=""), 
-               paste0("$",EQ$mean1.2,EQ2$env1,"$"), 
-               paste0("$",EQ$mean2.2,EQ2$env2,"$"),
-               paste0("$",EQ$mean12.2,EQ2$env12,"$")),
+               paste0("$",EQ$mean1.2,"$"), 
+               paste0("$",EQ$mean2.2,"$"),
+               paste0("$",EQ$mean12.2,"$")),
   
   "Vind"   = list( "label"     = "Individual Variance/Correlation matrix",
                    "infoTxt"   = "Individual Variance/Correlation matrix. Variances are on the matrix diagonal and correlation values are below the matrix diagonal.",
@@ -318,13 +318,13 @@ FullModel_VAR <- list(
                    "errorTxt2"  = "Correlation values must be a number between -1 and 1.") ,
   
   "Vindnames" = c(paste0("$",EQ2$dev0.1,"$"), 
-                  paste0("$",EQ2$dev1.1,EQ2$env1,"$"), 
-                  paste0("$",EQ2$dev2.1,EQ2$env2,"$"), 
-                  paste0("$",EQ2$dev12.1,EQ2$env12,"$"),
+                  paste0("$",EQ2$dev1.1,"$"), 
+                  paste0("$",EQ2$dev2.1,"$"), 
+                  paste0("$",EQ2$dev12.1,"$"),
                   paste0("$",EQ2$dev0.2,"$"), 
-                  paste0("$",EQ2$dev1.2,EQ2$env1,"$"), 
-                  paste0("$",EQ2$dev2.2,EQ2$env2,"$"), 
-                  paste0("$",EQ2$dev12.2,EQ2$env12,"$")),
+                  paste0("$",EQ2$dev1.2,"$"), 
+                  paste0("$",EQ2$dev2.2,"$"), 
+                  paste0("$",EQ2$dev12.2,"$")),
   
   "Checkbox_NbRecords" = list( "infoTxt" = "Number of records sampled."),
 
@@ -359,4 +359,4 @@ FullModel_VAR <- list(
   )
 )
 
-diag(FullModel_VAR$Vind$value)  <- c(0.7,0.1,0.1,0.1)
+diag(FullModel_VAR$Vind$value)  <- c(0.5,0.1,0.1,0.1)

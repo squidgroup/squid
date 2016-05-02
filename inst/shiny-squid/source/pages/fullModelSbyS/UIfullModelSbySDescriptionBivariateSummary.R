@@ -54,7 +54,7 @@ myTable <- getTable(data.frame(
                                   two environmental effects $(",EQ2$env1,", ",EQ2$env2,")$ for trait $",NOT$trait.1,"$ and the same 
                                   slope interaction for trait $",NOT$trait.2,"$."),
                            paste0("Higher-order covariance between reaction norm intercepts for traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$."),
-                           paste0("Measurement error covariance between reaction norm intercepts for traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$.")
+                           paste0("Residual covariance between reaction norm intercepts for traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$.")
 
   )
  ), header=TRUE)
