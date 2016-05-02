@@ -197,7 +197,7 @@ FullModel_VAR <- list(
   # Cyclic environemental effect Amplitude
   "cycA"   = list( "label"       = "Amplitude",
                    "infoTxt"     = "Environmental effect amplitude.",
-                   "value"       = 1,
+                   "value"       = 10,
                    "min"         = "",
                    "max"         = "",
                    "step"        = 0.01,
