@@ -99,6 +99,7 @@ span(
 																	 Both environments have been generated with stochastic, linear, and cyclic effect.</figcaption>
 		  </figure>')
 	),
+	p(HTML(fullmodelTxt$environment_8)),
 
 	h4("High-level grouping and residual"),
 	p(HTML(fullmodelTxt$groupingNerror)),
