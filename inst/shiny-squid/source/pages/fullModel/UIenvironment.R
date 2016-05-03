@@ -27,7 +27,8 @@ UIenvironment <- function(Mod, name, isShared){
         condition = paste("input.",Mod,"_",name,"_sto_state == 1 || input.",
                           Mod,"_",name,"_lin_state == 1 || input.",
                           Mod,"_",name,"_cyc_state == 1", sep=""),
-
+					
+          div(info_msg(FullModel_VAR$Env_preview)),
           plotOutput(paste(Mod,name,"plotEnvironment", sep="_"))
 
       )

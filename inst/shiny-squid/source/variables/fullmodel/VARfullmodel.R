@@ -97,6 +97,10 @@ FullModel_VAR <- list(
   # Environement variables 
   "Envnames" = c("X1", "X2", "EG", "ES"),
   
+  "Env_preview" = paste0("In SQuID the final output of each environmental effect is standardized  
+												 (i.e., $V_",NOT$env,"=1$ and $E(",NOT$env,")=0$).
+  											 However, the previsualization graph below displays only the generated environmental data before standardization."),
+  
   "X1"     = list( "state" = list("label" = "Add environment X1", 
                                   "infoTxt"  = "",
                                   "value" = FALSE),

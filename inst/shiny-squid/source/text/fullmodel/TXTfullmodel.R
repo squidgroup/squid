@@ -25,7 +25,7 @@ fullmodelTxt <- list(
                                   individuals repeatedly expressing phenotypes, for one or two traits, in uniform time. 
                                   The user has thus the flexibility to add different variance components that will form the 
                                   phenotype of the individual at each time step, and to set up a relative importance to each component. 
-                                  SQuID also allows the user to collect a sample of the simulated phenotypes (<i>i.e.</i>, the operational data set), 
+                                  SQuID also allows the user to collect a sample of the simulated phenotypes (i.e., the operational data set), 
                                   according to specific sampling design. Finally, the user has the opportunity 
                                   to download the operational data set for further analyses.",
   "fullModelSbyS_intro_2"     = "In this page, we will introduce to you step by step how to use our full module. 
@@ -39,7 +39,7 @@ fullmodelTxt <- list(
                                   phenotype values and the model used to create the sampling design.",
   
   
-  "SimModel_intro"      = "As a first step, we generate phenotype values of individuals that belong to a study population (<i>i.e.</i>, replicate world). 
+  "SimModel_intro"      = "As a first step, we generate phenotype values of individuals that belong to a study population (i.e., replicate world). 
                           Phenotypic values of each trait are calculated using 
                           the phenotypic equation described below.",
   
@@ -88,7 +88,7 @@ fullmodelTxt <- list(
                           both traits $",NOT$trait.1,"$ and $",NOT$trait.2,"$. The vector of individual deviation of the intercept and slopes for 
                           the two traits follows a multivariate normal distribution (MNV) with a zero-mean and covariance/variance 
                           matrix structure $\\Omega_{",NOT$devI,NOT$devS,"}$. On the right hand side is shown (co)variance matrix 
-                          $\\Omega_{",NOT$devI,NOT$devS,"}$. Values of variance stand along the diagonal of the matrix (<i>i.e.</i>, respectively, 
+                          $\\Omega_{",NOT$devI,NOT$devS,"}$. Values of variance stand along the diagonal of the matrix (i.e., respectively, 
                           the among-individual variance in intercepts for $",NOT$trait.1,"$ $(V_{",NOT$devI,NOT$trait.1,"})$, the among-individual variance in slopes 
                           for $",NOT$trait.1,"$ $(V_{",NOT$devS,NOT$trait.1,"})$, the among-individual variance in intercepts for $",NOT$trait.2,"$ $(V_{",NOT$devI,NOT$trait.2,"})$ 
                           and the among-individual variance in slopes for $",NOT$trait.2,"$ $(V_{",NOT$devS,NOT$trait.2,"})$). 
@@ -105,11 +105,11 @@ fullmodelTxt <- list(
                           $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,\\sqrt{V_{",NOT$env,"_",NOT$random,"}})$$
                           This means that environmental values will be totally 
                           stochastic and uncorrelated from one time point to the next. This simple situation is not the most realistic 
-                          (<i>i.e.</i>, it is hard to think of an environmental factor that is completely stochastically distributed in time). 
+                          (i.e., it is hard to think of an environmental factor that is completely stochastically distributed in time). 
                           The other options are more complex but also more realistic.",sep=""),
   "environment_3"       = paste("For the <b>temporally auto-correlated</b> $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ 
                           we assume that two values of the environment close in time 
-                          are more similar than two values further apart from each other (<i>i.e.</i>, positive autocorrelation). 
+                          are more similar than two values further apart from each other (i.e., positive autocorrelation). 
                           Environmental values $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ are generated 
                           as the product of a stochastic value by a decay function.
                           $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,\\sqrt{V_{",NOT$env,"_",NOT$random,"}})\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
@@ -152,7 +152,7 @@ fullmodelTxt <- list(
                           a normal distribution.",sep=""),
   "environment_8"       = paste0("Finally, in SQuID the final output of each 
 													environmental effect ($",EQ2$env1,"$, $",EQ2$env2,"$ and $",EQ2$env12,"$) is 
-													expressed in unit variance (<i>i.e.</i>, $V_",NOT$env,"=1$) and mean-centred (<i>i.e.</i>, $E(",NOT$env,")=0$)."),
+													expressed in unit variance (i.e., $V_",NOT$env,"=1$) and mean-centred (i.e., $E(",NOT$env,")=0$)."),
   "groupingNerror"      = paste("The high-level grouping term ($",NOT$groupV,"$) is generated from 
                           a normal distribution of mean 0 and variance $V_",NOT$groupV,"$, 
                           and the residual term ($",NOT$error,"$) from a normal distribution 
@@ -187,7 +187,7 @@ fullmodelTxt <- list(
   "bivariateStepbyStep" = paste0("SQuID can model a bivariate phenotypic equation with random intercepts 
                                  and slopes for individual identity with respect to two environmental covariates. 
                                  SQuID enables both linear and interactive effects of these covariates on the 
-                                 bivariate phenotype (<i>i.e.</i>, non-warped vs. warped multi-dimensional reaction 
+                                 bivariate phenotype (i.e., non-warped vs. warped multi-dimensional reaction 
                                  norm planes; <a href='http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12430/abstract' target='_blank'>Araya-Ajoy <i>et al.</i> 2015</a>; 
                                  <a href='http://onlinelibrary.wiley.com/doi/10.1111/brv.12131/abstract' target='_blank'>Westneat <i>et al.</i> 2015</a>) to be modelled. 
                                  Covariances in SQuID emerge due to user-defined settings in the fixed and 
@@ -257,8 +257,8 @@ fullmodelTxt <- list(
                             then add further complexity by combining multiple environmental effect types.
   													Also, remember that in SQuID the final output of each 
   													environmental effect ($",EQ2$env1,"$, $",EQ2$env2,"$ and $",EQ2$env12,"$) is 
-  													expressed in unit variance (<i>i.e.</i>, $V_",NOT$env,"=1$) and mean-centred (<i>i.e.</i>, $E(",NOT$env,")=0$).
-  													However, the environmental effect previsualization (<i>i.e.</i>, the displayed data on the graph below) is the original data before standardization."),
+  													expressed in unit variance (i.e., $V_",NOT$env,"=1$) and mean-centred (i.e., $E(",NOT$env,")=0$).
+  													However, the previsualization graph below displays the generated environmental data before standardization."),
   "inputEnvironment_6"    = paste("Finally, you can add a third environmental effect corresponding to the 
                             interaction between $",EQ2$env1,"$ and $",EQ2$env2,"$. 
                             Note that an environmental interaction is allowed only when $",EQ2$env1,"$ 
