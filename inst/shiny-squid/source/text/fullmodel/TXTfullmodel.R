@@ -63,7 +63,7 @@ fullmodelTxt <- list(
 													At the left of the 
                           residual term we have $",EQ$group.1,"$ that represents the deviation from the population average of 
                           trait $",NOT$trait.1,"$ for a group $",NOT$group,"$ (this means that all the individuals of a given group $",NOT$group,"$ share 
-                          the same value of $",NOT$groupV,"$ ($",NOT$groupV,"$ follows a normal distribution with a mean = 0 and variance = $V_",NOT$groupV,"$).
+                          the same value of $",NOT$groupV,"$ ($",NOT$groupV,"$ follows a normal distribution with a mean = 0 and variance = $Var(",NOT$groupV,")$).
                           The concept of grouping is wide ranging from genetic similarities (e.g. families) to spatial aggregations 
                           (e.g. territories) and diet compositions and could be specific to the each study.",sep=""),
   "modelEquation_6"     = paste("The last three components $(",EQ$mean1.1,"+",EQ$dev1.1,").",EQ$env1,"+(",EQ$mean2.1,"+",EQ$dev2.1,").",EQ$env2," 
@@ -89,20 +89,20 @@ fullmodelTxt <- list(
                           the two traits follows a multivariate normal distribution (MNV) with a zero-mean and covariance/variance 
                           matrix structure $\\Omega_{",NOT$devI,NOT$devS,"}$. On the right hand side is shown (co)variance matrix 
                           $\\Omega_{",NOT$devI,NOT$devS,"}$. Values of variance stand along the diagonal of the matrix (i.e., respectively, 
-                          the among-individual variance in intercepts for $",NOT$trait.1,"$ $(V_{",NOT$devI,NOT$trait.1,"})$, the among-individual variance in slopes 
-                          for $",NOT$trait.1,"$ $(V_{",NOT$devS,NOT$trait.1,"})$, the among-individual variance in intercepts for $",NOT$trait.2,"$ $(V_{",NOT$devI,NOT$trait.2,"})$ 
-                          and the among-individual variance in slopes for $",NOT$trait.2,"$ $(V_{",NOT$devS,NOT$trait.2,"})$). 
-                          Covariance values between intercepts (e.g. $Cov_{", EQ2$dev0.1, ",", EQ2$dev0.2,"}$), 
-                          slopes (e.g. $Cov_{", EQ2$dev1.1, ",", EQ2$dev1.2,"}$), 
-                          and intercepts and slopes (e.g. $Cov_{", EQ2$dev0.1, ",", EQ2$dev1.1,"}$) lie below the diagonal. 
+                          the among-individual variance in intercepts for $",NOT$trait.1,"$ $(Var(",NOT$devI,"_",NOT$trait.1,"))$, the among-individual variance in slopes 
+                          for $",NOT$trait.1,"$ $(Var(",NOT$devS,"_",NOT$trait.1,"))$, the among-individual variance in intercepts for $",NOT$trait.2,"$ $(Var(",NOT$devI,"_",NOT$trait.2,"))$ 
+                          and the among-individual variance in slopes for $",NOT$trait.2,"$ $(Var(",NOT$devS,"_",NOT$trait.2,"))$). 
+                          Covariance values between intercepts (e.g. $Cov(", EQ2$dev0.1, ",", EQ2$dev0.2,")$), 
+                          slopes (e.g. $Cov(", EQ2$dev1.1, ",", EQ2$dev1.2,")$), 
+                          and intercepts and slopes (e.g. $Cov(", EQ2$dev0.1, ",", EQ2$dev1.1,")$) lie below the diagonal. 
                           When building up phenotypic design the program lets you specify all of these (co)variance values. 
                           Note that in SQuID inputs the correlation/variance matrix is asked instead of the (co)variance matrix. 
                           This is more convenient for users while correlations range between -1 and 1.",sep=""),
   "environment_1"       = "SQuID allows you to generate different structures by which the environment changes over time: 
                           <ol><li>stochastic</li> <li>temporally auto-correlated</li> <li>linear</li> <li>cyclic</li></ol>",
   "environment_2"       = paste("For the first structure (<b>stochastic</b>), environmental values $",NOT$env,"_{",NOT$random,NOT$time,"}$ are 
-                          generated using a Normal distribution with mean 0 and variance $V_{",NOT$env,"_",NOT$random,"}$. 
-                          $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,\\sqrt{V_{",NOT$env,"_",NOT$random,"}})$$
+                          generated using a Normal distribution with mean 0 and variance $Var(",NOT$env,"_",NOT$random,")$. 
+                          $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,\\sqrt{Var(",NOT$env,"_",NOT$random,")})$$
                           This means that environmental values will be totally 
                           stochastic and uncorrelated from one time point to the next. This simple situation is not the most realistic 
                           (i.e., it is hard to think of an environmental factor that is completely stochastically distributed in time). 
@@ -112,7 +112,7 @@ fullmodelTxt <- list(
                           are more similar than two values further apart from each other (i.e., positive autocorrelation). 
                           Environmental values $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ are generated 
                           as the product of a stochastic value by a decay function.
-                          $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,\\sqrt{V_{",NOT$env,"_",NOT$random,"}})\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
+                          $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,\\sqrt{Var(",NOT$env,"_",NOT$random,")})\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
                           where $\\Delta ",NOT$time,"$ is the time interval between two instances of the study period, and $\\alpha$
                           is the decay rate, a measure of how fast the correlation decays with time.
                           $$\\alpha=ln(autocor)$$
@@ -152,11 +152,11 @@ fullmodelTxt <- list(
                           a normal distribution.",sep=""),
   "environment_8"       = paste0("Finally, in SQuID the final output of each 
 													environmental effect ($",EQ2$env1,"$, $",EQ2$env2,"$ and $",EQ2$env12,"$) is 
-													expressed in unit variance (i.e., $V_",NOT$env,"=1$) and mean-centred (i.e., $E(",NOT$env,")=0$)."),
+													expressed in unit variance (i.e., $Var(",NOT$env,")=1$) and mean-centred (i.e., $E(",NOT$env,")=0$)."),
   "groupingNerror"      = paste("The high-level grouping term ($",NOT$groupV,"$) is generated from 
-                          a normal distribution of mean 0 and variance $V_",NOT$groupV,"$, 
+                          a normal distribution of mean 0 and variance $Var(",NOT$groupV,")$, 
                           and the residual term ($",NOT$error,"$) from a normal distribution 
-                          of mean 0 and variance $V_",NOT$error,"$.",sep=""),
+                          of mean 0 and variance $Var(",NOT$error,")$.",sep=""),
   
   
   "samplingDesign_1"    = "As a second step, we retrieve a subsample of previously simulated phenotypic values according 
@@ -257,7 +257,7 @@ fullmodelTxt <- list(
                             then add further complexity by combining multiple environmental effect types.
   													Also, remember that in SQuID the final output of each 
   													environmental effect ($",EQ2$env1,"$, $",EQ2$env2,"$ and $",EQ2$env12,"$) is 
-  													expressed in unit variance (i.e., $V_",NOT$env,"=1$) and mean-centred (i.e., $E(",NOT$env,")=0$).
+  													expressed in unit variance (i.e., $Var(",NOT$env,"=1)$) and mean-centred (i.e., $E(",NOT$env,")=0$).
   													However, the previsualization graph below displays the generated environmental data before standardization."),
   "inputEnvironment_6"    = paste("Finally, you can add a third environmental effect corresponding to the 
                             interaction between $",EQ2$env1,"$ and $",EQ2$env2,"$. 

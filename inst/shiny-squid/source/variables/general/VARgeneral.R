@@ -10,6 +10,7 @@ NOT <-list(
   "devI"           = "I",
   "devS"           = "S",
   "env"            = "x",
+  "envEffect"      = "E",
   "random"         = "S",
   "autocorrelated" = "A",
   "linear"         = "L",
@@ -21,6 +22,7 @@ NOT <-list(
   "groupV"         = "G",
   "error"          = "e",
   "residual"       = "r",
+  "residualUpper"  = "R",
   "total"          = "P",
   "repeatability"  = "R",
   "mu"             = "\\mu",
@@ -42,19 +44,19 @@ EQ <- list(
   "mean1.2"      = paste(NOT$mean,"_{1",NOT$trait.2,"}",sep=""),
   "dev1.1"       = paste(NOT$devS,"_{1",NOT$trait.1,NOT$ind,"}",sep=""),
   "dev1.2"       = paste(NOT$devS,"_{1",NOT$trait.2,NOT$ind,"}",sep=""),
-  "env1"         = paste(NOT$env,"_{1",NOT$time,NOT$ind,"}",sep=""),
+  "env1"         = paste(NOT$env,"_{1",NOT$time,NOT$ind,NOT$group,"}",sep=""),
   
   "mean2.1"      = paste(NOT$mean,"_{2",NOT$trait.1,"}",sep=""),
   "mean2.2"      = paste(NOT$mean,"_{2",NOT$trait.2,"}",sep=""),
   "dev2.1"       = paste(NOT$devS,"_{2",NOT$trait.1,NOT$ind,"}",sep=""),
   "dev2.2"       = paste(NOT$devS,"_{2",NOT$trait.2,NOT$ind,"}",sep=""),
-  "env2"         = paste(NOT$env,"_{2",NOT$time,NOT$ind,"}",sep=""),
+  "env2"         = paste(NOT$env,"_{2",NOT$time,NOT$ind,NOT$group,"}",sep=""),
   
   "mean12.1"     = paste(NOT$mean,"_{12",NOT$trait.1,"}",sep=""),
   "mean12.2"     = paste(NOT$mean,"_{12",NOT$trait.2,"}",sep=""),
   "dev12.1"      = paste(NOT$devS,"_{12",NOT$trait.1,NOT$ind,"}",sep=""),
   "dev12.2"      = paste(NOT$devS,"_{12",NOT$trait.2,NOT$ind,"}",sep=""),
-  "env12"        = paste(NOT$env,"_{1",NOT$time,NOT$ind,"}.",NOT$env,"_{2",NOT$time,NOT$ind,"}",sep=""),
+  "env12"        = paste(NOT$env,"_{1",NOT$time,NOT$ind,NOT$group,"}.",NOT$env,"_{2",NOT$time,NOT$ind,NOT$group,"}",sep=""),
   
   "group.1"      = paste(NOT$groupV,"_{",NOT$trait.1,NOT$group,"}",sep=""),
   "group.2"      = paste(NOT$groupV,"_{",NOT$trait.2,NOT$group,"}",sep=""),
@@ -74,15 +76,15 @@ EQ1 <- list(
 	
 	"mean1"      = paste(NOT$mean,"_1",sep=""),
 	"dev1"       = paste(NOT$devS,"_{1",NOT$ind,"}",sep=""),
-	"env1"       = paste(NOT$env,"_{1",NOT$time,NOT$ind,"}",sep=""),
+	"env1"       = paste(NOT$env,"_{1",NOT$time,NOT$ind,NOT$group,"}",sep=""),
 	
 	"mean2"      = paste(NOT$mean,"_2",sep=""),
 	"dev2"       = paste(NOT$devS,"_{2",NOT$ind,"}",sep=""),
-	"env2"       = paste(NOT$env,"_{2",NOT$time,NOT$ind,"}",sep=""),
+	"env2"       = paste(NOT$env,"_{2",NOT$time,NOT$ind,NOT$group,"}",sep=""),
 	
 	"mean12"     = paste(NOT$mean,"_{12}",sep=""),
 	"dev12"      = paste(NOT$devS,"_{12",NOT$ind,"}",sep=""),
-	"env12"      = paste(NOT$env,"_{1",NOT$time,NOT$ind,"}.",NOT$env,"_{2",NOT$time,NOT$ind,"}",sep=""),
+	"env12"      = paste(NOT$env,"_{1",NOT$time,NOT$ind,NOT$group,"}.",NOT$env,"_{2",NOT$time,NOT$ind,NOT$group,"}",sep=""),
 	
 	"group"      = paste(NOT$groupV,"_",NOT$group,sep=""),
 	

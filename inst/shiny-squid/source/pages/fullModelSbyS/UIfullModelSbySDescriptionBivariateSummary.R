@@ -3,8 +3,8 @@ myTable <- getTable(data.frame(
   
   "Component"          = c("Variance component",
                            "$\\text{Fixed effects}$",
-                           paste0("$COV_{E_{P_",NOT$trait.1,"}, E_{P_",NOT$trait.2,"}}$"),
-                           paste0("$COV_{E_{1P_",NOT$trait.1,"}E_{2P_",NOT$trait.1,"}, E_{1P_",NOT$trait.2,"}E_{2P_",NOT$trait.2,"}}$"),
+                           paste0("$COV_{",NOT$mean,"_{",NOT$trait.1,"}, ",NOT$mean,"_{",NOT$trait.2,"}}$"),
+                           paste0("$COV_{",NOT$mean,"_{1",NOT$trait.1,"}",NOT$mean,"_{2",NOT$trait.1,"}, ",NOT$mean,"_{1",NOT$trait.2,"}",NOT$mean,"_{2",NOT$trait.2,"}}$"),
                            "$\\text{Random effects}$",
                            paste0("$COV_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}$"),
                            paste0("$COV_{",NOT$devS,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}$"),

@@ -23,7 +23,7 @@ fixedPage(
                    source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionSummary.R",local=TRUE)[["value"]]
           ),
           # Bivariate Model Summary
-          tabPanel("Bivariate model", 
+          tabPanel("Bivariate model",
                    source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionBivariateSummary.R",local=TRUE)[["value"]]
           ),
           # Sampling design description

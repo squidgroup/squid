@@ -42,19 +42,19 @@ myVarCovMatrix       <- paste(
         \\sim MNV(0,\\Omega_{",NOT$devI, NOT$devS,"}):
         \\Omega_{",NOT$devI, NOT$devS,"}=
     \\begin{pmatrix}
-        V_{",   EQ2$dev0.1,"}                  &                                      &                                    &                                     &                                    &                                    &                                    &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev1.1 ,"} & V_{",   EQ2$dev1.1, "}                &                                    &                                     &                                    &                                    &                                    &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev2.1 ,"} & Cov_{", EQ2$dev1.1, ",",EQ2$dev2.1 ,"} & V_{",  EQ2$dev2.1,"}                &                                     &                                    &                                    &                                    &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev12.1,"} & Cov_{", EQ2$dev1.1, ",",EQ2$dev12.1,"} & Cov_{",EQ2$dev2.1,",",EQ2$dev12.1,"} & V_{",  EQ2$dev12.1,"}                &                                    &                                    &                                    &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev0.2 ,"} & Cov_{", EQ2$dev1.1, ",",EQ2$dev0.2 ,"} & Cov_{",EQ2$dev2.1,",",EQ2$dev0.2 ,"} & Cov_{",EQ2$dev12.1,",",EQ2$dev0.2 ,"} & V_{",  EQ2$dev0.2,"}                &                                    &                                    &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev1.2 ,"} & Cov_{", EQ2$dev1.1, ",",EQ2$dev1.2 ,"} & Cov_{",EQ2$dev2.1,",",EQ2$dev1.2 ,"} & Cov_{",EQ2$dev12.1,",",EQ2$dev1.2 ,"} & Cov_{",EQ2$dev0.2,",",EQ2$dev1.2 ,"} & V_{",EQ2$dev1.2,"}                  &                                    &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev2.2 ,"} & Cov_{", EQ2$dev1.1, ",",EQ2$dev2.2 ,"} & Cov_{",EQ2$dev2.1,",",EQ2$dev2.2 ,"} & Cov_{",EQ2$dev12.1,",",EQ2$dev2.2 ,"} & Cov_{",EQ2$dev0.2,",",EQ2$dev2.2 ,"} & Cov_{",EQ2$dev1.2,",",EQ2$dev2.2 ,"} & V_{",EQ2$dev2.2,"}                  &                    \\\\
-        Cov_{", EQ2$dev0.1, ",", EQ2$dev12.2,"} & Cov_{", EQ2$dev1.1, ",",EQ2$dev12.2,"} & Cov_{",EQ2$dev2.1,",",EQ2$dev12.2,"} & Cov_{",EQ2$dev12.1,",",EQ2$dev12.2,"} & Cov_{",EQ2$dev0.2,",",EQ2$dev12.2,"} & Cov_{",EQ2$dev1.2,",",EQ2$dev12.2,"} & Cov_{",EQ2$dev2.2,",",EQ2$dev12.2,"} & V_{",EQ2$dev12.2,"} \\\\
+        Var(",   EQ2$dev0.1,")                  &                                      &                                    &                                     &                                    &                                    &                                    &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev1.1 ,") & Var(",   EQ2$dev1.1, ")                &                                    &                                     &                                    &                                    &                                    &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev2.1 ,") & Cov(", EQ2$dev1.1, ",",EQ2$dev2.1 ,") & Var(",  EQ2$dev2.1,")                &                                     &                                    &                                    &                                    &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev12.1,") & Cov(", EQ2$dev1.1, ",",EQ2$dev12.1,") & Cov(",EQ2$dev2.1,",",EQ2$dev12.1,") & Var(",  EQ2$dev12.1,")                &                                    &                                    &                                    &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev0.2 ,") & Cov(", EQ2$dev1.1, ",",EQ2$dev0.2 ,") & Cov(",EQ2$dev2.1,",",EQ2$dev0.2 ,") & Cov(",EQ2$dev12.1,",",EQ2$dev0.2 ,") & Var(",  EQ2$dev0.2,")                &                                    &                                    &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev1.2 ,") & Cov(", EQ2$dev1.1, ",",EQ2$dev1.2 ,") & Cov(",EQ2$dev2.1,",",EQ2$dev1.2 ,") & Cov(",EQ2$dev12.1,",",EQ2$dev1.2 ,") & Cov(",EQ2$dev0.2,",",EQ2$dev1.2 ,") & Var(",EQ2$dev1.2,")                  &                                    &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev2.2 ,") & Cov(", EQ2$dev1.1, ",",EQ2$dev2.2 ,") & Cov(",EQ2$dev2.1,",",EQ2$dev2.2 ,") & Cov(",EQ2$dev12.1,",",EQ2$dev2.2 ,") & Cov(",EQ2$dev0.2,",",EQ2$dev2.2 ,") & Cov(",EQ2$dev1.2,",",EQ2$dev2.2 ,") & Var(",EQ2$dev2.2,")                  &                    \\\\
+        Cov(", EQ2$dev0.1, ",", EQ2$dev12.2,") & Cov(", EQ2$dev1.1, ",",EQ2$dev12.2,") & Cov(",EQ2$dev2.1,",",EQ2$dev12.2,") & Cov(",EQ2$dev12.1,",",EQ2$dev12.2,") & Cov(",EQ2$dev0.2,",",EQ2$dev12.2,") & Cov(",EQ2$dev1.2,",",EQ2$dev12.2,") & Cov(",EQ2$dev2.2,",",EQ2$dev12.2,") & Var(",EQ2$dev12.2,") \\\\
     \\end{pmatrix} 
 $$",sep="")
 
-myG      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$groupV,"})$$", sep="")
-mye      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{V_",NOT$error,"})$$", sep="")
+myG      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{Var(",NOT$groupV,")})$$", sep="")
+mye      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{Var(",NOT$error,")})$$", sep="")
 
 span( 
 	p(HTML(fullmodelTxt$SimModel_intro)), 
@@ -76,6 +76,7 @@ span(
 	h4("Individual specific responses"),
 	p(HTML(fullmodelTxt$indSpecResponses)),
 	myVarCovMatrix,
+	p(HTML("Some of the terms above are explained in more detail in the two following sections (i.e., <i>Model summary</i> and <i>Bivariate model</i>)")),
 
 	h4("Environments"),
 	p(HTML(fullmodelTxt$environment_1)),
