@@ -1,40 +1,13 @@
-# @title Plot an environmental effect
+# plotEnvironment: plot an environmental effect
 #
-# @description          \code{plotEnvironment} generates and plots the time serie of an environmental effect values.
+# Args:
+#    input     list providing the environmental effect parameters (see details).
+#    module    character of the module name. This parameter is only used by SQUID app.
+#    envName   character of the name of the environment. This parameter is only used by SQUID app.
 #
-# @param input          list providing the environmental effect parameters (see details).
-# @param module         character of the module name. This parameter is only used by SQUID app.
-# @param envName        character of the name of the environment. This parameter is only used by SQUID app.
-#
-# @return               a \href{https://cran.r-project.org/web/packages/ggplot2/index.html}{ggplot2} plot
-# 
-# @details
-# 
-# The argument \code{input} is a list that contains all the parameters needed to generate the desired environment effect. All possible parameters are presented below including their default value if not defined.
-#
-# \itemize{
-#    \item{sto_state: }{(default FALSE) logical value. If TRUE a stochastic environmental effect will be added to the total environmental effect.}
-#    \item{sto_V: }{(default 1) }
-#    \item{sto_autocor_state: }{(default FALSE) }
-#    \item{sto_corr: }{(default 0) }
-#    \item{lin_intercept: }{(default FALSE) }
-#    \item{lin_slope: }{(default FALSE) }
-#    
-# }
-# 
-# @examples
-# input <- list()
-#
-# # Stochastic environmental effect
-# input$sto_state  <- TRUE
-# 
-# # Linear environmental effect
-# input$lin_state  <- TRUE
-#
-# plotEnvironment(input)
-# 
-#
-#
+# Returns:
+#   a ggplot plot.
+
 plotEnvironment <- function(input, module=NULL, envName=NULL){
   
   x<-colour<-NULL

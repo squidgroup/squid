@@ -1,3 +1,14 @@
+# check_one_integer: test if an input is one integer object
+#
+# Args:
+#   obj:      the object to test.
+#   obj_name: string; the name of the object to test.
+#   minimum:  the minimum value of the input value. If NULL the input does not have a minimum.
+#   maximum:  the maximum value of the input value. If NULL the input does not have a maximum.
+#
+# Returns:
+#   the object inputed if it is one integer object otherwise generates an error.
+
 check_one_integer <- function(obj, obj_name="", minimum=NULL, maximum=NULL, ...){
 
 	is.wholenumber <- function(x, tol = .Machine$double.eps^0.5){  

@@ -1,14 +1,15 @@
-# Cor2CovMatrix
+# Cor2CovMatrix: Transform a correlation/variance matrix to a covariance/variance matrix.
 #
-# @description          Transform a correlation/variance matrix to a covariance/variance matrix. 
+# Args:
+#   VCor:      matrix of correlation/variance. Variances are on the matrix diagonal.
 #
-# @param  CorCov        matrix of correlation/variance. Variances are on the matrix diagonal.
+# Returns:
+#   matrix of covariance/variance
 #
-# @return               matrix of covariance/variance.
-#
-Cor2CovMatrix <- function(CorCov){
 
-  VCov   <- CorCov
+Cor2CovMatrix <- function(VCor){
+
+  VCov   <- VCor
   Vdim   <- length(diag(VCov))
   
   if(Vdim != 1){

@@ -1,3 +1,13 @@
+# decayRate: apply autocorrelation to an environment using a decay rate.
+#
+# Args:
+#   env:  the input environment without autocorrelation.
+#   corr: numeric; correlation between two consecutive value.
+#   Nb:   interger; dimension of the matrix.
+#
+# Returns:
+#   the new environment wtih autocorrelation
+
 decayRate <- function(env,corr, Nb){
 
   myMatrix <- matrix(0, nrow=Nb, ncol=Nb)

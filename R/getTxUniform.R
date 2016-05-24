@@ -1,9 +1,12 @@
-# getTxUniform
+# getTxUniform: generate the sampling time for each individual, each trait and each population
 #
-# @description          generate the sampling time for each individual, each trait and each population
+# Args:
+#   N:            internal list of simulation variables (related to simulation design). 
+#   Time:         internal list of simulation variables (related to simulation timing). 
 #
-# @return               matrix of sampling time
-#
+# Returns:
+#   matrix of sampling time
+
 getTxUniform <- function(N, Time){  
     
   if(Time$Tsamp > 1){

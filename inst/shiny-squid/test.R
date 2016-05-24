@@ -98,9 +98,9 @@ input$NR   <- 10 # default = 1
 input$NR_ind   <- TRUE # default = TRUE
 input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- FALSE # default = TRUE
-input$ST_trait <- TRUE # default = TRUE
+input$ST_trait <- "TRUE" # default = TRUE
 
-data <- squid::squidR(input=input, plot=TRUE)
+data <- squid::squidR(input=input)
 
 squid::squidR(X_previsualization = "X2")
 

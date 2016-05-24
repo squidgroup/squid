@@ -1,3 +1,16 @@
+# squidR: Run SQuID without graphical user interface
+#
+# Args:
+#   input	              A list of the model input parameters (see Details).
+#   plot	              logical; If FALSE (default), squidR does not include the simulation plots into the output list (see Value).
+#   data	              A data.frame of the full data (the "world") returned by squidR (output$full_data).
+#   module              A character string of the module name. This argument is only used by SQuID app.
+#   X_previsualization	A character string of the environment name. This argument is only used by SQuID app.
+#
+# Returns:
+#   returns a list that includes a data.frame of the full data generated (the "world"), 
+#   a data.frame of the sampled data and six ggplot2 plots of the results (only if plot is set to TRUE).
+#
 #' @export
 #' @import data.table
 #' 
@@ -41,7 +54,7 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
     #######################################################################################
     ## Generate my phenotype traits
     if(is.null(data)){
-      output[["full_data"]]    <- getFullData(Mu, N, B, r, V, Time, variables, environments)
+      output[["full_data"]]    <- getFullData(Mu, N, B, V, Time, variables, environments)
     }else{
       output[["full_data"]]    <- data
     }
@@ -81,5 +94,4 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
   }
   
   return(output)
-  
 }

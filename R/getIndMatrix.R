@@ -1,9 +1,14 @@
-# getIndMatrix
+# getIndMatrix: generate indviduals randome effects (intercepts and slopes)
 #
-# @description          generate indviduals randome effects (intercepts and slopes) 
+# Args:
+#   N:         internal list of simulation variables (related to simulation design). 
+#   Mu:        mean value for the normal distributions.
+#   VCov:      matrix of covariance/variance. Variances are on the matrix diagonal. 
+#   Variables: list of the model general design.
 #
-# @return               matrix of individuals random effects  in the intercepts and slopes.
-#
+# Returns:
+#   matrix of individuals random effects in the intercepts and slopes.
+
 getIndMatrix <- function(N, Mu, VCov, Variables){
   
   # Generate the ind matrix the multivariate normal distribution
@@ -19,5 +24,4 @@ getIndMatrix <- function(N, Mu, VCov, Variables){
   ind <- reshapeMat(ind, Variables$nb.IS)
   
   return(ind)
-  
 }

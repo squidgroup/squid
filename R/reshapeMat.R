@@ -1,3 +1,12 @@
+# reshapeMat: reshape a matrix object.
+#
+# Args:
+#   X:    The matrix object to reshape 
+#   step: number of columns.
+#
+# Returns:
+#   matrix
+
 reshapeMat <- function(mat, step){
   
   newMat <- NULL

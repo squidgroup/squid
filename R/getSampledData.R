@@ -1,9 +1,13 @@
-# getSampledData
+# getSampledData: extract sampling data from the real data
 #
-# @description          extract sampling data from the real data
+# Args:
+#   N:            internal list of simulation variables (related to simulation design). 
+#   Time:         internal list of simulation variables (related to simulation timing). 
+#   full_Data:    data.frame; the full data generated.
 #
-# @return               data.frame of sampled model data
-#
+# Returns:
+#   data.frame of sampled model data
+
 getSampledData <- function(N, Time, full_Data){
 
     # get number of records for each individual

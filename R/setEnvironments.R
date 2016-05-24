@@ -1,12 +1,12 @@
 # setEnvironments: set up environment objects
 #
-# @description          
-# 
-# @param input          list of all the inputs used to run the model.
-# @param module         character of the name of the module.
-# 
-# @return               list of the environments used to generete SQUID world.
+# Args:
+#   input          list of all the inputs used to run the model.
+#   module         character of the name of the module.
 #
+# Returns:
+#   list of the environments used to generete SQUID world.
+
 setEnvironments <- function(input, module, sep){
   
   # Create a list object for each environment

@@ -1,9 +1,13 @@
-# getEnvironment
+# getEnvironment: generates environmental values
 #
-# @description          generate the model environment
+# Args:
+#   environment:    List of the environment information.
+#   N:              internal list of simulation variables (related to simulation design). 
+#   visualization:  logical; TRUE if environment is needed only for visualization.
 #
-# @return               vector of the environment values
-#
+# Returns:
+#   vector of the environment values
+
 getEnvironment <- function(environment, N, visualization){
   
   if(!visualization){
@@ -92,5 +96,4 @@ getEnvironment <- function(environment, N, visualization){
   }
   
   return(output)
-
 }

@@ -1,4 +1,14 @@
-### Display results
+# displayResults: create ggplot plots showing the results of the simulation.
+#
+# Args:
+#   N:            internal list of simulation variables (related to simulation design). 
+#   Time:         internal list of simulation variables (related to simulation timing).
+#   full_Data:    data.frame; the full data generated.
+#   sampled_Data: data.frame; the sampled data 
+#
+# Returns:
+#   list of ggplot plots
+
 displayResults <- function(N, Time, full_Data, sampled_Data){ 
     
   Trait<-Replicate<-Individual<-Phenotype<-Individual_Trait<-X1<-X2<-X1X2<-NULL

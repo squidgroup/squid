@@ -1,10 +1,18 @@
-# get_full_data
+# getFullData: generates full data for each phenotype trait
 #
-# @description          generate data for each phenotype trait
+# Args:
+#   Mu:  mean value for the normal distributions.
+#   N:            internal list of simulation variables (related to simulation design). 
+#   B:            matrix of the mean population values (intercept and slopes).
+#   V:            list of the variances used for the simulation.
+#   Time:         internal list of simulation variables (related to simulation timing). 
+#   variables:    list of the model general design.
+#   environments: list of the environments info.
 #
-# @return               data.frame full model data
-#
-getFullData <- function(Mu, N, B, r, V, Time, variables, environments){
+# Returns:
+#   data.frame of the full model data
+
+getFullData <- function(Mu, N, B, V, Time, variables, environments){
   
     #############################################  
     

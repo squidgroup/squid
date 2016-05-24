@@ -1,14 +1,14 @@
-# multiplot
+# multiplot: Multiple plot function
 #
-# @description          Multiple plot function
-# 
-# @param ...            ggplot objects
-# @param plotlist       list of ggplot objects
-# @param cols           Number of columns in layout
-# @param layout         A matrix specifying the layout. If present, 'cols' is ignored.
+# Args:
+#   ...         ggplot objects
+#   plotlist:   list of ggplot objects
+#   cols:       Number of columns in layout
+#   layout:     A matrix specifying the layout. If present, 'cols' is ignored.
 #
-# @return               list of an environment object.
-#
+# Returns:
+#   list of an environment object.
+
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   # require(grid)
   

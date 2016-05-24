@@ -1,9 +1,12 @@
-# getNRI
+# getNRI: generate number of records for each individual
 #
-# @description          generate number of records for each individual
+# Args:
+#   N:         internal list of simulation variables (related to simulation design). 
+#   Time:         internal list of simulation variables (related to simulation timing). 
 #
-# @return               vector of number of records per individual and trait
-#
+# Returns:
+#   vector of number of records per individual and trait.
+
 getNRI <- function(N, Time){
   
   nbSample.NT   <- N$NI*N$NP*N$NT
@@ -44,5 +47,4 @@ getNRI <- function(N, Time){
   NRI[NRI  > Time$TsampI] <- Time$TsampI 
 
   return(NRI)
-  
 }
