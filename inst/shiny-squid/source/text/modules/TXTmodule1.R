@@ -77,47 +77,55 @@ Mod1Step1_txt <- list(
 # Step 2 --------------
 Mod1Step2_txt <- list(    
   "title"     = "Step 2: Repeatability and measurement error",
-  "subgoal"   = "<b>Sub-goal:</b> Learning how to estimate measurement error 
-                  in traits varying solely among individuals.",
-  "intro"     = "<b>Introduction:</b> In the previous step, you estimated the mean and the 
-                  total variance of a sample of individuals measured once. From this you 
-                  learned that some of the observed variation in measures might be due to measurement 
-                  error, which occurs when the measured value deviates (for whatever reason) 
-                  from the biological value. Here we detail the sampling design that you might 
-                  use to directly estimate the magnitude of measurement error; we do this 
-                  for a trait where the true value of the trait is constant for an individual 
-                  (cf. a &lsquo;fixed&rsquo; rather than &lsquo;labile&rsquo; trait, e.g. structural 
-                  size in adulthood).  
-                  Measurement error can be estimated by measuring the same set of individuals 
-                  multiple times (preferably in a blind and randomized order). Since their 
-                  trait values are fixed, any deviation in measured values across measurements 
-                  of the same individuals should be due to measurement error.",
-  "exercise"    = paste("<b>Exercise:</b> To simulate this new situation, we advise using 
-                  the same parameters as before, in terms of the number of individuals 
-                  and measurement error ($V_",NOT$error,"$; expressed as a proportion of the total 
-                  phenotypic variance, $V_",NOT$total,"$) so that you can compare your output with 
-                  the previous step:",sep=""),
-  "para1"   =  "You also need to enter how often each individual is measured. We call this 
-                variable &lsquo;Number of trait expressions&rsquo;. For simplicity, we are assuming that 
-                each individual is measured the same number of times. Because we are 
-                interested in setting up a scenario where individuals are assayed repeatedly, 
-                you should set a number equal or greater than two. Play around with how 
-                often you measure each individual, because the number of repeated measurements
-                per individual affects how well your estimated values approximate the true values.",
-  "para2"   =  "As before, we present the output in the form of a collection of figures and tables 
-                that shows you your estimated values (derived from a univariate mixed-effects model) 
-                as well as the true values. Compare how the estimated values deviate from the true values; 
-                play for example with the &ldquo;number of trait expressions&rdquo; to see how the number of 
-                repeated measurements per individual affects your estimates and how much they 
-                deviate from the true values.",
+  "subgoal"   = paste0("<b>Sub-goal:</b> Learning how to estimate measurement error variance $(V_",NOT$mError,")$ 
+                  in traits varying solely among individuals."),
+  "intro"     = "<b>Introduction:</b> In the previous step, you estimated the mean and the total 
+                  variance of a sample of individuals measured once. 
+                  From this you learned that some of the observed 
+                  variation in measures might be due to measurement error, 
+                  which occurs when the measured value deviates 
+                  (for whatever reason) from the biological value. 
+                  Here we detail the sampling design that you might 
+                  use to directly estimate the magnitude of measurement error; 
+                  we do this for a trait where the true value of the trait 
+                  is constant for an individual (cf. a &lsquo;fixed&rsquo; rather than &lsquo;labile&rsquo; trait, 
+                  e.g. structural size in adulthood).  Measurement error can be estimated 
+                  by measuring the same set of individuals multiple times 
+                  (preferably in a blind and randomized order). Since their trait values are fixed, 
+                  any deviation in measured values across measurements of the same individuals should be due to measurement error.",
+  "exercise"    = paste("<b>Exercise:</b> To simulate this new situation, 
+                  we advise using the same parameters as in the previous step, 
+                  in terms of the number of individuals and measurement error 
+                  ($V_",NOT$mError,"$; expressed as a proportion of the total phenotypic variance, $V_",NOT$total,"$) 
+                  so that you can compare your output with the previous step:",sep=""),
+  
+  "para1"   =  "You also need to enter how often each individual is measured. 
+                We call this variable &lsquo;Number of trait expressions&rsquo;. 
+                For simplicity, we are assuming that each individual 
+                is measured the same number of times. Because we are 
+                interested in setting up a scenario where individuals are 
+                assayed repeatedly, you should set a number equal or greater than two. 
+                Play around with how often you measure each individual, 
+                because the number of repeated measurements per individual 
+                affects how well your estimated values approximate the true values.",
+  "para2"   =  "As before, we present the output in the form of a collection 
+                of figures and tables that shows you your estimated values 
+                (derived from a univariate mixed-effects model) as well as the true values. 
+                Compare how the estimated values deviate from the true values; 
+                play for example with the &lsquo;number of trait expressions&rsquo; 
+                to see how the number of repeated measurements per individual 
+                affects your estimates and how much they deviate from the true values.",
   "para3"   =  paste("The three density plots show the distribution of estimated total phenotypic variance $(V'_",NOT$total,")$, 
                 the estimated variance among individuals $(V'_",NOT$devI,")$, and 
-                the estimated variance within individuals $(V'_",NOT$error,")$. 
-                It demonstrates graphically that $V'_",NOT$total,"=V'_",NOT$devI,"+V'_",NOT$error,"$.",sep=""),
-  "point"   =  "<b>Point: </b>If you have inputted the same parameter values as for step 1, 
+                the estimated variance within individuals $(V'_",NOT$mError,")$. 
+                It demonstrates graphically that $V'_",NOT$total,"=V'_",NOT$devI,"+V'_",NOT$mError,"$.",sep=""),
+  
+  
+  "point"   =  "<b>Point: </b> If you have inputted the same parameter values as for step 1, 
                 you see that we are now (more) properly estimating the individual variance. 
                 This is because we have directly estimated the within-individual variance 
                 due to measurement error by measuring each individual (at least) twice.",
+
   "para4"   =  "Measurement error can obscure true biological variance. We typically 
                 express the amount of biological variance we can measure as a proportion 
                 of the total observed variance; this standardized metric 
@@ -127,18 +135,16 @@ Mod1Step2_txt <- list(
                 is 1 if there is no measurement error (try it out!). The effect 
                 of measurement error can be nicely illustrated in a graph where we plot 
                 the first vs. second measurement. ",
-  "para6"   =  paste("The scatter plot shows how correlated the first and second 
-                measurements are. In the absence of measurement error 
-                (i.e. $V_",NOT$error,"=0$), all points align on a single line ($y=x$). 
-                Play around with the settings of $V_",NOT$error,"$; the higher the value, 
-                the more widely the data points get dispersed around $y=x$, i.e. 
-                the higher the measurement error the lower our ability to 
-                predict an individual&rsquo;s phenotype based on a previous measurement.
-                Repeatability thus provides an assessment of how well one has measured a 
-                particular phenotype. Repeatability can be used for several other purposes too, 
-                so the way it is calculated may vary some. 
-                We will develop some of these nuances later on.",sep="")  
   
+  "para6"   =  paste0("The scatter plot shows how correlated the first and second measurements are. 
+                In the absence of measurement error (i.e., $V_",NOT$mError,"=0$), 
+                all points align on a single line ($y=x$). Play around with the settings of $V_",NOT$mError,"$; 
+                the higher the value, the more widely the data points get dispersed around $y=x$, 
+                i.e. the higher the measurement error the lower our ability 
+                to predict an individual's phenotype based on a previous measurement. 
+                Repeatability thus provides an assessment of how well one has measured 
+                a particular phenotype. Repeatability can be used for several other purposes too, 
+                so the way it is calculated may vary some. We will develop some of these nuances later on.")
 )
 
 # Step 3 --------------

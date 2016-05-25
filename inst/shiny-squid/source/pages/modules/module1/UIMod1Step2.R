@@ -11,7 +11,7 @@ span(
   getSliderInput("Mod1Step2_NI", Modules_VAR$NI),
   
   # Measurement error variance
-  getSliderInput("Mod1Step2_Ve", Modules_VAR$Ve),
+  getSliderInput("Mod1Step2_Ve", Modules_VAR$Vm),
   
   p(HTML(Mod1Step2_txt$para1)),   # Text: paragraph 1
   
@@ -49,7 +49,7 @@ span(
   
     # Repeatability equation
     p(HTML(Mod1Step2_txt$para4)),  # Text: paragraph 4
-    p(withMathJax(paste("$$Repeatability=\\frac{V'_",NOT$devI,"}{V'_",NOT$devI,"+V'_",NOT$error,"}$$",sep=""))),
+    p(withMathJax(paste("$$Repeatability=\\frac{V'_",NOT$devI,"}{V'_",NOT$devI,"+V'_",NOT$mError,"}$$",sep=""))),
     
     # Repeatability output
     textOutput("Mod1Step2_Rep_txt"),
@@ -61,16 +61,11 @@ span(
   
   p(HTML(module1_txt$statModTitle)),
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-  p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_",NOT$error,"$$",sep="")),
+  p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_",NOT$mError,"$$",sep="")),
   
   div(class="line"),
   
-#   bsButton("Mod1Step2GotoStep1", label = "<< Previous Step (1)", style = Modules_VAR$StepLink$style), # Go to previous step       
-#   span(Modules_VAR$StepLink$sep, class="step-Link"),
-#   bsButton("Mod1Step2GotoStep3", label = "Next Step (3) >>", style = Modules_VAR$StepLink$style) # Go to next step
-#   
   actionLink("Mod1Step2GotoStep1", label = "<< Previous Step (1)", class="linkToModuleSteps"), # Go to previous step       
   span(Modules_VAR$StepLink$sep, class="step-Link"),
   actionLink("Mod1Step2GotoStep3", label = "Next Step (3) >>", class="linkToModuleSteps") # Go to next step
-  
 )

@@ -48,7 +48,7 @@ c(
           
           Vp        <- paste("V'",NOT$total," = " , data$Vp)
           Vi        <- paste("V'",NOT$devI, " = " , data$Vi)
-          Ve        <- paste("V'",NOT$error," = ", data$Ve)
+          Ve        <- paste("V'",NOT$mError," = ", data$Ve)
           
           myFactor  <- factor(rep(c(Vp,Vi,Ve), each=length(data$sampled_data$Phenotype)), levels=c(Vp,Vi,Ve))
           mydata    <- data.frame(dens  = c(data$sampled_data$Phenotype,data$sampled_data$I, data$sampled_data$e),
@@ -75,11 +75,11 @@ c(
         
         myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1"),
                                             paste("Individual variance ($V_",NOT$devI,"$) =",1-input$Mod1Step2_Ve),
-                                            paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step2_Ve),
+                                            paste("Measurement error variance ($V_",NOT$mError,"$) =",input$Mod1Step2_Ve),
                                             "Mean of the trait ($\\mu$) = 0"),
-                              "Estimated"= c(paste("Total Sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vp,"...")),
-                                             paste("Sampled Individual variance ($V'_",NOT$devI,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vi,"...")),
-                                             paste("Residual variance of sample ($V'_",NOT$residual,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Ve,"...")),
+                              "Estimated"= c(paste("Total sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vp,"...")),
+                                             paste("Sampled individual variance ($V'_",NOT$devI,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vi,"...")),
+                                             paste("Measurement error in sample ($V'_",NOT$mError,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Ve,"...")),
                                              paste("Sampled mean of the trait ($\\mu'$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$phenotypeMean,"...")))
                               )
                   
@@ -88,8 +88,8 @@ c(
       }),
       
       # display results: repeatability (text)
-      output$Mod1Step2_Rep_txt   <- renderText({ HTML(paste("Your repeatability is $",NOT$repeatability,"$ =", ifelse(!is.null(Mod1Step2_output()), 
-                                                                                                Mod1Step2_output()$R,"...")))}),
+      output$Mod1Step2_Rep_txt   <- renderText({ HTML(paste("Your repeatability is ", ifelse(!is.null(Mod1Step2_output()), 
+                                                                                             Mod1Step2_output()$R,"...")))}),
       # Display repeatability result (graph)
       output$Mod1Step2_plot2 <- renderPlot({ 
         
