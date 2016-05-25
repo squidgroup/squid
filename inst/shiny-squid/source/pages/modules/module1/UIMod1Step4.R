@@ -14,7 +14,7 @@ span(
   getSliderInput("Mod1Step4_Vi", Modules_VAR$Vi),
   
   # Measurement error variance (Ve)
-  getSliderInput("Mod1Step4_Ve", Modules_VAR$Ve),
+  getSliderInput("Mod1Step4_Ve", Modules_VAR$Vm),
   
   # Environment effects variance
   wellPanel(
@@ -22,6 +22,7 @@ span(
     uiOutput("Mod1Step4_error_Vbx")
   ),
   
+  p("You can also set the number trait expressions "),
   # Number of trait expressions (NR)
   getSliderInput("Mod1Step4_NR", Modules_VAR$Tmax),
 
@@ -32,9 +33,10 @@ span(
   
   p(HTML(Mod1Step4_txt$para1)),    # Text: paragraph 1
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
+          EQ3$mean0, "+",
           NOT$devI,"_",NOT$ind,"+",
-          EQ3$mean1,
-          EQ2$env1,"+",
+          NOT$mean," ",
+          NOT$env,"_{",NOT$time,NOT$ind,"} +",
           NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
   p(HTML(Mod1Step4_txt$para2)),    # Text: paragraph 2
   
@@ -63,10 +65,12 @@ span(
   
   p(HTML(module1_txt$statModTitle)),
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
-          NOT$devI,"_",NOT$ind,"+",EQ3$mean1,
-          EQ2$env1,"+",
+          EQ3$mean0, "+",
+          NOT$devI,"_",NOT$ind,"+",
+          NOT$mean," ",
+          NOT$env,"_{",NOT$time,NOT$ind,"} +",
           NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-  p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_{",EQ3$mean1,EQ2$env1,"}+V_",NOT$error,"$$",sep="")),
+  p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$$",sep="")),
   
   ####### TEST ##########
   tableOutput("table_test"),

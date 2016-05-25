@@ -236,56 +236,64 @@ Mod1Step3_txt <- list(
 # Step 4 --------------
 Mod1Step4_txt <- list( 
   "title"     = "Step 4: Explaining Environmental Variance",
+  
   "subgoal"   = "<b>Sub-goal:</b> to explain unknown environmental variance.",
-  "intro"     = paste("<b>Introduction:</b> In step 3, we introduced $V_{",EQ3$mean1," ",EQ2$env1,"}$ 
-                as the variance caused by the environment. 
-                We did not know what that effect was (it was unknown and unmeasured), 
-                but often we can measure the environment and assess its influence on phenotype. 
-                In this step, we demonstrate how that is done.",sep=""),
- "exercise"    = paste("<b>Exercise:</b> As before, we will generate a new group of individuals, 
-                with phenotypic variance caused by measurement error ($V_",NOT$error,"$), 
-                individual differences ($V_",NOT$devI,"$), 
-                and specific and measured (i.e. known) environmental effects 
-                ($V_{",EQ3$mean1," ",EQ2$env1,"}$) on the phenotype of an individual.<br> 
-                As before, you can set $V_",NOT$error,"$, $V_",NOT$devI,"$  and $V_{",EQ3$mean1," ",EQ2$env1,"}$, 
-                but we suggest you use the same values you did in Step 3.
-                Remember that these variances must add up to 1.",sep=""),
-  "para1"    = "At this point, we want to introduce the idea of &lsquo;analysis&rsquo; models. 
-                These are equations that specify effects producing each individual data point. 
-                In essence, the analysis model is an attempt to describe the real world. 
-                In the made-up world of SQuID, these analysis models have 
-                the potential of recreating it exactly. The real world is different, 
-                and most of the lessons we will cover have to do with problems in 
-                estimating terms in analysis models when much is unknown. 
-                For now, we will specify a model that should recreate our simulated 
-                set of effectscompletely (with the caveat that we are sampling from an infinite 
-                population so observed values will differ from input values). The model is:",
-  "para2"    = paste("where $",NOT$trait.1,"_{",NOT$time,NOT$ind,"}$ is the phenotype 
-                measured at $",NOT$time,"^{th}$ time for the $",NOT$ind,"^{th}$ individual, 
-                $",NOT$devI,"_",NOT$ind,"$ is the individual mean phenotype for the $",NOT$ind,"^{th}$ individual, 
-                $",EQ3$mean1,"$ is the effect of measured 
-                environment $",EQ2$env1,"$ on the measure of phenotype, 
-                and $",NOT$error,"_{",NOT$time,NOT$ind,"}$ is the error made in that measurement.
-                Note that $V_{",EQ3$mean1," ",EQ2$env1,"}=
-                ",EQ3$mean1,"^2V(",EQ2$env1,")$ where $V(",EQ2$env1,")=1$.",sep=""),
+  "intro"     = paste0("<b>Introduction:</b> In step 3, we introduced $V_{",NOT$mean," ",NOT$env,"}$ 
+                       as the variance caused by the environment. 
+                       We did not know what that effect was (it was unmeasured), 
+                       but often we can measure the environment and assess its influence on phenotype. 
+                       In this step, we demonstrate how that is done."),
+ "exercise"    = paste0("<b>Exercise:</b> As before, we will generate a new group of individuals, 
+                  with phenotypic variance caused by measurement error $(V_",NOT$mError,")$, individual differences $(V_",NOT$devI,")$, 
+                  and specific and measured (i.e. known) environmental effects $(V_{",NOT$mean," ",NOT$env,"})$ on the phenotype of an individual. 
+                  As before, you can set $V_",NOT$mError,"$, $V_",NOT$devI,"$ and $V_{",NOT$mean," ",NOT$env,"}$, but we suggest you use the same values you did in Step 3.
+                  Remember that these variances must add up to 1."),
+
+  "para1"    = paste0("At this point, we want to expand on the idea of statistical models. 
+                The equations that specify effects producing each individual data point can 
+                be hypotheses about the real world. In the made-up world of SQuID, 
+                these analysis models have the potential of recreating it exactly. 
+                The real world is different and most of the lessons we will cover have 
+                to do with problems in estimating terms in analysis models when much is unknown. 
+                For now, we will specify a model that should recreate our simulated set of effects 
+                completely (with the caveat that we are sampling from an infinite population so 
+                observed values will differ from input values). This new model will make explicit 
+                as well that $",NOT$devI,"_",NOT$ind,"$ is defined as the deviation of each individual from a population value. 
+                Until now, that population value has implicitly been 0, so we haven't used it. 
+                But, since we are now including a slope term that allows us to explain environmental variation, 
+                it is important to also introduce the population intercept term. 
+                For now, we will still have the population mean be = 0, but it is appropriate to include 
+                this intercept in all equations because it could be some other value. The model is:"),
+
+ "para2"    = paste0("where $",NOT$trait.1,"_{",NOT$time,NOT$ind,"}$ is the phenotype measured at the 
+                     $",NOT$time,"^{th}$ time for the $",NOT$ind,"^{th}$ individual, 
+                     $",EQ3$mean0,"$ is the population mean phenotype, 
+                     $",NOT$devI,"_",NOT$ind,"$ is the individual mean deviation from the population mean for the $",NOT$ind,"^{th}$ individual, 
+                     $",NOT$mean,"$ is the population mean effect of measured environment $",NOT$env,"_{",NOT$time,NOT$ind,"}$ on the measure of phenotype, 
+                     and $",NOT$error,"_{",NOT$time,NOT$ind,"}$ is the error made in that measurement.
+                     Note that $V_{",NOT$mean," ",NOT$env,"}=
+                     ",NOT$mean,"^2Var(",NOT$env,")$ where $Var(",NOT$env,")=1$."),
+
   "para3"    = "A mixed statistical model estimates these parameters:",
-  "para4"    = paste("Visually, you can see what $",EQ3$mean1,"$ 
+  "para4"    = paste("Visually, you can see what $",NOT$mean,"$ 
                      is in the following graph:",sep=""),
   "para5"    = "The variance among individuals can still be visualized in this world by plotting 
                 each individual&#39;s dataset and line.",
-  "para6"    = paste("We encourage you to go back and play around with the magnitude of $V_",NOT$error,"$ 
-                to see how it affects estimates of  $",EQ3$mean1,"$
+ 
+  "para6"    = paste0("We encourage you to go back and play around with the magnitude of $V_",NOT$mError,"$ 
+                to see how it affects estimates of  $",NOT$mean,"$
                 and $V_",NOT$devI,"$. You can also play around with the slope and the ratio of 
-                $V_{",EQ3$mean1," ",EQ2$env1,"}$ and $V_",NOT$devI,"$ to better understand the effects.",sep=""),
-  "point"    = "<b>Point:</b> This exercise introduced explanatory variables (also known as fixed effects). 
-                Because individual is a &ldquo;random&rdquo; effect, this is thus a &ldquo;mixed effects&rdquo; model. 
-                The fixed effect part is a linear regression. Even if this is all you want 
-                to do with your data, it is important to understand that a sampling regime 
-                in which individuals are measured more than once creates the need to do 
-                linear regression within a mixed model. Although we do not focus much on 
-                significance testing here, the structure of data collected in this simulation 
-                strongly affects inferences based on hypothesis testing. More importantly, 
-                the combination of random effects and fixed effects sets one up to investigate 
-                a wide array of processes involved at one or more levels in this hierarchal 
-                structure of among versus within-individual variance."
+                $V_{",NOT$mean," ",NOT$env,"}$ and $V_",NOT$devI,"$ to better understand the effects."),
+ 
+ "point"    = "<b>Point:</b> This exercise introduced explanatory variables (also known as fixed effects). 
+               Because individual is a &ldquo;random&rdquo; effect, this is thus a “mixed effects” model. 
+               The fixed effect part is a linear regression. Even if this is all you want to do with your data, 
+               it is important to understand that a sampling regime in which individuals 
+               are measured more than once creates the need to do linear regression within a mixed model. 
+               Although we do not focus much on significance testing here, the structure of data collected 
+               in this simulation strongly affects inferences based on hypothesis testing. 
+               More importantly, the combination of random effects and fixed effects sets one up 
+               to investigate a wide array of processes involved at one or more levels in 
+               this hierarchal structure of among versus within-individual variance."
+ 
 )

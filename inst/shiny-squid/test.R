@@ -68,7 +68,7 @@ input$VG <- 0    # Default 0
 	input$X1_cyc_V         <- 0     # default = 0
 
 # Environment X2
-    input$X2_state      <- TRUE
+    input$X2_state      <- FALSE
     # Stochastic
     input$X2_sto_state  <- TRUE  # default = FALSE
     input$X2_sto_shared <- FALSE  # default = TRUE
@@ -90,21 +90,19 @@ input$VG <- 0    # Default 0
     input$X2_cyc_Hshift    <- 0     # default = 0
     input$X2_cyc_Vshift    <- 0     # default = 0
 
-input$X_Interaction <- TRUE # default = FALSE
+input$X_Interaction <- FALSE # default = FALSE
 
-input$Vhsi <- 0.85
-input$NR   <- 10 # default = 1
+input$Vhsi <- 0
+input$NR   <- 50 # default = 1
 
 input$NR_ind   <- TRUE # default = TRUE
 input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- FALSE # default = TRUE
-input$ST_trait <- "TRUE" # default = TRUE
+input$ST_trait <- FALSE # default = TRUE
 
-data <- squid::squidR(input=input)
+data <- squid::squidR(input=input, plot = TRUE)
 
-squid::squidR(X_previsualization = "X2")
 
-print(data$myPlot$plotSampTime)
 
 print(multiplot(data$plot$X1,
                 data$plot$X2,
@@ -144,6 +142,13 @@ print(multiplot(data$plot$totPhen,
 
 #--------------------------------------------------------------------------------------------
 
+
+
+LMR  <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_data)
+
+FIXEF    <- lme4::fixef(LMR)
+SE.FIXEF <- arm::se.fixef(LMR)
+RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
 
 
 

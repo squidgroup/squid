@@ -25,13 +25,13 @@ c(
     # display variable (known environmental effect Vbx)
     output$Mod1Step4_Vbx_txt <- renderUI({
       
-      if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
+      if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vbx, FALSE, FALSE)){
         output <- span(strong(round(input$Mod1Step4_Vbx,2),class="alert alert-danger"))
       }else{
         output <- span(round(input$Mod1Step4_Vbx,2))
       }
       
-      p(HTML(paste(strong(Modules_VAR$Vb1x1$label),output,"")))
+      p(HTML(paste(strong(Modules_VAR$Vbx$label),output,"")))
       
     }),
       
@@ -56,6 +56,8 @@ c(
           data$Vp            <- round(var(data$sampled_data$Phenotype),2)
           data$Vi            <- round(RANDEF[1],2)
           data$Ve            <- round(RANDEF[2],2)
+          data$B0            <- round(FIXEF["(Intercept)"],2)
+          data$se.B0         <- round(SE.FIXEF["(Intercept)"],2)
           data$B1            <- round(FIXEF["X1"],2)
           data$se.B1         <- round(SE.FIXEF["X1"],2)
           data$phenotypeMean <- round(mean(data$sampled_data$Phenotype),2)
@@ -82,7 +84,7 @@ c(
               ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
               ggplot2::ylab("Phenotype") + 
-              ggplot2::ggtitle(bquote(italic(beta[1(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[1(true)]) == .(round(input$Mod1Step4_B[1,2],2)))))
+              ggplot2::ggtitle(bquote(italic(beta[(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[(true)]) == .(round(input$Mod1Step4_B[1,2],2)))))
         
           })
           
@@ -118,14 +120,16 @@ c(
         
         data <- Mod1Step4_output()
         
-        myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step4_Vi),
-                                               paste("Residual variance ($V_",NOT$error,"$) =",input$Mod1Step4_Ve),
+        myTable <- data.frame("True"       = c(paste("Population intercept ($",EQ3$mean0,"$) = 0"),
+                                               paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step4_Vi),
+                                               paste("Residual variance ($V_",NOT$residualUpper,"$) =",input$Mod1Step4_Ve),
                                                "Mean of the trait ($\\mu$) = 0",
-                                               paste("Slope of environmental effect ($",EQ3$mean1,"$) =",round(input$Mod1Step4_B[1,2],2))),
-                              "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
-                                              paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Ve,"...")),
-                                              paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(data),data$phenotypeMean,"...")),
-                                              paste("Estimated slope of environmental effect ($",NOT$mean,"'_1$) =  "    ,ifelse(!is.null(data),paste(data$B1,"\U00b1", data$se.B1, sep=" "),"..."))) 
+                                               paste("Slope of environmental effect ($",NOT$mean,"$) =",round(input$Mod1Step4_B[1,2],2))),
+                              "Estimated" = c(paste("Population estimated mean ($",NOT$mean,"'_0$) = ", ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),
+                                              paste("Individual variance in sample ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi,"...")),
+                                              paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = ", ifelse(!is.null(data),data$Ve,"...")),
+                                              paste("Sampled mean of the trait ($\\mu'$) = ", ifelse(!is.null(data),data$phenotypeMean,"...")),
+                                              paste("Estimated slope of environmental effect ($",NOT$mean,"'$) = ", ifelse(!is.null(data),paste(data$B1,"\U00b1", data$se.B1, sep=" "),"..."))) 
                              )  
         
         getTable(myTable)
@@ -134,12 +138,12 @@ c(
     
     ######### Manage errors #########
       observe({
-        if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
+        if(!testInput(input$Mod1Step4_Vbx, Modules_VAR$Vbx, FALSE, FALSE)){
           disableActionButton("Mod1Step4_Run", session, "true")
         }else{
           disableActionButton("Mod1Step4_Run", session, "false")
         }
       }),
-      output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})
+      output$Mod1Step4_error_Vbx   <- renderUI({testInput(input$Mod1Step4_Vbx, Modules_VAR$Vbx, FALSE, TRUE)})
   
   ) # End return
