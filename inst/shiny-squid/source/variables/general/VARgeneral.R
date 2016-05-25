@@ -21,6 +21,7 @@ NOT <-list(
   "unknown"        = "u",
   "groupV"         = "G",
   "error"          = "e",
+  "mError"         = "m",
   "residual"       = "r",
   "residualUpper"  = "R",
   "total"          = "P",

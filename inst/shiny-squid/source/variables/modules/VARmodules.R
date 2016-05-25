@@ -78,6 +78,16 @@ Modules_VAR <- list(
                 "errorTxt"    = "Residual variance ($V_",NOT$error,"$) must be a number between 0 and 1."
   ),
   
+  # measurement error variance
+  "Vm"   = list("label"       = paste("Measurement error variance ($V_",NOT$mError,"$):",sep=""),
+                "infoTxt"     = "Measurement error variance.",
+                "value"       = 0.05,
+                "min"         = 0.01,
+                "max"         = 1,
+                "step"        = 0.01,
+                "errorTxt"    = "Measurement error variance ($V_",NOT$mError,"$) must be a number between 0 and 1."
+  ),
+  
   # Number of trait expressions (NR)
   "NR"   = list( "label"       = "Number of trait expressions sampled:",
                  "infoTxt"     = "Number of trait expressions sampled for each individual.",

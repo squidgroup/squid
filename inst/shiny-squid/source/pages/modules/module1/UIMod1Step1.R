@@ -10,10 +10,12 @@ span(
     # Number of individuals
     getSliderInput("Mod1Step1_NI", Modules_VAR$NI),
 
-    p(HTML(Mod1Step1_txt$para1)),      # Text: Paragraph 1
+    p(HTML(Mod1Step1_txt$para1)),        # Text: Paragraph 1
+    p(HTML(Mod1Step1_txt$explanation1)), # Text: Notation explanation
+    p(HTML(Mod1Step1_txt$note1)),        # Text: Paragraph 1
     
     # Measurement error variance
-    getSliderInput("Mod1Step1_Ve", Modules_VAR$Ve),
+    getSliderInput("Mod1Step1_Ve", Modules_VAR$Vm),
     
     # Hidden variable:
       # Mod1Step1_Vind: Intercepts and slopes (Co)variance matrix
@@ -40,16 +42,16 @@ span(
       
       # display statistical model
       p(HTML(module1_txt$statModTitle)),
-      p(paste("$$",NOT$trait.1,"_",NOT$ind,"=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_",NOT$ind,"$$",sep="")),
-      p(paste("$$V_p=V_",NOT$devI,"+V_",NOT$error,"$$",sep="")),
+      p(HTML(Mod1Step1_txt$statmodel1)),        # Text: statistical model paragraph 1
+      p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
+      p(HTML(Mod1Step1_txt$statmodel2)),        # Text: statistical model paragraph 2
+    
+      p(HTML(Mod1Step1_txt$statmodel3)),        # Text: statistical model paragraph 3
+      p(paste("$$V_p=V_",NOT$devI,"+V_",NOT$mError,"$$",sep="")),
     
     div(class="line"),
     
     # Go to next step
-#     bsButton("Mod1Step1GotoStep2", 
-#              label = "Next Step (2) >>",
-#              style = Modules_VAR$StepLink$style)
-
     actionLink("Mod1Step1GotoStep2", 
              label = "Next Step (2) >>",
              class= "linkToModuleSteps")

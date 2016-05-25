@@ -62,7 +62,7 @@ c(
           myTable <- data.frame(
             "True"= c(paste("Total Phenotypic variance ($V_",NOT$total,"$) = 1",sep=""),
                       paste("Individual Variance ($V_",NOT$devI,"$) = ",1-input$Mod1Step1_Ve,sep=""),
-                      paste("Residual variance ($V_",NOT$error,"$) = ",input$Mod1Step1_Ve,sep=""),
+                      paste("Measurement error variance ($V_",NOT$mError,"$) = ",input$Mod1Step1_Ve,sep=""),
                       "mean of the trait ($\\mu$) = 0"),
             "Estimated" = c(paste("Total Sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step1_output()),Mod1Step1_output()$Vp,"..."),sep=""),
                             "",

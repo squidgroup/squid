@@ -1,47 +1,77 @@
 
 module1_txt <- list(
-  "title"         = paste("Differences between $V_",NOT$total,"$, $V_",NOT$devI,"$ and 
-                           $V_",NOT$error,"$, intercept",sep=""),
-  "goal"          = "<b>Goal:</b> to develop understanding of hierarchies in 
-                      variance when individuals express traits repeatedly.",
+  "title"         = paste("Partitioning variances: Differences between $V_",NOT$total,"$, $V_",NOT$devI,"$ and 
+                           measurement error variance",sep=""),
+  "goal"          = "<b>Goal:</b> to develop understanding of hierarchies in variance when individuals express traits repeatedly.",
   "statModTitle"  = "<b>Statistical model</b>"
 )
 
 # Step 1 --------------
 Mod1Step1_txt <- list(
   
-  "title"      = "Step 1: Mean and variance when the trait is expressed once and does not change",
+  "title"      = "Step 1. Mean and variance when the trait is expressed once and does not change",
   "subgoal"    = "<b>Sub-goal:</b> Illustrating the concept of variance and mean, 
-                  for traits with no within-individual variance but which is measured with error. ",
+                  for traits with no within-individual variance but which is measured with error.",
   "intro"      = paste("<b>Introduction:</b> This is the simplest possible situation. 
-                        A trait is measured from a group of individuals in a population is 
-                        characterised by a mean ($",NOT$mu,"$) and a variance ($V_",NOT$total,"$).",sep=""),
-  "exercise"   = "<b>Exercise:</b> In this situation we assume that we only have only one value of the trait 
-                  for each individual. You first have to decide how many individuals to measure.",
-  "para1"      = paste("In every case that we measure something, we know that we are making an error 
-                  in the measurement. This error is assumed to be non-directional and hopefully 
-                  represents only a small portion of the total variance $V_",NOT$total,"$. 
-                  Below play with the error term . 
-                  Generally measurement error variance should not be high, ideally lower then 5% of 
-                  the total variance (i.e. if $V_",NOT$total,"=1$ then $V_",NOT$error,"=0.05$), 
-                  but of course some traits can be associated 
-                  with much higher measurement error.
-                  Note that for this module, the total variance ($V_",NOT$total,"$) is restrained to 1.",sep=""),
+                       A trait as measured for a group of individuals from a population 
+                       is characterised by a mean ($",NOT$mu,"$) and a variance ($V_",NOT$total,"$).",sep=""),
+  "exercise"   = "<b>Exercise:</b> In this situation we assume that we only have one value of the trait for each individual. 
+                  You first have to decide how many individuals to measure.",
   
-  "point"      = paste("<b>Point:</b> The variance of measures ($V'_",NOT$total,"$) is often higher than the variance 
-                  of true individual variance ($V_",NOT$devI,"$) if there is measurement error 
-                  (and there will always be some). The estimate of total variance includes both 
-                  - unmeasured - individual differences ($V'_",NOT$devI,"$) and measurement error ($V'_",NOT$error,"$). 
-                  Note that the estimated $V'_",NOT$total,"$ (total variance of sampled values) is often not equal to 1. 
-                  This is because we have sampled from a population where the true total phenotypic 
-                  variance that includes individual (biological) variance and measurement error 
-                  variance is actually equal to 1. The only way to obtain the true total variance 
-                  would to sample the entire population (which in the case of SQuID is infinite in size).",sep=""),
+  "para1"      = paste("In every case that we measure something, we know that we are making an error in the measurement. 
+                       This error is assumed to be non-directional and hopefully represents only a small portion of 
+                       the total variance $V_",NOT$total,"$. Below play with the error term. 
+                       Generally measurement error variance should not be high, 
+                       ideally lower than 5% of the total variance, but of course some traits 
+                       can be associated with much higher measurement error.",sep=""),
+
+  "explanation1"  = paste("An explanation of notation: There are several kinds of unaccounted variance 
+                          in a statistical model. This are called, variously, &ldquo;error variance&rdquo; or &ldquo;residual variance&rdquo;.  
+                          Measurement error is one source of this variance, but as you will see below, 
+                          not all unaccounted variance is the result of error. 
+                          To distinguish these with notation, we will use $V_",NOT$mError,"$ for measurement error 
+                          and $V_",NOT$residualUpper,"$ for the more general residual variance. In this particular step, 
+                          $V_",NOT$residualUpper,"=V_",NOT$mError,"$. ",sep=""),
+  
+  "note1"      = paste("Note that in this module, the total phenotypic variance $(V_",NOT$total,")$ is restrained to 1. 
+                       This will allow a better understanding of the proportions of the different model variance components.",sep=""),
+  
+  "point"      = paste("<b>Point:</b> The variance of measures $(V'_",NOT$total,")$ is often higher than the variance 
+                       of true individual variance $(V_",NOT$devI,")$ if there is measurement error 
+                       (and there will always be some). The estimate of total variance includes 
+                       both individual differences $(V_",NOT$devI,")$ (not measured directly) and measurement error $(V_",NOT$mError,")$. 
+                       Note also that the estimated $V'_",NOT$total,"$ (total variance of sampled values) 
+                       typically differs slightly from 1. This is because we have sampled 
+                       from a population where the true total phenotypic variance that includes 
+                       individual (biological) variance and measurement error variance, 
+                       while equal to 1, may not be 1 in your sample. 
+                       The difference thus arises from sampling variance.",sep=""),
   
   "solutions"  = "<b>Solutions:</b> First work to reduce the measurement error; 
-                  to do so, you need to know the magnitude of measurement error . 
+                  to do so, you need to know the magnitude of measurement error. 
                   This requires measuring individuals more than once. 
-                  This is explained in step 2 of this module."   
+                  This is explained in step 2 of this module.",
+  
+  "statmodel1"  = "Throughout these modules we will provide you with the statistical 
+                  model that we've explored. These come in two forms. 
+                  The first is an equation that describes each data point 
+                  (particular measurements on individual phenotypes). Since we are using 
+                  phenotypic measures as the focus here, we call this the &ldquo;phenotypic equation&rdquo;. 
+                  You have just explored the following phenotypic equation:",
+  
+  "statmodel2"  = paste0("where $",NOT$trait.1,"_{",NOT$time,NOT$ind,"}$ is the measured phenotypic 
+                          value of the $h^{th}$ measurement 
+                         (in this case $",NOT$time,"$ = 1) on the $i^{th}$ individual, $",NOT$devI,"_",NOT$ind,"$ is the true deviation 
+                         of the individual's trait from the population mean 
+                         (which is assumed to be 0 for now), and $",NOT$error,"_{",NOT$time,NOT$ind,"}$  is the residual 
+                         deviation of that measurement from the true value, 
+                         caused in this scenario by measurement error."),
+  
+  "statmodel3"  = paste0("The second type of equation is a partitioning of variance 
+                         where the terms are defined as above. These have direct connection 
+                         to the values in the phenotypic equation, with the exception 
+                         that in this scenario the variance in $",NOT$error,"_{",NOT$time,NOT$ind,"}$, often called residual variance, 
+                         is measurement variance $(V_",NOT$mError,")$") 
 )
 
 # Step 2 --------------
