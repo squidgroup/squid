@@ -108,7 +108,19 @@ Modules_VAR <- list(
                    "errorTxt"    = "Number of trait expressions must be an integer between 1 and 100."
   ),
   
-  # Variance of population mean response to an environmental effect 
+  # Variance of population mean response to an environmental effect x
+  "Vbx"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $",NOT$env,"$ $(V_{",NOT$mean," ",NOT$env,"})$:",sep=""),
+                  "infoTxt"     = "Variance of population mean response to an environmental effect x",
+                  "value"       = 0.5,
+                  "min"         = 0,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = paste("Variance of population mean response to an environmental effect $",NOT$env,"$ $(V_{",NOT$mean," ",NOT$env,"})$ 
+                                       must be a number between 0 and 1.
+                                       Try to decrease other variances.",sep="")
+  ),
+  
+  # Variance of population mean response to an environmental effect x1
   "Vb1x1"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $(V_{",EQ3$mean1," ",EQ2$env1,"})$:",sep=""),
                    "infoTxt"     = "Variance of population mean response to an environmental effect",
                    "value"       = 0.5,

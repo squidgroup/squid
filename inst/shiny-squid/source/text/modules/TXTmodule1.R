@@ -150,62 +150,86 @@ Mod1Step2_txt <- list(
 # Step 3 --------------
 Mod1Step3_txt <- list(  
   "title"     = "Step 3: Within- and among-individual variance",
+  
   "subgoal"   = "<b>Sub-goal:</b> to illustrate hierarchical structure of variance when individuals 
                          express traits multiple times (a trait varies within-individuals).",
-  "intro"     = "<b>Introduction:</b> Individuals express different values of a trait at 
-                different times due to the influence of the environment. 
-                Collecting two or more measures for each individual provides 
-                several types of information. We have already seen that it 
-                can allow estimation of measurement error. If the measurements 
-                are spread over time, then you can also estimate how much 
-                variance is due to the environment and how the phenotype 
-                responds to the environment. Finally, repeated measurements 
-                can measure whether differences among individuals are solely 
-                due to differences in the environment at the time of measurement 
-                versus to some other source, such as differences among 
-                individuals that were generated before the period of measurement. ",
-  "exercise"  = paste("<b>Exercise:</b> As in the two previous steps we are now generating a 
-                        new group of individuals, but in addition to the variance caused by 
-                        measurement errors ($V_",NOT$error,"$) we also choose the variance caused by 
-                        individual differences ($V_",NOT$devI,"$) that exist throughout our simulated study. 
-                        One component of the total variance 
-                        ($V_",NOT$total,"$) is left once we remove both measurement error variance ($V_",NOT$error,"$) 
-                        and individual variance ($V_",NOT$devI,"$). 
-                        This new variance represents the population mean response to an environmental 
-                        effect ($V_{",EQ3$mean1," ",EQ2$env1,"}$) on the phenotype of an individual. 
-                        In this step, the environmental effect ($",EQ2$env1,"$) is considered as specific 
-                        and unknown. A specific environmental effect means that each 
-                        individual of the population will experience different environmental conditions 
-                        than do other individuals. For instance, the intensity of intra- and inter-specific 
-                        competition within a population will be perceived differently among individuals. 
-                        An unknown environmental effect represents environmental values that are not 
-                        measured thus cannot be included in the statistical analysis.
-                        You can now try several combinations of $V_",NOT$error,"$ and $V_",NOT$devI,"$ 
-                        to see how $V_{",EQ3$mean1," ",EQ2$env1,"}$ changes 
-                        and how this affects the estimates of repeatability and variance components.
-                        Remember that these variances must add up to 1.",sep=""),
+  
+  
+  "intro"     = "<b>Introduction:</b> Individuals express different values of a trait at different 
+                times due to the influence of the environment. Collecting two or more measures 
+                for each individual provides several types of information. 
+                We have already seen that it can allow estimation of measurement error. 
+                If the measurements are spread over time, then you can also estimate 
+                how much variance is due to the environment and how the phenotype 
+                responds to the environment. Finally, repeated measurements can measure 
+                whether differences among individuals are solely due to differences in the 
+                environment at the time of measurement versus to some other source, 
+                such as differences among individuals that were generated before the period of measurement.",
+  
+  
+  "exercise"  = paste0("<b>Exercise:</b> As in the two previous steps we will generate a new group 
+                      of individuals but we will also add a new form of variance. 
+                      Previously, you generated a population of individuals that varied in 
+                      their true value $(V_",NOT$devI,")$ and also due to observer measurement error $(V_",NOT$mError,")$. 
+                      We assumed that individuals had the same trait value throughout 
+                      the duration of our study. But, what if trait values changed over time, 
+                      perhaps in response to some environmental gradient? To start exploring this idea, 
+                      let's assume that all individuals would respond to this gradient in the same way, 
+                      but they might experience different values of the environment.  
+                      This means that in addition to $V_",NOT$devI,"$ and $V_",NOT$mError,"$ there is variation caused by the population 
+                      mean response to an environmental effect on the phenotype of an individual. 
+                      In this step, the environmental effect is considered as individual-specific 
+                      but unknown to the observer. An (individual-) specific environmental effect 
+                      means that each individual of the population will experience different environmental 
+                      conditions than do other individuals. For instance, the intensity of 
+                      intra- and inter-specific competition within a population might be experienced 
+                      differently between individuals. An unknown environmental effect represents 
+                      environmental values that are not measured thus cannot be included in the statistical analysis. 
+                      Earlier we noted that $V_",NOT$residualUpper,"$ is called &ldquo;residual variance&rdquo;. Now, unknown, 
+                      environmentally-caused variance will be combined with $V_",NOT$mError,"$ to make $V_",NOT$residualUpper,"$, 
+                      and is the primary reason for calling it &ldquo;residual&rdquo; variance.  
+                      In reality, there may be many environmental effects, both known and unknown. 
+                      We will use the term $V_",NOT$envEffect,"$ to refer to all phenotypic variance caused by the environment. 
+                      Known environmental variance will be indicated by $V_{",NOT$mean," ",NOT$env,"}$."),
+  
+  "exercise2"  = paste0("In this simulation, let's assume there is only one environmental effect. 
+                        We will specify it to generate phenotypes, so let's use the term $V_{",NOT$mean," ",NOT$env,"}$. 
+                        You can thus try several combinations of $V_",NOT$mError,"$, $V_",NOT$devI,"$, and $V_{",NOT$mean," ",NOT$env,"}$ 
+                        (with the constraint that they add up to 1) to uncover how the input values 
+                        affect the estimates of repeatability and each variance component. 
+                        Just remember that for now $V_{",NOT$mean," ",NOT$env,"}$ is one environmental effect but 
+                        it will be measured as part of the residual."),
+  
   "para1"    = "Once again you can calculate repeatability as",
-  "point"    = paste("<b>Point:</b> We can now estimate a particular variance component of $V_",NOT$total,"$ that 
-                        represents among-individual differences that are consistent through time. This variance is also 
-                        in some circumstance the index for individual &ldquo;personality&rdquo; differences. The residual variance 
-                        combines both measurement error ($V_",NOT$error,"$) and the variance caused by the unmeasured (unknown) specific 
-                        environment to each individual ($V_{",EQ3$mean1," ",EQ2$env1,"}$). $V_{",EQ3$mean1," ",EQ2$env1,"}$ 
-                        thus reflects plasticity to unknown environments.
-                        You can now test whether a given number of individuals and a given number of repeated measures 
-                        per individuals can affect your estimations.<br> 
-                        Repeatability now does not represent the same thing as previously because the denominator 
-                        of the ratio includes both measurement error and variance due to plasticity.
-                        This new repeatability is not simply a measure of your skill at measuring phenotypes. 
-                        Instead, it now is an estimate of a biological phenomenon, consistent individual 
-                        differences (i.e.personality in the case for behaviour). This estimate is conservative because 
-                        measurement error reduces the  estimate to be less than the true biological repeatability. 
-                        Note also that in this particular simulation, the model gives an estimate of repeatability 
-                        that depends on $V_",NOT$residual,"$: the sum of both $V_{",EQ3$mean1," ",EQ2$env1,"}$ and
-                        $V_",NOT$error,"$. Measurement errors in this 
-                        scenario are not separable from the plastic response of individuals to unmeasured 
-                        environment. To calculate measurement error alone, you would have to collect 
-                        more than one measure on the same trait for each individual at the same time 
-                        (e.g. two persons can observe the behaviour of an individual on the same video recording).",sep="")
+  
+  "point"    = paste0("<b>Point:</b> We can now estimate a particular variance component 
+                of $V_{",NOT$total,"}$ that represents among-individual differences that are consistent through time. 
+                This variance is also, in some circumstances, the index for individual 
+                &ldquo;personality&rdquo; differences. The residual variance combines both measurement 
+                error and the variance caused by the unmeasured (unknown) specific environment to each individual. 
+                $V_{",NOT$envEffect,"}$ in general reflects plasticity to unknown environments, 
+                with $V_{",NOT$mean," ",NOT$env,"}$ indicating variance due to a specified environmental variable $(",NOT$env,")$, 
+                which so far has not been measured."),
+  "point2"    = "You can now test whether the number of individuals sampled and the number 
+                of repeated measures per individual can affect your estimation.",
+  "point3"    = "Repeatability now does not represent the same thing as previously 
+                because the denominator of the ratio includes both measurement error 
+                and variance due to plasticity. This new repeatability is not simply 
+                a measure of your skill at measuring phenotypes. 
+                Instead, it now is an estimate of a biological phenomenon: 
+                consistent individual differences (i.e. personality in the case of behaviour). 
+                This estimate is conservative because measurement error reduces the estimate 
+                to be less than the true biological repeatability. Measurement errors 
+                in this scenario are not separable from the plastic response of individuals 
+                to an unmeasured environment. To calculate measurement error alone, 
+                you would have to collect more than one measure on the same trait 
+                for each individual in the same environment (e.g. two persons can observe the behaviour 
+                of an individual on the same video recording or measure the trait at close to the same time).",
+  
+  "statmodel"    = "Because the environmental effect in this scenario was unknown, 
+                    the statistical models are the same as before, with two exceptions.  
+                    First, the phenotypic equation is as before,",
+  "statmodel2"    = paste0("except that $",NOT$error,"_{",NOT$time,NOT$ind,"}$ contains both measurement error and deviations described by $",NOT$mean," ",NOT$env,"_{",NOT$time,NOT$ind,"}$")
 )
 
 

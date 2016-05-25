@@ -24,13 +24,13 @@ c(
 	  # display variable (Unknown environmental effect Vbx)
 	  output$Mod1Step3_Vbx_txt <- renderUI({
 
-	    if(!testInput(input$Mod1Step3_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
+	    if(!testInput(input$Mod1Step3_Vbx, Modules_VAR$Vbx, FALSE, FALSE)){
 	      output <- span(strong(round(input$Mod1Step3_Vbx,2),class="alert alert-danger"))
 	    }else{
 	      output <- span(round(input$Mod1Step3_Vbx,2))
 	    }
 
-	    p(HTML(paste(strong(Modules_VAR$Vb1x1$label), output,"")))
+	    p(HTML(paste(strong(Modules_VAR$Vbx$label), output,"")))
 	  }),
       
     ######### Run simulation #########
@@ -125,11 +125,11 @@ c(
    	  
    	  myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1",sep=""),
    	                                       paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step3_Vi),
-   	                                       paste("Residual variance ($V_{",EQ3$mean1," ",EQ2$env1,"}+V_",NOT$error,"$) =",input$Mod1Step3_Ve+input$Mod1Step3_Vbx),
+   	                                       paste("Residual variance ($V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$) =",input$Mod1Step3_Ve+input$Mod1Step3_Vbx),
    	                                       "Mean of the trait ($\\mu$) = 0"),
    	                        "Estimated" = c(paste("Total Phenotypic variance in sample ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vp,"...")),
                	                            paste("Sampled Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vi,"...")),
-               	                            paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vr,"...")),
+               	                            paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = "        ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vr,"...")),
                	                            paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$phenotypeMean,"...")))
                	)
    	  
@@ -137,17 +137,17 @@ c(
    	}),
  	
    	# display results: repeatability (text)
-   	output$Mod1Step3_Rep_txt   <- renderText({ HTML(paste("Your repeatability is $",NOT$repeatability,"$ =", ifelse(!is.null(Mod1Step3_output()), 
- 	                                                                                          Mod1Step3_output()$R,"...")))}),
+   	output$Mod1Step3_Rep_txt   <- renderText({ HTML(paste("Your repeatability is ", ifelse(!is.null(Mod1Step3_output()), 
+ 	                                                                                  Mod1Step3_output()$R,"...")))}),
     ######### Manage errors #########
      	# display error message
      	observe({
-     	  if(!testInput(input$Mod1Step3_Vbx, Modules_VAR$Vb1x1, FALSE, FALSE)){
+     	  if(!testInput(input$Mod1Step3_Vbx, Modules_VAR$Vbx, FALSE, FALSE)){
      	    disableActionButton("Mod1Step3_Run", session, "true")
      	  }else{
      	    disableActionButton("Mod1Step3_Run", session, "false")
      	  }
      	}), 
- 	    output$Mod1Step3_error_Vbx  <- renderUI({testInput(input$Mod1Step3_Vbx, Modules_VAR$Vb1x1, FALSE, TRUE)})
+ 	    output$Mod1Step3_error_Vbx  <- renderUI({testInput(input$Mod1Step3_Vbx, Modules_VAR$Vbx, FALSE, TRUE)})
  	            
   ) # End return

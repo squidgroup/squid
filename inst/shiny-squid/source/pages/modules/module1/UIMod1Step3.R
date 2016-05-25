@@ -6,6 +6,7 @@ span(
   p(HTML(Mod1Step3_txt$subgoal)),   # Text: subgoal
   p(HTML(Mod1Step3_txt$intro)),     # Text: introduction
   p(HTML(Mod1Step3_txt$exercise)),  # Text: exercise
+  p(HTML(Mod1Step3_txt$exercise2)), # Text: exercise 2
   
   # Number of individuals
   getSliderInput("Mod1Step3_NI", Modules_VAR$NI),
@@ -14,7 +15,7 @@ span(
   getSliderInput("Mod1Step3_Vi", Modules_VAR$Vi),
   
   # Measurement error variance
-  getSliderInput("Mod1Step3_Ve", Modules_VAR$Ve),
+  getSliderInput("Mod1Step3_Ve", Modules_VAR$Vm),
   
   # Environment effects variance
   wellPanel(
@@ -51,18 +52,24 @@ span(
   
   # Repeatability equation
   p(HTML(Mod1Step3_txt$para1)),         # Text: paragraph 1
-  p(paste("$$Repeatability=\\frac{V'_",NOT$devI,"}{V'_",NOT$devI,"+V'_",NOT$residual,"}$$",sep="")),
+  p(paste("$$Repeatability=\\frac{V'_",NOT$devI,"}{V'_",NOT$devI,"+V'_",NOT$residualUpper,"}$$",sep="")),
   textOutput("Mod1Step3_Rep_txt"),
   
   p(HTML(Mod1Step3_txt$point)),        # Text: point
+  p(HTML(Mod1Step3_txt$point2)),       # Text: point 2
+  p(HTML(Mod1Step3_txt$point3)),       # Text: point 3
   
   p(HTML(module1_txt$statModTitle)),
+  p(HTML(Mod1Step3_txt$statmodel)),       # Text: statistical model 1
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
           NOT$devI,"_",NOT$ind,"+",
-          EQ3$mean1," ",
-          EQ2$env1,"+",
           NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-  p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_{",EQ3$mean1," ",EQ2$env1,"}+V_",NOT$error,"$$",sep="")),
+  p(HTML(Mod1Step3_txt$statmodel2)),      # Text: statistical model 2
+  p("The variance equation is now"),
+  p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_",NOT$residualUpper,"$$",sep="")),
+  p("where"),
+  p(paste("$$V_",NOT$residualUpper,"=V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$$",sep="")),
+  
   
   div(class="line"),
   
