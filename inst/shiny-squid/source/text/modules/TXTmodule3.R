@@ -152,90 +152,84 @@ Mod3Step2_txt <- list(
 # Step 3 --------------
 Mod3Step3_txt <- list(  
   "title"      = "Step 3: Biased sampling and known and unknown environments",
-  
-  
   "subgoal"    = "<b>Sub-goal:</b> Accounting for the environment to control for environmental biases.",
   
-  "intro"      = paste0("Step 1 of this module illustrated that environmental effects on phenotypes 
-                        can produce biases in estimates of among-individual variance ($V_",NOT$devI,"$).  
-                        Step 2 explored how altering sampling regimes could reduce this problem, 
-                        but also revealed that in some circumstances no sampling regime would work. 
-                        Sometimes individuals experience different environments, and no sampling 
-                        regime can adjust for that. However, if investigators can measure the environment, 
-                        then such differences could be accounted for. 
-                        Environmental variance was accounted for using linear regression in step 4 of  
-                        the 'Basic Lessons' module. Here we demonstrate that this can, 
+  "intro"      = paste0("<b>Introduction:</b> Step 1 of this module illustrated that environmental 
+                        effects on phenotypes can produce biases in estimates of among-individual variance $(V_",NOT$devI,")$.  
+                        Step 2 explored how altering sampling regimes could reduce this problem but also 
+                        revealed that in some circumstances no sampling regime would work. 
+                        Sometimes individuals experience different environments, and no sampling regime can adjust for that. 
+                        However, if investigators can measure the environment, then such differences could be accounted for. 
+                        Environmental variance was accounted for using linear regression in step 4 of the 
+                        &ldquo;<i>",Module_titles$mod1,"</i>&rdquo; module. Here we demonstrate that this can, 
                         under some circumstances, solve the bias in sampling problem."),
-
-  "exercise"   = paste0("<b>Exercise 1:</b> This exercise follows the same structure as all of our other 
-                        simulations so far. We will generate a group of individuals , 
-                        with phenotypic variance caused by measurement error ($V_",NOT$error,"$), 
-                        individual differences ($V_",NOT$devI,"$), and the impact 
-                        of the environment ($V_{",EQ3$mean1," ",EQ2$env1,"}$). 
+  "exercise1"  = paste0("<b>Exercise 1:</b> This exercise follows the same structure as all of our other simulations so far. 
+                        We will generate a group of individuals, with phenotypic variance caused by measurement error $(V_",NOT$mError,")$, 
+                        individual differences $(V_",NOT$devI,")$, and the impact of the environment $(V_",NOT$envEffect,")$. 
                         So, first set the true values of these variances:"),
-  
+
   "para1"      =  "The environment can be chosen as in Step 2. 
                   It, combined with the sampling regime, will affect within- and among-individual 
                   variance in the environment.",  
-  "para3"      = "Finally, we will have you set how much of the environmental variance has been 
-                  measured and is therefore known. You will select a proportion, 
+  "para3"      = "Finally, we will have you set how much of the environmental variance has 
+                  been measured and is therefore known. You will select a proportion, 
                   from 0 to 1 of this variance. This proportion along with the proportion 
                   of total variance that is environmental will determine the correlation 
                   between phenotype and the known environment. The results of Step 1 should 
                   have shown you what happens when all the environmental variance is unknown 
-                  (or not included in your statistical model). Here, let's start with all the 
-                  environmental variance being known and measurable.",
-  "results"    = "<b>Results:</b> In the first module, Step 4, we said the statistical model was",
+                  (or not included in your statistical model). Here, let’s start with all 
+                  the environmental variance being known and measurable.",
+  "results"    = paste0("<b>Results:</b> In the module &ldquo;<i>",Module_titles$mod1,"</i>&rdquo;, Step 4, we said the statistical model was"),
   "para4"      = "This is the model we will investigate here. 
                   We will compare it to a model in which all of the environmental 
                   variance is unknown, e.g.,",
   "para5"      = "A mixed effects statistical model estimates the parameters, 
                   which we can compare with the true values:",
-  "para6"      = paste0("This should show you that when there is among-individual variance in 
-                  sampling and you can account for all the environmental variance 
-                  with an x variable, any bias in $V_",NOT$devI,"$ caused by the biased sampling disappears."),
-  "para7"      = "<b>Exercise 2:</b> Now, let&rsquo;s repeat the same simulation as above, expect this time explore 
-                  what happens as you change the proportion of the environmental 
-                  variance that is known. Below is the bar that allows you 
-                  to adjust this.",
+  "para6"      = paste0("This should show you that when there is among-individual variance in sampling 
+                        and you can account for all the environmental variance with an x variable, 
+                        any bias in $V_",NOT$devI,"$ caused by the biased sampling disappears."),
+  "reminder"   = paste0("A brief reminder about notation: When unknown environments affect phenotypic variance, 
+                        we have referred to that variance as $V_",NOT$envEffect,"$.  In the model where the environment is known $(",NOT$env,")$, 
+                        there now is a specific component of variance due to that known environmental factor, 
+                        $V_{",NOT$mean," ",NOT$env,"}$. In the case above, $V_",NOT$envEffect,"=V_{",NOT$mean," ",NOT$env,"}$, 
+                        but in the real world with many environmental variables, 
+                        $V_{",NOT$mean," ",NOT$env,"}$ will be only a fraction of $V_",NOT$envEffect,"$."),
+  "exercise2"  = "<b>Exercise 2:</b> Now, let's repeat the same simulation as above, 
+                  expect this time explore what happens as you change the proportion of the environmental 
+                  variance that is known. Below is the bar that allows you to adjust this.",
   "para8"      = "If you want, you can also change the level of bias in sampling.",
   "para9"      = "<b>Results:</b> As above, we will show you the true values you entered, 
-                  the values estimated when the environment is unknown, 
-                  and those estimated when some portion of the environment 
-                  is known and included in the model.",
+                  the values estimated when the environment is unknown, and those estimated 
+                  when some portion of the environment is known and included in the model.",
   "conclusion" = "<b>Conclusion:</b> There are two lessons that emerge from this exercise. 
-                  First, biases in sampling are usually inevitable, but they can be 
-                  reduced by measuring the underlying environments that different between 
-                  among individuals can reduce them. Thus, if you want to measure 
-                  among-individual variance, you must think carefully about potential 
-                  biases in environments, and measure those environments. 
+                  First, biases in sampling are usually inevitable, but measuring the underlying 
+                  environments that differ among individuals can reduce them. 
+                  Thus, if you want to measure among-individual variance, 
+                  you must think carefully about potential biases in environments, 
+                  and measure those environments. 
                   That will give you a better estimate of among-individual variance.",
   "conclusion2" = paste0("The second lesson is that bias in sampling may occur without 
-                   you being aware of it. This unknown environment will affect 
-                   your estimate of among-individual variance. Put another way, 
-                   any among-individual variance estimated from real data could 
-                   be due to unknown biased environments. One cannot be sure that 
-                   you have accounted for all of the environmental variance. 
-                   The $V_",NOT$devI,"$ that is found from real data must therefore be interpreted cautiously."),
+                         you being aware of it. This unknown environment will affect 
+                         your estimate of among-individual variance. Put another way, 
+                         any among-individual variance estimated from real data could 
+                         be due to unknown biased environments. One cannot be sure that 
+                         you have accounted for all of the environmental variance. 
+                         The $V_",NOT$devI,"$ that is found from real data must therefore be interpreted cautiously."),
   "finalcaveat" = paste0("<b>A final caveat:</b> An interesting consequence of having variance 
-                    in sampling among individuals is that it produces variance 
-                    in the experienced environment that exists both within and 
-                    among individuals. We have assumed that the impact of the 
-                    environmental variance that exists among individuals is 
-                    the same as that of the variance in environment within-individuals. 
-                    As an example, individuals may be on territories with 
-                    different average levels of resources through the whole 
-                    period of time you are taking measurements, and those resources 
-                    may fluctuate some from day to day as well. Thus in your population, 
-                    there is both among-individual variance in environment 
-                    (e.g., differences between territories) and within-individual 
-                    variance in environment (differences between days within a territory). 
-                    We have assumed these have the same effect on phenotype. 
-                    It is possible that this is not the case. If so, the method 
-                    we have demonstrated here will not give accurate estimates of $V_",NOT$devI,"$. 
-                    We discuss one solution to this in a module on within and 
-                    among-subject centering. The issues related to centering are complex, 
-                    so we recommend this module be done after the module on random regression.")
+                         in sampling among individuals is that it produces variance in the experienced 
+                         environment that exists both within and among individuals. We have assumed 
+                         that the impact of the environmental variance that exists among individuals 
+                         is the same as that of the variance in environment within-individuals. 
+                         As an example, individuals may be on territories with different average 
+                         levels of resources through the whole period of time you are taking measurements, 
+                         and those resources may fluctuate some from day to day as well. Thus in your population, 
+                         there is both among-individual variance in environment 
+                         (e.g., differences between territories) and within-individual variance in environment 
+                         (differences between days within a territory). We have assumed these have 
+                         the same effect on phenotype. It is possible that this is not the case. 
+                         If so, the method we have demonstrated here will not give accurate estimates of $V_",NOT$devI,"$. 
+                         We discuss one solution to this in a module on within and among-subject centring. 
+                         The issues related to centring are complex, so we recommend this module be done 
+                         after the module on random regression.")
   
 )
-

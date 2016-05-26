@@ -5,7 +5,7 @@ span(
   
   p(HTML(Mod3Step3_txt$subgoal)),    # Text: subgoal
   p(HTML(Mod3Step3_txt$intro)),      # Text: introduction
-  p(HTML(Mod3Step3_txt$exercise)),   # Text: exercise
+  p(HTML(Mod3Step3_txt$exercise1)),  # Text: exercise 1
   
   # Among-individual variance (Vi)
   fluidRow(
@@ -15,13 +15,13 @@ span(
   
   # Measurement error variance
   fluidRow(
-    column(8,getSliderInput("Mod3Step3_Ve", Modules_VAR$Ve)),
+    column(8,getSliderInput("Mod3Step3_Ve", Modules_VAR$Vm)),
     column(4,textOutput("Mod3Step3_Ve_proportion"))
   ),
   
   # Variance of Mean Environment effects in the slope (V Beta1 X1)
   fluidRow(
-    column(8,getSliderInput("Mod3Step3_Vbx", Modules_VAR$Vb1x1)),
+    column(8,getSliderInput("Mod3Step3_Vbx", Modules_VAR$VE)),
            column(4,textOutput("Mod3Step3_Vbx_proportion"))
     ),
 
@@ -54,7 +54,7 @@ span(
   
   p(HTML(Mod3Step3_txt$results)),         # Text: results
   
-  p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",EQ3$mean1,EQ$env1,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
+  p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$mean," ",NOT$env,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
   p(HTML(Mod3Step3_txt$para4)),      # Text: paragraph 4
   
@@ -65,8 +65,9 @@ span(
   uiOutput("Mod3Step3_summary_table"),
   
   p(HTML(Mod3Step3_txt$para6)),      # Text: paragraph 6
+  p(HTML(Mod3Step3_txt$reminder)),   # Text: notation reminder
   
-  p(HTML(Mod3Step3_txt$para7)),      # Text: paragraph 7
+  p(HTML(Mod3Step3_txt$exercise2)),  # Text: exercise 2
   
   sliderInput("Mod3Step3_Vbx_proportion",
               "Proportion of the environmental effect measured:",
