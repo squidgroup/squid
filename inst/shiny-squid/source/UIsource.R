@@ -22,6 +22,7 @@ source("./source/utilities/getIcon.R",local=TRUE)
 source("./source/utilities/runningIndicator.R",local=TRUE)
 source("./source/utilities/getTable.R",local=TRUE)
 source("./source/utilities/info_msg.R",local=TRUE)
+source("./source/utilities/warning_msg.R",local=TRUE)
 source("./source/utilities/getLabel.R",local=TRUE)
 
 ########

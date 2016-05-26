@@ -11,10 +11,10 @@ span(
   getSliderInput("Mod3Step2_Vi", Modules_VAR$Vi),
 
   # Measurement error variance
-  getSliderInput("Mod3Step2_Ve", Modules_VAR$Ve),
+  getSliderInput("Mod3Step2_Ve", Modules_VAR$Vm),
   
   # Variance of Mean Environment effects in the slope (V Beta1 X1)
-  getSliderInput("Mod3Step2_Vbx", Modules_VAR$Vb1x1),
+  getSliderInput("Mod3Step2_Vbx", Modules_VAR$VE),
   
   conditionalPanel(
     condition = "0",

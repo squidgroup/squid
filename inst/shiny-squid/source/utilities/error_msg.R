@@ -1,4 +1,4 @@
-# create an icon into input label
+# create an error message
 error_msg <- function(errors){ 
   
   if(length(errors)==0) return(NULL)
@@ -9,7 +9,7 @@ error_msg <- function(errors){
     errorsOutput <- paste( errorsOutput,
                            ifelse(i > 1,"</br>",""),
                            "<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-                            <span class='sr-only'>Error:</span>",
+                            <span class='sr-only'>Error!</span>",
                            errors[i],"")
   }
     

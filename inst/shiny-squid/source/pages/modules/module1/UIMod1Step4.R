@@ -38,7 +38,8 @@ span(
           NOT$mean," ",
           NOT$env,"_{",NOT$time,NOT$ind,"} +",
           NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-  p(HTML(Mod1Step4_txt$para2)),    # Text: paragraph 2
+  p(HTML(Mod1Step4_txt$para2)),      # Text: paragraph 2
+  div(info_msg(Mod1Step4_txt$note1)), # Text: note
   
   p(),
   # Simulation run button

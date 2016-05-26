@@ -108,6 +108,16 @@ Modules_VAR <- list(
                    "errorTxt"    = "Number of trait expressions must be an integer between 1 and 100."
   ),
   
+  # Environmental effect variance 
+  "VE"  = list(  "label"       = paste0("Environmental effect variance $(V_",NOT$envEffect,")$:"),
+                  "infoTxt"     = "Environmental effect variance",
+                  "value"       = 0.5,
+                  "min"         = 0,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = "Environmental effect variance must be a positive number."
+  ),
+  
   # Variance of population mean response to an environmental effect x
   "Vbx"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $",NOT$env,"$ $(V_{",NOT$mean," ",NOT$env,"})$:",sep=""),
                   "infoTxt"     = "Variance of population mean response to an environmental effect x",
@@ -204,7 +214,7 @@ Module_titles <- list(
   "mod1"  = "Basic Lessons about Variance",
   "mod2"  = "",
   "mod3"  = "Non-stochastic environments",
-  "mod4"  = "",
+  "mod4"  = "Multiple traits",
   "mod5"  = "",
   "mod6"  = "Random slopes",
   "mod7"  = "",

@@ -8,13 +8,14 @@ span(
   p(HTML(Mod3Step1_txt$exercise)),   # Text: exercise
 
   p(HTML(Mod3Step1_txt$para1)),      # Text: paragraph 1
+  div(info_msg(Mod3Step1_txt$note)), # Text: note
   
   # Among-individual variance (Vi)
   getSliderInput("Mod3Step1_Vi", Modules_VAR$Vi),
   # getNumericInput("Mod3Step1_Vi", Modules_VAR$Vi, "Mod3Step1_error_Vi"),
   
   # Measurement error variance
-  getSliderInput("Mod3Step1_Ve", Modules_VAR$Ve),
+  getSliderInput("Mod3Step1_Ve", Modules_VAR$Vm),
 
   conditionalPanel(
     condition = "0",
@@ -24,7 +25,7 @@ span(
   p(HTML(Mod3Step1_txt$para2)),      # Text: paragraph 2
   
   # Variance of Mean Environment effects in the slope (V Beta1 X1)
-  getSliderInput("Mod3Step1_Vbx", Modules_VAR$Vb1x1),
+  getSliderInput("Mod3Step1_Vbx", Modules_VAR$VE),
         
   p(HTML(Mod3Step1_txt$para3)),       # Text: paragraph 3
   
@@ -32,7 +33,7 @@ span(
   p(HTML(
     paste('<figure>
           <img src="pictures/Vit_examples.jpg" width="800px" height="296px" alt="Examples of among-individual variance in timing of sampling">
-          <figcaption><b>Figure:</b> two examples of 4 individuals that are sampled 5 times each and that among-individual variance in timing of sampling ($',general_VAR$btwIndVarTimSamp,'$) is 0.1 (left) and 0.9 (right).</figcaption>
+          <figcaption><b>Figure:</b> two examples of 4 individuals that are sampled 5 times each and that among-individual variance in timing of sampling $(',general_VAR$btwIndVarTimSamp,')$ is 0.1 (left) and 0.9 (right).</figcaption>
           </figure>',sep=""))
   ),
   

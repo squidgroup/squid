@@ -1,7 +1,7 @@
-# create an icon into input label
+# create an info message
 info_msg <- function(infos){ 
   
-  if(length(warnings)==0) return(NULL)
+  if(length(infos)==0) return(NULL)
   
   infosOutput <- ""
   
@@ -9,7 +9,7 @@ info_msg <- function(infos){
     infosOutput <- paste( infosOutput,
                            ifelse(i > 1,"</br>",""),
                            "<span class='glyphicon glyphicon-info-sign' aria-hidden='true'></span>
-                            <span class='sr-only'>Warning:</span>",
+                            <span class='sr-only'>Infos!</span>",
                            infos[i],"")
   }
     

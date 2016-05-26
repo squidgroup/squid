@@ -46,6 +46,7 @@ fixedPage( HTML("<div>"),
                 
                 # Title
                 h3(HTML(module3_txt$title)),
+                p(HTML(module3_txt$goal)), 
                 
                 tabsetPanel(id = "Module3TabsetPanel", type = "pills", selected = "Step 1",
                             

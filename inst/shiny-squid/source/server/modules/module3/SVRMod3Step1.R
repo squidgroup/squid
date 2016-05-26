@@ -1,8 +1,7 @@
 #Server functions for module 3 step 1
 c(
-  
     ######### Set variables #########    
-      # Set hidden variables (Tmax, Vi, ES_state, ES_sto_V and NR)
+      # Set hidden variables
        output$Mod3Step1_hidden <- renderUI({
           list(
             numericInput("Mod3Step1_Tmax", "", Modules_VAR$Tmax$max),
@@ -67,10 +66,10 @@ c(
    	  data <- Mod3Step1_output()
    	  
    	  myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step1_Vi),
-   	                                         paste("Residual variance ($V_",NOT$error,"$) =",input$Mod3Step1_Ve),
-   	                                         paste("Environmental variance ($V_{",EQ3$mean1," ",EQ2$env1,"}$) =",input$Mod3Step1_Vbx)),
-   	                        "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
-   	                                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
+   	                                         paste("Measurement error variance ($V_",NOT$mError,"$) =",input$Mod3Step1_Ve),
+   	                                         paste("Environmental variance ($V_",NOT$envEffect,"$) =",input$Mod3Step1_Vbx)),
+   	                        "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = ",ifelse(!is.null(data),data$Vi,"...")),
+   	                                        paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = ",ifelse(!is.null(data),data$Vr,"...")),
    	                                        "") 
    	  ) 
    	  getTable(myTable) 

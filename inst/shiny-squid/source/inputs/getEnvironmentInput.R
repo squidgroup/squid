@@ -6,6 +6,7 @@ getEnvironmentInput <- function(module, step, myDefault="Stochastic"){
       getCheckboxInput(paste0("Mod",module,"Step",step,"_X_Shared"), Modules_VAR$share),
       getSelectInput(paste0("Mod",module,"Step",step,"_X_select"), Modules_VAR$Env_types),
       wellPanel(
+        div(info_msg(FullModel_VAR$Env_preview)),
         fluidRow(
           conditionalPanel(
             condition = paste0("input.Mod",module,"Step",step,"_X_select == 'auto' | input.Mod",module,"Step",step,"_X_select == 'sto'"),

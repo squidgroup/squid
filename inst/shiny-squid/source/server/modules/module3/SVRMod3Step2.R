@@ -77,10 +77,10 @@ c(
    	  data <- Mod3Step2_output()
    	  
    	  myTable <- data.frame("True"       = c(paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step2_Vi),
-   	                                         paste("Residual variance ($V_",NOT$error,"$) =",input$Mod3Step2_Ve),
-   	                                         paste("Environmental variance ($V_{",EQ3$mean1," ",EQ2$env1,"}$) =",input$Mod3Step2_Vbx)),
-   	                        "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
-   	                                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
+   	                                         paste("Measurement error variance ($V_",NOT$mError,"$) =",input$Mod3Step2_Ve),
+   	                                         paste("Environmental effect variance ($V_",NOT$envEffect,"$) =",input$Mod3Step2_Vbx)),
+   	                        "Estimated" = c(paste("Individual variance in sample ($V'_",NOT$devI,"$) = ",ifelse(!is.null(data),data$Vi,"...")),
+   	                                        paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = ",ifelse(!is.null(data),data$Vr,"...")),
    	                                        "")
    	  )  
    	  getTable(myTable)

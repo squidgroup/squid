@@ -12,7 +12,7 @@ span(
 
     p(HTML(Mod1Step1_txt$para1)),        # Text: Paragraph 1
     p(HTML(Mod1Step1_txt$explanation1)), # Text: Notation explanation
-    p(HTML(Mod1Step1_txt$note1)),        # Text: Paragraph 1
+    div(info_msg(Mod1Step1_txt$note1)),  # Text: note
     
     # Measurement error variance
     getSliderInput("Mod1Step1_Ve", Modules_VAR$Vm),

@@ -270,9 +270,11 @@ Mod1Step4_txt <- list(
                      $",EQ3$mean0,"$ is the population mean phenotype, 
                      $",NOT$devI,"_",NOT$ind,"$ is the individual mean deviation from the population mean for the $",NOT$ind,"^{th}$ individual, 
                      $",NOT$mean,"$ is the population mean effect of measured environment $",NOT$env,"_{",NOT$time,NOT$ind,"}$ on the measure of phenotype, 
-                     and $",NOT$error,"_{",NOT$time,NOT$ind,"}$ is the error made in that measurement.
-                     Note that $V_{",NOT$mean," ",NOT$env,"}=
-                     ",NOT$mean,"^2Var(",NOT$env,")$ where $Var(",NOT$env,")=1$."),
+                     and $",NOT$error,"_{",NOT$time,NOT$ind,"}$ is the error made in that measurement."),
+
+  "note1"    = paste0("Note that in SQuID each environmental effect $(",NOT$env,")$ is expressed in unit variance 
+                      (i.e., $Var(",NOT$env,")=1$) and mean-centred (i.e., $E(",NOT$env,")=0$).
+                      Then $V_{",NOT$mean," ",NOT$env,"}=Var(",NOT$mean," ",NOT$env,")=",NOT$mean,"^2Var(",NOT$env,")=",NOT$mean,"^2$"),
 
   "para3"    = "A mixed statistical model estimates these parameters:",
   "para4"    = paste("Visually, you can see what $",NOT$mean,"$ 
