@@ -69,6 +69,8 @@ span(
   
   p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
+  displayRCode(Mod3Step1_txt$RCode),
+  
   p(HTML(Mod3Step1_txt$para7)),       # Text: para7
   uiOutput("Mod3Step1_summary_table"),
   

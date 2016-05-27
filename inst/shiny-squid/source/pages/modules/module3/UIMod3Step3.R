@@ -56,9 +56,13 @@ span(
   
   p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",EQ3$mean0,"+",NOT$devI,"_",NOT$ind,"+",NOT$mean," ",NOT$env,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
+  displayRCode(Mod3Step3_txt$RCode1),
+  
   p(HTML(Mod3Step3_txt$para4)),      # Text: paragraph 4
   
   p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",EQ3$mean0,"+",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
+  
+  displayRCode(Mod3Step3_txt$RCode2),
   
   p(HTML(Mod3Step3_txt$para5)),      # Text: paragraph 5
   

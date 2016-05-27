@@ -12,6 +12,8 @@ span(
             ",NOT$devI,"_",NOT$ind,"+
             ",NOT$mean," ",NOT$env,"_{",NOT$time, NOT$ind,"}+
             ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
+
+    displayRCode(Mod6Step1_txt$RCode1),
     
     p(HTML(Mod6Step1_txt$para1)),    # Text: paragraph 1
     
@@ -20,6 +22,8 @@ span(
             ",NOT$devI,"_",NOT$ind,"+
             (",NOT$mean,"+", NOT$devS,"_", NOT$ind,")", NOT$env,"_{",NOT$time, NOT$ind,"}+
             ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
+    
+    displayRCode(Mod6Step1_txt$RCode2),
     
     p(HTML(Mod6Step1_txt$para2)),    # Text: paragraph 2
     
@@ -97,6 +101,8 @@ span(
     p(paste0("$$V_{",NOT$devS,NOT$env,"}=Var(",NOT$devS,")Var(",NOT$env,")+E(",NOT$env,")^2Var(",NOT$devS,")=Var(",NOT$devS,")$$")),
     p(paste0("Note that $Var(",NOT$env,")$ is the true variance in $",NOT$env,"$, and $E(",NOT$env,")$ is the true mean of $",NOT$env,"$.
              Also, in SQuID each environmental variable $(",NOT$env,")$ is standardized (i.e., $Var(",NOT$env,")=1$ and $E(",NOT$env,")=0$)$")),
+    
+    displayRCode(Mod6Step1_txt$RCode),
     
     div(class="line"),
     

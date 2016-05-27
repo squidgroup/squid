@@ -24,6 +24,7 @@ source("./source/utilities/getTable.R",local=TRUE)
 source("./source/utilities/info_msg.R",local=TRUE)
 source("./source/utilities/warning_msg.R",local=TRUE)
 source("./source/utilities/getLabel.R",local=TRUE)
+source("./source/utilities/displayRCode.R",local=TRUE)
 
 ########
 source("./source/pages/fullModel/UIenvironment.R",local=TRUE)

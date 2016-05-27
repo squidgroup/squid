@@ -73,8 +73,7 @@ span(
           NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
   p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$$",sep="")),
   
-  ####### TEST ##########
-  tableOutput("table_test"),
+  displayRCode(Mod1Step4_txt$RCode),
   
   div(class="line"),
   

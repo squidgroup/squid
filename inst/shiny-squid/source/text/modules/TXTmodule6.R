@@ -46,8 +46,10 @@ Mod6Step1_txt <- list(
                        (i.e. that describe how individuals respond to changing environments). 
                        For the random-intercept regression, we used the following model to recreate 
                        our simulated set of effects:"),
-  
-  "para1"    = "We will modify this model as:",
+  "RCode1"    = "# install.packages(&quot;lme4&quot;)<br>
+                 LMM1 <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = sampled_data)",
+  "para1"     = "We will modify this model as:",
+  "RCode2"    = "LMM2 <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0 + X1|Individual), data = sampled_data)",
   "para2"    = paste0("in which $",NOT$devS,"_",NOT$ind,"$ is the effect of measured environment 
                 $",NOT$env,"_{",NOT$time, NOT$ind,"}$
                 on the measure of phenotype in the <i>i <sup>th</sup></i> individual. 
@@ -77,8 +79,9 @@ Mod6Step1_txt <- list(
                 However, the consideration of differences in how individuals respond to environmental 
                 fluctuations may be straightforward on a biological basis. This model simultaneously 
                 accommodates tests for individual personality differences (i.e. the calculation of 
-                repeatability makes sense) as well as tests for individual by environment interaction."
-  
+                repeatability makes sense) as well as tests for individual by environment interaction.",
+  "RCode"    = "# install.packages(&quot;lme4&quot;)<br>
+               LMM <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0 + X1|Individual), data = sampled_data)"
 )
 
 # Step 2 --------------
@@ -135,7 +138,9 @@ Mod6Step2_txt <- list(
                   Undoubtedly further understanding of it will contribute to understanding 
                   the evolution of plasticity, since the covariance links variation 
                   in plasticity with variation in mean trait values, 
-                  and therefore could affect evolution in unexpected ways."
+                  and therefore could affect evolution in unexpected ways.",
+  "RCode"      = "# install.packages(&quot;lme4&quot;)<br>
+                 LMM <- lme4::lmer(Phenotype ~ 1 + X1 + (X1|Individual), data = sampled_data)"
 )
 
 # Step 3 --------------
@@ -160,6 +165,8 @@ Mod6Step3_txt <- list(
                   in terms of allocating effort in sampling more individuals or more repeats 
                   per individual. The use of SQuID helps researchers to determine the best 
                   sampling design. They will use the same equation as we used in the step 2, e.g.,",
+  "RCode"      = "# install.packages(&quot;lme4&quot;)<br>
+                 LMM <- lme4::lmer(Phenotype ~ 1 + X1 + (X1|Individual), data = sampled_data)",
   "table"      = "The table below summarises the value of each parameter of the model:",
   "para1"      = paste0("For these simulations we are going to use a stochastic environment effect $(",NOT$env,")$. 
                   We will also sample individual trait expressions the same number of times but 

@@ -12,6 +12,8 @@ span(
              (",NOT$mean,"+", NOT$devS,"_", NOT$ind,")", NOT$env,"_{",NOT$time, NOT$ind,"}+
              ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
     
+    displayRCode(Mod6Step3_txt$RCode),
+    
     p(HTML(Mod6Step3_txt$table)),   # Text: table
     uiOutput("Mod6Step3_summary_variance_table"),
     

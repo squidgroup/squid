@@ -128,7 +128,7 @@ c(
       print(data$plots$sampTime)
     }),
     
-    Mod3Step3_table <- function(data){
+    Mod3Step3_table <- function(data, proportion){
       
       myTable <- data.frame("True"       = c("True",
                                              paste("Population intercept $(",EQ3$mean0,")$ = 0"),
@@ -142,7 +142,7 @@ c(
                                                               paste("Residual variance $(V'_",NOT$residualUpper,")$ = "        ,ifelse(!is.null(data),data$Vr,"...")),
                                                               "",
                                                               ""),
-                            "Environment known" = c("Environment known (proportion=1.0)",
+                            "Environment known" = c(paste0("Environment known (proportion=",proportion,")"),
                                                     paste("Population estimated mean $(",NOT$mean,"'_0)$ = ", ifelse(!is.null(data),paste(data$B0_2,"\U00b1", data$se.B0_2, sep=" "),"...")),
                                                     paste("Individual variance $(V'_",NOT$devI,")$ = ", ifelse(!is.null(data),data$Vi_2,"...")),
                                                     paste("Residual variance $(V'_",NOT$residualUpper,")$ = ", ifelse(!is.null(data),data$Vr_2,"...")),
@@ -156,11 +156,11 @@ c(
     # Display results (table)
     output$Mod3Step3_summary_table <- renderUI({
       data   <- Mod3Step3_output()
-      Mod3Step3_table(data)
+      Mod3Step3_table(data, "1.0")
     }),
     output$Mod3Step3_summary_table_2 <- renderUI({
       data   <- Mod3Step3_output_2()
-      Mod3Step3_table(data)
+      Mod3Step3_table(data, as.character(round(input$Mod3Step3_Vbx_proportion,2)))
     }),
 
     observe({

@@ -46,7 +46,7 @@ c(
    	    # Call app main function
    	    data <- squid::squidR(input, module="Mod1Step3") 
    	    
-   	    LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_data)
+   	    LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_data)
    	    RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
    	    
    	    data$Vi            <- round(RANDEF[1],2)

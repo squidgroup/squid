@@ -172,4 +172,24 @@ input[type="number"]{
   border-color: #2e6da4;
 }
 
+.highlight-source-r {
+	font-family: Consolas, monaco, monospace;
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 18.5714px;
+	background-color: #EBEBEB;
+}
+
+.highlight-source-r h3{
+  font-family: Consolas, monaco, monospace !important;
+  font-weight: bold  !important;
+  font-size: 15px    !important;
+  margin: 0 0 10px 0 !important;
+  padding: 0         !important;
+  border: 0          !important;
+  color:#262626      !important;
+}
+
 

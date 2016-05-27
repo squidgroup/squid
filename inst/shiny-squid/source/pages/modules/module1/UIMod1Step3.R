@@ -48,6 +48,7 @@ span(
     plotOutput("Mod1Step3_plot2", width = Modules_VAR$Plot$width),
     
     # Table : display true and measured values (Vp, Vi, Vme and mean)
+    p(HTML(Mod1Step4_txt$para3)),    # Text: statistical result
     uiOutput("Mod1Step3_summary_table"),
   
   # Repeatability equation
@@ -70,6 +71,7 @@ span(
   p("where"),
   p(paste("$$V_",NOT$residualUpper,"=V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$$",sep="")),
   
+  displayRCode(Mod1Step3_txt$RCode),
   
   div(class="line"),
   

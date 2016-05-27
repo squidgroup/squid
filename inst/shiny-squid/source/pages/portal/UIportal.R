@@ -1,6 +1,6 @@
 fixedPage(
   wellPanel( 
-    
+
       h4(portal_txt$parag0_title),
       p(HTML(portal_txt$patag1_image), 
         HTML(portal_txt$parag0_contents_1)),

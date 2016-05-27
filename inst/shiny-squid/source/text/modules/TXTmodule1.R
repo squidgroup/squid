@@ -3,7 +3,7 @@ module1_txt <- list(
   "title"         = paste("Partitioning variances: Differences between $V_",NOT$total,"$, $V_",NOT$devI,"$ and 
                            measurement error variance",sep=""),
   "goal"          = "<b>Goal:</b> to develop understanding of hierarchies in variance when individuals express traits repeatedly.",
-  "statModTitle"  = "<b>Statistical model</b>"
+  "statModTitle"  = "<b>Statistical model:</b>"
 )
 
 # Step 1 --------------
@@ -71,7 +71,7 @@ Mod1Step1_txt <- list(
                          where the terms are defined as above. These have direct connection 
                          to the values in the phenotypic equation, with the exception 
                          that in this scenario the variance in $",NOT$error,"_{",NOT$time,NOT$ind,"}$, often called residual variance, 
-                         is measurement variance $(V_",NOT$mError,")$") 
+                         is measurement variance $(V_",NOT$mError,")$")
 )
 
 # Step 2 --------------
@@ -144,7 +144,9 @@ Mod1Step2_txt <- list(
                 to predict an individual's phenotype based on a previous measurement. 
                 Repeatability thus provides an assessment of how well one has measured 
                 a particular phenotype. Repeatability can be used for several other purposes too, 
-                so the way it is calculated may vary some. We will develop some of these nuances later on.")
+                so the way it is calculated may vary some. We will develop some of these nuances later on."),
+  "RCode"      = "# install.packages(&quot;lme4&quot;)<br>
+                  LMM <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = sampled_data)"
 )
 
 # Step 3 --------------
@@ -226,10 +228,13 @@ Mod1Step3_txt <- list(
                 for each individual in the same environment (e.g. two persons can observe the behaviour 
                 of an individual on the same video recording or measure the trait at close to the same time).",
   
-  "statmodel"    = "Because the environmental effect in this scenario was unknown, 
+  "statmodel"   = "Because the environmental effect in this scenario was unknown, 
                     the statistical models are the same as before, with two exceptions.  
                     First, the phenotypic equation is as before,",
-  "statmodel2"    = paste0("except that $",NOT$error,"_{",NOT$time,NOT$ind,"}$ contains both measurement error and deviations described by $",NOT$mean," ",NOT$env,"_{",NOT$time,NOT$ind,"}$")
+  "statmodel2"  = paste0("except that $",NOT$error,"_{",NOT$time,NOT$ind,"}$ contains both measurement 
+                           error and deviations described by $",NOT$mean," ",NOT$env,"_{",NOT$time,NOT$ind,"}$"),
+  "RCode"       = "# install.packages(&quot;lme4&quot;)<br>
+                  LMM <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = sampled_data)"
 )
 
 
@@ -296,6 +301,7 @@ Mod1Step4_txt <- list(
                in this simulation strongly affects inferences based on hypothesis testing. 
                More importantly, the combination of random effects and fixed effects sets one up 
                to investigate a wide array of processes involved at one or more levels in 
-               this hierarchal structure of among versus within-individual variance."
- 
+               this hierarchal structure of among versus within-individual variance.",
+ "RCode"    = "# install.packages(&quot;lme4&quot;)<br>
+               LMM <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = sampled_data)"
 )

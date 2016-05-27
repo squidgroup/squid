@@ -64,6 +64,8 @@ Mod3Step1_txt <- list(
   "para5"      = "The figure below shows time of sampling of a subset of individuals according to the values entered.",
   "results"    = "<b>Results</b>",
   "para6"      = "If we have no information about the environment, the model we incorrectly assume to be true is:",
+  "RCode"      = "# install.packages(&quot;lme4&quot;)<br>
+                  LMM <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = sampled_data)",
   "para7"      = "A mixed-effects statistical model can then estimate these model parameters:",
   "para8"      = paste0("The above should show that if the unmeasured environment changes over 
                         time AND there is among-individual variance in sampling, then some of the unknown 
@@ -119,6 +121,8 @@ Mod3Step2_txt <- list(
   "results"    = "<b>Results</b>",      
   "para4"      =  "As before, the model we assume to be true (but which is not since the environmental 
                   effect is not included) is:",
+  "RCode"      = "# install.packages(&quot;lme4&quot;)<br>
+                  LMM <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = sampled_data)",
   "para5"      =  "A mixed statistical model estimates the parameters which we can compare with the true values:",
   "conclusion" = "<b>Conclusion</b>",
 
@@ -182,10 +186,14 @@ Mod3Step3_txt <- list(
                   have shown you what happens when all the environmental variance is unknown 
                   (or not included in your statistical model). Here, let’s start with all 
                   the environmental variance being known and measurable.",
-  "results"    = paste0("<b>Results:</b> In the module &ldquo;<i>",Module_titles$mod1,"</i>&rdquo;, Step 4, we said the statistical model was"),
+  "results"    = paste0("<b>Results:</b> In the module &ldquo;<i>",Module_titles$mod1,"</i>&rdquo;, 
+                        Step 4, we said the statistical model was"),
+  "RCode1"    = "# install.packages(&quot;lme4&quot;)<br>
+                  LMM1 <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = sampled_data)",
   "para4"      = "This is the model we will investigate here. 
                   We will compare it to a model in which all of the environmental 
                   variance is unknown, e.g.,",
+  "RCode2"    = "LMM2 <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = sampled_data)",
   "para5"      = "A mixed effects statistical model estimates the parameters, 
                   which we can compare with the true values:",
   "para6"      = paste0("This should show you that when there is among-individual variance in sampling 

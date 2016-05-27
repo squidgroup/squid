@@ -46,7 +46,7 @@ c(
 
           # Call app main function
           data <- squid::squidR(input, module="Mod1Step4")
-          LMR  <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_data)
+          LMR  <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data$sampled_data)
           
           FIXEF    <- lme4::fixef(LMR)
           SE.FIXEF <- arm::se.fixef(LMR)

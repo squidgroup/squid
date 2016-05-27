@@ -44,6 +44,7 @@ span(
     p(HTML(Mod1Step2_txt$para3)),  # Text: paragraph 3
   
     # Table : display true and measured values (Vp, Vi, Vme and mean)
+    p(HTML(Mod1Step4_txt$para3)),    # Text: statistical result
     uiOutput("Mod1Step2_summary_table"),
     p(HTML(Mod1Step2_txt$point)),  # Text: point
   
@@ -62,6 +63,8 @@ span(
   p(HTML(module1_txt$statModTitle)),
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
   p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_",NOT$mError,"$$",sep="")),
+  
+  displayRCode(Mod1Step2_txt$RCode),
   
   div(class="line"),
   

@@ -107,6 +107,8 @@ span(
     
     p(HTML(Mod6Step2_txt$para7)),        # Text: paragraph 7
     
+    displayRCode(Mod6Step2_txt$RCode),
+    
     div(class="line"),
     
     actionLink("Mod6Step2GotoStep1", label = "<< Previous Step (1)", class= "linkToModuleSteps"), # Go to previous step       
