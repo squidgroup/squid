@@ -22,11 +22,10 @@ span(
     uiOutput("Mod3Step1_hidden")
   ),
   
-  p(HTML(Mod3Step1_txt$para2)),      # Text: paragraph 2
-  
   # Variance of Mean Environment effects in the slope (V Beta1 X1)
   getSliderInput("Mod3Step1_Vbx", Modules_VAR$VE),
-        
+  
+  p(HTML(Mod3Step1_txt$para2)),       # Text: paragraph 2      
   p(HTML(Mod3Step1_txt$para3)),       # Text: paragraph 3
   
   # Figure of 2 examples of sampling design when among-individual variance in sampling timing is 0.1 and 0.9

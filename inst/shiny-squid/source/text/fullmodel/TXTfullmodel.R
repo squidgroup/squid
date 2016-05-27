@@ -152,7 +152,7 @@ fullmodelTxt <- list(
                           a normal distribution.",sep=""),
   "environment_8"       = paste0("Finally, in SQuID the final output of each 
 													environmental effect ($",EQ2$env1,"$, $",EQ2$env2,"$ and $",EQ2$env12,"$) is 
-													expressed in unit variance (i.e., $Var(",NOT$env,")=1$) and mean-centred (i.e., $E(",NOT$env,")=0$)."),
+													expressed in unit variance (i.e., $Var(",NOT$env,")=1$) and mean-centered (i.e., $E(",NOT$env,")=0$)."),
   "groupingNerror"      = paste("The high-level grouping term ($",NOT$groupV,"$) is generated from 
                           a normal distribution of mean 0 and variance $Var(",NOT$groupV,")$, 
                           and the residual term ($",NOT$error,"$) from a normal distribution 
@@ -257,7 +257,7 @@ fullmodelTxt <- list(
                             then add further complexity by combining multiple environmental effect types.
   													Also, remember that in SQuID the final output of each 
   													environmental effect ($",EQ2$env1,"$, $",EQ2$env2,"$ and $",EQ2$env12,"$) is 
-  													expressed in unit variance (i.e., $Var(",NOT$env,"=1)$) and mean-centred (i.e., $E(",NOT$env,")=0$).
+  													expressed in unit variance (i.e., $Var(",NOT$env,"=1)$) and mean-centered (i.e., $E(",NOT$env,")=0$).
   													However, the previsualization graph below displays the generated environmental data before standardization."),
   "inputEnvironment_6"    = paste("Finally, you can add a third environmental effect corresponding to the 
                             interaction between $",EQ2$env1,"$ and $",EQ2$env2,"$. 

@@ -3,7 +3,7 @@ c(
   
     ######### Set variables ######### 
     Mod1Step3updateB <- function(input){
-      B <- sqrt(1-input$Mod1Step3_Vi-input$Mod1Step3_Ve)
+      suppressWarnings(B <- sqrt(1-input$Mod1Step3_Vi-input$Mod1Step3_Ve))
       return(ifelse(is.nan(B),0,B))
     },
       # Set hidden variables (Tmax, Vi, X1_state, X1_sto_V and NR)

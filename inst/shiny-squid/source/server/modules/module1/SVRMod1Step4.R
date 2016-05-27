@@ -2,9 +2,9 @@
 c(
   
     ######### Set variables #########    
-      # Set hidden variables (Tmax, Vind, B, X1_state, X1_shared and X1_sto_V)
+      # Set hidden variables
       Mod1Step4updateB <- function(input){
-        B <- sqrt(1-input$Mod1Step4_Vi-input$Mod1Step4_Ve)
+        suppressWarnings(B <- sqrt(1-input$Mod1Step4_Vi-input$Mod1Step4_Ve))
         return(ifelse(is.nan(B),0,B))
       },
       output$Mod1Step4_hidden <- renderUI({

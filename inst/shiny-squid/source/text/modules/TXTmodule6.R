@@ -58,7 +58,7 @@ Mod6Step1_txt <- list(
   "para3"    = "Set in the background is the environmental variable and its sampling. 
                 Here we should use uniform sampling, where each individual is sampled 
                 at the same time so there are no biases. By definition, 
-                our environmental variable is also mean centred.",
+                our environmental variable is also mean centered.",
   
   "results"  = "<b>Results:</b> A mixed-effects statistical model estimates these parameters:",
   "para4"    = "Individual-specific responses can be best visualised by plotting 

@@ -44,13 +44,12 @@ Mod3Step1_txt <- list(
   
   "note1"      = paste0("Note that from now on, the total variance ($V_",NOT$total,"$) is not restrained to 1 anymore."),
   "note2"      = "Also, the number of individuals will be set to 100 all along this module.",
-  
-  
-    
-  "para2"      = "The environment for this simulation is, for convenience, set as being linear over time, 
-                  affecting all individuals similarly (i.e., it is &ldquo;shared&rdquo;), having an intercept 
-                  effect on phenotype of 0, and a slope that you can input (we recommend at first 
-                  that the slope be >> 0).",
+
+  "para2"      = paste0("The environment for this simulation is, for convenience, set as being linear over time, 
+                  affecting all individuals similarly (i.e., it is &ldquo;shared&rdquo;). 
+                  The environment is also expressed in unit variance (i.e., $Var(",NOT$env,")=1$) 
+                  and mean-centered (i.e., $E(",NOT$env,")=0$)."),
+
   "para3"      = "You also must enter parameters for variance in the sampling timing within 
                   and among individuals. For this simulation, the total number of expressions of 
                   the phenotype from which you can sample is fixed at 100. While you can vary the 
