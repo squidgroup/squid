@@ -90,7 +90,10 @@ c(
         data$B0     <- round(FIXEF["(Intercept)"],2)
         data$se.B0  <- round(SE.FIXEF["(Intercept)"],2)
         
-        data$sampled_data$X1 <- input$Mod3Step3_Vbx_proportion * data$sampled_data$X1
+        myInput <- reactiveValuesToList(input)
+        myInput[["Mod3Step3_B"]]  <- matrix(c(0, sqrt(input$Mod3Step3_Vbx*input$Mod3Step3_Vbx_proportion),0,0),1)
+        myInput[["Mod3Step3_Ve"]] <- ((1-input$Mod3Step3_Vbx_proportion)*input$Mod3Step3_Vbx) + input$Mod3Step3_Ve
+        data    <- squid::squidR(myInput, module="Mod3Step3")
         
         LMR2      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data$sampled_data)
         FIXEF2    <- lme4::fixef(LMR2)

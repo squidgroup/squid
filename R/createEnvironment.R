@@ -4,6 +4,7 @@
 #   input:        list of all the inputs used to run the model.
 #   module:       character of the name of the module.
 #   environment:  character of the environment name.
+#   sep             character of the seperator between the module name and the variable name.
 #
 # Returns:
 #   list of an environment object.

@@ -35,17 +35,19 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
     X[,variables$B0] <- 1 # Intercept (slope is by default = 1 ) 
     
     ### Generate environments
+    # X1
     if(environments$X1$state){
       X[,variables$X1] <- getEnvironment(environments$X1, N, FALSE)
     }else{ 
       X[,variables$X1] <- 0
     }
+    # X2
     if(environments$X2$state){
       X[,variables$X2] <- getEnvironment(environments$X2, N, FALSE)
     }else{
       X[,variables$X2] <- 0
     }
-    
+
     # Interaction 
     if(environments$Interaction) X[,variables$X1X2] <- X[,variables$X1]*X[,variables$X2]
     
@@ -108,5 +110,4 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
                                "e"                = e)
 
   return(full_Data)
-
 }

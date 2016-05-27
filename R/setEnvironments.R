@@ -1,8 +1,9 @@
 # setEnvironments: set up environment objects
 #
 # Args:
-#   input          list of all the inputs used to run the model.
-#   module         character of the name of the module.
+#   input           list of all the inputs used to run the model.
+#   module          character of the name of the module.
+#   sep             character of the seperator between the module name and the variable name.
 #
 # Returns:
 #   list of the environments used to generete SQUID world.
