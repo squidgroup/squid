@@ -83,16 +83,14 @@ c(
      	                                      (data$sampled_data$B1 * data$sampled_data$X1) + data$sampled_data$e),
      	                            lines = myFactor)
      	    
-     	    m <- ggplot2::ggplot(mydata, ggplot2::aes(dens, fill=lines, colour=lines)) +
+     	    ggplot2::ggplot(mydata, ggplot2::aes(dens, fill=lines, colour=lines)) +
      	    	ggplot2::geom_density(alpha = 0.1) +
      	    	ggplot2::geom_rug(ggplot2::aes(col=lines)) +
      	    	ggplot2::facet_wrap(~ lines) +
      	    	ggplot2::xlab("Model component values") +
      	    	ggplot2::ylab("Density") + 
      	    	ggplot2::theme(legend.position="none")
-     	    
-     	    print(m)
-     	    
+
      	  }else{
      	    print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
      	  }
@@ -109,36 +107,37 @@ c(
    	    phen_time2   <- subset(data, data$Time == data$Time[2], select=Phenotype)
    	    data_plot <- data.frame("phen_time1"=phen_time1$Phenotype, "phen_time2"=phen_time2$Phenotype)
 
-   	    m <- ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
+   	    ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
    	    	ggplot2::geom_point(size=3, color=color$color2) +
    	    	ggplot2::xlab("First measurement") +
    	    	ggplot2::ylab("Second measurement")
-   	    
-   	    print(m)
-   	    
-   	    
+
    	  }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
    	}),
  	
    	# Display results (table)
    	output$Mod1Step3_summary_table <- renderUI({ 
    	  
+   	  data      <- Mod1Step3_output()
+   	  
    	  myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1",sep=""),
    	                                       paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step3_Vi),
    	                                       paste("Residual variance ($V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$) =",input$Mod1Step3_Ve+input$Mod1Step3_Vbx),
    	                                       "Mean of the trait ($\\mu$) = 0"),
-   	                        "Estimated" = c(paste("Total Phenotypic variance in sample ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vp,"...")),
-               	                            paste("Sampled Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vi,"...")),
-               	                            paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = "        ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$Vr,"...")),
-               	                            paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(Mod1Step3_output()),Mod1Step3_output()$phenotypeMean,"...")))
+   	                        "Estimated" = c(paste("Total Phenotypic variance in sample ($V'_",NOT$total,"$) = ",ifelse(!is.null(data),data$Vp,"...")),
+               	                            paste("Sampled Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
+               	                            paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
+               	                            paste("Sampled mean of the trait ($\\mu'$) = "        ,ifelse(!is.null(data),data$phenotypeMean,"...")))
                	)
    	  
    	  getTable(myTable)
    	}),
  	
    	# display results: repeatability (text)
-   	output$Mod1Step3_Rep_txt   <- renderText({ HTML(paste("Your repeatability is ", ifelse(!is.null(Mod1Step3_output()), 
- 	                                                                                  Mod1Step3_output()$R,"...")))}),
+   	output$Mod1Step3_Rep_txt   <- renderText({ 
+   	  data <- Mod1Step3_output()
+   	  HTML(paste("Your repeatability is ", ifelse(!is.null(data), data$R,"...")))
+   	}),
     ######### Manage errors #########
      	# display error message
      	observe({

@@ -54,15 +54,14 @@ c(
           mydata    <- data.frame(dens  = c(data$sampled_data$Phenotype,data$sampled_data$I, data$sampled_data$e),
                                   lines = myFactor)
           
-          m <- ggplot2::ggplot(mydata, ggplot2::aes(dens, fill=lines, colour=lines)) +
-		           ggplot2::geom_density(alpha = 0.1) +
-		           ggplot2::geom_rug(ggplot2::aes(col=lines)) +
-          	   ggplot2::facet_wrap(~ lines) +
-		           ggplot2::xlab("Model component values") +
-		           ggplot2::ylab("Density") + 
-		           ggplot2::theme(legend.position="none")
+           ggplot2::ggplot(mydata, ggplot2::aes(dens, fill=lines, colour=lines)) +
+                     ggplot2::geom_density(alpha = 0.1) +
+                     ggplot2::geom_rug(ggplot2::aes(col=lines)) +
+                	   ggplot2::facet_wrap(~ lines) +
+                     ggplot2::xlab("Model component values") +
+                     ggplot2::ylab("Density") + 
+                     ggplot2::theme(legend.position="none")
           
-          print(m)
 
         }else{
           print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
@@ -73,14 +72,16 @@ c(
       # Display results (table)
       output$Mod1Step2_summary_table <- renderUI({ 
         
+        data <- Mod1Step2_output()
+        
         myTable <- data.frame("True"     = c(paste("Total phenotypic variance ($V_",NOT$total,"$) = 1"),
                                             paste("Individual variance ($V_",NOT$devI,"$) =",1-input$Mod1Step2_Ve),
                                             paste("Measurement error variance ($V_",NOT$mError,"$) =",input$Mod1Step2_Ve),
                                             "Mean of the trait ($\\mu$) = 0"),
-                              "Estimated"= c(paste("Total sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vp,"...")),
-                                             paste("Sampled individual variance ($V'_",NOT$devI,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Vi,"...")),
-                                             paste("Measurement error in sample ($V'_",NOT$mError,"$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$Ve,"...")),
-                                             paste("Sampled mean of the trait ($\\mu'$) = ",ifelse(!is.null(Mod1Step2_output()),Mod1Step2_output()$phenotypeMean,"...")))
+                              "Estimated"= c(paste("Total sampled Phenotypic variance ($V'_",NOT$total,"$) = ",ifelse(!is.null(data),data$Vp,"...")),
+                                             paste("Sampled individual variance ($V'_",NOT$devI,"$) = ",ifelse(!is.null(data),data$Vi,"...")),
+                                             paste("Measurement error in sample ($V'_",NOT$mError,"$) = ",ifelse(!is.null(data),data$Ve,"...")),
+                                             paste("Sampled mean of the trait ($\\mu'$) = ",ifelse(!is.null(data),data$phenotypeMean,"...")))
                               )
                   
         getTable(myTable)
@@ -100,12 +101,10 @@ c(
           phen_time2   <- subset(data, data$Time == data$Time[2], select=Phenotype)
           data_plot <- data.frame("phen_time1"=phen_time1$Phenotype, "phen_time2"=phen_time2$Phenotype)
           
-          m <- ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
+          ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
           	   ggplot2::geom_point(size=3, color=color$color2) +
 	          	 ggplot2::xlab("First measurement") +
 	          	 ggplot2::ylab("Second measurement")
-          
-          print(m)
           
         }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
       })

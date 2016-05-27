@@ -42,7 +42,8 @@ Mod3Step1_txt <- list(
   "para1"      = paste0("As before, you can set $V_",NOT$mError,"$, $V_",NOT$devI,"$ and $V_{",NOT$envEffect,"}$, 
                         and for this module, $V_{",NOT$envEffect,"}$ must be greater than 0."),
   
-  "note1"      = paste0("Note that from now on, the total variance ($V_",NOT$total,"$) is not restrained to 1 anymore."),
+  "note1"      = paste0("Note that from now on, the total variance ($V_",NOT$total,"$) is not restrained to 1 anymore 
+                        and the proportion of each variance component is shown next to the input element."),
   "note2"      = "Also, the number of individuals will be set to 100 all along this module.",
 
   "para2"      = paste0("The environment for this simulation is, for convenience, set as being linear over time, 

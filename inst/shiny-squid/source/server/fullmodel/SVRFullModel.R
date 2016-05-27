@@ -235,10 +235,12 @@ SVRFullModel <- function(myModule, input, output, session){
           
        data <- myFullModel()
        #   print result graphs 
-       print(multiplot(data$plots$X1,                    
-                       data$plots$X2,
-                       data$plots$X1X2,
-                       cols=1))
+       if(!is.null(data)){
+         print(multiplot(data$plots$X1,                    
+                         data$plots$X2,
+                         data$plots$X1X2,
+                         cols=1))
+       }
        
      }),
      
@@ -246,16 +248,18 @@ SVRFullModel <- function(myModule, input, output, session){
          
        data <- myFullModel() 
        #   print result graphs 
-       print(multiplot(data$plots$totPhen,                    
-                       data$plots$sampPhen,                    
-                       cols=1))
+       if(!is.null(data)){
+         print(multiplot(data$plots$totPhen,                    
+                         data$plots$sampPhen,                    
+                         cols=1))
+       }
        
      }),
      
      output[[plotSamples]] <- renderPlot({
        data <- myFullModel()
        #   print result graphs 
-       print(data$plots$sampTime)
+       if(!is.null(data)) print(data$plots$sampTime)
      }),
      
      # update the sampling time length for each individual    
@@ -473,7 +477,7 @@ SVRFullModel <- function(myModule, input, output, session){
 
     output[[download_sampled]] <- downloadHandler(
       filename = function() {
-        paste('data-', Sys.Date(), '.csv', sep="")
+        paste0('sampled_data_', Sys.Date(), '.csv')
       },
       content = function(con) {
         write.csv(myFullModel()$sampled_data, con)
@@ -482,7 +486,7 @@ SVRFullModel <- function(myModule, input, output, session){
 
     output[[download_raw]] <- downloadHandler(
       filename = function() {
-        paste('data-', Sys.Date(), '.csv', sep="")
+        paste0('raw_data_', Sys.Date(), '.csv')
       },
       content = function(con) {
         write.csv(myFullModel()$full_data, con)

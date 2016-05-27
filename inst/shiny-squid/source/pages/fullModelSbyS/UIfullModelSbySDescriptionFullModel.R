@@ -53,8 +53,8 @@ myVarCovMatrix       <- paste(
     \\end{pmatrix} 
 $$",sep="")
 
-myG      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,\\sqrt{Var(",NOT$groupV,")})$$", sep="")
-mye      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,\\sqrt{Var(",NOT$error,")})$$", sep="")
+myG      <- paste("$$",NOT$groupV,"_{",NOT$group,"} \\sim N(0,Var(",NOT$groupV,"))$$", sep="")
+mye      <- paste("$$",NOT$error,"_{",NOT$time,NOT$ind,NOT$group,"} \\sim N(0,Var(",NOT$error,"))$$", sep="")
 
 span( 
 	p(HTML(fullmodelTxt$SimModel_intro)), 

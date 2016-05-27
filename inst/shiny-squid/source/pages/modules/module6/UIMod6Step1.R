@@ -30,17 +30,29 @@ span(
     getSliderInput("Mod6Step1_NR", Modules_VAR$NR),
     
     # Among-individual variance (Vi)
-    getSliderInput("Mod6Step1_Vi", Modules_VAR$Vi),
+    fluidRow(
+      column(8,getSliderInput("Mod6Step1_Vi", Modules_VAR$Vi)),
+      column(4,textOutput("Mod6Step1_Vi_proportion", inline = TRUE))
+    ),
     
     # Measurement error variance
-    getSliderInput("Mod6Step1_Ve", Modules_VAR$Ve),
+    fluidRow(
+      column(8,getSliderInput("Mod6Step1_Ve", Modules_VAR$Ve)),
+      column(4,textOutput("Mod6Step1_Ve_proportion", inline = TRUE))
+    ),
     div(info_msg(Mod6Step1_txt$note)),  # Text: note
     
-    # Variance of Mean Environment effects in the slope (V Beta1 X1)
-    getSliderInput("Mod6Step1_b1", Modules_VAR$B1),
-    
-    #Individual-specific response to an environmental effect (random slopes) variance (VS) :
-    getSliderInput("Mod6Step1_Vs", Modules_VAR$Vs),
+    # Variance of Mean Environment effects in the slope (Vbx)
+    fluidRow(
+      column(8,getSliderInput("Mod6Step1_Vbx", Modules_VAR$Vbx)),
+      column(4,textOutput("Mod6Step1_Vbx_proportion", inline = TRUE))
+    ),
+
+    #Individual-specific response to an environmental effect (random slopes) variance (VS)
+    fluidRow(
+      column(8,getSliderInput("Mod6Step1_Vs", Modules_VAR$Vs)),
+      column(4,textOutput("Mod6Step1_Vs_proportion", inline = TRUE))
+    ),
 
     # Hidden variable:
     conditionalPanel(
@@ -80,7 +92,7 @@ span(
             V_{",NOT$devS,NOT$env,"}+
             V_",NOT$residualUpper,"$$")),
     
-    p("Where"),
+    p("where"),
     p(paste0("$$V_{",NOT$mean," ",NOT$env,"}=",NOT$mean,"^2Var(",NOT$env,")=",NOT$mean,"^2$$")),
     p(paste0("$$V_{",NOT$devS,NOT$env,"}=Var(",NOT$devS,")Var(",NOT$env,")+E(",NOT$env,")^2Var(",NOT$devS,")=Var(",NOT$devS,")$$")),
     p(paste0("Note that $Var(",NOT$env,")$ is the true variance in $",NOT$env,"$, and $E(",NOT$env,")$ is the true mean of $",NOT$env,"$.

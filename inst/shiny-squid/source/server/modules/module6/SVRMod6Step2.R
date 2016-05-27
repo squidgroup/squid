@@ -14,7 +14,7 @@ c(
           list(
             numericInput("Mod6Step2_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod6Step2_Vind", "", Mod6Step2updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,input$Mod6Step2_b1,0,0),1))),
+            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1))),
             checkboxInput("Mod6Step2_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_shared", "", value = TRUE),
@@ -60,21 +60,9 @@ c(
           df <- df[, S1:=NULL][newdf, nomatch=0]
           
           df[ , Phenotype := ((B0+I) + (B1+S1)*X1 + e)]
-          
-#           newdf <- df                   %>% 
-#                   select(Individual,S1) %>%
-#                   unique()              %>%
-#                   transmute(Individual = sample(Individual), S1 = S1)
-#           
-#           df <- df           %>% 
-#                 select(-S1)  %>%
-#                 inner_join(newdf)
-          
-          # df$Phenotype    <- (df$B0 + df$I) + (df$B1 + df$S1) * df$X1 + df$e
         }
         
         data$df <- as.data.frame(df)
-        
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
         return(data)
@@ -126,12 +114,12 @@ c(
         print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype, 
                                                         x     = X1, 
                                                         color = as.factor(Individual))) +
-                              ggplot2::stat_smooth(method = "lm", se=FALSE) + 
-                              ggplot2::theme(legend.position="none") + 
-                              ggplot2::facet_grid(. ~ covariance) + 
-                              ggplot2::xlab("Environmental effect") + 
-                              ggplot2::ylab("Phenotype"))
-        
+                      ggplot2::stat_smooth(method = "lm", se=FALSE) + 
+                      ggplot2::theme(legend.position="none") + 
+                      ggplot2::facet_grid(. ~ covariance) + 
+                      ggplot2::xlab("Environmental effect") + 
+                      ggplot2::ylab("Phenotype"))
+
       }else{
         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
       }

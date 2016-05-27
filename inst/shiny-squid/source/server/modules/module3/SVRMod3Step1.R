@@ -73,5 +73,10 @@ c(
    	                                        "") 
    	  ) 
    	  getTable(myTable) 
-   	})
-  ) # End return
+   	}),
+ 	
+ 	output$Mod3Step1_Vi_proportion  <- renderText({paste0("(",round(input$Mod3Step1_Vi / (input$Mod3Step1_Vi + input$Mod3Step1_Vbx + input$Mod3Step1_Ve),2)*100,"%)")}),
+ 	output$Mod3Step1_Ve_proportion  <- renderText({paste0("(",round(input$Mod3Step1_Ve / (input$Mod3Step1_Vi + input$Mod3Step1_Vbx + input$Mod3Step1_Ve),2)*100,"%)")}),
+ 	output$Mod3Step1_Vbx_proportion <- renderText({paste0("(",round(input$Mod3Step1_Vbx / (input$Mod3Step1_Vi + input$Mod3Step1_Vbx + input$Mod3Step1_Ve),2)*100,"%)")})
+ 	
+) # End return

@@ -86,6 +86,10 @@ c(
    	  getTable(myTable)
    	}),
  	
+   	output$Mod3Step2_Vi_proportion  <- renderText({paste0("(",round(input$Mod3Step2_Vi / (input$Mod3Step2_Vi + input$Mod3Step2_Vbx + input$Mod3Step2_Ve),2)*100,"%)")}),
+   	output$Mod3Step2_Ve_proportion  <- renderText({paste0("(",round(input$Mod3Step2_Ve / (input$Mod3Step2_Vi + input$Mod3Step2_Vbx + input$Mod3Step2_Ve),2)*100,"%)")}),
+   	output$Mod3Step2_Vbx_proportion <- renderText({paste0("(",round(input$Mod3Step2_Vbx / (input$Mod3Step2_Vi + input$Mod3Step2_Vbx + input$Mod3Step2_Ve),2)*100,"%)")}),
+
     ######### Manage errors #########
      	# display error message
      	observe({
@@ -100,4 +104,4 @@ c(
  	    output$Mod3Step2_error_sto_V     <- renderUI({testInput(input$Mod3Step2_X1_sto_V, FullModel_VAR$stoV, FALSE, TRUE)}),
  	    output$Mod3Step2_error_sto_corr  <- renderUI({testInput(input$Mod3Step2_X1_sto_corr, FullModel_VAR$stoCorr, FALSE, TRUE)})
 
-  ) # End return
+) # End return

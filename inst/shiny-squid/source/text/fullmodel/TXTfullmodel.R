@@ -102,7 +102,7 @@ fullmodelTxt <- list(
                           <ol><li>stochastic</li> <li>temporally auto-correlated</li> <li>linear</li> <li>cyclic</li></ol>",
   "environment_2"       = paste("For the first structure (<b>stochastic</b>), environmental values $",NOT$env,"_{",NOT$random,NOT$time,"}$ are 
                           generated using a Normal distribution with mean 0 and variance $Var(",NOT$env,"_",NOT$random,")$. 
-                          $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,\\sqrt{Var(",NOT$env,"_",NOT$random,")})$$
+                          $$",NOT$env,"_{",NOT$random,NOT$time,"}\\sim N(0,Var(",NOT$env,"_",NOT$random,"))$$
                           This means that environmental values will be totally 
                           stochastic and uncorrelated from one time point to the next. This simple situation is not the most realistic 
                           (i.e., it is hard to think of an environmental factor that is completely stochastically distributed in time). 
@@ -112,7 +112,7 @@ fullmodelTxt <- list(
                           are more similar than two values further apart from each other (i.e., positive autocorrelation). 
                           Environmental values $",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}$ are generated 
                           as the product of a stochastic value by a decay function.
-                          $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,\\sqrt{Var(",NOT$env,"_",NOT$random,")})\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
+                          $$",NOT$env,"_{",NOT$autocorrelated,NOT$time,"}\\sim N(0,Var(",NOT$env,"_",NOT$random,"))\\times e^{-\\alpha\\Delta ",NOT$time,"}$$                          
                           where $\\Delta ",NOT$time,"$ is the time interval between two instances of the study period, and $\\alpha$
                           is the decay rate, a measure of how fast the correlation decays with time.
                           $$\\alpha=ln(autocor)$$

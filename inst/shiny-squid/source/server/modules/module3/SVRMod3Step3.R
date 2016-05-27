@@ -128,23 +128,23 @@ c(
     Mod3Step3_table <- function(data){
       
       myTable <- data.frame("True"       = c("True",
-                                             paste("Population intercept ($",EQ3$mean0,"$) = 0"),
-                                             paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step3_Vi),
-                                             paste("Measurement error variance ($V_",NOT$mError,"$) =",input$Mod3Step3_Ve),
-                                             paste("Environmental effect variance ($V_",NOT$envEffect,"$) =",input$Mod3Step3_Vbx),
-                                             paste("Mean environmental effect ($",NOT$mean,"$) =",round(input$Mod3Step3_B[2],2))),
+                                             paste("Population intercept $(",EQ3$mean0,")$ = 0"),
+                                             paste("Individual variance $(V_",NOT$devI,")$ =",input$Mod3Step3_Vi),
+                                             paste("Measurement error variance $(V_",NOT$mError,")$ =",input$Mod3Step3_Ve),
+                                             paste("Environmental effect variance $(V_",NOT$envEffect,")$ =",input$Mod3Step3_Vbx),
+                                             paste("Mean environmental effect $(",NOT$mean,")$ =",round(input$Mod3Step3_B[2],2))),
                             "Totally unknown environment" = c("Totally unknown environment",
-                                                              paste("Population estimated mean ($",NOT$mean,"'_0$) = ", ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),
-                                                              paste("Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
-                                                              paste("Residual variance ($V'_",NOT$residualUpper,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
+                                                              paste("Population estimated mean $(",NOT$mean,"'_0)$ = ", ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),
+                                                              paste("Individual variance $(V'_",NOT$devI,")$ = "      ,ifelse(!is.null(data),data$Vi,"...")),
+                                                              paste("Residual variance $(V'_",NOT$residualUpper,")$ = "        ,ifelse(!is.null(data),data$Vr,"...")),
                                                               "",
                                                               ""),
                             "Environment known" = c("Environment known (proportion=1.0)",
-                                                    paste("Population estimated mean ($",NOT$mean,"'_0$) = ", ifelse(!is.null(data),paste(data$B0_2,"\U00b1", data$se.B0_2, sep=" "),"...")),
-                                                    paste("Individual variance ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi_2,"...")),
-                                                    paste("Residual variance ($V'_",NOT$residualUpper,"$) = ", ifelse(!is.null(data),data$Vr_2,"...")),
-                                                    paste0("Estimate of known environmental variance ($V'_{",NOT$mean," ",NOT$env,"}$) = ", ifelse(!is.null(data),data$B1_2^2,"...")),
-                                                    paste0("Mean environmental effect ($",NOT$mean,"'$) = ", ifelse(!is.null(data),paste(data$B1_2,"\U00b1", data$se.B1_2, sep=" "),"...")))
+                                                    paste("Population estimated mean $(",NOT$mean,"'_0)$ = ", ifelse(!is.null(data),paste(data$B0_2,"\U00b1", data$se.B0_2, sep=" "),"...")),
+                                                    paste("Individual variance $(V'_",NOT$devI,")$ = ", ifelse(!is.null(data),data$Vi_2,"...")),
+                                                    paste("Residual variance $(V'_",NOT$residualUpper,")$ = ", ifelse(!is.null(data),data$Vr_2,"...")),
+                                                    paste0("Estimate of known environmental variance $(V'_{",NOT$mean," ",NOT$env,"})$ = ", ifelse(!is.null(data),data$B1_2^2,"...")),
+                                                    paste0("Mean environmental effect ($",NOT$mean,"')$ = ", ifelse(!is.null(data),paste(data$B1_2,"\U00b1", data$se.B1_2, sep=" "),"...")))
       )  
     
         return(getTable(myTable, header=TRUE))
@@ -168,8 +168,8 @@ c(
       updateSliderInput(session, "Mod3Step3_Vhsi2", value = input$Mod3Step3_Vhsi)
     }),
 
-    output$Mod3Step3_Vi_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
-    output$Mod3Step3_Ve_proportion <- renderText({paste0("(",round(input$Mod3Step3_Ve / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
+    output$Mod3Step3_Vi_proportion  <- renderText({paste0("(",round(input$Mod3Step3_Vi / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
+    output$Mod3Step3_Ve_proportion  <- renderText({paste0("(",round(input$Mod3Step3_Ve / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
     output$Mod3Step3_Vbx_proportion <- renderText({paste0("(",round(input$Mod3Step3_Vbx / (input$Mod3Step3_Vi + input$Mod3Step3_Vbx + input$Mod3Step3_Ve),2)*100,"%)")}),
 
     ######### Manage errors #########

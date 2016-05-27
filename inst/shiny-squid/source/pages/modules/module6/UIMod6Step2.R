@@ -43,17 +43,29 @@ span(
     # Number of trait expressions sampled
     getSliderInput("Mod6Step2_NR", Modules_VAR$NR),
     
-    # Among-individual variance (Vi) 
-    getSliderInput("Mod6Step2_Vi", Modules_VAR$Vi),
+    # Among-individual variance (Vi)
+    fluidRow(
+      column(8,getSliderInput("Mod6Step2_Vi", Modules_VAR$Vi)),
+      column(4,textOutput("Mod6Step2_Vi_proportion", inline = TRUE))
+    ),
     
-    # Measurement error variance  
-    getSliderInput("Mod6Step2_Ve", Modules_VAR$Ve),
+    # Measurement error variance
+    fluidRow(
+      column(8,getSliderInput("Mod6Step2_Ve", Modules_VAR$Ve)),
+      column(4,textOutput("Mod6Step2_Ve_proportion", inline = TRUE))
+    ),
     
-    # Variance of Mean Environment effects in the slope (V Beta1 X1)
-    getSliderInput("Mod6Step2_b1", Modules_VAR$B1),
+    # Variance of Mean Environment effects in the slope (Vbx)
+    fluidRow(
+      column(8,getSliderInput("Mod6Step2_Vbx", Modules_VAR$Vbx)),
+      column(4,textOutput("Mod6Step2_Vbx_proportion", inline = TRUE))
+    ),
     
-    #Individual-specific response to an environmental effect (random slopes) variance (VS) :
-    getSliderInput("Mod6Step2_Vs", Modules_VAR$Vs),
+    #Individual-specific response to an environmental effect (random slopes) variance (Vs)
+    fluidRow(
+      column(8,getSliderInput("Mod6Step2_Vs", Modules_VAR$Vs)),
+      column(4,textOutput("Mod6Step2_Vs_proportion", inline = TRUE))
+    ),
     
     # Correlation between I and S (CorIS ):
     getSliderInput("Mod6Step2_CorIS", Modules_VAR$CorIS),

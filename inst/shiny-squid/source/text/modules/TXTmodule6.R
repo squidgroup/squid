@@ -52,9 +52,9 @@ Mod6Step1_txt <- list(
                 $",NOT$env,"_{",NOT$time, NOT$ind,"}$
                 on the measure of phenotype in the <i>i <sup>th</sup></i> individual. 
                 Accordingly, we can apply the following parameterization regimes:"),
-  "note"     = "Note: you can specify this as solely measurement error, or you could consider this 
-                as residual variance in which case it might include some unknown environmental 
-                variance in addition to the known environmental variance determined below.",
+  "note"     = "Note: you can consider residual variance as solely measurement error variance, 
+                or you could consider it in which case it might also include some 
+                unknown environmental variance in addition to the known environmental variance determined below.",
   "para3"    = "Set in the background is the environmental variable and its sampling. 
                 Here we should use uniform sampling, where each individual is sampled 
                 at the same time so there are no biases. By definition, 

@@ -13,7 +13,7 @@ c(
           list(
             numericInput("Mod6Step1_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod6Step1_Vind", "", Mod6Step1updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,input$Mod6Step1_b1,0,0),1))),
+            matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step1_Vbx),0,0),1))),
             checkboxInput("Mod6Step1_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_sto_shared", "", value = TRUE),
@@ -85,7 +85,6 @@ c(
     # Display results (table)
     output$Mod6Step1_summary_table <- renderUI({Mod6Step1_table()}),
     
-    
     output$Mod6Step1_plot <- renderPlot({ 
       
       data  <- Mod6Step1_output()
@@ -96,16 +95,19 @@ c(
           ggplot2::ggplot(data = data$sampled_data, ggplot2::aes(y     = Phenotype, 
                                                            x     = X1, 
                                                            color = as.factor(Individual))) +
-                          ggplot2::stat_smooth(method = "lm", se=FALSE) + 
-                          ggplot2::theme(legend.position="none") + 
-                          ggplot2::xlab("Environmental effect") + 
-                          ggplot2::ylab("Phenotype"))
+                  ggplot2::stat_smooth(method = "lm", se=FALSE) + 
+                  ggplot2::theme(legend.position="none") + 
+                  ggplot2::xlab("Environmental effect") + 
+                  ggplot2::ylab("Phenotype"))
         
       }else{
         print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
       }
-      
-    })
+    }),
     
-
+    output$Mod6Step1_Vi_proportion  <- renderText({paste0("(",round(input$Mod6Step1_Vi / (input$Mod6Step1_Vi + input$Mod6Step1_Vbx + input$Mod6Step1_Vs + input$Mod6Step1_Ve),2)*100,"%)")}),
+    output$Mod6Step1_Ve_proportion  <- renderText({paste0("(",round(input$Mod6Step1_Ve / (input$Mod6Step1_Vi + input$Mod6Step1_Vbx + input$Mod6Step1_Vs+ input$Mod6Step1_Ve),2)*100,"%)")}),
+    output$Mod6Step1_Vbx_proportion <- renderText({paste0("(",round(input$Mod6Step1_Vbx / (input$Mod6Step1_Vi + input$Mod6Step1_Vbx + input$Mod6Step1_Vs + input$Mod6Step1_Ve),2)*100,"%)")}),
+    output$Mod6Step1_Vs_proportion  <- renderText({paste0("(",round(input$Mod6Step1_Vs / (input$Mod6Step1_Vi + input$Mod6Step1_Vbx + input$Mod6Step1_Vs + input$Mod6Step1_Ve),2)*100,"%)")})
+    
   ) # End return

@@ -11,19 +11,27 @@ span(
   div(info_msg(c(Mod3Step1_txt$note1, Mod3Step1_txt$note2))), # Text: note
   
   # Among-individual variance (Vi)
-  getSliderInput("Mod3Step1_Vi", Modules_VAR$Vi),
-  # getNumericInput("Mod3Step1_Vi", Modules_VAR$Vi, "Mod3Step1_error_Vi"),
+  fluidRow(
+    column(8,getSliderInput("Mod3Step1_Vi", Modules_VAR$Vi)),
+    column(4,textOutput("Mod3Step1_Vi_proportion", inline = TRUE))
+  ),
   
   # Measurement error variance
-  getSliderInput("Mod3Step1_Ve", Modules_VAR$Vm),
+  fluidRow(
+    column(8,getSliderInput("Mod3Step1_Ve", Modules_VAR$Vm)),
+    column(4,textOutput("Mod3Step1_Ve_proportion", inline = TRUE))
+  ),
+
+  # Variance of Mean Environment effects in the slope (V Beta1 X1)
+  fluidRow(
+    column(8,getSliderInput("Mod3Step1_Vbx", Modules_VAR$VE)),
+    column(4,textOutput("Mod3Step1_Vbx_proportion", inline = TRUE))
+  ),
 
   conditionalPanel(
     condition = "0",
     uiOutput("Mod3Step1_hidden")
   ),
-  
-  # Variance of Mean Environment effects in the slope (V Beta1 X1)
-  getSliderInput("Mod3Step1_Vbx", Modules_VAR$VE),
   
   p(HTML(Mod3Step1_txt$para2)),       # Text: paragraph 2      
   p(HTML(Mod3Step1_txt$para3)),       # Text: paragraph 3

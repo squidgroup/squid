@@ -120,13 +120,13 @@ Modules_VAR <- list(
   ),
   
   # Variance of population mean response to an environmental effect x
-  "Vbx"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $",NOT$env,"$ $(V_{",NOT$mean," ",NOT$env,"})$:",sep=""),
-                  "infoTxt"     = "Variance of population mean response to an environmental effect x",
+  "Vbx"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $(V_{",NOT$mean," ",NOT$env,"})$:",sep=""),
+                  "infoTxt"     = "Variance of population mean response to an environmental effect.",
                   "value"       = 0.5,
                   "min"         = 0,
                   "max"         = 1,
                   "step"        = 0.01,
-                  "errorTxt"    = paste("Variance of population mean response to an environmental effect $",NOT$env,"$ $(V_{",NOT$mean," ",NOT$env,"})$ 
+                  "errorTxt"    = paste("Variance of population mean response to an environmental effect $(V_{",NOT$mean," ",NOT$env,"})$ 
                                        must be a number between 0 and 1.
                                        Try to decrease other variances.",sep="")
   ),
