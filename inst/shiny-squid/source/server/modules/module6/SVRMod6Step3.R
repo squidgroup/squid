@@ -1,4 +1,9 @@
 #Server functions for module 6 step 3
+selectorList <- list("100" = list("NI"=c(5,10,20) , "NR"=c(20,10,5)),
+                     "225" = list("NI"=c(5,15,45) , "NR"=c(45,15,5)),
+                     "400" = list("NI"=c(10,20,40), "NR"=c(40,20,10)),
+                     "900" = list("NI"=c(18,30,50), "NR"=c(50,30,18)))
+
 c(
 
   ######### Set variables #########  
@@ -36,48 +41,39 @@ c(
         
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
-        if(input$Mod6Step3_selector == 100){
-          NI <- c(5,10,20)
-          NR <- c(20,10,5)
-        }
+         # Call app main function
+        data <- runPowerAnalysis(input, "Mod6Step3", 
+                                 selectorList[[as.character(input$Mod6Step3_selector)]][["NI"]], 
+                                 selectorList[[as.character(input$Mod6Step3_selector)]][["NR"]])
         
-        if(input$Mod6Step3_selector == 225){
-          NI <- c(5,15,45)
-          NR <- c(45,15,5)
-        }
+        data$Parameter <- factor(data$Parameter,
+                                 levels = c("Vi", "Vs", "CORis"))
         
-        if(input$Mod6Step3_selector == 400){
-          NI <- c(10,20,40)
-          NR <- c(40,20,10)
-        }
-        
-        if(input$Mod6Step3_selector == 900){
-          NI <- c(18,30,50)
-          NR <- c(50,30,18)
-        }
-        
-        # Call app main function
-        data <- runPowerAnalysis(input, "Mod6Step3", NI, NR)
-        
+        data$nIndividual <- factor(data$nIndividual,
+                                   levels = paste0("NI=",
+                                                   selectorList[[as.character(input$Mod6Step3_selector)]][["NI"]]))
+        data$nRecord     <- factor(data$nRecord,
+                                   levels = paste0("NR=",
+                                                   selectorList[[as.character(input$Mod6Step3_selector)]][["NR"]]))
+
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
         return(data)
       })  
     }),
     
-
-      output$Mod6Step3_summary_variance_table <- renderUI({
+    output$Mod6Step3_summary_variance_table <- renderUI({
         
         myTable <- data.frame(
           "Summary of Variances"= c("Summary of Variances",
                                     "$\\text{Fixed effects}$",
                                     paste0("Mean of the trait ($",EQ3$mean0,"$)"),
-                                    paste0("Population-specific slope of the environmental effect ($",EQ3$mean1,"$)"),
+                                    paste0("Population-specific slope of the environmental effect ($",NOT$mean,"$)"),
                                     "$\\text{Random effects}$",
                                     paste0("Individual variance ($V_",NOT$devI,"$)"),
-                                    paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$)"),
+                                    paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,NOT$env,"}$)"),
                                     paste0("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$)"),
-                                    paste0("Residual variance ($V_",NOT$error,"$)")),
+                                    paste0("Measurement error ($V_",NOT$mError,"$)")),
           "Value" = c("Value",
                       "",
                       "0.5",
@@ -95,41 +91,13 @@ c(
 
     output$Mod6Step3_summary_table <- renderUI({
       
-      if(input$Mod6Step3_selector == 100){
-        myTable <- data.frame(
-          "Observations"           = c(rep(100, 3)),
-          "Individuals"            = c(5,10,20),
-          "Repeats per individual" = c(20,10,5)
-        )  
-      }
-      
-      if(input$Mod6Step3_selector == 225){
-        myTable <- data.frame(
-          "Observations"           = c(rep(225, 3)),
-          "Individuals"            = c(5,15,45),
-          "Repeats per individual" = c(45,15,5)
-        )  
-      }
+      myTable <- data.frame(
+        "Observations"           = rep(as.character(input$Mod6Step3_selector), 3),
+        "Individuals"            = selectorList[[as.character(input$Mod6Step3_selector)]][["NI"]],
+        "Repeats per individual" = selectorList[[as.character(input$Mod6Step3_selector)]][["NR"]]
+      ) 
 
-      if(input$Mod6Step3_selector == 400){
-        myTable <- data.frame(
-          "Observations"           = c(rep(400, 3)),
-          "Individuals"            = c(10,20,40),
-          "Repeats per individual" = c(40,20,10)
-        )  
-      }
-
-      if(input$Mod6Step3_selector == 900){
-        myTable <- data.frame(
-          "Observations"           = c(rep(900, 3)),
-          "Individuals"            = c(18,30,50),
-          "Repeats per individual" = c(50,30,18)
-        )  
-      }
-      
-      myTable <- rbind(c("Observations", "Individuals", "Repeats per individual"),myTable)
-      
-      return(getTable(myTable, header=TRUE))
+      return(getTable(myTable))
       
     }),
 
@@ -141,7 +109,7 @@ c(
 
         vline.data <- data.frame(z           = rep(c(0.5, 0.5, 0.5),each=3), 
                                  Parameter   = rep(c("CORis", "Vi", "Vs"),each=3))
-        
+      
         print(ggplot2::ggplot(data, ggplot2::aes(x=Value)) +
                               ggplot2::geom_histogram(binwidth = 0.1) + 
                               ggplot2::geom_vline(ggplot2::aes(xintercept = z), vline.data, color="red") +

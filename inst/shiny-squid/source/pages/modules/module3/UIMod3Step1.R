@@ -8,7 +8,7 @@ span(
   p(HTML(Mod3Step1_txt$exercise)),   # Text: exercise
 
   p(HTML(Mod3Step1_txt$para1)),      # Text: paragraph 1
-  div(info_msg(Mod3Step1_txt$note)), # Text: note
+  div(info_msg(c(Mod3Step1_txt$note1, Mod3Step1_txt$note2))), # Text: note
   
   # Among-individual variance (Vi)
   getSliderInput("Mod3Step1_Vi", Modules_VAR$Vi),

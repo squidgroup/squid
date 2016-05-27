@@ -14,7 +14,7 @@ c(
           list(
             numericInput("Mod6Step2_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod6Step2_Vind", "", Mod6Step2updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1))),
+            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,input$Mod6Step2_b1,0,0),1))),
             checkboxInput("Mod6Step2_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_shared", "", value = TRUE),
@@ -88,20 +88,20 @@ c(
       myTable <- data.frame(
         "True"       = c("$\\text{Fixed effects}$",
                         paste("Mean of the trait ($",EQ3$mean0,"$) =",round(input$Mod6Step2_B[1],2)),
-                        paste("Population-specific slope of the environmental effect ($",EQ3$mean1,"$) =",round(input$Mod6Step2_B[2],2)),
+                        paste("Population-specific slope of the environmental effect ($",NOT$mean,"$) =",round(input$Mod6Step2_B[2],2)),
                         "$\\text{Random effects}$",
                         paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod6Step2_Vi),
-                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$) =",input$Mod6Step2_Vs),
+                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,NOT$env,"}$) =",input$Mod6Step2_Vs),
                         paste("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$) =",input$Mod6Step2_CorIS),
-                        paste("Residual variance ($V_",NOT$error,"$) =",input$Mod6Step2_Ve)),
+                        paste("Residual variance ($V_",NOT$residualUpper,"$) =",input$Mod6Step2_Ve)),
         "Estimated" = c("$\\text{Fixed effects}$",
                         paste("Sampled mean of the trait ($",NOT$mean,"'_0$) =",ifelse(!is.null(data),data$B0,"...")),
-                        paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'_1$) =",ifelse(!is.null(data),data$B1,"...")),
+                        paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'$) =",ifelse(!is.null(data),data$B1,"...")),
                         "$\\text{Random effects}$",
                         paste("Individual variance in sample ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi,"...")),
-                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V'_",NOT$devS,"$) = ", ifelse(!is.null(data),data$Vs,"...")),
-                        paste("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$) =", ifelse(!is.null(data),data$CorIS,"...")),
-                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = ", ifelse(!is.null(data),data$Vr,"...")))
+                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V'_{",NOT$devS,NOT$env,"}$) = ", ifelse(!is.null(data),data$Vs,"...")),
+                        paste("Correlation between individual specific intercepts and slopes ($Cor'_{",NOT$devI,",",NOT$devS,"}$) =", ifelse(!is.null(data),data$CorIS,"...")),
+                        paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = ", ifelse(!is.null(data),data$Vr,"...")))
       )  
       
       return(getTable(myTable))

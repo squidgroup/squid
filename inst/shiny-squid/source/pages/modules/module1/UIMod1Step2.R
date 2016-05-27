@@ -15,8 +15,8 @@ span(
   
   p(HTML(Mod1Step2_txt$para1)),   # Text: paragraph 1
   
-  # Number of trait expressions (Tmax)
-  getSliderInput("Mod1Step2_NR", Modules_VAR$Tmax),
+  # Number of trait expressions sampled
+  getSliderInput("Mod1Step2_NR", Modules_VAR$NR),
   
   # Hidden variable:
   # Mod1Step2_Tmax: simulation time

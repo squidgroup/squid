@@ -23,8 +23,8 @@ span(
   ),
   
   p("You can also set the number trait expressions "),
-  # Number of trait expressions (NR)
-  getSliderInput("Mod1Step4_NR", Modules_VAR$Tmax),
+  # Number of trait expressions sampled
+  getSliderInput("Mod1Step4_NR", Modules_VAR$NR),
 
   conditionalPanel(
     condition = "0",

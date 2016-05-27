@@ -54,11 +54,11 @@ span(
   
   p(HTML(Mod3Step3_txt$results)),         # Text: results
   
-  p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$mean," ",NOT$env,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
+  p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",EQ3$mean0,"+",NOT$devI,"_",NOT$ind,"+",NOT$mean," ",NOT$env,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
   p(HTML(Mod3Step3_txt$para4)),      # Text: paragraph 4
   
-  p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
+  p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",EQ3$mean0,"+",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
   p(HTML(Mod3Step3_txt$para5)),      # Text: paragraph 5
   
@@ -71,10 +71,10 @@ span(
   
   sliderInput("Mod3Step3_Vbx_proportion",
               "Proportion of the environmental effect measured:",
-              value = Modules_VAR$Vx$value,
-              min   = Modules_VAR$Vx$min,
-              max   = Modules_VAR$Vx$max,
-              step  = Modules_VAR$Vx$step,
+              value = 0.2,
+              min   = 0,
+              max   = 1,
+              step  = 0.01,
               width = "500px",
               post = ""
   ),

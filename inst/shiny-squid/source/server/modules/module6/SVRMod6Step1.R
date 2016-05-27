@@ -13,7 +13,7 @@ c(
           list(
             numericInput("Mod6Step1_Tmax", "", Modules_VAR$Tmax$max),
             matrixInput2("Mod6Step1_Vind", "", Mod6Step1updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step1_Vbx),0,0),1))),
+            matrixInput2("Mod6Step1_B", "",data.frame(matrix(c(0,input$Mod6Step1_b1,0,0),1))),
             checkboxInput("Mod6Step1_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod6Step1_X1_sto_shared", "", value = TRUE),
@@ -37,13 +37,20 @@ c(
         data <- squid::squidR(input, module="Mod6Step1")  
         
         LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$sampled_data)
+        FIXEF    <- lme4::fixef(LMR)
+        SE.FIXEF <- arm::se.fixef(LMR)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
-        data$Vi        <- round(RANDEF[1],2)
-        data$Vs        <- round(RANDEF[2],2)
-        data$Vr        <- round(RANDEF[3],2) 
-        data$B0        <- round(lme4::fixef(LMR)[1],2) 
-        data$B1        <- round(lme4::fixef(LMR)[2],2) 
+        data$Vi       <- round(RANDEF[1],2)
+        data$Vs       <- round(RANDEF[2],2)
+        data$Vr       <- round(RANDEF[3],2) 
+        # data$B0        <- round(lme4::fixef(LMR)[1],2) 
+        # data$B1        <- round(lme4::fixef(LMR)[2],2) 
+        
+        data$B1      <- round(FIXEF["X1"],2)
+        data$se.B1   <- round(SE.FIXEF["X1"],2)
+        data$B0      <- round(FIXEF["(Intercept)"],2)
+        data$se.B0   <- round(SE.FIXEF["(Intercept)"],2)
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
@@ -58,18 +65,18 @@ c(
       myTable <- data.frame(
         "True"       = c("$\\text{Fixed effects}$",
                         paste("Mean of the trait ($",EQ3$mean0,"$) =",round(input$Mod6Step1_B[1],2)),
-                        paste("Population-specific slope of the environmental effect ($",EQ3$mean1,"$) =",round(input$Mod6Step1_B[2],2)),
+                        paste("Population-specific slope of the environmental effect ($",NOT$mean,"$) =",round(input$Mod6Step1_B[2],2)),
                         "$\\text{Random effects}$",
                         paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod6Step1_Vi),
-                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$) =",input$Mod6Step1_Vs),
-                        paste("Residual variance ($V_",NOT$error,"$) =",input$Mod6Step1_Ve)),
+                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,NOT$env,"}$) =",input$Mod6Step1_Vs),
+                        paste("Residual variance ($V_",NOT$residualUpper,"$) =",input$Mod6Step1_Ve)),
         "Estimated" = c("$\\text{Fixed effects}$",
-                        paste("Sampled mean of the trait ($",NOT$mean,"'_0$) =",ifelse(!is.null(data),data$B0,"...")),
-                        paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'_1$) =",ifelse(!is.null(data),data$B1,"...")),
+                        paste("Sampled mean of the trait ($",NOT$mean,"'_0$) =",ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),
+                        paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'$) =",ifelse(!is.null(data),paste(data$B1,"\U00b1", data$se.B1, sep=" "),"...")),
                         "$\\text{Random effects}$",
                         paste("Individual variance in sample ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi,"...")),
-                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V'_",NOT$devS,"$) = ", ifelse(!is.null(data),data$Vs,"...")),
-                        paste("Residual variance of sample ($V'_",NOT$residual,"$) = ", ifelse(!is.null(data),data$Vr,"...")))
+                        paste("Individual-specific response to an environmental effect (random slopes) variance ($V'_{",NOT$devS,NOT$env,"}$) = ", ifelse(!is.null(data),data$Vs,"...")),
+                        paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = ", ifelse(!is.null(data),data$Vr,"...")))
       )  
       
       return(getTable(myTable))

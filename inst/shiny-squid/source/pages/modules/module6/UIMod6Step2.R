@@ -7,10 +7,10 @@ span(
     p(HTML(Mod6Step2_txt$intro)),      # Text: introduction
     p(HTML(Mod6Step2_txt$para1)),      # Text: paragraph 1
     
-    p(paste0("$$",NOT$trait.1,"_",NOT$ind,"=
-            (",EQ3$mean0,"+
-            ",NOT$devI,"_",NOT$ind,")+
-            (",EQ3$mean1,"+", NOT$devS,"_", NOT$ind,")", NOT$env,"_{",NOT$time, NOT$ind,"}+
+    p(paste0("$$",NOT$trait.1,"_{",NOT$time, NOT$ind,"}=
+            ",EQ3$mean0,"+
+            ",NOT$devI,"_",NOT$ind,"+
+            (",NOT$mean,"+", NOT$devS,"_", NOT$ind,")", NOT$env,"_{",NOT$time, NOT$ind,"}+
             ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
     
     p(HTML(Mod6Step2_txt$para2)),      # Text: paragraph 2
@@ -23,17 +23,17 @@ span(
       \\sim MNV(0,\\Omega_{",NOT$devI, NOT$devS,"}):
       \\Omega_{",NOT$devI, NOT$devS,"}=
       \\begin{pmatrix}
-      V_{",   NOT$devI,"}                 & Cov_{", NOT$devI, ",", NOT$devS ,"} \\\\
-      Cov_{", NOT$devI, ",", NOT$devS ,"} & V_{",   NOT$devS, "}\\\\
+      Var(", NOT$devI,")                 & Cov(", NOT$devI, ",", NOT$devS ,") \\\\
+      Cov(", NOT$devI, ",", NOT$devS ,") & Var(", NOT$devS, ")\\\\
       \\end{pmatrix} 
       $$")),
     
     p(HTML(Mod6Step2_txt$para3)),      # Text: paragraph 3
     p(HTML(Mod6Step2_txt$exercise)),    # Text: exercise
     
-    p(paste0("$$Cor_{",NOT$devI,",",NOT$devS,"}=
-             \\frac{Cov_{",NOT$devI,",",NOT$devS,"}}
-                   {\\sqrt{V_",NOT$devI,"V_",NOT$devS,"}}$$")),
+    p(paste0("$$Cor(",NOT$devI,",",NOT$devS,")=
+             \\frac{Cov(",NOT$devI,",",NOT$devS,")}
+                   {\\sqrt{Var(",NOT$devI,")","Var(",NOT$devS,")}}$$")),
     
     p(HTML(Mod6Step2_txt$para4)),      # Text: paragraph 4
     
@@ -50,7 +50,7 @@ span(
     getSliderInput("Mod6Step2_Ve", Modules_VAR$Ve),
     
     # Variance of Mean Environment effects in the slope (V Beta1 X1)
-    getSliderInput("Mod6Step2_Vbx", Modules_VAR$Vb1x1),
+    getSliderInput("Mod6Step2_b1", Modules_VAR$B1),
     
     #Individual-specific response to an environmental effect (random slopes) variance (VS) :
     getSliderInput("Mod6Step2_Vs", Modules_VAR$Vs),
@@ -83,11 +83,15 @@ span(
     p(HTML(Mod6Step2_txt$point)),       # Text: paragraph point
     
     p(paste0("$$V_",NOT$total,"=
-            V_{",EQ3$mean1,NOT$env,"}+
             V_",NOT$devI,"+
+            V_{",NOT$mean," ",NOT$env,"}+
             V_{",NOT$devS,NOT$env,"}+
-            2Cov_{",NOT$devI,NOT$devS,NOT$env,"}+
-            V_",NOT$error,"$$")),
+            2COV_{",NOT$devI,",",NOT$devS,NOT$env,"}+
+            V_",NOT$residualUpper,"$$")),
+    p("where"),
+    p(paste0("$$COV_{",NOT$devI,",",NOT$devS,NOT$env,"}=
+             E(",NOT$env,")Cov(",NOT$devI,",",NOT$devS,")$$")),
+    div(info_msg(Mod6Step2_txt$note)),  # Text: note
     
     p(HTML(Mod6Step2_txt$para7)),        # Text: paragraph 7
     

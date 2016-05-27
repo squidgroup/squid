@@ -49,7 +49,7 @@ Modules_VAR <- list(
   ),
   
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
-  "Vs"     = list(  "label"       = paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_",NOT$devS,"$): "),
+  "Vs"     = list(  "label"       = paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,NOT$env,"}$): "),
                     "infoTxt"     = "Individual-specific response to an environmental effect (random slopes) variance",
                     "value"       = 0.2,
                     "min"         = 0,
@@ -69,13 +69,14 @@ Modules_VAR <- list(
   ),
   
   # Residual variance (Ve)
-  "Ve"   = list("label"       = paste("Residual variance ($V_",NOT$error,"$):",sep=""),
-                "infoTxt"     = "Variance of unaccounted effect on the phenotype.",
+  "Ve"   = list("label"       = paste("Residual variance ($V_",NOT$residualUpper,"$):",sep=""),
+                "infoTxt"     = "Variance of unaccounted effect on the phenotype. 
+                                 Residual variance could include measurement error variance and/or unknown environmental effect variance.",
                 "value"       = 0.05,
                 "min"         = 0.01,
                 "max"         = 1,
                 "step"        = 0.01,
-                "errorTxt"    = "Residual variance ($V_",NOT$error,"$) must be a number between 0 and 1."
+                "errorTxt"    = "Residual variance ($V_",NOT$mError,"$) must be a number between 0 and 1."
   ),
   
   # measurement error variance
@@ -89,13 +90,13 @@ Modules_VAR <- list(
   ),
   
   # Number of trait expressions (NR)
-  "NR"   = list( "label"       = "Number of trait expressions sampled:",
-                 "infoTxt"     = "Number of trait expressions sampled for each individual.",
+  "NR"   = list( "label"       = "Number of trait expressions:",
+                 "infoTxt"     = "Number of measurements per individual.",
                  "value"       = 5,
-                 "min"         = 2,
+                 "min"         = 1,
                  "max"         = 100,
                  "step"        = 1,
-                 "errorTxt"    = "Number of trait expressions sampled must be an integer between 2 and 100."
+                 "errorTxt"    = "Number of trait expressions must be an integer between 1 and 100."
   ),
   
   # Simulation time (Tmax)
@@ -174,6 +175,18 @@ Modules_VAR <- list(
                     "errorTxt"    = paste("General and unknown environmental effect variance ($V_",NOT$env,"$) must be a number between 0 and 1.
                                          Try to decrease other variances.",sep="")
   ),
+  
+  # Mean Environemental effect
+  "B1"   = list(  "label"        = paste0("Population mean response to the environment $",NOT$env,"$ ($",NOT$mean,"$):"),
+                  "infoTxt"     = "Population mean response to the environment.",
+                  "value"       = 0,
+                  "min"         = -1,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = paste0("Population mean response to the environment ($",NOT$mean,"$) must be a number.")
+  ),
+  
+  
   
   # Mean Environemental effect
   "B1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),

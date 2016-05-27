@@ -41,18 +41,27 @@ c(
         # Call app main function
         data <- squid::squidR(input, module="Mod3Step3")  
         
-        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_data)
+        LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_data)
+        FIXEF    <- lme4::fixef(LMR)
+        SE.FIXEF <- arm::se.fixef(LMR)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
-        data$Vi        <- round(RANDEF[1],2)
-        data$Vr        <- round(RANDEF[2],2)
+        data$Vi     <- round(RANDEF[1],2)
+        data$Vr     <- round(RANDEF[2],2)
+        data$B0     <- round(FIXEF["(Intercept)"],2)
+        data$se.B0  <- round(SE.FIXEF["(Intercept)"],2)
         
-        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_data)
+        LMR2      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data$sampled_data)
+        FIXEF2    <- lme4::fixef(LMR2)
+        SE.FIXEF2 <- arm::se.fixef(LMR2)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF2[1],2)
         data$Vr_2      <- round(RANDEF2[2],2)
-        data$B1_2      <- round(lme4::fixef(LMR2)[1],2)
+        data$B1_2      <- round(FIXEF2["X1"],2)
+        data$se.B1_2   <- round(SE.FIXEF2["X1"],2)
+        data$B0_2      <- round(FIXEF2["(Intercept)"],2)
+        data$se.B0_2   <- round(SE.FIXEF2["(Intercept)"],2)
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
@@ -71,20 +80,29 @@ c(
         # Call app main function
         data <- squid::squidR(input, module="Mod3Step3")
         
-        LMR      <- lme4::lmer(Phenotype ~ 0 + (1|Individual), data = data$sampled_data)
+        LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_data)
+        FIXEF    <- lme4::fixef(LMR)
+        SE.FIXEF <- arm::se.fixef(LMR)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
-        data$Vi        <- round(RANDEF[1],2)
-        data$Vr        <- round(RANDEF[2],2)
+        data$Vi     <- round(RANDEF[1],2)
+        data$Vr     <- round(RANDEF[2],2)
+        data$B0     <- round(FIXEF["(Intercept)"],2)
+        data$se.B0  <- round(SE.FIXEF["(Intercept)"],2)
         
         data$sampled_data$X1 <- input$Mod3Step3_Vbx_proportion * data$sampled_data$X1
         
-        LMR2      <- lme4::lmer(Phenotype ~ 0 + X1 + (1|Individual), data = data$sampled_data)
+        LMR2      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data$sampled_data)
+        FIXEF2    <- lme4::fixef(LMR2)
+        SE.FIXEF2 <- arm::se.fixef(LMR2)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF2[1],2)
         data$Vr_2      <- round(RANDEF2[2],2)
-        data$B1_2      <- round(lme4::fixef(LMR2)[1],2)
+        data$B1_2      <- round(FIXEF2["X1"],2)
+        data$se.B1_2   <- round(SE.FIXEF2["X1"],2)
+        data$B0_2      <- round(FIXEF2["(Intercept)"],2)
+        data$se.B0_2   <- round(SE.FIXEF2["(Intercept)"],2)
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
@@ -110,20 +128,23 @@ c(
     Mod3Step3_table <- function(data){
       
       myTable <- data.frame("True"       = c("True",
+                                             paste("Population intercept ($",EQ3$mean0,"$) = 0"),
                                              paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod3Step3_Vi),
                                              paste("Measurement error variance ($V_",NOT$mError,"$) =",input$Mod3Step3_Ve),
                                              paste("Environmental effect variance ($V_",NOT$envEffect,"$) =",input$Mod3Step3_Vbx),
                                              paste("Mean environmental effect ($",NOT$mean,"$) =",round(input$Mod3Step3_B[2],2))),
                             "Totally unknown environment" = c("Totally unknown environment",
+                                                              paste("Population estimated mean ($",NOT$mean,"'_0$) = ", ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),
                                                               paste("Individual variance ($V'_",NOT$devI,"$) = "      ,ifelse(!is.null(data),data$Vi,"...")),
                                                               paste("Residual variance ($V'_",NOT$residualUpper,"$) = "        ,ifelse(!is.null(data),data$Vr,"...")),
                                                               "",
                                                               ""),
                             "Environment known" = c("Environment known (proportion=1.0)",
+                                                    paste("Population estimated mean ($",NOT$mean,"'_0$) = ", ifelse(!is.null(data),paste(data$B0_2,"\U00b1", data$se.B0_2, sep=" "),"...")),
                                                     paste("Individual variance ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi_2,"...")),
                                                     paste("Residual variance ($V'_",NOT$residualUpper,"$) = ", ifelse(!is.null(data),data$Vr_2,"...")),
                                                     paste0("Estimate of known environmental variance ($V'_{",NOT$mean," ",NOT$env,"}$) = ", ifelse(!is.null(data),data$B1_2^2,"...")),
-                                                    paste0("Mean environmental effect ($",NOT$mean,"'$) = ", ifelse(!is.null(data),data$B1_2,"...")))
+                                                    paste0("Mean environmental effect ($",NOT$mean,"'$) = ", ifelse(!is.null(data),paste(data$B1_2,"\U00b1", data$se.B1_2, sep=" "),"...")))
       )  
     
         return(getTable(myTable, header=TRUE))

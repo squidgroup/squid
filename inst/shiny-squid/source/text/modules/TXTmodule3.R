@@ -22,7 +22,7 @@ Mod3Step1_txt <- list(
                         we illustrated how measurement of the environment could help explain some of the variance. 
                         Often, when we study phenotypes in natural populations, many aspects of the environment 
                         that could affect phenotypes will be unknown and so not measured. In Step 3, 
-                        this unmeasured environmental variance ended up as “residual” variance, 
+                        this unmeasured environmental variance ended up as &ldquo;residual&rdquo; variance, 
                         and it had no effect on the estimate of among-individual variance because 
                         the environment was randomly determined from one sampling period to another 
                         and all individuals were sampled at the same time and experienced the same environment. 
@@ -42,8 +42,11 @@ Mod3Step1_txt <- list(
   "para1"      = paste0("As before, you can set $V_",NOT$mError,"$, $V_",NOT$devI,"$ and $V_{",NOT$envEffect,"}$, 
                         and for this module, $V_{",NOT$envEffect,"}$ must be greater than 0."),
   
-  "note"       = paste0("Note that for this module, the total variance ($V_",NOT$total,"$) is not restrained to 1 anymore."),
+  "note1"      = paste0("Note that from now on, the total variance ($V_",NOT$total,"$) is not restrained to 1 anymore."),
+  "note2"      = "Also, the number of individuals will be set to 100 all along this module.",
   
+  
+    
   "para2"      = "The environment for this simulation is, for convenience, set as being linear over time, 
                   affecting all individuals similarly (i.e., it is &ldquo;shared&rdquo;), having an intercept 
                   effect on phenotype of 0, and a slope that you can input (we recommend at first 
@@ -228,8 +231,8 @@ Mod3Step3_txt <- list(
                          (differences between days within a territory). We have assumed these have 
                          the same effect on phenotype. It is possible that this is not the case. 
                          If so, the method we have demonstrated here will not give accurate estimates of $V_",NOT$devI,"$. 
-                         We discuss one solution to this in a module on within and among-subject centring. 
-                         The issues related to centring are complex, so we recommend this module be done 
+                         We discuss one solution to this in a module on within and among-subject centering. 
+                         The issues related to centering are complex, so we recommend this module be done 
                          after the module on random regression.")
   
 )

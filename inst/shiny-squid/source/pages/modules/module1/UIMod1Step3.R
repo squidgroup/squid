@@ -23,8 +23,8 @@ span(
     uiOutput("Mod1Step3_error_Vbx")
   ),
   
-  # Number of trait expressions (NR)
-  getSliderInput("Mod1Step3_NR", Modules_VAR$Tmax),
+  # Number of trait expressions sampled
+  getSliderInput("Mod1Step3_NR", Modules_VAR$NR),
   
   conditionalPanel(
     condition = "0",
