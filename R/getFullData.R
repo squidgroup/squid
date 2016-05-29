@@ -59,16 +59,16 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
     if(V$VG == 0){
       G   <- vector(N$NI*N$NT*N$NP*N$NS, mode = "double")
     }else{
-      G   <- rep(rep(rnorm(N$NG*N$NT*N$NP, Mu, sqrt(V$VG)), each=N$NI/N$NG), each=N$NS)
+      G   <- rep(rep(stats::rnorm(N$NG*N$NT*N$NP, Mu, sqrt(V$VG)), each=N$NI/N$NG), each=N$NS)
     }
       
     ############################################## 
     # Measurement error variance (me)  
-    e           <- rnorm(N$NI*N$NT*N$NP*N$NS, Mu, sqrt(V$Ve))
+    e           <- stats::rnorm(N$NI*N$NT*N$NP*N$NS, Mu, sqrt(V$Ve))
     
     ############################################## 
     # Phenotypic equation
-    Phenotype   <-  rowSums((B + ind) * X) + G + e
+    Phenotype   <-  base::rowSums((B + ind) * X) + G + e
     
     ############################################## 
     

@@ -18,7 +18,7 @@ getSampledData <- function(N, Time, full_Data){
     
     # get the sampling time for each individual, each trait and each population
     Tx     <- N$NS * (c(1:(N$NI*N$NT*N$NP)) - 1) + getTxUniform(N, Time)
-    Tx     <- as.numeric(na.omit(as.vector(t(Tx))))
+    Tx     <- as.numeric(stats::na.omit(as.vector(t(Tx))))
 
     # get phenotype of the sampling individuals
     sampled_Data <- full_Data[Tx,]

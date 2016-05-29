@@ -100,7 +100,7 @@ input$NR_trait <- TRUE # default = TRUE
 input$ST_ind   <- FALSE # default = TRUE
 input$ST_trait <- FALSE # default = TRUE
 
-data <- squid::squidR(input=input, plot = TRUE, sameEnvironment = TRUE)
+data <- squid::squidR(input=input, plot = TRUE)
 
 
 

@@ -17,10 +17,10 @@ getNRI <- function(N, Time){
   if(!Time$NR_ind){
     if(!Time$NR_trait){
       # Difference in records number among individuals and traits
-      NRI <- as.integer(rpois(nbSample.NT, N$NR)) 
+      NRI <- as.integer(stats::rpois(nbSample.NT, N$NR)) 
     }else{
       # Difference in records number among individuals and  same among traits
-      NRI <- as.integer(rpois(nbSample, N$NR))
+      NRI <- as.integer(stats::rpois(nbSample, N$NR))
       NRI <- rep(NRI, N$NT)
     }
   }else{
@@ -28,14 +28,14 @@ getNRI <- function(N, Time){
       # Difference in records number among Traits and  same among individuals
       NRI <- NULL
       myFun  <- function(i){
-        Temp <-  as.integer(rpois(N$NP, N$NR))
+        Temp <-  as.integer(stats::rpois(N$NP, N$NR))
         NRI  <<- c(NRI, rep(Temp, each=N$NI))
       }
       M      <- sapply(1:N$NT, myFun)      
     }else{
       # Same number of records among individuals and traits
       if(!Time$NR_Fixe){ # if NR is fixed (same for all populations)
-        NRI <- rep(rep(as.integer(rpois(N$NP, N$NR)),each=N$NI),N$NT)
+        NRI <- rep(rep(as.integer(stats::rpois(N$NP, N$NR)),each=N$NI),N$NT)
       }else{
         NRI <- rep(N$NR, N$NI*N$NT*N$NP)
       }

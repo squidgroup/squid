@@ -27,6 +27,7 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 Imports:
+    stats,
     shiny (>= 0.13.0),
     ggplot2 (>= 2.0.0),
     grid (>= 3.2.3),

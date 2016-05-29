@@ -26,8 +26,8 @@ getEnvironment <- function(environment, N, visualization){
         outputTMP <- environment$lin$intercept + (environment$lin$slope*(1:N$NS))
         output    <- rep(outputTMP, NB)
       }else{
-        intercept <-  rep(rnorm(NB, environment$lin$intercept, sqrt(environment$lin$V)), each = N$NS)
-        slope     <-  rep(rnorm(NB, environment$lin$slope, sqrt(environment$lin$V)), each = N$NS)
+        intercept <-  rep(stats::rnorm(NB, environment$lin$intercept, sqrt(environment$lin$V)), each = N$NS)
+        slope     <-  rep(stats::rnorm(NB, environment$lin$slope, sqrt(environment$lin$V)), each = N$NS)
         myTime    <-  rep(1:N$NS, NB)
         output    <-  intercept + (slope * myTime)
       }
@@ -47,10 +47,10 @@ getEnvironment <- function(environment, N, visualization){
         
       }else{
         
-        amplitude <-  rep(rnorm(NB, environment$cyc$amplitude, sqrt(environment$cyc$V)), each = N$NS)
-        period    <-  rep(rnorm(NB, environment$cyc$period,    sqrt(environment$cyc$V)), each = N$NS)
-        Hshift    <-  rep(rnorm(NB, environment$cyc$Hshift,    sqrt(environment$cyc$V)), each = N$NS)
-        Vshift    <-  rep(rnorm(NB, environment$cyc$Vshift,    sqrt(environment$cyc$V)), each = N$NS)
+        amplitude <-  rep(stats::rnorm(NB, environment$cyc$amplitude, sqrt(environment$cyc$V)), each = N$NS)
+        period    <-  rep(stats::rnorm(NB, environment$cyc$period,    sqrt(environment$cyc$V)), each = N$NS)
+        Hshift    <-  rep(stats::rnorm(NB, environment$cyc$Hshift,    sqrt(environment$cyc$V)), each = N$NS)
+        Vshift    <-  rep(stats::rnorm(NB, environment$cyc$Vshift,    sqrt(environment$cyc$V)), each = N$NS)
         
         A <- abs(amplitude)       # |A| = the amplitude
         B <- (2*pi) / abs(period) # 2pi/|B| = the period
@@ -68,13 +68,13 @@ getEnvironment <- function(environment, N, visualization){
       
       if(environment$sto$shared){
         
-        outputTMP <- rnorm(N$NS, environment$sto$Mu, sqrt(environment$sto$V))
+        outputTMP <- stats::rnorm(N$NS, environment$sto$Mu, sqrt(environment$sto$V))
         
         if(environment$sto$autocor_state) outputTMP <- decayRate(outputTMP, environment$sto$corr, N$NS)
         outputTMP <- rep(outputTMP, NB)
         
       }else{
-        outputTMP <-  rnorm(N$NS*NB, environment$sto$Mu, sqrt(environment$sto$V))
+        outputTMP <-  stats::rnorm(N$NS*NB, environment$sto$Mu, sqrt(environment$sto$V))
         if(environment$sto$autocor_state){
           for(i in 1:NB)
             outputTMP[((N$NS*(i-1))+1):(N$NS*i)] <- decayRate(outputTMP[((N$NS*(i-1))+1):(N$NS*i)], environment$sto$corr, N$NS)
@@ -88,8 +88,8 @@ getEnvironment <- function(environment, N, visualization){
     # Centering environment to 0 (Subtract environment mean)
   	if(!visualization){ # Do not standardize environment when it's just for previsualization
 	  	EnvironmentID <- rep(seq(1:NB), each = N$NS)
-	    SD            <- rep(by(output, EnvironmentID, sd), each = N$NS)
-	    MEAN          <- rep(by(output, EnvironmentID, mean), each = N$NS)
+	    SD            <- rep(by(output, EnvironmentID, stats::sd), each = N$NS)
+	    MEAN          <- rep(by(output, EnvironmentID, base::mean), each = N$NS)
 	    output        <- (output - MEAN) / SD 
   	}
     
