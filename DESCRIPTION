@@ -1,6 +1,6 @@
 Package: squid
 Title: Statistical Quantification of Individual Differences
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Hassen"  , "Allegue"    , email = "hassen.allegue@gmail.com"          , role = c("aut","cre")),
     person("Yimen"   , "Araya"      , email = "yimencr@gmail.com"                 , role = "aut"),
@@ -17,7 +17,7 @@ Description: A simulation-based tool made to help researchers to become familiar
     Users can experience how the mixed-effects model framework can be used to understand 
     distinct biological phenomena by interactively exploring simulated multilevel data. 
     Second, it offers research opportunities to those who are already familiar with 
-    mixed-effects models, as it enables the generation of datasets that users may download 
+    mixed-effects models, as it enables the generation of data sets that users may download 
     and use for a range of simulation-based statistical analyses such as power 
     and sensitivity analysis of multilevel and multivariate data.
 URL: https://github.com/hallegue/squid
