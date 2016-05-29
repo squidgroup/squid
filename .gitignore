@@ -5,5 +5,3 @@
 *.Rproj
 *.html
 *.Renviron
-inst/shiny-squid/rsconnect/
-inst/shiny-squid/shinyapps/

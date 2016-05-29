@@ -17,7 +17,7 @@ squidR(input=list(), plot=FALSE, data=NULL, module=NULL,
 \item{X_previsualization}{A \code{character string} of the environment name. This argument is only used by SQuID app.}
 }
 \value{
-\code{squidR} returns a \code{list} that includes a \code{data.frame} of the full data generated (the "world"), a \code{data.frame} of the sampled data and six \href{https://cran.r-project.org/web/packages/ggplot2/index.html}{ggplot2} plots of the results (only if \code{plot} is set to \code{TRUE}).
+\code{squidR} returns a \code{list} that includes a \code{data.frame} of the full data generated (the "world"), a \code{data.frame} of the sampled data and six \href{https://cran.r-project.org/package=ggplot2}{ggplot2} plots of the results (only if \code{plot} is set to \code{TRUE}).
 
 The full and the sampled data could be accessed respectively by \code{output$full_data} and \code{output$sampled_data}.
 A description of the columns of the full and the sampled \code{data.frame} is provided below:
@@ -44,7 +44,7 @@ A description of the columns of the full and the sampled \code{data.frame} is pr
    \item \code{e}. numeric; the measurement error.
   }
   
-\code{squidR} returns a list that also includes a list (\code{plots}) of six \href{https://cran.r-project.org/web/packages/ggplot2/index.html}{ggplot2} plots of the results. Note that the plots display only the data of the first trait, the first replicate and the first 20 individuals of the simulation.
+\code{squidR} returns a list that also includes a list (\code{plots}) of six \href{https://cran.r-project.org/package=ggplot2}{ggplot2} plots of the results. Note that the plots display only the data of the first trait, the first replicate and the first 20 individuals of the simulation.
 
 \itemize{
    \item \code{$plots$X1}. A plot of the environmental gradient x1. 
