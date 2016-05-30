@@ -55,8 +55,8 @@ Mod6Step1_txt <- list(
                 on the measure of phenotype in the <i>i <sup>th</sup></i> individual. 
                 Accordingly, we can apply the following parameterization regimes:"),
   "note"     = "Note: you can consider residual variance as solely measurement error variance, 
-                or you could consider it in which case it might also include some 
-                unknown environmental variance in addition to the known environmental variance determined below.",
+                or you could consider that it might also include some unknown environmental 
+                variance in addition to the known environmental variance determined below.",
   "para3"    = "Set in the background is the environmental variable and its sampling. 
                 Here we should use uniform sampling, where each individual is sampled 
                 at the same time so there are no biases. By definition, 
@@ -117,6 +117,12 @@ Mod6Step2_txt <- list(
   "para4"      = "We will then examine the appearance of the resulting data.",
   
   "results"    = "<b>Results:</b> A mixed-effects statistical model estimates these parameters:",
+  "note1"      = paste0("Note that we have slightly changed what is presented in the table above. 
+                        Whereas earlier we presented the phenotypic variance due to a particular term 
+                        (e.g., the variance due to individual differences in response to an environmental 
+                        factor, or $V_{",NOT$devS,NOT$env,"}$), above we present what many statistical packages produce, 
+                        which in the case of random slope, is the variance in slope $(V_",NOT$devS,")$ 
+                        rather than the phenotypic variance due to slope."),
   "para5"      = "The best way to develop an intuition about what the covariance represents 
                   is to compare a graph with and without it. Below are two panels of simulated data. 
                   The one on the left shows your simulated individuals without the covariance, 
@@ -132,7 +138,7 @@ Mod6Step2_txt <- list(
                   the relationship between two parameters in the equation—that is, 
                   how they behave across individuals. 
                   The covariance does normally appear in a partitioning of variance:",
-  "note"       = paste0("Note: In SQuID $E(",NOT$env,")=0$ and hence the covariance does not contribute to total phenotypic variance."),
+  "note2"      = paste0("Note: In SQuID $E(",NOT$env,")=0$ and hence the covariance does not contribute to total phenotypic variance."),
   "para7"      = "The biology of the covariance is just beginning to be explored 
                   (e.g., <a href='http://onlinelibrary.wiley.com/doi/10.1111/j.1461-0248.2011.01698.x/abstract' target='_blank'>Mathot et al. 2011</a>).
                   Undoubtedly further understanding of it will contribute to understanding 

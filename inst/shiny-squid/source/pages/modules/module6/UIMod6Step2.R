@@ -63,7 +63,7 @@ span(
     
     #Individual-specific response to an environmental effect (random slopes) variance (Vs)
     fluidRow(
-      column(8,getSliderInput("Mod6Step2_Vs", Modules_VAR$Vs)),
+      column(8,getSliderInput("Mod6Step2_Vs", Modules_VAR$Vsx)),
       column(4,textOutput("Mod6Step2_Vs_proportion", inline = TRUE))
     ),
     
@@ -86,6 +86,7 @@ span(
     
     # Table : display true and measured values (Vp, Vi and mean)
     uiOutput("Mod6Step2_summary_table"),
+    div(info_msg(Mod6Step2_txt$note1)),  # Text: note 1
     
     (HTML(Mod6Step2_txt$para5)),       # Text: paragraph 5
     
@@ -103,7 +104,7 @@ span(
     p("where"),
     p(paste0("$$COV_{",NOT$devI,",",NOT$devS,NOT$env,"}=
              E(",NOT$env,")Cov(",NOT$devI,",",NOT$devS,")$$")),
-    div(info_msg(Mod6Step2_txt$note)),  # Text: note
+    div(info_msg(Mod6Step2_txt$note2)),  # Text: note 2
     
     p(HTML(Mod6Step2_txt$para7)),        # Text: paragraph 7
     

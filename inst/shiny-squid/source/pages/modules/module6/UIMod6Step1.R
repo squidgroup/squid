@@ -54,7 +54,7 @@ span(
 
     #Individual-specific response to an environmental effect (random slopes) variance (VS)
     fluidRow(
-      column(8,getSliderInput("Mod6Step1_Vs", Modules_VAR$Vs)),
+      column(8,getSliderInput("Mod6Step1_Vs", Modules_VAR$Vsx)),
       column(4,textOutput("Mod6Step1_Vs_proportion", inline = TRUE))
     ),
 

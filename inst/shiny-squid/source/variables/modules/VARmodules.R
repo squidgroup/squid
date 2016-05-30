@@ -49,8 +49,8 @@ Modules_VAR <- list(
   ),
   
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
-  "Vs"     = list(  "label"       = paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,NOT$env,"}$): "),
-                    "infoTxt"     = "Individual-specific response to an environmental effect (random slopes) variance",
+  "Vsx"    = list(  "label"       = paste0("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,NOT$env,"}$): "),
+                    "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
                     "value"       = 0.2,
                     "min"         = 0,
                     "max"         = 1,
@@ -120,13 +120,13 @@ Modules_VAR <- list(
   ),
   
   # Variance of population mean response to an environmental effect x
-  "Vbx"  = list(  "label"       = paste("Variance of population mean response to an environmental effect $(V_{",NOT$mean," ",NOT$env,"})$:",sep=""),
-                  "infoTxt"     = "Variance of population mean response to an environmental effect.",
+  "Vbx"  = list(  "label"       = paste0("Variance due to population mean effect of an environmental factor $(V_{",NOT$mean," ",NOT$env,"})$:"),
+                  "infoTxt"     = "Variance due to population mean effect of an environmental factor.",
                   "value"       = 0.5,
                   "min"         = 0,
                   "max"         = 1,
                   "step"        = 0.01,
-                  "errorTxt"    = paste("Variance of population mean response to an environmental effect $(V_{",NOT$mean," ",NOT$env,"})$ 
+                  "errorTxt"    = paste("Variance due to population mean effect of an environmental factor $(V_{",NOT$mean," ",NOT$env,"})$ 
                                        must be a number between 0 and 1.
                                        Try to decrease other variances.",sep="")
   ),
