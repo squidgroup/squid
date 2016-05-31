@@ -23,7 +23,7 @@ Description: A simulation-based tool made to help researchers to become familiar
 URL: https://github.com/hallegue/squid
 BugReports: https://github.com/hallegue/squid/issues
 Depends:
-    R (>= 3.2.5)
+    R (>= 3.3.0)
 License: MIT + file LICENSE
 LazyData: true
 Imports:

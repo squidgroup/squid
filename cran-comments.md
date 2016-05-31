@@ -1,5 +1,5 @@
 ## Test environments
-* local Windows 10, R 3.2.5
+* local Windows 10, R 3.3.0
 * local OS X El Capitan V10.11.4, R 3.3.0
 * win-builder (devel and release)
 
