@@ -1,5 +1,5 @@
 Package: squid
-Title: Statistical Quantification Of Individual Differences
+Title: Statistical Quantification of Individual Differences
 Version: 0.1.0
 Authors@R: c(
     person("Hassen"  , "Allegue"    , email = "hassen.allegue@gmail.com"          , role = c("aut","cre")),
