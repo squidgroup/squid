@@ -3,7 +3,6 @@
 .Rprofile
 LICENSE.md
 README.Rmd
-^NEWS\.md$
 ^revdep$
 ^README\.Rmd$
 ^cran-comments\.md$
