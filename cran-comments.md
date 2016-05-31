@@ -18,5 +18,7 @@ File 'LICENSE':
   YEAR: 2016
   COPYRIGHT HOLDER: SQuID
   
-  
 ## Downstream dependencies
+I have also run R CMD check on downstream dependencies of squid 
+(https://github.com/hallegue/squid/revdep). 
+All packages that I could install passed.
