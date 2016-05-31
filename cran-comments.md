@@ -1,7 +1,7 @@
 ## Test environments
 * local Windows 10, R 3.2.5
+* local OS X El Capitan V10.11.4, R 3.3.0
 * win-builder (devel and release)
-* OS X El Capitan V10.11.4, R 3.3.0
 
 ## R CMD check results
 There were no ERRORs or WARNINGs.
