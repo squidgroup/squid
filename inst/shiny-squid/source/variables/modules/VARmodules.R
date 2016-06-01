@@ -229,7 +229,7 @@ Module_titles <- list(
   "mod3"  = "Non-stochastic environments",
   "mod4"  = "Multiple traits",
   "mod5"  = "",
-  "mod6"  = "Random slopes",
+  "mod6"  = "Random regressions",
   "mod7"  = "",
   "mod8"  = "",
   "mod9"  = "",

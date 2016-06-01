@@ -115,15 +115,15 @@ portal_txt <- list(
                                 Denis R&eacute;ale (Universit&eacute; du Qu&eacute;bec &Agrave; Montr&eacute;al, Montreal, Canada)<br>
                                 Holger Schielzeth (University of Bielefeld, Bielefeld, Germany)<br>
                                 Dave Westneat (University of Kentucky, Lexington, USA)<br>",
-      "beginners"            = "The SQuID modules are designed for users who have some but not a 
+      "beginners"            = paste0("The SQuID modules are designed for users who have some but not a 
                                 lot of statistical background, particularly with linear mixed models. 
                                 We strongly recommend that if you are in this category, you begin with 
                                 the module 	&ldquo;Basic Lessons&rdquo;. That should be followed by the module 
                                 &ldquo;Non-stochastic environments&rdquo;. You will need to be very comfortable with 
                                 the ideas here before moving on. Which module you choose next depends 
                                 on your interests but Step 1 in module &ldquo;Multidimensional Plasticity&rdquo; 
-                                introduces multiple regression. The module &ldquo;Random regression&rdquo; 
-                                may also be good to do after module &ldquo;Non-stochastic environments&rdquo;.",
+                                introduces multiple regression. The module &ldquo;",Module_titles$mod6,"&rdquo; 
+                                may also be good to do after module &ldquo;Non-stochastic environments&rdquo;."),
       "teachers"             = "The SQuID modules can be very useful for teaching statistical concepts, 
                                 especially ones related to linear mixed models. Which module to use 
                                 depends on your students and what you want them to learn. 
