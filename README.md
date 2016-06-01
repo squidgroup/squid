@@ -5,6 +5,7 @@
 
 ### Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/squid)](http://cran.r-project.org/package=squid)
 
 #### Brief description
 <img id='logo' src='./inst/shiny-squid/www/pictures/logo_2.png' align='left' alt='SQuID' style='padding-right:20px;'>
