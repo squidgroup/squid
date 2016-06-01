@@ -16,6 +16,7 @@ image <- paste0("<img id='logo' src='",path,"www/pictures/logo_2.png' align='lef
 
 ### Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/squid)](http://cran.r-project.org/package=squid)
 
 #### Brief description
 `r image`
