@@ -8,6 +8,7 @@ Authors@R: c(
     person("Ned"     , "Dochtermann", email = "ned.dochtermann@gmail.com"         , role = "aut"),
     person("Laszlo"  , "Garamszegi" , email = "laszlo.garamszegi@ebd.csic.es"     , role = "aut"),
     person("Shinichi", "Nakagawa"   , email = "itchyshin@gmail.com"               , role = "aut"),
+    person("Denis"   , "Réale"      , email = "reale.denis@uqam.ca"               , role = "aut"),
     person("Holger"  , "Schielzeth" , email = "holger.schielzeth@uni-bielefeld.de", role = "aut"),
     person("Dave"    , "Westneat"   , email = "david.westneat@uky.edu"            , role = "aut"))
 Description: A simulation-based tool made to help researchers to become familiar with
