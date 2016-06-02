@@ -6,3 +6,4 @@ README.Rmd
 ^revdep$
 ^README\.Rmd$
 ^cran-comments\.md$
+notes.txt

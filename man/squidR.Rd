@@ -23,36 +23,36 @@ The full and the sampled data could be accessed respectively by \code{output$ful
 A description of the columns of the full and the sampled \code{data.frame} is provided below:
 
   \itemize{
-   \item \code{Replicate}. factor; the replicated population identifier.
-   \item \code{Individual}. factor; the individual identifier.
-   \item \code{Individual_Trait}. factor; the identifier of each individual/trait combination.
-   \item \code{Trait}. factor; the trait identifier.
-   \item \code{Time}. integer; the time step value.
-   \item \code{Phenotype}. numeric; the individual phenotype.
-   \item \code{Beta0}. numeric; the population phenotypic mean.
-   \item \code{Beta1}. numeric; the population mean response to environmental influences x1.
-   \item \code{Beta2}. numeric; the population mean response to environmental influences x2.
-   \item \code{Beta12}. numeric; the population mean response to environmental influences x1x2 (the interaction between the environmental effect x1 and the environmental effect x2).
-   \item \code{I}. numeric; the individual-specific deviations (random-intercepts) from the population phenotypic mean \code{Beta0}.
-   \item \code{S1}. numeric; the individual-specific response to the environmental influence x1 (random-slope).
-   \item \code{S2}. numeric; the individual-specific response to the environmental influence x2 (random-slope).
-   \item \code{S12}. numeric; the individual-specific response to the environmental influence x1x2 (the interaction between the environmental effect x1 and the environmental effect x2; random-slope).
-   \item \code{X1}. numeric; the environmental gradient x1.
-   \item \code{X2}. numeric; the environmental gradient x2.
-   \item \code{X1X2}. numeric; the environmental gradient x1x2 (the interaction between the environmental effect x1 and the environmental effect x2).
-   \item \code{G}. numeric; the higher-level grouping value.
-   \item \code{e}. numeric; the measurement error.
+   \item \code{Replicate}: (factor) the replicated population identifier.
+   \item \code{Individual}: (factor) the individual identifier.
+   \item \code{Individual_Trait}: (factor) the identifier of each individual/trait combination.
+   \item \code{Trait}: (factor) the trait identifier.
+   \item \code{Time}: (integer) the time step value.
+   \item \code{Phenotype}: (numeric) the individual phenotype.
+   \item \code{Beta0}: (numeric) the population phenotypic mean.
+   \item \code{Beta1}: (numeric) the population mean response to environmental influences x1.
+   \item \code{Beta2}: (numeric) the population mean response to environmental influences x2.
+   \item \code{Beta12}: (numeric) the population mean response to environmental influences x1x2 (the interaction between the environmental effect x1 and the environmental effect x2).
+   \item \code{I}: (numeric) the individual-specific deviations (random-intercepts) from the population phenotypic mean \code{Beta0}.
+   \item \code{S1}: (numeric) the individual-specific response to the environmental influence x1 (random-slope).
+   \item \code{S2}: (numeric) the individual-specific response to the environmental influence x2 (random-slope).
+   \item \code{S12}: (numeric) the individual-specific response to the environmental influence x1x2 (the interaction between the environmental effect x1 and the environmental effect x2; random-slope).
+   \item \code{X1}: (numeric) the environmental gradient x1.
+   \item \code{X2}: (numeric) the environmental gradient x2.
+   \item \code{X1X2}: (numeric) the environmental gradient x1x2 (the interaction between the environmental effect x1 and the environmental effect x2).
+   \item \code{G}: (numeric) the higher-level grouping value.
+   \item \code{e}: (numeric) the measurement error.
   }
   
 \code{squidR} returns a list that also includes a list (\code{plots}) of six \href{https://cran.r-project.org/package=ggplot2}{ggplot2} plots of the results. Note that the plots display only the data of the first trait, the first replicate and the first 20 individuals of the simulation.
 
 \itemize{
-   \item \code{$plots$X1}. A plot of the environmental gradient x1. 
-   \item \code{$plots$X2}. A plot of the environmental gradient x2. 
-   \item \code{$plots$X1X2}. A plot of the environmental gradient x1x2 (the interaction between the environmental effect x1 and the environmental effect x2). 
-   \item \code{$plots$totPhen}. A plot of the raw individual phenotype over time.
-   \item \code{$plots$sampPhen}. A plot of the sampled individual phenotype over time.
-   \item \code{$plots$sampTime}. A plot of the sampling time of each individual.
+   \item \code{$plots$X1}: a plot of the environmental gradient x1. 
+   \item \code{$plots$X2}: a plot of the environmental gradient x2. 
+   \item \code{$plots$X1X2}: a plot of the environmental gradient x1x2 (the interaction between the environmental effect x1 and the environmental effect x2). 
+   \item \code{$plots$totPhen}: a plot of the raw individual phenotype over time.
+   \item \code{$plots$sampPhen}: a plot of the sampled individual phenotype over time.
+   \item \code{$plots$sampTime}: a plot of the sampling time of each individual.
 }
 }
 \description{
@@ -64,119 +64,67 @@ A detailed description of the SQuID model and its sampling design is provided on
 The argument \code{input} is a list that contains the different input parameters to the SQuID model. All the parameters are listed below including their default value and a short description. If a parameter is not declared within the \code{input} list, the default value will be used.
 
 \tabular{lllll}{
- \strong{Parameter name} \tab     \tab \strong{Default value} \tab     \tab \strong{Description} \cr \cr
- 
- \code{Tmax} \tab \tab 1 \tab \tab positive \code{integer}; the duration of the simulation (number of time steps). \cr \cr
- 
- \code{NP}   \tab \tab 1 \tab \tab positive \code{integer}; the number of replicated populations. The replicated populations are generated independently using the same simulation design that has been initially inputted by the user. Note that data from different populations will be saved in the same output file that you could later use to run statistical analyses. \cr \cr
- 
- \code{NI}   \tab \tab 1 \tab \tab positive \code{integer}; the number of individuals in each sampled population. \code{NI} must be divisible by the number of higher-level groups (\code{NG}). \cr \cr 
- 
- \code{NT}   \tab \tab 1 \tab \tab positive \code{integer}; the number of traits for each individual. SQuID allows a maximum of 2 traits. \cr \cr
- 
- \code{NG}   \tab \tab 1 \tab \tab positive \code{integer}; the number of higher-level groups. \code{NG} must be lower than the number of individuals \code{NI}. \cr \cr
- 
- \code{X1_state}     \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an environmental effect x1 will be added to the model equation.  \cr \cr
-                                            
- \code{X1_sto_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a stochastic environmental effect will be added to the environmental effect x1. The stochastic environmental effect values follow a normal distribution with a mean of 0 and a variance of \code{X1_sto_V}. \cr \cr
- 
- \code{X1_sto_shared}\tab \tab \code{TRUE}  \tab \tab \code{logical}; if \code{TRUE}, the stochastic environmental effect included in the environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different stochastic environmental effect x1 (i.e. a new stochastic environmental effect is generated for each individual).\cr \cr  
- 
- \code{X1_sto_V} \tab \tab 1  \tab \tab \code{numeric}; the variance used to generate the normally distributed stochastic environmental effect x1.\cr \cr
- 
- \code{X1_sto_autocor_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an autocorrelation effect will be added to the stochastic environmental effect x1. \cr \cr 
-
- \code{X1_sto_corr} \tab \tab 0 \tab \tab \code{numeric}; the correlation value ranging from 0 to 1 that characterizes the magnitude of the temporal autocorrelation between two consecutive time steps. \cr \cr
-
- \code{X1_lin_state}     \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a linear trend will be added to the environmental effect x1. \cr \cr
-
- \code{X1_lin_shared}    \tab \tab \code{TRUE}  \tab \tab \code{logical}; if \code{TRUE}, the linear trend included in the environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different linear trend within the environmental effect x1. A different linear trend is generated for each individual by varying the intercept and the slope of the linear equation. The variation in intercepts and slopes following a normal distribution with means \code{X1_lin_intercept}, \code{X1_lin_slope} and variance \code{X1_lin_V}. \cr \cr  
-
- \code{X1_lin_intercept} \tab \tab 0 \tab \tab \code{numeric}; the intercept of the linear trend included into the environmental effect x1. \cr \cr
- 
- \code{X1_lin_slope} \tab \tab 1 \tab \tab \code{numeric}; the slope of the linear trend included into the environmental effect x1. \cr \cr
- 
- \code{X1_lin_V} \tab \tab 1 \tab \tab \code{numeric}; the variance used to generate different (unshared) linear trend effect for each individual within the environmental effect x1. \cr \cr
- 
- \code{X1_cyc_state}     \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a cyclic trend will be added the environmental effect x1. \cr \cr
-
- \code{X1_cyc_shared}    \tab \tab \code{TRUE}  \tab \tab \code{logical}; if \code{TRUE}, the cyclic trend for environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different cyclic trend for environmental effect x1. A new cyclic trend is generated for each individual by varying the amplitude, the period, the horizontal shift and the vertical shift of the cyclic equation following a normal distribution where the mean is the parameter value itself and the variance is \code{X1_cyc_V}. \cr \cr 
-
- \code{X1_cyc_amplitude} \tab \tab 10 \tab \tab positive \code{numeric}; the amplitude of the cyclic trend for environmental effect x1. \cr \cr
- 
- \code{X1_cyc_period} \tab \tab 10 \tab \tab positive \code{numeric}; the period of the cyclic trend for the environmental effect x1. \cr \cr
-
- \code{X1_cyc_Hshift} \tab \tab 0 \tab \tab positive \code{numeric}; the horizontal shift of the cyclic trend for environmental effect x1. \cr \cr
- 
- \code{X1_cyc_Vshift} \tab \tab 0 \tab \tab positive \code{numeric}; the vertical shift of the cyclic trend for environmental effect x1. \cr \cr
- 
- \code{X1_cyc_V} \tab \tab 0 \tab \tab \code{numeric}; the variance used to generate different (unshared) cyclic trends for each individual in the environmental effect x1. \cr \cr
- 
- \code{X2_state}     \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an environmental effect x2 will be added to the model equation. \cr \cr  
- 
- \code{X2_sto_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a stochastic environmental effect will be added to the environmental effect x2. The stochastic environmental effect values follow a normal distribution with mean of 0 and a variance of \code{X2_sto_V}. \cr \cr 
- \code{X2_sto_shared}\tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the stochastic environmental effect included in the environmental effect x2 will be shared between individuals. If \code{FALSE}, each individual will experience a different stochastic environmental effect  x2 (i.e. a new stochastic environmental effect is generated for each individual).\cr \cr   
- 
- \code{X2_sto_V} \tab \tab 1 \tab \tab \code{numeric}; the variance for the normally distributed stochastic environmental effect  x2.\cr \cr
- 
- \code{X2_sto_autocor_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an autocorrelation effect will be added to the stochastic environmental effect x2. \cr \cr  
- 
- \code{X2_sto_corr} \tab \tab 0 \tab \tab \code{numeric}; the correlation value ranging from 0 to 1 that characterizes the magnitude of the temporal autocorrelation between two consecutive time steps. \cr \cr
-
- \code{X2_lin_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a linear trend will be added to the environmental effect x2. \cr \cr
-
- \code{X2_lin_shared} \tab \tab \code{TRUE}  \tab \tab \code{logical}; if \code{TRUE}, the linear trend included in the environmental effect x2 will be shared between individuals. If \code{FALSE}, each individual will experience a different linear trend within the environmental effect x2. A new linear trend is generated for each individual by varying the intercept and the slope of the linear equation. The variation in intercepts and slopes follow a normal distribution with means \code{X2_lin_intercept}, \code{X2_lin_slope} and variance \code{X2_lin_V}. \cr \cr    
- 
- \code{X2_lin_intercept} \tab \tab 0 \tab \tab \code{numeric}; the intercept of the linear trend for environmental effect x2. \cr \cr
-
- \code{X2_lin_slope} \tab \tab 1 \tab \tab \code{numeric}; the slope of the linear trend for environmental effect x2. \cr \cr
- 
- \code{X2_lin_V} \tab \tab 1 \tab \tab \code{numeric}; the variance used to generate different (unshared) linear trend effect for each individual's environmental effect x2. \cr \cr
-
- \code{X2_cyc_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a cyclic trend will be added the environmental effect x2. \cr \cr
- 
- \code{X2_cyc_shared} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the cyclic trend included in the environmental effect x2 will be shared between individuals. If \code{FALSE}, each individual will experience a different cyclic trend for the environmental effect x2. A new cyclic trend is generated for each individual by varying the amplitude, the period, the horizontal shift and the vertical shift of the cyclic equation following a normal distribution where the mean is the parameter value itself and the variance is \code{X2_cyc_V}. \cr \cr  
- 
- \code{X2_cyc_amplitude} \tab \tab 10 \tab \tab positive \code{numeric}; the amplitude of the cyclic trend included into the environmental effect x2. \cr \cr
- 
- \code{X2_cyc_period} \tab \tab 10 \tab \tab positive \code{numeric}; the period of the cyclic trend for environmental effect x2. \cr \cr
- 
- \code{X2_cyc_Hshift} \tab \tab 0 \tab \tab positive \code{numeric}; the horizontal shift of the cyclic trend for environmental effect x2. \cr \cr
-
- \code{X2_cyc_Vshift} \tab \tab 0 \tab \tab positive \code{numeric}; the vertical shift of the cyclic trend for environmental effect x2. \cr \cr
- 
- \code{X2_cyc_V} \tab \tab 0 \tab \tab \code{numeric}; the variance used to generate different (unshared) cyclic trend effect for each individual within the environmental effect x2. \cr \cr
- 
- \code{X_Interaction} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, the environmental effect x1*x2 representing the interaction between the environmental effect x1 and the environmental effect x2 will be added to the model equation.\cr \cr
- 
- \code{B} \tab \tab c(0,0,0,0) \tab \tab \code{numeric vector}; the population mean values. When the number of trait is set to 1, the length of the vector is 4. The vector elements are respectively the population intercept (b0), the population  response to environmental influences x1 (fixed slope; b1), the population  response to environmental influences x2 (fixed slope; b2) and the population  response interaction between environmental influences x1 and x2 (fixed slope; b12). If the number of trait is set to 2, the length of the vector is doubled (len=8) and the second half corresponds to the population mean values associated with the second trait.\cr \cr
- 
- \code{Vind}  \tab \tab matrix(0, nrow=4, ncol=4) \tab \tab Square, positive definite \code{matrix} or lower triangular \code{matrix}; the individual variance/correlation matrix. Variances are positive \code{numeric} numbers and correlations are \code{numeric} numbers ranged between -1 and 1. Variances are along the matrix diagonal and correlation values below the matrix diagonal. When the number of trait is set to 1, the dimension of the matrix is 4 rows by 4 columns (4x4) and the diagonal elements are respectively the individual-specific  (random) intercept variance (VI), the individual-specific response to an environmental effect x1 (random slope) variance (VS1), the individual-specific response to an environmental effect x2 (random slope) variance (VS2) and the individual-specific response interaction to two environmental effects x1 and x2 (random slopes) variance (VS12). When the number of trait is set to 2, the dimension of the matrix is doubled (8x8) where the second half of the diagonal is the individual variances (intercept and slopes) of the second trait. Note that it is possible to set correlation relationships between random effects within and/or among traits. \cr \cr
- 
- \code{Ve} \tab \tab  0 \tab \tab  positive \code{numeric}; the measurement error variance. \cr \cr
- 
- \code{VG} \tab \tab  0 \tab \tab  positive \code{numeric}; the high-level grouping variance. \cr \cr
- 
- \code{NR} \tab \tab  1 \tab \tab  positive \code{integer}; the average number of records sampled per individual. \cr \cr
- 
- \code{Vhsi} \tab \tab  0 \tab \tab  \code{numeric} (between 0 and 0.95); the among-individual variance in timing of sampling. \cr \cr
- 
- \code{NR_ind} \tab \tab  \code{TRUE} \tab \tab  \code{logical}; if \code{TRUE}, individuals will be sampled the same number of times. \cr \cr
- 
- \code{NR_trait} \tab \tab  \code{TRUE} \tab \tab  \code{logical}; if \code{TRUE}, traits within individuals will be sampled the same number of times. \cr \cr
- 
- \code{ST_ind} \tab \tab  \code{TRUE} \tab \tab  \code{logical}; if \code{TRUE}, individuals will be sampled at the same time (i.e. recorded simultaneously). \cr \cr
- 
- \code{ST_trait}   \tab \tab  \code{TRUE} \tab \tab  \code{logical}; if \code{TRUE}, traits within individuals will be sampled at the same times (i.e. recorded simultaneously). \cr \cr
- 
- \strong{Parameter name} \tab \tab \strong{Default value} \tab \tab \strong{Description}
+\strong{Parameter name} \tab \tab \strong{Default value} \tab \tab \strong{Description} \cr
+\code{Tmax} \tab \tab 1 \tab \tab positive \code{integer}; the duration of the simulation (number of time steps). \cr
+\code{NP} \tab \tab 1 \tab \tab positive \code{integer}; the number of replicated populations. The replicated populations are generated independently using the same simulation design that has been initially inputted by the user. Note that data from different populations will be saved in the same output file that you could later use to run statistical analyses. \cr
+\code{NI} \tab \tab 1 \tab \tab positive \code{integer}; the number of individuals in each sampled population. \code{NI} must be divisible by the number of higher-level groups (\code{NG}). \cr
+\code{NT} \tab \tab 1 \tab \tab positive \code{integer}; the number of traits for each individual. SQuID allows a maximum of 2 traits. \cr
+\code{NG} \tab \tab 1 \tab \tab positive \code{integer}; the number of higher-level groups. \code{NG} must be lower than the number of individuals \code{NI}. \cr
+\code{X1_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an environmental effect x1 will be added to the model equation. \cr
+\code{X1_sto_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a stochastic environmental effect will be added to the environmental effect x1. The stochastic environmental effect values follow a normal distribution with a mean of 0 and a variance of \code{X1_sto_V}. \cr
+\code{X1_sto_shared}\tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the stochastic environmental effect included in the environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different stochastic environmental effect x1 (i.e. a new stochastic environmental effect is generated for each individual).\cr
+\code{X1_sto_V} \tab \tab 1 \tab \tab \code{numeric}; the variance used to generate the normally distributed stochastic environmental effect x1.\cr
+\code{X1_sto_autocor_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an autocorrelation effect will be added to the stochastic environmental effect x1. \cr
+\code{X1_sto_corr} \tab \tab 0 \tab \tab \code{numeric}; the correlation value ranging from 0 to 1 that characterizes the magnitude of the temporal autocorrelation between two consecutive time steps. \cr
+\code{X1_lin_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a linear trend will be added to the environmental effect x1. \cr
+\code{X1_lin_shared} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the linear trend included in the environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different linear trend within the environmental effect x1. A different linear trend is generated for each individual by varying the intercept and the slope of the linear equation. The variation in intercepts and slopes following a normal distribution with means \code{X1_lin_intercept}, \code{X1_lin_slope} and variance \code{X1_lin_V}. \cr
+\code{X1_lin_intercept} \tab \tab 0 \tab \tab \code{numeric}; the intercept of the linear trend included into the environmental effect x1. \cr
+\code{X1_lin_slope} \tab \tab 1 \tab \tab \code{numeric}; the slope of the linear trend included into the environmental effect x1. \cr
+\code{X1_lin_V} \tab \tab 1 \tab \tab \code{numeric}; the variance used to generate different (unshared) linear trend effect for each individual within the environmental effect x1. \cr
+\code{X1_cyc_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a cyclic trend will be added the environmental effect x1. \cr
+\code{X1_cyc_shared} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the cyclic trend for environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different cyclic trend for environmental effect x1. A new cyclic trend is generated for each individual by varying the amplitude, the period, the horizontal shift and the vertical shift of the cyclic equation following a normal distribution where the mean is the parameter value itself and the variance is \code{X1_cyc_V}. \cr
+\code{X1_cyc_amplitude} \tab \tab 10 \tab \tab positive \code{numeric}; the amplitude of the cyclic trend for environmental effect x1. \cr
+\code{X1_cyc_period} \tab \tab 10 \tab \tab positive \code{numeric}; the period of the cyclic trend for the environmental effect x1. \cr
+\code{X1_cyc_Hshift} \tab \tab 0 \tab \tab positive \code{numeric}; the horizontal shift of the cyclic trend for environmental effect x1. \cr
+\code{X1_cyc_Vshift} \tab \tab 0 \tab \tab positive \code{numeric}; the vertical shift of the cyclic trend for environmental effect x1. \cr
+\code{X1_cyc_V} \tab \tab 0 \tab \tab \code{numeric}; the variance used to generate different (unshared) cyclic trends for each individual in the environmental effect x1. \cr
+\code{X2_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an environmental effect x2 will be added to the model equation. \cr
+\code{X2_sto_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a stochastic environmental effect will be added to the environmental effect x2. The stochastic environmental effect values follow a normal distribution with mean of 0 and a variance of \code{X2_sto_V}. \cr
+\code{X2_sto_shared}\tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the stochastic environmental effect included in the environmental effect x2 will be shared between individuals. If \code{FALSE}, each individual will experience a different stochastic environmental effect  x2 (i.e. a new stochastic environmental effect is generated for each individual).\cr
+\code{X2_sto_V} \tab \tab 1 \tab \tab \code{numeric}; the variance for the normally distributed stochastic environmental effect  x2.\cr
+\code{X2_sto_autocor_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, an autocorrelation effect will be added to the stochastic environmental effect x2. \cr
+\code{X2_sto_corr} \tab \tab 0 \tab \tab \code{numeric}; the correlation value ranging from 0 to 1 that characterizes the magnitude of the temporal autocorrelation between two consecutive time steps. \cr
+\code{X2_lin_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a linear trend will be added to the environmental effect x2. \cr
+\code{X2_lin_shared} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the linear trend included in the environmental effect x2 will be shared between individuals. If \code{FALSE}, each individual will experience a different linear trend within the environmental effect x2. A new linear trend is generated for each individual by varying the intercept and the slope of the linear equation. The variation in intercepts and slopes follow a normal distribution with means \code{X2_lin_intercept}, \code{X2_lin_slope} and variance \code{X2_lin_V}. \cr
+\code{X2_lin_intercept} \tab \tab 0 \tab \tab \code{numeric}; the intercept of the linear trend for environmental effect x2. \cr
+\code{X2_lin_slope} \tab \tab 1 \tab \tab \code{numeric}; the slope of the linear trend for environmental effect x2. \cr
+\code{X2_lin_V} \tab \tab 1 \tab \tab \code{numeric}; the variance used to generate different (unshared) linear trend effect for each individual's environmental effect x2. \cr
+\code{X2_cyc_state} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, a cyclic trend will be added the environmental effect x2. \cr
+\code{X2_cyc_shared} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, the cyclic trend included in the environmental effect x2 will be shared between individuals. If \code{FALSE}, each individual will experience a different cyclic trend for the environmental effect x2. A new cyclic trend is generated for each individual by varying the amplitude, the period, the horizontal shift and the vertical shift of the cyclic equation following a normal distribution where the mean is the parameter value itself and the variance is \code{X2_cyc_V}. \cr
+\code{X2_cyc_amplitude} \tab \tab 10 \tab \tab positive \code{numeric}; the amplitude of the cyclic trend included into the environmental effect x2. \cr
+\code{X2_cyc_period} \tab \tab 10 \tab \tab positive \code{numeric}; the period of the cyclic trend for environmental effect x2. \cr
+\code{X2_cyc_Hshift} \tab \tab 0 \tab \tab positive \code{numeric}; the horizontal shift of the cyclic trend for environmental effect x2. \cr
+\code{X2_cyc_Vshift} \tab \tab 0 \tab \tab positive \code{numeric}; the vertical shift of the cyclic trend for environmental effect x2. \cr
+\code{X2_cyc_V} \tab \tab 0 \tab \tab \code{numeric}; the variance used to generate different (unshared) cyclic trend effect for each individual within the environmental effect x2. \cr
+\code{X_Interaction} \tab \tab \code{FALSE} \tab \tab \code{logical}; if \code{TRUE}, the environmental effect x1*x2 representing the interaction between the environmental effect x1 and the environmental effect x2 will be added to the model equation.\cr
+\code{B} \tab \tab c(0,0,0,0) \tab \tab \code{numeric vector}; the population mean values. When the number of trait is set to 1, the length of the vector is 4. The vector elements are respectively the population intercept (b0), the population  response to environmental influences x1 (fixed slope; b1), the population  response to environmental influences x2 (fixed slope; b2) and the population  response interaction between environmental influences x1 and x2 (fixed slope; b12). If the number of trait is set to 2, the length of the vector is doubled (len=8) and the second half corresponds to the population mean values associated with the second trait.\cr
+\code{Vind}  \tab \tab matrix(0, nrow=4, ncol=4) \tab \tab Square, positive definite \code{matrix} or lower triangular \code{matrix}; the individual variance/correlation matrix. Variances are positive \code{numeric} numbers and correlations are \code{numeric} numbers ranged between -1 and 1. Variances are along the matrix diagonal and correlation values below the matrix diagonal. When the number of trait is set to 1, the dimension of the matrix is 4 rows by 4 columns (4x4) and the diagonal elements are respectively the individual-specific  (random) intercept variance (VI), the individual-specific response to an environmental effect x1 (random slope) variance (VS1), the individual-specific response to an environmental effect x2 (random slope) variance (VS2) and the individual-specific response interaction to two environmental effects x1 and x2 (random slopes) variance (VS12). When the number of trait is set to 2, the dimension of the matrix is doubled (8x8) where the second half of the diagonal is the individual variances (intercept and slopes) of the second trait. Note that it is possible to set correlation relationships between random effects within and/or among traits. \cr
+\code{Ve} \tab \tab 0 \tab \tab positive \code{numeric}; the measurement error variance. \cr
+\code{VG} \tab \tab 0 \tab \tab positive \code{numeric}; the high-level grouping variance. \cr
+\code{NR} \tab \tab 1 \tab \tab positive \code{integer}; the average number of records sampled per individual. \cr
+\code{Vhsi} \tab \tab 0 \tab \tab \code{numeric} (between 0 and 0.95); the among-individual variance in timing of sampling. \cr
+\code{NR_ind} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, individuals will be sampled the same number of times. \cr
+\code{NR_trait} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, traits within individuals will be sampled the same number of times. \cr
+\code{ST_ind} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, individuals will be sampled at the same time (i.e. recorded simultaneously). \cr
+\code{ST_trait} \tab \tab \code{TRUE} \tab \tab \code{logical}; if \code{TRUE}, traits within individuals will be sampled at the same times (i.e. recorded simultaneously). \cr
+\strong{Parameter name} \tab \tab \strong{Default value} \tab \tab \strong{Description}
 }
 
- When the full data of a previous squid simulation is passed to \code{squidR} through the argument \code{data}, \code{squidR} does not generate a new world and samples directly into the already existing world.
+When the full data of a previous squid simulation is passed to \code{squidR} through the argument \code{data}, \code{squidR} does not generate a new world and samples directly into the already existing world.
 
 }
 \section{References}{
-Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. Methods in Ecology and Evolution, submitted manuscript.
+Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. \emph{Methods in Ecology and Evolution}, submitted manuscript.
 }
 \examples{
 ## create the input list ##
@@ -268,3 +216,6 @@ output2 <- squidR(input, plot=TRUE, data=output$full_data)
 \code{\link{squidApp}} to run the SQuID app which includes detailed documentation on the SQuID model and its sampling design.
 }
 
+\note{
+If this is your first experience with SQuID, we highly recommend to start with the interactive SQuID application with graphical interface in order to learn and get more familiarized with the SQuID model (phenotypic equation) and its sampling design (use the function \code{\link{squidApp}}).
+}

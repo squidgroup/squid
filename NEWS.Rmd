@@ -1,4 +1,10 @@
-# NEWS
+---
+title: "NEWS"
+output: 
+  html_document: 
+    keep_md: yes
+    variant: markdown_github
+---
 
 # squid 0.1.0.9000
 
@@ -7,6 +13,7 @@
 * Add Denis Reale as package author to DESCRIPTION file. 
 
 * Update R documentation of `squidR()` function.
+
 
 # squid 0.1.0
 
