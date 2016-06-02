@@ -107,14 +107,14 @@ portal_txt <- list(
                                 the operational data set for further analyses."),
       "parag4_title"         = "SQuID team",
       "parag4_contents"      = "Hassen Allegue (University of British Columbia, Vancouver, Canada)<br>
-                                Yimen Araya (Norwegian University of Science and Technology, Trondheim, Norway)<br>
-                                Niels Dingemanse (Max Planck Institute for Ornithology, Seewiesen & University of Munich, Germany)<br>
-                                Ned Dochtermann (North Dakota State University, Fargo, USA)<br>
-                                Laszlo Garamszegi (Estaci&oacute;n Biol&oacute;gica de Do&ntilde;ana-CSIC, Seville, Spain)<br>
+                                Yimen G. Araya-Ajoy (Norwegian University of Science and Technology, Trondheim, Norway)<br>
+                                Niels J. Dingemanse (Max Planck Institute for Ornithology, Seewiesen & University of Munich, Germany)<br>
+                                Ned A. Dochtermann (North Dakota State University, Fargo, USA)<br>
+                                Laszlo Z. Garamszegi (Estaci&oacute;n Biol&oacute;gica de Do&ntilde;ana-CSIC, Seville, Spain)<br>
                                 Shinichi Nakagawa (University of New South Wales, Sydney, Australia)<br>
                                 Denis R&eacute;ale (Universit&eacute; du Qu&eacute;bec &Agrave; Montr&eacute;al, Montreal, Canada)<br>
                                 Holger Schielzeth (University of Bielefeld, Bielefeld, Germany)<br>
-                                Dave Westneat (University of Kentucky, Lexington, USA)<br>",
+                                David F. Westneat (University of Kentucky, Lexington, USA)<br>",
       "beginners"            = paste0("The SQuID modules are designed for users who have some but not a 
                                 lot of statistical background, particularly with linear mixed models. 
                                 We strongly recommend that if you are in this category, you begin with 

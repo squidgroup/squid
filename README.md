@@ -59,14 +59,14 @@ It all started in Hannover in November 2013 at the occasion of a workshop on per
 
 #### SQuID team
 * Hassen Allegue (University of British Columbia, Vancouver, Canada)
-* Yimen Araya (Norwegian University of Science and Technology, Trondheim, Norway)
-* Niels Dingemanse (Max Planck Institute for Ornithology, Seewiesen & University of Munich, Germany)
-* Ned Dochtermann (North Dakota State University, Fargo, USA)
-* Laszlo Garamszegi (Estación Biológica de Doñana-CSIC, Seville, Spain)
+* Yimen G. Araya-Ajoy (Norwegian University of Science and Technology, Trondheim, Norway)
+* Niels J. Dingemanse (Max Planck Institute for Ornithology, Seewiesen & University of Munich, Germany)
+* Ned A. Dochtermann (North Dakota State University, Fargo, USA)
+* Laszlo Z. Garamszegi (Estación Biológica de Doñana-CSIC, Seville, Spain)
 * Shinichi Nakagawa (University of New South Wales, Sydney, Australia)
 * Denis Réale (Université du Québec À Montréal, Montreal, Canada)
 * Holger Schielzeth (University of Bielefeld, Bielefeld, Germany)
-* Dave Westneat (University of Kentucky, Lexington, USA)
+* David F. Westneat (University of Kentucky, Lexington, USA)
 
 
 #### References
