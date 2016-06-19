@@ -113,7 +113,7 @@ The argument \code{input} is a list that contains the different input parameters
   
   \item \code{X1_cyc_amplitude} (default 10): positive \code{numeric}; the amplitude of the cyclic trend for environmental effect x1.
   
-  \item \code{X1_cyc_period} (default 10): positive \code{numeric}; the period of the cyclic trend for the environmental effect x1. \cr
+  \item \code{X1_cyc_period} (default 10): positive \code{numeric}; the period of the cyclic trend for the environmental effect x1.
   
   \item \code{X1_cyc_Hshift} (default 0): positive \code{numeric}; the horizontal shift of the cyclic trend for environmental effect x1.
   
@@ -173,9 +173,9 @@ The argument \code{input} is a list that contains the different input parameters
 
   \item \code{NR_ind} (default \code{TRUE}): \code{logical}; if \code{TRUE}, individuals will be sampled the same number of times.
 
-  \item \code{NR_trait} (default \code{TRUE}): \code{logical}; if \code{TRUE}, traits within individuals will be sampled the same number of times. \cr
+  \item \code{NR_trait} (default \code{TRUE}): \code{logical}; if \code{TRUE}, traits within individuals will be sampled the same number of times.
 
-  \item \code{ST_ind} (default \code{TRUE}): \code{logical}; if \code{TRUE}, individuals will be sampled at the same time (i.e. recorded simultaneously). \cr
+  \item \code{ST_ind} (default \code{TRUE}): \code{logical}; if \code{TRUE}, individuals will be sampled at the same time (i.e. recorded simultaneously).
 
   \item \code{ST_trait} (default \code{TRUE}): \code{logical}; if \code{TRUE}, traits within individuals will be sampled at the same times (i.e. recorded simultaneously).
 }

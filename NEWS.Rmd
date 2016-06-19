@@ -6,7 +6,7 @@ output:
     variant: markdown_github
 ---
 
-# squid 0.1.0.9000
+# squid 0.1.1
 
 * Change the name of module "Random slope" to "Random regression".
 
