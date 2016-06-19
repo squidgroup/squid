@@ -1,5 +1,6 @@
 # Convert .rd to .pdf: system("R CMD Rd2pdf .")
 
+
 \tabular{lllll}{
 
 \strong{Parameter name} \tab \tab \strong{Default value} \tab \tab \strong{Description} \cr

@@ -14,7 +14,6 @@ output:
 
 * Fix display issue in R documentation (in function `squidR()`, section Details).
 
-
 # squid 0.1.0
 
 * First release.
