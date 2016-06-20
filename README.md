@@ -16,7 +16,7 @@ The `squid` package has two main objectives: First, it provides an educational t
 
 #### Install squid package
 
-To install the latest released version (v0.1.0) from CRAN:
+To install the latest released version (v0.1.1) from CRAN:
 
 ```
 install.packages("squid")

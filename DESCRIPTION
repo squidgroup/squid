@@ -1,6 +1,6 @@
 Package: squid
 Title: Statistical Quantification of Individual Differences
-Version: 0.1.1
+Version: 0.1.1.9000
 Authors@R: c(
     person("Hassen"  , "Allegue"        , email = "hassen.allegue@gmail.com"          , role = c("aut","cre")),
     person("Yimen"   , "G. Araya-Ajoy"  , email = "yimencr@gmail.com"                 , role = "aut"),
