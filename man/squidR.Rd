@@ -25,6 +25,7 @@ A description of the columns of the full and the sampled \code{data.frame} is pr
   \itemize{
    \item \code{Replicate}: (factor) the replicated population identifier.
    \item \code{Individual}: (factor) the individual identifier.
+   \item \code{Group}: (factor) the high-level grouping identifier.
    \item \code{Individual_Trait}: (factor) the identifier of each individual/trait combination.
    \item \code{Trait}: (factor) the trait identifier.
    \item \code{Time}: (integer) the time step value.

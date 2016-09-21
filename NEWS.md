@@ -1,5 +1,9 @@
 # NEWS
 
+# squid 0.1.1.9000
+
+* Add the high-level grouping id column to the `squidR()` return data.frame
+
 # squid 0.1.1
 
 * Change the name of module "Random slope" to "Random regression".

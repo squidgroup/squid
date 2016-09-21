@@ -61,6 +61,8 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
     }else{
       G   <- rep(rep(stats::rnorm(N$NG*N$NT*N$NP, Mu, sqrt(V$VG)), each=N$NI/N$NG), each=N$NS)
     }
+    
+    Group <- as.factor(rep(rep(1:N$NG, each=N$NI/N$NG), each=N$NS))
       
     ############################################## 
     # Measurement error variance (me)  
@@ -89,10 +91,11 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
     Trait        <- as.factor(rep(1:N$NT, each=N$NS*N$NI*N$NP))
     time         <- rep(1:N$NS, N$NI*N$NP*N$NT)
     
-    full_Data    <- data.frame("Replicate"        = Population,                                
+    full_Data    <- data.frame("Replicate"        = Population,
                                "Individual"       = Individual,
+                               "Group"            = Group,
                                "Individual_Trait" = Individual_Trait,
-                               "Trait"            = Trait, 
+                               "Trait"            = Trait,
                                "Time"             = time,
                                "Phenotype"        = Phenotype,
                                "B0"               = B[,variables$B0],
