@@ -25,7 +25,7 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
     stop("input must be a list.")
   if(!is.logical(plot) || length(plot) != 1) 
     stop("plot must be one logical element.")
-  if(!is.null(data) && (!is.data.frame(data) || ncol(data) != 19)) 
+  if(!is.null(data) && (!is.data.frame(data) || ncol(data) != 20)) 
     stop("data must be the full data returned by squidR (output$full_data).")
   if(!is.null(module) && (!is.character(module) || length(module) != 1)) 
     stop("module must be a one string element.")
