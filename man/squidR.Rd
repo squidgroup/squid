@@ -25,6 +25,7 @@ A description of the columns of the full and the sampled \code{data.frame} is pr
   \itemize{
    \item \code{Replicate}: (factor) the replicated population identifier.
    \item \code{Individual}: (factor) the individual identifier.
+   \item \code{Group}: (factor) the high-level grouping identifier.
    \item \code{Individual_Trait}: (factor) the identifier of each individual/trait combination.
    \item \code{Trait}: (factor) the trait identifier.
    \item \code{Time}: (integer) the time step value.
@@ -184,7 +185,7 @@ When the full data of a previous squid simulation is passed to \code{squidR} thr
 
 }
 \section{References}{
-Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. \emph{Methods in Ecology and Evolution}, submitted manuscript.
+Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models. \emph{Methods in Ecology and Evolution}, Accepted 15/9/2016, p29.
 }
 \examples{
 ## create the input list ##

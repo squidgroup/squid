@@ -228,7 +228,7 @@ SVRFullModel <- function(myModule, input, output, session){
          
          return(data)
          
-       })              
+       })
      }),
 
      output[[plotEnvironment]] <- renderPlot({
@@ -236,7 +236,7 @@ SVRFullModel <- function(myModule, input, output, session){
        data <- myFullModel()
        #   print result graphs 
        if(!is.null(data)){
-         print(multiplot(data$plots$X1,                    
+         print(multiplot(data$plots$X1,
                          data$plots$X2,
                          data$plots$X1X2,
                          cols=1))
@@ -249,8 +249,8 @@ SVRFullModel <- function(myModule, input, output, session){
        data <- myFullModel() 
        #   print result graphs 
        if(!is.null(data)){
-         print(multiplot(data$plots$totPhen,                    
-                         data$plots$sampPhen,                    
+         print(multiplot(data$plots$totPhen,
+                         data$plots$sampPhen,
                          cols=1))
        }
        
@@ -262,7 +262,7 @@ SVRFullModel <- function(myModule, input, output, session){
        if(!is.null(data)) print(data$plots$sampTime)
      }),
      
-     # update the sampling time length for each individual    
+     # update the sampling time length for each individual
      output[[SampTime]] <- renderText({ 
        FullModel_VAR$NR$max <<- round(input[[Tmax]]*(1-input[[Vhsi]])) 
      }),
@@ -499,14 +499,15 @@ SVRFullModel <- function(myModule, input, output, session){
         "Output data variable"= c("Output data variable",
                                   "Replicate",
                                   "Individual",
+                                  "Group",
                                   "Individual_Trait",
                                   "Trait",
                                   "Time",
                                   "Phenotype",
-                                  "Beta0",
-                                  "Beta1",
-                                  "Beta2",
-                                  "Beta12",
+                                  "B0",
+                                  "B1",
+                                  "B2",
+                                  "B12",
                                   "I",
                                   "S1",
                                   "S2",
@@ -519,6 +520,7 @@ SVRFullModel <- function(myModule, input, output, session){
         "Mathematical symbol" = c("Mathematical symbol",
                                   "",
                                   paste0("$",NOT$ind,"$"),
+                                  paste0("$",NOT$group,"$"),
                                   "",
                                   paste0("$",NOT$trait.1,"$ (1) and $",NOT$trait.2,"$ (2)"),
                                   paste0("$",NOT$time,"$"),
@@ -539,6 +541,7 @@ SVRFullModel <- function(myModule, input, output, session){
         "Description" = c("Description",
                           "Replicate identifier.",
                           "Individual identifier.",
+                          "Higher-level grouping identifier.",
                           "Identifier fo each individual/trait combination.",
                           "Trait identifier.",
                           "Time step values.",

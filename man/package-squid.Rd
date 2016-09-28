@@ -26,7 +26,7 @@ This function is a traditional R function that allows data generation and sampli
 }
 }
 \section{References}{
-Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in the mixed modelling framework. \emph{Methods in Ecology and Evolution}, submitted manuscript.
+Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models. \emph{Methods in Ecology and Evolution}, Accepted 15/9/2016, p29.
 
 Dingemanse, N.J. and Dochtermann N.A. (2013) Quantifying individual variation in behaviour: mixed-effect modelling approaches. \emph{Journal of Animal Ecology}, \bold{82}:39-54.
 }
