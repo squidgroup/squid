@@ -3,39 +3,49 @@ require(grid)
 
 input <- list()
 
-input$Tmax <- 100 # default = 1
-input$Time_sampling <- c(1,100)
+input$Tmax <- 10 # default = 1
+input$Time_sampling <- c(1,10)
 
 input$NP <- 1 # default = 1
-input$NI <- 3 # default = 1
-input$NT <- 1 # default = 1
-input$NG <- 1 # default = 1
+input$NI <- 100# default = 1
+input$NT <- 2 # default = 1
+input$NG <- 50 # default = 1
 
-input$B    <- c(0,0.3,0,0)
-input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
-                            1   , 0.5  , 0 , 0,
-                            0   , 0  , 0 , 0,
-                            0   , 0  , 0 , 0    
-                          ), 
-                          4, byrow = TRUE)
+input$B    <- rep(0, 8)
+# input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
+#                             1   , 0.5  , 0 , 0,
+#                             0   , 0  , 0 , 0,
+#                             0   , 0  , 0 , 0
+#                           ), 
+#                           4, byrow = TRUE)
 
 test <- input$Vind
 
-input$Ve <- 0.05 # Default 0
-input$VG <- 0    # Default 0
+input$Ve <- matrix(c(0.05,0,
+										 0, 0.05), 2, byrow = TRUE) # Default 0
+input$VG <- matrix(c(0.05,0,
+										 0.2, 0.05), 2, byrow = TRUE) # Default 0
 
 
-# input$Vind <- matrix(c(0.7,  1  , 1   , 1   , 1   , 1   , 1   , 1  ,
-#                            1   , 0.3 , 1   , 1   , 1   , 1   , 1   , 1  ,
-#                            1   , 1   , 0   , 1   , 1   , 1   , 1   , 1  ,
-#                            1   , 1   , 1   , 0   , 1   , 1   , 1   , 1  ,
-#                            1   , 1   , 1   , 1   , 0.7 , 1   , 1   , 1  ,
-#                            1   , 1   , 1   , 1   , 1   , 0.3 , 1   , 1  ,
-#                            1   , 1   , 1   , 1   , 1   , 1   , 0   , 1  ,
-#                            1   , 1   , 1   , 1   , 1   , 1   , 1   , 0  
-#                        
-# ), 
-# 8)
+mydata <- squid::squidR(input=input, plot = TRUE)
+
+library(data.table)
+mydata <- as.data.table(mydata$full_data) 
+
+cor(mydata[Trait == 1 ,c(G)], mydata[Trait == 2,c(G)])
+plot(mydata[Trait == 1 ,c(G)]~ mydata[Trait == 2,c(G)])
+
+input$Vind <- matrix(c(0.7,  1  , 1   , 1   , 1   , 1   , 1   , 1  ,
+                           1   , 0.3 , 1   , 1   , 1   , 1   , 1   , 1  ,
+                           1   , 1   , 0   , 1   , 1   , 1   , 1   , 1  ,
+                           1   , 1   , 1   , 0   , 1   , 1   , 1   , 1  ,
+                           1   , 1   , 1   , 1   , 0.7 , 1   , 1   , 1  ,
+                           1   , 1   , 1   , 1   , 1   , 0.3 , 1   , 1  ,
+                           1   , 1   , 1   , 1   , 1   , 1   , 0   , 1  ,
+                           1   , 1   , 1   , 1   , 1   , 1   , 1   , 0
+
+),
+8)
 # 
 # 
 # input$Vind <- matrix(c(0.7 ,  1 ,
