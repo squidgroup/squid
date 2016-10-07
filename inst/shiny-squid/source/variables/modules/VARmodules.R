@@ -48,6 +48,25 @@ Modules_VAR <- list(
                "errorTxt"    = "Among-individual variance ($V_",NOT$devI,"$) must be a number between 0 and 1."
   ),
   
+  # Among-individual variance of the trait 1 (Vi)
+  "Vi1"  = list("label"       = paste0("Among-individual variance trait $",NOT$trait.1,"$ ($V_{",NOT$devI,"_",NOT$trait.1,"}$):"),
+  						 "infoTxt"     = "Among-individual variance (random intercepts).",
+  						 "value"       = 0.7,
+  						 "min"         = 0,
+  						 "max"         = 1,
+  						 "step"        = 0.01,
+  						 "errorTxt"    = ""
+  ),
+  # Among-individual variance of the trait 2 (Vi)
+  "Vi2"  = list("label"       = paste0("Among-individual variance trait $",NOT$trait.2,"$ ($V_{",NOT$devI,"_",NOT$trait.2,"}$):"),
+  							"infoTxt"     = "Among-individual variance (random intercepts).",
+  							"value"       = 0.7,
+  							"min"         = 0,
+  							"max"         = 1,
+  							"step"        = 0.01,
+  							"errorTxt"    = ""
+  ),
+  
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
   "Vsx"    = list(  "label"       = paste0("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,NOT$env,"}$): "),
                     "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
@@ -77,6 +96,33 @@ Modules_VAR <- list(
                 "max"         = 1,
                 "step"        = 0.01,
                 "errorTxt"    = "Residual variance ($V_",NOT$mError,"$) must be a number between 0 and 1."
+  ),
+  # Residual variance (Ve)
+  "Ve1"   = list("label"       = paste0("Within-individual variance trait $",NOT$trait.1,"$"),
+  							 "infoTxt"     = "",
+  							 "value"       = 0.05,
+  							 "min"         = 0.01,
+  							 "max"         = 1,
+  							 "step"        = 0.01,
+  							 "errorTxt"    = ""
+  ),
+  # Residual variance (Ve)
+  "Ve2"   = list("label"       = paste0("Within-individual variance trait $",NOT$trait.2,"$"),
+  							 "infoTxt"     = "",
+  							 "value"       = 0.05,
+  							 "min"         = 0.01,
+  							 "max"         = 1,
+  							 "step"        = 0.01,
+  							 "errorTxt"    = ""
+  ),
+  # Residual Correlation
+  "Corr_e"   = list("label"       = paste0("Within-individual correlation."),
+	  							 "infoTxt"     = "",
+	  							 "value"       = 0,
+	  							 "min"         = -1,
+	  							 "max"         = 1,
+	  							 "step"        = 0.01,
+	  							 "errorTxt"    = ""
   ),
   
   # measurement error variance
