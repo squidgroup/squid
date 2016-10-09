@@ -37,7 +37,7 @@ span(
   
   p("Set the amount of within-individual variance in each of the two traits 
   	($V_{",NOT$error,"_",NOT$trait.1,"}$ and $V_{",NOT$error,"_",NOT$trait.2,"}$):"),
-	# Within-individual variances (Vi)
+	# Within-individual variances (Ve)
 	fluidRow(
 	  column(6,getSliderInput("Mod4Step1_Ve1", Modules_VAR$Ve1)),
 	  column(6,getSliderInput("Mod4Step1_Ve2", Modules_VAR$Ve2))
@@ -50,9 +50,6 @@ span(
   # Within-individual correlation
   getSliderInput("Mod4Step1_Corr_e", Modules_VAR$Corr_e),
 
-  displayRCode(HTML("# install.packages(&quot;lme4&quot;)<br>
-  						 			LMM1 <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = sampled_data)")),
-  
   p(b("Results:")),
   p('Above, you have defined the elements of the within-individual "variance-covariance matrix".  
   	This matrix holds the variances of the two traits on the diagonals and their covariance on the off-diagonals:'),
