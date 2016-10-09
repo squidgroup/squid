@@ -67,6 +67,16 @@ Modules_VAR <- list(
   							"errorTxt"    = ""
   ),
   
+  # Among-individual Correlation in the intercept
+  "Corr_I"   = list("label"       = paste0("Among-individual correlation."),
+  									"infoTxt"     = "",
+  									"value"       = 0,
+  									"min"         = -1,
+  									"max"         = 1,
+  									"step"        = 0.01,
+  									"errorTxt"    = ""
+  ),
+  
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
   "Vsx"    = list(  "label"       = paste0("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,NOT$env,"}$): "),
                     "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
