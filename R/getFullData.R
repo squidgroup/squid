@@ -74,7 +74,7 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
     
     ############################################## 
     
-    Individual       <- rep(rep(1:(N$NI*N$NP), each=N$NS), N$NT)
+    Individual       <- rep(rep(rep(1:N$NI, each=N$NS), N$NP), N$NT)
     
     Individual_Trait <- vector(mode="integer", N$NI*N$NP*N$NT)
     
