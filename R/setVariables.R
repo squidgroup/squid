@@ -51,23 +51,6 @@ setVariables <- function(input, module, environments, sep){
   
   Mu   <- 0    # mean value of the normal distribution
   
-  # Variance 
-  V <- list(
-    "Vp"     = 1,          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)
-    "Ve"     = ifelse(inputNames$Ve %in% names(input),
-    									error_management(input[[inputNames$Ve]], 
-																			 inputNames$Ve, 
-																			 "check_one_numeric",
-																			 minimum=0),
-    									0), # Measurement error variance 1e-10
-    "VG"     = ifelse(inputNames$VG %in% names(input),
-    									error_management(input[[inputNames$VG]], 
-																			 inputNames$VG, 
-																			 "check_one_numeric",
-																			 minimum=0),
-    									0) # Higher-level variance
-  )
-  
   x <- ifelse(inputNames$Tmax %in% names(input),
   						error_management(input[[inputNames$Tmax]], 
 															 inputNames$Tmax, 
@@ -180,6 +163,35 @@ setVariables <- function(input, module, environments, sep){
   if(N$NI %% N$NG != 0){
     stop(paste0("input[[",inputNames$NI,"]] (number of individuals) must be divisible by input[[",inputNames$NG,"]] (number of higher-level groups)."), 
          call. = FALSE)
+  }
+  
+  # Variance 
+  V <- list(
+  	"Vp"     = 1          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)
+  )
+  
+  # Ve: residual (Co)variance matrix
+  if(inputNames$Ve %in% names(input)){
+  	
+  	V$Ve <- as.matrix(input[[inputNames$Ve]])
+  	V$Ve <- error_management(V$Ve, inputNames$Ve, 
+  													 "check_matrix", 
+  													 nb_col = N$NT, 
+  													 nb_row = N$NT)
+  }else{
+  	V$Ve <- matrix(0, N$NT, N$NT)
+  }
+  
+  # Ve: residual (Co)variance matrix
+  if(inputNames$VG %in% names(input)){
+  	
+  	V$VG <- as.matrix(input[[inputNames$VG]])
+  	V$VG <- error_management(V$VG, inputNames$VG, 
+  													 "check_matrix", 
+  													 nb_col = N$NT, 
+  													 nb_row = N$NT)
+  }else{
+  	V$VG <- matrix(0, N$NT, N$NT)
   }
   
   # Vind0 : Random intercept Variance (among-individual variance)
