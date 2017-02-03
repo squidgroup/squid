@@ -90,7 +90,7 @@ getEnvironment <- function(environment, N, visualization){
 	  	EnvironmentID <- rep(seq(1:NB), each = N$NS)
 	    SD            <- rep(by(output, EnvironmentID, stats::sd), each = N$NS)
 	    MEAN          <- rep(by(output, EnvironmentID, base::mean), each = N$NS)
-	    output        <- (output - MEAN) / SD 
+	    output        <- (output - MEAN) / SD
   	}
     
   }

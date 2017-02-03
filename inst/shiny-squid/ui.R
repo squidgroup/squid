@@ -102,6 +102,7 @@ shinyUI(
 
     # Contact us page
     tabPanel("Contact us", icon=icon("envelope", "fa-users"),
+    				 
              tags$div(class="myPage myTutorial",
                 fixedPage(
                   wellPanel( 
@@ -112,13 +113,19 @@ shinyUI(
                 )
              )
     ), # End tabPanel People
+    
+    
+    # Contact us page
+    tabPanel("R code", icon=icon("envelope", "fa-users"),
+			fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/Rcode/Rcode.md")))
+		), # End tabPanel People
 
     # Footer
     tags$div(class="footer",
      fixedPage(div(class="line"),
        # Boolean showing when a simulation is running
        conditionalPanel(
-         condition = "0",         
+         condition = "0",
          checkboxInput("isRunning", "", FALSE)
        ), 
        " "
