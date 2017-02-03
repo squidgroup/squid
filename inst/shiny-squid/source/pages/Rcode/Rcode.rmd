@@ -4,7 +4,7 @@ output:
     keep_md: yes
 ---
 
-##Run multiple simulations with `squidR()`
+## Run multiple simulations with `squidR()`
 
 SQuID was designed to provide a user-friendly and web-based program to simulate data for testing a variety of ideas about sampling and bias in hierarchical mixed modelling. For those very familiar with these approaches and curious about SQuID, you might be interested in using the SQuID R function `squidR()` that is also used by `squidApp()` to simulate data. However, before getting into simulating data with `squidR()`, we  recommend that you familiarize yourself with the different SQuID phenotypic equation components by reading the documentation on the *Full model (Step by step)* page within the SQuID app. 
 
