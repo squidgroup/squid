@@ -116,8 +116,8 @@ shinyUI(
     
     
     # Contact us page
-    tabPanel("Mutiple simulations", icon=icon("envelope", "fa-users"),
-			fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/mult_simulations/UImult_simulations.md")))
+    tabPanel("R code", icon=icon("envelope", "fa-users"),
+			fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/Rcode/Rcode.md")))
 		), # End tabPanel People
 
     # Footer
