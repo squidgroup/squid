@@ -83,7 +83,7 @@ shinyUI(
              tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
     ), # End tabPanel Full Model 
 
-    # Contact us page
+    # R code page
     tabPanel("R code",
     				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/Rcode/Rcode.md")))
     ), # End tabPanel People
