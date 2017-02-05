@@ -16,7 +16,7 @@ input$B    <- rep(0, 8)
 #                             1   , 0.5  , 0 , 0,
 #                             0   , 0  , 0 , 0,
 #                             0   , 0  , 0 , 0
-#                           ), 
+#                           ),
 #                           4, byrow = TRUE)
 
 test <- input$Vind

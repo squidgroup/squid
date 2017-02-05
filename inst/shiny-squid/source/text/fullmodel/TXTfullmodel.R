@@ -331,12 +331,16 @@ fullmodelTxt <- list(
   
   "inputRun"             = "It is now time to run your simulation and to check the output in the output tab. 
                             Note that if any inputs have been improperly entered the run button will be 
-                            inaccessible and it will not possible to run the simulation.
+                            inaccessible and it will not be possible to run the simulation.
                             For instance, this could happen if you enter a correlation value in the 
                             correlation/variance matrix that is out of the authorized range (between -1 and 1) 
                             or if the number of sampled records is higher than the duration of the sampling period. 
                             In that case you should fix all the input errors and then run 
                             the simulation. ",
+  
+  "inputRcode"          = "Note that simulations can also be run directly in R using our function <i>squidR()</i>. 
+													 You can download the R code required to run the current 
+													 simulation that is based on the parameter values you have entered.",   
   
   "output_1"            = "While you are running the simulation, SQuID is bringing you to the output tab. 
                           Here you have the opportunity to download generated (raw and sampled) 

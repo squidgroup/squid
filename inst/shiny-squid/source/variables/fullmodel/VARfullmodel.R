@@ -34,6 +34,9 @@ FullModel_VAR <- list(
   # Download raw data Button
   "download_raw"  = list( "label"     = "Download Raw Data"),
   
+  # Download R code
+  "download_Rcode"  = list( "label"     = "Download R code"),
+  
   # save input Button
   "save"  = list( "label" = "Save"),
   

@@ -84,9 +84,9 @@ shinyUI(
     ), # End tabPanel Full Model 
 
     # R code page
-    tabPanel("R code", icon=icon("envelope", "fa-users"),
+    tabPanel("R code",
     				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/Rcode/Rcode.md")))
-    ), # End tabPanel 
+    ), # End tabPanel People
     
     # About us page
     tabPanel("About us", icon=icon("users", "fa-users"),

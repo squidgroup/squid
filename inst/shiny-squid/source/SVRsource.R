@@ -18,6 +18,7 @@ source("./source/server/fullmodel/SVRGetModelEquation.R",local=TRUE)
 source("./source/server/fullmodel/SVRGetVindMatrix.R",local=TRUE)
 source("./source/server/fullmodel/SVRGetBMatrix.R",local=TRUE)
 source("./source/server/fullmodel/SVRGetSummaryVariances.R",local=TRUE)
+source("./source/server/fullmodel/SVRcreateRcode.R",local=TRUE)
 
 #### Utilities ####
 source("./source/utilities/matrixInput2.R",local=TRUE)

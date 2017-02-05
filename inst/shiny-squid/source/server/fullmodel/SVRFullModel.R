@@ -1,154 +1,157 @@
 #Server functions for the full model
 SVRFullModel <- function(myModule, input, output, session){
   
-  myEquations        <- paste(myModule, "myEquations", sep="_")
+	myLabels           <- list()
+	
+	myLabels$myEquations        <- paste(myModule, "myEquations", sep="_")
   
-  Tmax               <- paste(myModule, "Tmax", sep="_")
-  NT                 <- paste(myModule, "NT", sep="_")
-  NP                 <- paste(myModule, "NP", sep="_")
-  NI                 <- paste(myModule, "NI", sep="_")
-  Ve                 <- paste(myModule, "Ve", sep="_")
-  NG                 <- paste(myModule, "NG", sep="_")
-  VG                 <- paste(myModule, "VG", sep="_")
-  NR                 <- paste(myModule, "NR", sep="_")
-  Vhsi                <- paste(myModule, "Vhsi", sep="_")
+	myLabels$Tmax               <- paste(myModule, "Tmax", sep="_")
+	myLabels$NT                 <- paste(myModule, "NT", sep="_")
+	myLabels$NP                 <- paste(myModule, "NP", sep="_")
+	myLabels$NI                 <- paste(myModule, "NI", sep="_")
+	myLabels$Ve                 <- paste(myModule, "Ve", sep="_")
+	myLabels$NG                 <- paste(myModule, "NG", sep="_")
+	myLabels$VG                 <- paste(myModule, "VG", sep="_")
+	myLabels$NR                 <- paste(myModule, "NR", sep="_")
+	myLabels$Vhsi               <- paste(myModule, "Vhsi", sep="_")
 
-  B                  <- paste(myModule, "B", sep="_")
-  B_temp             <- paste(myModule, "B_temp", sep="_")
-  B_UI               <- paste(myModule, "B_UI", sep="_")
-  error_B            <- paste(myModule, "error_B", sep="_") 
-  B_UI_hidden        <- paste(myModule, "B_UI_hidden", sep="_")
+	myLabels$B                  <- paste(myModule, "B", sep="_")
+	myLabels$B_temp             <- paste(myModule, "B_temp", sep="_")
+	myLabels$B_UI               <- paste(myModule, "B_UI", sep="_")
+	myLabels$error_B            <- paste(myModule, "error_B", sep="_") 
+	myLabels$B_UI_hidden        <- paste(myModule, "B_UI_hidden", sep="_")
   
-  Vind               <- paste(myModule, "Vind", sep="_")
-  Vind_temp          <- paste(myModule, "Vind_temp", sep="_")
-  Vind_UI            <- paste(myModule, "Vind_UI", sep="_")
-  error_Vind         <- paste(myModule, "error_Vind", sep="_") 
-  Vind_UI_hidden     <- paste(myModule, "Vind_UI_hidden", sep="_")
+	myLabels$Vind               <- paste(myModule, "Vind", sep="_")
+	myLabels$Vind_temp          <- paste(myModule, "Vind_temp", sep="_")
+	myLabels$Vind_UI            <- paste(myModule, "Vind_UI", sep="_")
+	myLabels$error_Vind         <- paste(myModule, "error_Vind", sep="_") 
+	myLabels$Vind_UI_hidden     <- paste(myModule, "Vind_UI_hidden", sep="_")
   
-  X1_state           <- paste(myModule, "X1_state", sep="_")
-  X1_sto_state       <- paste(myModule, "X1_sto_state", sep="_")
-  X1_sto_shared      <- paste(myModule, "X1_sto_shared", sep="_")
-  X1_sto_V           <- paste(myModule, "X1_sto_V", sep="_")
-  X1_sto_autocor_state <- paste(myModule, "X1_sto_autocor_state", sep="_")
-  X1_sto_corr        <- paste(myModule, "X1_sto_corr", sep="_")
-  X1_lin_state       <- paste(myModule, "X1_lin_state", sep="_")
-  X1_lin_intercept   <- paste(myModule, "X1_lin_intercept", sep="_")
-  X1_lin_slope       <- paste(myModule, "X1_lin_slope", sep="_")
-  X1_lin_shared      <- paste(myModule, "X1_lin_shared", sep="_")
-  X1_lin_V           <- paste(myModule, "X1_lin_V", sep="_")
-  X1_cyc_state       <- paste(myModule, "X1_cyc_state", sep="_")
-  X1_cyc_shared      <- paste(myModule, "X1_cyc_shared", sep="_")
-  X1_cyc_amplitude   <- paste(myModule, "X1_cyc_amplitude", sep="_")
-  X1_cyc_period      <- paste(myModule, "X1_cyc_period", sep="_")
-  X1_cyc_Hshift      <- paste(myModule, "X1_cyc_Hshift", sep="_")
-  X1_cyc_Vshift      <- paste(myModule, "X1_cyc_Vshift", sep="_")
-  X1_cyc_V           <- paste(myModule, "X1_cyc_V", sep="_")
-  X1_plotEnvironment <- paste(myModule, "X1_plotEnvironment", sep="_")
+	myLabels$X1_state           <- paste(myModule, "X1_state", sep="_")
+	myLabels$X1_sto_state       <- paste(myModule, "X1_sto_state", sep="_")
+	myLabels$X1_sto_shared      <- paste(myModule, "X1_sto_shared", sep="_")
+	myLabels$X1_sto_V           <- paste(myModule, "X1_sto_V", sep="_")
+	myLabels$X1_sto_autocor_state <- paste(myModule, "X1_sto_autocor_state", sep="_")
+	myLabels$X1_sto_corr        <- paste(myModule, "X1_sto_corr", sep="_")
+	myLabels$X1_lin_state       <- paste(myModule, "X1_lin_state", sep="_")
+	myLabels$X1_lin_shared      <- paste(myModule, "X1_lin_shared", sep="_")
+	myLabels$X1_lin_intercept   <- paste(myModule, "X1_lin_intercept", sep="_")
+	myLabels$X1_lin_slope       <- paste(myModule, "X1_lin_slope", sep="_")
+	myLabels$X1_lin_V           <- paste(myModule, "X1_lin_V", sep="_")
+	myLabels$X1_cyc_state       <- paste(myModule, "X1_cyc_state", sep="_")
+	myLabels$X1_cyc_shared      <- paste(myModule, "X1_cyc_shared", sep="_")
+	myLabels$X1_cyc_amplitude   <- paste(myModule, "X1_cyc_amplitude", sep="_")
+	myLabels$X1_cyc_period      <- paste(myModule, "X1_cyc_period", sep="_")
+	myLabels$X1_cyc_Hshift      <- paste(myModule, "X1_cyc_Hshift", sep="_")
+	myLabels$X1_cyc_Vshift      <- paste(myModule, "X1_cyc_Vshift", sep="_")
+	myLabels$X1_cyc_V           <- paste(myModule, "X1_cyc_V", sep="_")
+	myLabels$X1_plotEnvironment <- paste(myModule, "X1_plotEnvironment", sep="_")
   
-  X2_state           <- paste(myModule, "X2_state", sep="_")
-  X2_sto_state       <- paste(myModule, "X2_sto_state", sep="_")
-  X2_sto_shared      <- paste(myModule, "X2_sto_shared", sep="_")
-  X2_sto_V           <- paste(myModule, "X2_sto_V", sep="_")
-  X2_sto_autocor_state <- paste(myModule, "X2_sto_autocor_state", sep="_")
-  X2_sto_corr        <- paste(myModule, "X2_sto_corr", sep="_")
-  X2_lin_state       <- paste(myModule, "X2_lin_state", sep="_")
-  X2_lin_intercept   <- paste(myModule, "X2_lin_intercept", sep="_")
-  X2_lin_slope       <- paste(myModule, "X2_lin_slope", sep="_")
-  X2_lin_shared      <- paste(myModule, "X2_lin_shared", sep="_")
-  X2_lin_V           <- paste(myModule, "X2_lin_V", sep="_")
-  X2_cyc_state       <- paste(myModule, "X2_cyc_state", sep="_")
-  X2_cyc_shared      <- paste(myModule, "X2_cyc_shared", sep="_")
-  X2_cyc_amplitude   <- paste(myModule, "X2_cyc_amplitude", sep="_")
-  X2_cyc_period      <- paste(myModule, "X2_cyc_period", sep="_")
-  X2_cyc_Hshift      <- paste(myModule, "X2_cyc_Hshift", sep="_")
-  X2_cyc_Vshift      <- paste(myModule, "X2_cyc_Vshift", sep="_")
-  X2_cyc_V           <- paste(myModule, "X2_cyc_V", sep="_")
-  X2_plotEnvironment <- paste(myModule, "X2_plotEnvironment", sep="_")
+	myLabels$X2_state           <- paste(myModule, "X2_state", sep="_")
+	myLabels$X2_sto_state       <- paste(myModule, "X2_sto_state", sep="_")
+	myLabels$X2_sto_shared      <- paste(myModule, "X2_sto_shared", sep="_")
+	myLabels$X2_sto_V           <- paste(myModule, "X2_sto_V", sep="_")
+	myLabels$X2_sto_autocor_state <- paste(myModule, "X2_sto_autocor_state", sep="_")
+	myLabels$X2_sto_corr        <- paste(myModule, "X2_sto_corr", sep="_")
+	myLabels$X2_lin_state       <- paste(myModule, "X2_lin_state", sep="_")
+	myLabels$X2_lin_intercept   <- paste(myModule, "X2_lin_intercept", sep="_")
+	myLabels$X2_lin_slope       <- paste(myModule, "X2_lin_slope", sep="_")
+	myLabels$X2_lin_shared      <- paste(myModule, "X2_lin_shared", sep="_")
+	myLabels$X2_lin_V           <- paste(myModule, "X2_lin_V", sep="_")
+	myLabels$X2_cyc_state       <- paste(myModule, "X2_cyc_state", sep="_")
+	myLabels$X2_cyc_shared      <- paste(myModule, "X2_cyc_shared", sep="_")
+	myLabels$X2_cyc_amplitude   <- paste(myModule, "X2_cyc_amplitude", sep="_")
+	myLabels$X2_cyc_period      <- paste(myModule, "X2_cyc_period", sep="_")
+	myLabels$X2_cyc_Hshift      <- paste(myModule, "X2_cyc_Hshift", sep="_")
+	myLabels$X2_cyc_Vshift      <- paste(myModule, "X2_cyc_Vshift", sep="_")
+	myLabels$X2_cyc_V           <- paste(myModule, "X2_cyc_V", sep="_")
+	myLabels$X2_plotEnvironment <- paste(myModule, "X2_plotEnvironment", sep="_")
   
-  X_Interaction      <- paste(myModule, "X_Interaction", sep="_")
+	myLabels$X_Interaction      <- paste(myModule, "X_Interaction", sep="_")
   
-  runButton          <- paste(myModule, "runButton", sep="_")
-  runButtonError     <- paste(myModule, "runButtonError", sep="_")
-  rerunButton        <- paste(myModule, "rerunButton", sep="_")
-  rerunButtonError   <- paste(myModule, "rerunButtonError", sep="_")
+	myLabels$runButton          <- paste(myModule, "runButton", sep="_")
+	myLabels$runButtonError     <- paste(myModule, "runButtonError", sep="_")
+	myLabels$rerunButton        <- paste(myModule, "rerunButton", sep="_")
+	myLabels$rerunButtonError   <- paste(myModule, "rerunButtonError", sep="_")
   
-  plotEnvironment    <- paste(myModule, "plotEnvironment", sep="_")
-  plotPhenotype      <- paste(myModule, "plotPhenotype", sep="_")
-  plotSamples        <- paste(myModule, "plotSamples", sep="_")
+	myLabels$plotEnvironment    <- paste(myModule, "plotEnvironment", sep="_")
+	myLabels$plotPhenotype      <- paste(myModule, "plotPhenotype", sep="_")
+	myLabels$plotSamples        <- paste(myModule, "plotSamples", sep="_")
   
-  variancesTable     <- paste(myModule, "variancesTable", sep="_")
+	myLabels$variancesTable     <- paste(myModule, "variancesTable", sep="_")
   
-  PB                 <- paste(myModule, "PB", sep="_")
+	myLabels$PB                 <- paste(myModule, "PB", sep="_")
   
-  modTabsetPanel     <- paste(myModule, "TabsetPanel", sep="_")
+	myLabels$modTabsetPanel     <- paste(myModule, "TabsetPanel", sep="_")
   
-  SampTime           <- paste(myModule, "SampTime", sep="_")
+	myLabels$SampTime           <- paste(myModule, "SampTime", sep="_")
   
-  NR_ind          <- paste(myModule, "NR_ind", sep="_")
-  NR_trait        <- paste(myModule, "NR_trait", sep="_")
-  ST_ind          <- paste(myModule, "ST_ind", sep="_")
-  ST_trait        <- paste(myModule, "ST_trait", sep="_")
-  preview_sampling_design     <- paste(myModule, "preview_sampling_design", sep="_")
-  preview_sampling_design_btn <- paste(myModule, "preview_sampling_design_btn", sep="_")
+	myLabels$NR_ind          <- paste(myModule, "NR_ind", sep="_")
+	myLabels$NR_trait        <- paste(myModule, "NR_trait", sep="_")
+	myLabels$ST_ind          <- paste(myModule, "ST_ind", sep="_")
+	myLabels$ST_trait        <- paste(myModule, "ST_trait", sep="_")
+	myLabels$preview_sampling_design     <- paste(myModule, "preview_sampling_design", sep="_")
+	myLabels$preview_sampling_design_btn <- paste(myModule, "preview_sampling_design_btn", sep="_")
   
-  download_sampled      <- paste(myModule, "download_sampled", sep="_")
-  download_raw          <- paste(myModule, "download_raw", sep="_")
-  save_inputs           <- paste(myModule, "save_inputs", sep="_")
-  load_inputs           <- paste(myModule, "load_inputs", sep="_")
+	myLabels$download_sampled      <- paste(myModule, "download_sampled", sep="_")
+	myLabels$download_raw          <- paste(myModule, "download_raw", sep="_")
+	myLabels$download_Rcode        <- paste(myModule, "download_Rcode", sep="_")
+	myLabels$save_inputs           <- paste(myModule, "save_inputs", sep="_")
+	myLabels$load_inputs           <- paste(myModule, "load_inputs", sep="_")
   
-  error_Tmax            <- paste(myModule, "error_Tmax", sep="_")
-  error_NP              <- paste(myModule, "error_NP", sep="_")    
-  error_X1_sto_V        <- paste(myModule, "error_X1_sto_V", sep="_")
-  error_X2_sto_V        <- paste(myModule, "error_X2_sto_V", sep="_")
-  error_X1_sto_corr     <- paste(myModule, "error_X1_sto_corr", sep="_")
-  error_X2_sto_corr     <- paste(myModule, "error_X2_sto_corr", sep="_")
-  error_NI              <- paste(myModule, "error_NI", sep="_")
-  error_NG              <- paste(myModule, "error_NG", sep="_")
-  error_Ve             <- paste(myModule, "error_Ve", sep="_")
-  error_VG              <- paste(myModule, "error_VG", sep="_")
-  error_NR              <- paste(myModule, "error_NR", sep="_")
-  error_B               <- paste(myModule, "error_B", sep="_")
-  error_Vind            <- paste(myModule, "error_Vind", sep="_")
+	myLabels$error_Tmax            <- paste(myModule, "error_Tmax", sep="_")
+	myLabels$error_NP              <- paste(myModule, "error_NP", sep="_")    
+	myLabels$error_X1_sto_V        <- paste(myModule, "error_X1_sto_V", sep="_")
+	myLabels$error_X2_sto_V        <- paste(myModule, "error_X2_sto_V", sep="_")
+	myLabels$error_X1_sto_corr     <- paste(myModule, "error_X1_sto_corr", sep="_")
+	myLabels$error_X2_sto_corr     <- paste(myModule, "error_X2_sto_corr", sep="_")
+	myLabels$error_NI              <- paste(myModule, "error_NI", sep="_")
+	myLabels$error_NG              <- paste(myModule, "error_NG", sep="_")
+	myLabels$error_Ve              <- paste(myModule, "error_Ve", sep="_")
+	myLabels$error_VG              <- paste(myModule, "error_VG", sep="_")
+	myLabels$error_NR              <- paste(myModule, "error_NR", sep="_")
+	myLabels$error_B               <- paste(myModule, "error_B", sep="_")
+	myLabels$error_Vind            <- paste(myModule, "error_Vind", sep="_")
   
-  Data_Description_Table<- paste(myModule, "Data_Description_Table", sep="_")
+	myLabels$Data_Description_Table <- paste(myModule, "Data_Description_Table", sep="_")
   
-  loader             <- paste(myModule, "loader", sep="_")
+	myLabels$loader                <- paste(myModule, "loader", sep="_")
   
   return(c(
     
      # Equation  trait 1
-     output[[myEquations]] <- renderUI({         
+     output[[myLabels$myEquations]] <- renderUI({         
         SVRDispayModelEquation(myModule, input)    
       }),
           
-     output[[B_UI]]<- renderUI({ 
+     output[[myLabels$B_UI]]<- renderUI({ 
         
-        if(B_temp %in% names(input)){
+        if(myLabels$B_temp %in% names(input)){
           BisNew <- FALSE
-          myB    <- input[[B_temp]]
+          myB    <- input[[myLabels$B_temp]]
         }else{
           BisNew <- TRUE
           myB    <- NULL
         }      
         
-        list(SVRGetBMatrix(B_temp,
-                           input[[NT]],
-                           input[[X1_state]],
-                           input[[X2_state]],
-                           input[[X_Interaction]],
+        list(SVRGetBMatrix(myLabels$B_temp,
+                           input[[myLabels$NT]],
+                           input[[myLabels$X1_state]],
+                           input[[myLabels$X2_state]],
+                           input[[myLabels$X_Interaction]],
                            BisNew,
                            myB), 
-             uiOutput(error_B))
+             uiOutput(myLabels$error_B))
      }),
       
-     output[[B_UI_hidden]] <- renderUI({
+     output[[myLabels$B_UI_hidden]] <- renderUI({
         
-        myNT <- as.numeric(input[[NT]])    
+        myNT <- as.numeric(input[[myLabels$NT]])    
         
-        if(B_temp %in% names(input)){ 
+        if(myLabels$B_temp %in% names(input)){ 
           myB            <- matrix(rep(0,myNT*nb.IS),1)      
-          newSize        <- ifelse(myNT*nb.IS > length(input[[B_temp]]),length(input[[B_temp]]),myNT*nb.IS)      
-          myB[1:newSize] <- input[[B_temp]][1:newSize]   
+          newSize        <- ifelse(myNT*nb.IS > length(input[[myLabels$B_temp]]),length(input[[myLabels$B_temp]]),myNT*nb.IS)      
+          myB[1:newSize] <- input[[myLabels$B_temp]][1:newSize]   
         }else{ 
           myB            <- matrix(rep(0,myNT*nb.IS),1)            
           myB[1:nb.IS]   <- FullModel_VAR$B$value[1:nb.IS] 
@@ -156,38 +159,38 @@ SVRFullModel <- function(myModule, input, output, session){
         
         myB[which(is.na(myB))] <- 0
         
-        matrixInput2(B, "",data.frame(myB))
+        matrixInput2(myLabels$B, "",data.frame(myB))
       }),
-     outputOptions(output, B_UI_hidden, suspendWhenHidden = FALSE),
+     outputOptions(output, myLabels$B_UI_hidden, suspendWhenHidden = FALSE),
      
-     output[[Vind_UI]] <- renderUI({
+     output[[myLabels$Vind_UI]] <- renderUI({
        
-       if(Vind_temp %in% names(input)){
+       if(myLabels$Vind_temp %in% names(input)){
          VindisNew <- FALSE
-         myVind    <- input[[Vind_temp]]
+         myVind    <- input[[myLabels$Vind_temp]]
        }else{
          VindisNew <- TRUE
          myVind    <- NULL
        }    
        
-       list(SVRGetVindMatrix(Vind_temp,
-                             input[[NT]],
-                             input[[X1_state]],
-                             input[[X2_state]],
-                             input[[X_Interaction]], 
+       list(SVRGetVindMatrix(myLabels$Vind_temp,
+                             input[[myLabels$NT]],
+                             input[[myLabels$X1_state]],
+                             input[[myLabels$X2_state]],
+                             input[[myLabels$X_Interaction]], 
                              VindisNew, 
                              myVind), 
-          uiOutput(error_Vind))
+          uiOutput(myLabels$error_Vind))
      }),
      
-     output[[Vind_UI_hidden]] <- renderUI({
+     output[[myLabels$Vind_UI_hidden]] <- renderUI({
        
-       myNT <- as.numeric(input[[NT]])   
+       myNT <- as.numeric(input[[myLabels$NT]])   
        
-       if(Vind_temp %in% names(input)){ 
+       if(myLabels$Vind_temp %in% names(input)){ 
          myVind         <- matrix(rep(0,(nb.IS*myNT)^2),nb.IS*myNT)      
-         newSize        <- ifelse(myNT*nb.IS > length(input[[B_temp]]),length(input[[B_temp]]),myNT*nb.IS)      
-         myVind[1:newSize, 1:newSize]     <- input[[Vind_temp]][1:newSize, 1:newSize] 
+         newSize        <- ifelse(myNT*nb.IS > length(input[[myLabels$B_temp]]),length(input[[myLabels$B_temp]]),myNT*nb.IS)      
+         myVind[1:newSize, 1:newSize]     <- input[[myLabels$Vind_temp]][1:newSize, 1:newSize] 
        }else{ 
          myVind         <- matrix(rep(0,(nb.IS*myNT)^2),nb.IS*myNT) 
          myVind[1:nb.IS, 1:nb.IS]     <- FullModel_VAR$Vind$value[1:nb.IS, 1:nb.IS] 
@@ -195,23 +198,23 @@ SVRFullModel <- function(myModule, input, output, session){
        
        myVind[which(is.na(myVind))] <- 0
        
-       matrixInput2(Vind, "",data.frame(myVind))
+       matrixInput2(myLabels$Vind, "",data.frame(myVind))
      }),
-     outputOptions(output, Vind_UI_hidden, suspendWhenHidden = FALSE),
+     outputOptions(output, myLabels$Vind_UI_hidden, suspendWhenHidden = FALSE),
      
      ########################
      
      # Switch to the output panel when the app is runned
      observe({
-       if(input[[runButton]] != 0 || input[[rerunButton]] != 0){ 
-         updateTabsetPanel(session, modTabsetPanel, selected = "Outputs")
+       if(input[[myLabels$runButton]] != 0 || input[[myLabels$rerunButton]] != 0){ 
+         updateTabsetPanel(session, myLabels$modTabsetPanel, selected = "Outputs")
        }
      }),
      
      myFullModel <- reactive({ 
        
        # if Run button is pressed
-       if(input[[runButton]] == 0 & input[[rerunButton]] == 0)
+       if(input[[myLabels$runButton]] == 0 & input[[myLabels$rerunButton]] == 0)
           return(NULL)
        
        isolate({ 
@@ -231,7 +234,7 @@ SVRFullModel <- function(myModule, input, output, session){
        })
      }),
 
-     output[[plotEnvironment]] <- renderPlot({
+     output[[myLabels$plotEnvironment]] <- renderPlot({
           
        data <- myFullModel()
        #   print result graphs 
@@ -244,7 +247,7 @@ SVRFullModel <- function(myModule, input, output, session){
        
      }),
      
-     output[[plotPhenotype]] <- renderPlot({
+     output[[myLabels$plotPhenotype]] <- renderPlot({
          
        data <- myFullModel() 
        #   print result graphs 
@@ -256,42 +259,42 @@ SVRFullModel <- function(myModule, input, output, session){
        
      }),
      
-     output[[plotSamples]] <- renderPlot({
+     output[[myLabels$plotSamples]] <- renderPlot({
        data <- myFullModel()
        #   print result graphs 
        if(!is.null(data)) print(data$plots$sampTime)
      }),
      
      # update the sampling time length for each individual
-     output[[SampTime]] <- renderText({ 
-       FullModel_VAR$NR$max <<- round(input[[Tmax]]*(1-input[[Vhsi]])) 
+     output[[myLabels$SampTime]] <- renderText({ 
+       FullModel_VAR$NR$max <<- round(input[[myLabels$Tmax]]*(1-input[[myLabels$Vhsi]])) 
      }),
 
      # Update sampling time checkbox relative to the sampling record checkbox
      observe({
-       if(input[[ST_ind]])   updateCheckboxInput(session, NR_ind,   value = TRUE)
-       if(input[[ST_trait]]) updateCheckboxInput(session, NR_trait, value = TRUE)
+       if(input[[myLabels$ST_ind]])   updateCheckboxInput(session, myLabels$NR_ind,   value = TRUE)
+       if(input[[myLabels$ST_trait]]) updateCheckboxInput(session, myLabels$NR_trait, value = TRUE)
        
-       if(!input[[NR_ind]]   & input[[ST_ind]])     updateCheckboxInput(session, NR_ind,   value = TRUE)
-       if(!input[[NR_trait]] & input[[ST_trait]])   updateCheckboxInput(session, NR_trait, value = TRUE)  
+       if(!input[[myLabels$NR_ind]]   & input[[myLabels$ST_ind]])     updateCheckboxInput(session, myLabels$NR_ind,   value = TRUE)
+       if(!input[[myLabels$NR_trait]] & input[[myLabels$ST_trait]])   updateCheckboxInput(session, myLabels$NR_trait, value = TRUE)  
        
-       if(input[[Vhsi]] > 0){
-         updateCheckboxInput(session, ST_ind,   value = FALSE)
-         updateCheckboxInput(session, ST_trait,   value = FALSE)
+       if(input[[myLabels$Vhsi]] > 0){
+         updateCheckboxInput(session, myLabels$ST_ind,   value = FALSE)
+         updateCheckboxInput(session, myLabels$ST_trait,   value = FALSE)
        }
      }),
      
-     output[[preview_sampling_design]] <- renderPlot({ 
+     output[[myLabels$preview_sampling_design]] <- renderPlot({ 
        
-       input[[preview_sampling_design_btn]]
-       myInput <- list("Sampling_Preview_Tmax"     = input[[Tmax]],
-                       "Sampling_Preview_NI"       = input[[NI]],
-                       "Sampling_Preview_Vhsi"     = input[[Vhsi]],
-                       "Sampling_Preview_NR"       = input[[NR]],
-                       "Sampling_Preview_ST_ind"   = input[[ST_ind]],
-                       "Sampling_Preview_ST_trait" = input[[ST_trait]],
-                       "Sampling_Preview_NR_ind"   = input[[NR_ind]],
-                       "Sampling_Preview_NR_trait" = input[[NR_trait]]
+       input[[myLabels$preview_sampling_design_btn]]
+       myInput <- list("Sampling_Preview_Tmax"     = input[[myLabels$Tmax]],
+                       "Sampling_Preview_NI"       = input[[myLabels$NI]],
+                       "Sampling_Preview_Vhsi"     = input[[myLabels$Vhsi]],
+                       "Sampling_Preview_NR"       = input[[myLabels$NR]],
+                       "Sampling_Preview_ST_ind"   = input[[myLabels$ST_ind]],
+                       "Sampling_Preview_ST_trait" = input[[myLabels$ST_trait]],
+                       "Sampling_Preview_NR_ind"   = input[[myLabels$NR_ind]],
+                       "Sampling_Preview_NR_trait" = input[[myLabels$NR_trait]]
        )
        # Call app main function
        data <- squid::squidR(myInput, module="Sampling_Preview", plot=TRUE)
@@ -304,36 +307,36 @@ SVRFullModel <- function(myModule, input, output, session){
 
       # Update environment states
       observe({
-         ifelse(input[[X1_sto_state]] || input[[X1_lin_state]]|| input[[X1_cyc_state]], 
-                updateCheckboxInput(session, X1_state, value = TRUE), 
-                updateCheckboxInput(session, X1_state, value = FALSE))
+         ifelse(input[[myLabels$X1_sto_state]] || input[[myLabels$X1_lin_state]]|| input[[myLabels$X1_cyc_state]], 
+                updateCheckboxInput(session, myLabels$X1_state, value = TRUE), 
+                updateCheckboxInput(session, myLabels$X1_state, value = FALSE))
         
         # Update X2 environment state
-        ifelse(input[[X2_sto_state]] || input[[X2_lin_state]]|| input[[X2_cyc_state]], 
-               updateCheckboxInput(session, X2_state, value = TRUE), 
-               updateCheckboxInput(session, X2_state, value = FALSE))
+        ifelse(input[[myLabels$X2_sto_state]] || input[[myLabels$X2_lin_state]]|| input[[myLabels$X2_cyc_state]], 
+               updateCheckboxInput(session, myLabels$X2_state, value = TRUE), 
+               updateCheckboxInput(session, myLabels$X2_state, value = FALSE))
         
-        if(!input[[X1_sto_state]]) updateCheckboxInput(session, X1_sto_shared, value = TRUE)
-        if(!input[[X1_lin_state]]) updateCheckboxInput(session, X1_lin_shared, value = TRUE)
-        if(!input[[X1_cyc_state]]) updateCheckboxInput(session, X1_cyc_shared, value = TRUE)
+        if(!input[[myLabels$X1_sto_state]]) updateCheckboxInput(session, myLabels$X1_sto_shared, value = TRUE)
+        if(!input[[myLabels$X1_lin_state]]) updateCheckboxInput(session, myLabels$X1_lin_shared, value = TRUE)
+        if(!input[[myLabels$X1_cyc_state]]) updateCheckboxInput(session, myLabels$X1_cyc_shared, value = TRUE)
         
-        if(!input[[X2_sto_state]]) updateCheckboxInput(session, X2_sto_shared, value = TRUE)  
-        if(!input[[X2_lin_state]]) updateCheckboxInput(session, X2_lin_shared, value = TRUE)
-        if(!input[[X2_cyc_state]]) updateCheckboxInput(session, X2_cyc_shared, value = TRUE)
+        if(!input[[myLabels$X2_sto_state]]) updateCheckboxInput(session, myLabels$X2_sto_shared, value = TRUE)  
+        if(!input[[myLabels$X2_lin_state]]) updateCheckboxInput(session, myLabels$X2_lin_shared, value = TRUE)
+        if(!input[[myLabels$X2_cyc_state]]) updateCheckboxInput(session, myLabels$X2_cyc_shared, value = TRUE)
         
         # Interaction state
-        if(!input[[X1_state]] || !input[[X2_state]]) updateCheckboxInput(session, X_Interaction, value = FALSE)
+        if(!input[[myLabels$X1_state]] || !input[[myLabels$X2_state]]) updateCheckboxInput(session, myLabels$X_Interaction, value = FALSE)
 
       }),
 
-      output[[X1_plotEnvironment]] <- renderPlot({squid::squidR(input, module=myModule, X_previsualization="X1")}),
-      output[[X2_plotEnvironment]] <- renderPlot({squid::squidR(input, module=myModule, X_previsualization="X2")}),
+      output[[myLabels$X1_plotEnvironment]] <- renderPlot({squid::squidR(input, module=myModule, X_previsualization="X1")}),
+      output[[myLabels$X2_plotEnvironment]] <- renderPlot({squid::squidR(input, module=myModule, X_previsualization="X2")}),
      
     ######################################################################################
     ############################### VARIANCES SUMMARY ####################################
     ######################################################################################
 
-    output[[variancesTable]] <- renderUI({  
+    output[[myLabels$variancesTable]] <- renderUI({  
     
       myTable <- data.frame(
         "Variance"    = c("$\\text{Fixed effects}$",
@@ -383,11 +386,19 @@ SVRFullModel <- function(myModule, input, output, session){
         stringsAsFactors = FALSE
       )
 
-      mySummary <- SVRGetSummaryVariances(input,B,Vind,Ve,VG,NT,0,nb.IS,NOT$trait.1,X1_state,X2_state,X_Interaction)
+      mySummary <- SVRGetSummaryVariances(input,
+      																		myLabels,
+      																		0,
+      																		nb.IS,
+      																		NOT$trait.1)
       myTable   <- cbind(myTable,mySummary)
 
-      if(input[[NT]] > 1){
-        mySummary <- SVRGetSummaryVariances(input,B,Vind,Ve,VG,NT,nb.IS,nb.IS,NOT$trait.2,X1_state,X2_state,X_Interaction)
+      if(input[[myLabels$NT]] > 1){
+        mySummary <- SVRGetSummaryVariances(input,
+        																		myLabels,
+        																		nb.IS,
+        																		nb.IS,
+        																		NOT$trait.2)
         myTable   <- cbind(myTable,mySummary)
         myTable   <- subset(myTable, Trait.y != "0 (0%)" | Trait.z != "0 (0%)")
         myTable   <- rbind(c("Variance", "Explanation", "Trait y", "Trait z"),myTable)
@@ -405,36 +416,36 @@ SVRFullModel <- function(myModule, input, output, session){
 
      isError <- reactive({
        
-      FullModel_VAR$NR$max    <<- round(input[[Tmax]]*(1-input[[Vhsi]])) 
-      FullModel_VAR$NG$modulo <<- input[[NI]] 
+      FullModel_VAR$NR$max    <<- round(input[[myLabels$Tmax]]*(1-input[[myLabels$Vhsi]])) 
+      FullModel_VAR$NG$modulo <<- input[[myLabels$NI]] 
       
-      if(!testInput(input[[Tmax]], FullModel_VAR$Tmax, TRUE, FALSE)                  ||
-         !testInput(input[[NP]], FullModel_VAR$NP, TRUE, FALSE)                      ||            
-         !testInput(input[[X1_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
-         !testInput(input[[X2_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
-         !testInput(input[[X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
-         !testInput(input[[X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
-         !testInput(input[[NI]], FullModel_VAR$NI, TRUE, FALSE, (input[[NI]]%%input[[NG]] != 0)) ||
-         !testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
-         !testInput(input[[VG]], FullModel_VAR$VG, FALSE, FALSE)                     ||
-         !testInput(input[[NG]], FullModel_VAR$NG, TRUE, FALSE, (input[[NI]]%%input[[NG]] != 0)) ||
-         !testInput(input[[NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
-         !testInputBMatrix(input[[B]] , FullModel_VAR$B, FALSE)                      ||
-         !testInputVindMatrix(input[[Vind]] , FullModel_VAR$Vind, FALSE)){
+      if(!testInput(input[[myLabels$Tmax]], FullModel_VAR$Tmax, TRUE, FALSE)                  ||
+         !testInput(input[[myLabels$NP]], FullModel_VAR$NP, TRUE, FALSE)                      ||            
+         !testInput(input[[myLabels$X1_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
+         !testInput(input[[myLabels$X2_sto_V]], FullModel_VAR$stoV, FALSE, FALSE)             ||
+         !testInput(input[[myLabels$X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
+         !testInput(input[[myLabels$X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
+         !testInput(input[[myLabels$NI]], FullModel_VAR$NI, TRUE, FALSE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0)) ||
+         !testInput(input[[myLabels$Ve]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
+         !testInput(input[[myLabels$VG]], FullModel_VAR$VG, FALSE, FALSE)                     ||
+         !testInput(input[[myLabels$NG]], FullModel_VAR$NG, TRUE, FALSE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0)) ||
+         !testInput(input[[myLabels$NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
+         !testInputBMatrix(input[[myLabels$B]] , FullModel_VAR$B, FALSE)                      ||
+         !testInputVindMatrix(input[[myLabels$Vind]] , FullModel_VAR$Vind, FALSE)){
         return(TRUE)
       } 
        return(FALSE)
     }),
      
      # Display error message
-     output[[runButtonError]] <- renderUI({
+     output[[myLabels$runButtonError]] <- renderUI({
        if(isError()){
          error_msg(FullModel_VAR$Run$errorTxt)
        }else{
          NULL
        }
      }),
-     output[[rerunButtonError]] <- renderUI({
+     output[[myLabels$rerunButtonError]] <- renderUI({
       if(isError()){
         error_msg(FullModel_VAR$ReRun$errorTxt)
       }else{
@@ -446,36 +457,36 @@ SVRFullModel <- function(myModule, input, output, session){
      # display error message and disable button if so
      observe({
        if(isError()){ 
-         disableActionButton(runButton, session, "true")
-         disableActionButton(rerunButton, session, "true")
+         disableActionButton(myLabels$runButton, session, "true")
+         disableActionButton(myLabels$rerunButton, session, "true")
        }else{
-         disableActionButton(runButton, session, "false")
-         disableActionButton(rerunButton, session, "false")
+         disableActionButton(myLabels$runButton, session, "false")
+         disableActionButton(myLabels$rerunButton, session, "false")
        }
      }),
     
-     output[[error_Tmax]]            <- renderUI({testInput(input[[Tmax]], FullModel_VAR$Tmax, TRUE, TRUE)}),
-     output[[error_NP]]              <- renderUI({testInput(input[[NP]], FullModel_VAR$NP, TRUE, TRUE)}),     
-     output[[error_X1_sto_V]]        <- renderUI({testInput(input[[X1_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
-     output[[error_X2_sto_V]]        <- renderUI({testInput(input[[X2_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
-     output[[error_X1_sto_corr]]     <- renderUI({testInput(input[[X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
-     output[[error_X2_sto_corr]]     <- renderUI({testInput(input[[X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
-     output[[error_NI]]              <- renderUI({testInput(input[[NI]], FullModel_VAR$NI, TRUE, TRUE, (input[[NI]]%%input[[NG]] != 0))}),
-     output[[error_Ve]]              <- renderUI({testInput(input[[Ve]], FullModel_VAR$Ve, FALSE, TRUE)}),
-     output[[error_NG]]              <- renderUI({testInput(input[[NG]], FullModel_VAR$NG, TRUE, TRUE, (input[[NI]]%%input[[NG]] != 0))}),
-     output[[error_VG]]              <- renderUI({testInput(input[[VG]], FullModel_VAR$VG, FALSE, TRUE)}),
-     output[[error_NR]] <- renderUI({
-          input[[Tmax]];input[[Vhsi]];
-          testInput(input[[NR]], FullModel_VAR$NR, TRUE, TRUE) 
+     output[[myLabels$error_Tmax]]            <- renderUI({testInput(input[[myLabels$Tmax]], FullModel_VAR$Tmax, TRUE, TRUE)}),
+     output[[myLabels$error_NP]]              <- renderUI({testInput(input[[myLabels$NP]], FullModel_VAR$NP, TRUE, TRUE)}),     
+     output[[myLabels$error_X1_sto_V]]        <- renderUI({testInput(input[[myLabels$X1_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
+     output[[myLabels$error_X2_sto_V]]        <- renderUI({testInput(input[[myLabels$X2_sto_V]], FullModel_VAR$stoV, FALSE, TRUE)}),
+     output[[myLabels$error_X1_sto_corr]]     <- renderUI({testInput(input[[myLabels$X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
+     output[[myLabels$error_X2_sto_corr]]     <- renderUI({testInput(input[[myLabels$X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
+     output[[myLabels$error_NI]]              <- renderUI({testInput(input[[myLabels$NI]], FullModel_VAR$NI, TRUE, TRUE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0))}),
+     output[[myLabels$error_Ve]]              <- renderUI({testInput(input[[myLabels$Ve]], FullModel_VAR$Ve, FALSE, TRUE)}),
+     output[[myLabels$error_NG]]              <- renderUI({testInput(input[[myLabels$NG]], FullModel_VAR$NG, TRUE, TRUE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0))}),
+     output[[myLabels$error_VG]]              <- renderUI({testInput(input[[myLabels$VG]], FullModel_VAR$VG, FALSE, TRUE)}),
+     output[[myLabels$error_NR]] <- renderUI({
+          input[[myLabels$Tmax]];input[[myLabels$Vhsi]];
+          testInput(input[[myLabels$NR]], FullModel_VAR$NR, TRUE, TRUE) 
        }),
-     output[[error_B]]               <- renderUI({testInputBMatrix(input[[B]] , FullModel_VAR$B, TRUE)}),
-     output[[error_Vind]]            <- renderUI({testInputVindMatrix(input[[Vind]], FullModel_VAR$Vind, TRUE)}),
+     output[[myLabels$error_B]]               <- renderUI({testInputBMatrix(input[[myLabels$B]] , FullModel_VAR$B, TRUE)}),
+     output[[myLabels$error_Vind]]            <- renderUI({testInputVindMatrix(input[[myLabels$Vind]], FullModel_VAR$Vind, TRUE)}),
 
     ######################################################################################
     ################################## DOWNLOAD DATA #####################################
     ######################################################################################
 
-    output[[download_sampled]] <- downloadHandler(
+    output[[myLabels$download_sampled]] <- downloadHandler(
       filename = function() {
         paste0('sampled_data_', Sys.Date(), '.csv')
       },
@@ -484,7 +495,7 @@ SVRFullModel <- function(myModule, input, output, session){
       }
     ),
 
-    output[[download_raw]] <- downloadHandler(
+    output[[myLabels$download_raw]] <- downloadHandler(
       filename = function() {
         paste0('raw_data_', Sys.Date(), '.csv')
       },
@@ -493,7 +504,16 @@ SVRFullModel <- function(myModule, input, output, session){
       }
     ),
 
-    output[[Data_Description_Table]] <- renderUI({
+		output[[myLabels$download_Rcode]] <- downloadHandler(
+			filename = function() {
+				paste0('Rcode_', Sys.Date(), '.R')
+			},
+			content = function(con) {
+				writeLines(SVRcreateRcode(input, myLabels), con)
+			}
+		),
+
+    output[[myLabels$Data_Description_Table]] <- renderUI({
 
       myTable <- data.frame(
         "Output data variable"= c("Output data variable",
@@ -567,7 +587,7 @@ SVRFullModel <- function(myModule, input, output, session){
 
 #     observe({
 #       
-#       inFile <- input[[load_inputs]]
+#       inFile <- input[[myLabels$load_inputs]]
 #       if (is.null(inFile))
 #         return(NULL)
 #       
@@ -645,7 +665,7 @@ SVRFullModel <- function(myModule, input, output, session){
 #       
 #     }),  
 # 
-#     output[[save_inputs]] <- downloadHandler(
+#     output[[myLabels$save_inputs]] <- downloadHandler(
 #       filename = function() {
 #         paste('inputs-', Sys.Date(), '.RData', sep="")
 #       },
