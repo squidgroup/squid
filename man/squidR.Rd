@@ -97,16 +97,6 @@ The argument \code{input} is a list that contains the different input parameters
   \item \code{X1_lin_slope} (default 1): \code{numeric}; the slope of the linear trend included into the environmental effect x1.
   
   \item \code{X1_lin_V} (default 1): \code{numeric}; the variance used to generate different (unshared) linear trend effect for each individual within the environmental effect x1.
-
-  \item \code{X1_cyc_state} (default \code{FALSE}): \code{logical}; if \code{TRUE}, a cyclic trend will be added the environmental effect x1.
-  
-  \item \code{X1_lin_shared} (default \code{TRUE}): \code{logical}; if \code{TRUE}, the linear trend included in the environmental effect x1 will be shared between individuals. If \code{FALSE}, each individual will experience a different linear trend within the environmental effect x1. A different linear trend is generated for each individual by varying the intercept and the slope of the linear equation. The variation in intercepts and slopes following a normal distribution with means \code{X1_lin_intercept}, \code{X1_lin_slope} and variance \code{X1_lin_V}.
-  
-  \item \code{X1_lin_intercept} (default 0): \code{numeric}; the intercept of the linear trend included into the environmental effect x1.
-  
-  \item \code{X1_lin_slope} (default 1): \code{numeric}; the slope of the linear trend included into the environmental effect x1.
-  
-  \item \code{X1_lin_V} (default 1): \code{numeric}; the variance used to generate different (unshared) linear trend effect for each individual within the environmental effect x1.
   
   \item \code{X1_cyc_state} (default \code{FALSE}): \code{logical}; if \code{TRUE}, a cyclic trend will be added the environmental effect x1.
   

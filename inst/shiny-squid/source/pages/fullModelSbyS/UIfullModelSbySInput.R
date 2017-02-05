@@ -162,7 +162,9 @@ span(
     ),
     
     p(HTML(fullmodelTxt$inputRun)),
+    p(HTML(fullmodelTxt$inputRcode)),
     actionButton("FModSbyS_runButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton"),
+    downloadButton("FModSbyS_download_Rcode", label = FullModel_VAR$download_Rcode$label),
     # downloadButton("FModSbyS_save", label = FullModel_VAR$save$label),
     runningIndicator(),
     p(),
