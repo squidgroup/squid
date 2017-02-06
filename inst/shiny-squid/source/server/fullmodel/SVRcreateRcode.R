@@ -98,6 +98,10 @@ input$ST_trait             <- ",input[[myLabels$ST_trait]]," # if TRUE, traits w
 # Run simulation
 data <- squidR(input)
 
+
+# Extract sampled data for analysis
+sampled_data <- data$sampled_data
+
 ") 
 
   return(output)
