@@ -64,12 +64,26 @@ span(
   				 by the following term:")),
   
   
-  ####### eq 2 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>
-  p("####### eq 2 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>"),
+  ####### eq 2 
+  p(paste0("$$ 
+  				 \\sqrt{
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.1,"}}
+  				 {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+  				 (\\frac{V_{",NOT$devI,"_" ,NOT$trait.2,"}}
+  				 {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})}
+  				 $$")),
   
   p(HTML(paste0('This term is called the "geometric mean repeatability" as it represents the square-root of product 
-								of the repeatability of trait ',NOT$trait.1,' ADD EQ and trait ',NOT$trait.2,' ADD EQ.
-  				 			Note that the term ADD EQ essentially represents one minus this geometric repeatability 
+								of the repeatability of trait ',NOT$trait.1,' $(\\frac{V_{',NOT$devI,'_' ,NOT$trait.1,'}}
+								{V_{',NOT$devI,'_',NOT$trait.1,'} + V_{',NOT$error,'_',NOT$trait.1,'}})$ 
+								and trait ',NOT$trait.2,' $(\\frac{V_{',NOT$devI,'_' ,NOT$trait.2,'}}
+								{V_{',NOT$devI,'_',NOT$trait.2,'} + V_{',NOT$error,'_',NOT$trait.2,'}})$ .
+  				 			Note that the term $\\sqrt{
+			           (\\frac{V_{',NOT$error,'_',NOT$trait.1,'}}
+			           {V_{',NOT$devI,'_',NOT$trait.1,'} + V_{',NOT$error,'_',NOT$trait.1,'}})
+			           (\\frac{V_{',NOT$error,'_',NOT$trait.2,'}}
+			           {V_{',NOT$devI,'_',NOT$trait.2,'} + V_{',NOT$error,'_',NOT$trait.2,'}})}$
+								essentially represents one minus this geometric repeatability 
   							and that both terms add up to the value of 1. This means that for two traits that 
   							are highly repeatable (e.g. sets of morphological traits), the phenotypic correlation 
   							will largely reflect the among-individual correlation, whereas for two traits that have 
@@ -114,7 +128,7 @@ span(
   p("$$r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
   	r_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$$"),
   
-  p(HTML(paste0(strong("Exercise:"),"We will now introduce among-individual variance in both egg size 
+  p(HTML(paste0(strong("Exercise: "),"We will now introduce among-individual variance in both egg size 
   							(i.e., $V_{",NOT$devI,"_",NOT$trait.1,"}>0$) and clutch size (i.e., $V_{",NOT$devI,"_",NOT$trait.1,"}>0$). 
   							For simplicity, we will assume that an individual’s average egg size over all its repeated observations 
   							is not correlated with its average clutch size over all its repeated observations, i.e., 
