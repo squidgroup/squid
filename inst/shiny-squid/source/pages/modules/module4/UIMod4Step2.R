@@ -6,7 +6,8 @@ span(
   	 that also differ consistently between individuals."),
 
   # Sub-goal
-  p(HTML("<b>Sub-goal:</b> Understanding the role of repeatability in shaping phenotypic correlations in repeatedly expressed traits")),
+  p(HTML("<b>Sub-goal:</b> Understanding the role of repeatability in shaping phenotypic 
+         correlations in repeatedly expressed traits")),
 
   # Introduction
 	p(HTML(paste0("<b>Introduction:</b> In step one, we focussed on within-individual correlations caused by trade-offs 
@@ -16,7 +17,7 @@ span(
 								(see module on ",Module_titles$mod1," for an introduction to repeatability). 
 								We will now consider a more complex but realistic scenario where these two traits (egg size and egg number) 
 								varied both within- and among-individuals, as we know is the case in natural populations.
-								The models for this step will be:")),
+								The models for this step will be:"))),
 
 	### Model equations
 	p(paste0("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"} = ",NOT$devI,"_{",NOT$trait.1,NOT$ind,"} + 
@@ -24,7 +25,7 @@ span(
   				  $$",NOT$trait.2,"_{",NOT$time,NOT$ind,"} = ",NOT$devI,"_{",NOT$trait.2,NOT$ind,"} + 
 					 																						 ",NOT$error,"_{",NOT$trait.2,NOT$time,NOT$ind,"}$$")),
 	
-	p(paste0("For example, female passerine birds often adjust their clutch size to changes in breeding 
+	p(HTML(paste0("For example, female passerine birds often adjust their clutch size to changes in breeding 
 						density while females also differ consistently in clutch sizes across repeated breeding attempts 
 						(Nicolaus <i>et al.</i> 2013). Previously, because the traits did not harbour any among-individual variation, 
 						all variation in the data existed at within-individuals. This meant that the phenotypic correlation 
@@ -34,8 +35,25 @@ span(
 						(e.g. Dingemanse & Dochtermann 2013; Dingemanse <i>et al.</i> 2012 ):"))),
 
   
-  ####### eq 1 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>
-  
+  ####### eq 1
+  p(paste0("$$",
+           "r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
+           
+           r_{",NOT$devI,"_" ,NOT$trait.1,",",NOT$devI,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})} + 
+           
+           r_{",NOT$error,"_" ,NOT$trait.1,",",NOT$error,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})}"
+           
+           ,"$$")),
   
   p(paste0("This monster contains several important elements. The phenotypic correlation 
   				 ($r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"}$) 
@@ -47,6 +65,7 @@ span(
   
   
   ####### eq 2 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>
+  p("####### eq 2 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>"),
   
   p(HTML(paste0('This term is called the "geometric mean repeatability" as it represents the square-root of product 
 								of the repeatability of trait ',NOT$trait.1,' ADD EQ and trait ',NOT$trait.2,' ADD EQ.
@@ -63,13 +82,30 @@ span(
   
   p("We reprint the equation describing the components shaping the phenotypic correlation:"),
   
-  ####### eq 1 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>
-  
+  ####### eq 1
+  p(paste0("$$",
+           "r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
+           
+           r_{",NOT$devI,"_" ,NOT$trait.1,",",NOT$devI,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})} + 
+           
+           r_{",NOT$error,"_" ,NOT$trait.1,",",NOT$error,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})}"
+           
+           ,"$$")),
   
   p(paste0("We have automatically taken forward your inputs from step 1, 
   				 where you have set the within-individual variances for traits y and z as well as their 
   				 covariance but where you assumed that the among-individual variances 
-  				 ($V_{",NOT$devI,"_",NOT$trait.1,"}$), $V_{",NOT$devI,"_",NOT$trait.2,"}$) were equal to zero:")),
+  				 ($V_{",NOT$devI,"_",NOT$trait.1,"}$, $V_{",NOT$devI,"_",NOT$trait.2,"}$) were equal to zero:")),
   
   p("What you should note is that the geometric mean repeatability (defined above) is equal to zero, 
   	while one minus this metric is equal to one, in cases such as these where at least 
@@ -78,7 +114,7 @@ span(
   p("$$r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
   	r_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$$"),
   
-  p(HTML(paste0(b("Exercise:"),"We will now introduce among-individual variance in both egg size 
+  p(HTML(paste0(strong("Exercise:"),"We will now introduce among-individual variance in both egg size 
   							(i.e., $V_{",NOT$devI,"_",NOT$trait.1,"}>0$) and clutch size (i.e., $V_{",NOT$devI,"_",NOT$trait.1,"}>0$). 
   							For simplicity, we will assume that an individual’s average egg size over all its repeated observations 
   							is not correlated with its average clutch size over all its repeated observations, i.e., 
@@ -105,7 +141,7 @@ span(
   
   p("Remember, we assume for now that the among-individual correlation is zero."),
   
-  p(b("Results:")),
+  p(strong("Results:")),
   
   p('As we have seen in step 1, you have defined the elements of the within-individual "variance-covariance matrix":'),
   p(paste0(
@@ -143,8 +179,25 @@ span(
 	###### Repeatabilities OUTPUT  
   
   p("We will now return to the equation that describes the components that shape the phenotypic correlation:"),
-  
-  ####### eq 1 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>
+  ####### eq 1
+  p(paste0("$$",
+           "r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
+           
+           r_{",NOT$devI,"_" ,NOT$trait.1,",",NOT$devI,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$devI,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})} + 
+           
+           r_{",NOT$error,"_" ,NOT$trait.1,",",NOT$error,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})}"
+           
+           ,"$$")),
   
   p("Your entries resulted in the following values:"),
   
@@ -181,13 +234,18 @@ span(
   			 repeatable the two traits are. You may explore this idea more fully by re-running the exercise 
   			 for different levels of trait repeatabilities.")),
   
-  
-  
-	p("(Nicolaus et al. 2013; Dingemanse & Dochtermann 2013; Dingemanse et al. 2012"),
+  p(strong("References:")),
+  p(HTML("Dingemanse, N.J. & Dochtermann, N.A. (2013) Quantifying individual variation in behaviour: 
+         mixed-effect modelling approaches. <i>Journal of Animal Ecology</i>, 82, 39-54.")),
+  p(HTML('Dingemanse, N.J., Dochtermann, N.A. & Nakagawa, S. (2012) Defining behavioural syndromes and the role of 
+         "syndrome deviation" to study its evolution. <i>Behavioral Ecology and Sociobiology</i>, 66, 1543-1548.')),
+  p(HTML("Nicolaus, M., Brommer, J.E., Ubels, R., Tinbergen, J.M. & Dingemanse, N.J. (2013) 
+          Exploring patterns of variation in clutch size-density reaction norms in a wild passerine bird. 
+          <i>Journal of Evolutionary Biology</i>, 26, 2031-2043.")),
 	
-	div(class="line"),
+	div(class = "line"),
 	
-	actionLink("Mod4Step2GotoStep1", label = "<< Previous Step (1)", class="linkToModuleSteps"), # Go to previous step       
-	span(Modules_VAR$StepLink$sep, class="step-Link"),
-	actionLink("Mod4Step2GotoStep3", label = "Next Step (3) >>", class="linkToModuleSteps") # Go to next step
+	actionLink("Mod4Step2GotoStep1", label = "<< Previous Step (1)", class = "linkToModuleSteps"), # Go to previous step       
+	span(Modules_VAR$StepLink$sep, class = "step-Link"),
+	actionLink("Mod4Step2GotoStep3", label = "Next Step (3) >>", class = "linkToModuleSteps") # Go to next step
 )

@@ -50,7 +50,7 @@ span(
   # Within-individual correlation
   getSliderInput("Mod4Step1_Corr_e", Modules_VAR$Corr_e),
 
-  p(b("Results:")),
+  p(strong("Results:")),
   p('Above, you have defined the elements of the within-individual "variance-covariance matrix".  
   	This matrix holds the variances of the two traits on the diagonals and their covariance on the off-diagonals:'),
   
@@ -62,13 +62,15 @@ span(
 		  	\\end{pmatrix} 
 		 $$")),
   
-  p(paste0("Here, $V_{",NOT$error,"_",NOT$trait.1,"} is the within-individual variance in trait $",NOT$trait.1,"$, 
-  				 $V_{",NOT$error,"_",NOT$trait.2,"} the within-individual variance in trait $",NOT$trait.1,"$, and 
+  p(paste0("Here, $V_{",NOT$error,"_",NOT$trait.1,"}$ is the within-individual variance in trait $",NOT$trait.1,"$, 
+  				 $V_{",NOT$error,"_",NOT$trait.2,"}$ the within-individual variance in trait $",NOT$trait.1,"$, and 
   				 $Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$ the within-individual covariance between these two traits.")),
   
   p("The values that you have entered above result in the following variance covariance matrix:"),
   
   ######## Matrix with the values entered
+  p(strong("######## Matrix with the values entered")),
+  
   
   p(paste0("Notably, you did not enter the covariance ($Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$) 
   				 between the two traits but rather their correlation. As you will learn later on in this module, 
@@ -77,18 +79,19 @@ span(
   				 in standard deviation units. This therefore results in a standardized metric that can be compared 
   				 across samples differing in variance.")),
   
-  p(paste0("The relationship between the within-individual correlation ($r{",NOT$error,"_",NOT$trait.1,",",
+  p(paste0("The relationship between the within-individual correlation ($r_{",NOT$error,"_",NOT$trait.1,",",
   				 NOT$error,"_",NOT$trait.2,"}$) and covariance ($Cov_{",NOT$error,"_",NOT$trait.1,",",
   				 NOT$error,"_",NOT$trait.2,"}$) is:")),
   
-  p(paste0("$$r{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}=
+  p(paste0("$$r_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}=
              \\frac{Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}}
-  				 {\\sqrt{Var_{",NOT$error,"_",NOT$trait.1,"}","Var_{",NOT$error,"_",NOT$trait.2,"}}}$$")),
+  				 {\\sqrt{V_{",NOT$error,"_",NOT$trait.1,"}","V_{",NOT$error,"_",NOT$trait.2,"}}}$$")),
   
   p("Here is a plot of the simulated data showing the within-individual correlation, 
   	where each individual is given a different colour:"),
   
   ##### PLOT 1 ---------------------------------------------------------------------->>>>>>>>>>
+  p(strong("##### PLOT 1 ---------------------------------------------------------------------->>>>>>>>>>")),
   
   p("Note that the relationship between the two traits should be negative if you did 
   	enter a negative correlation above, and that this relationship exists within individuals. 
@@ -101,10 +104,10 @@ span(
   			 The correlations between two traits are calculated using this information 
   			 on variances and covariances as derived metrics.")),
 
-    div(class="line"),
+    div(class = "line"),
 
     # Go to next step
     actionLink("Mod4Step1GotoStep2",
              label = "Next Step (2) >>",
-             class= "linkToModuleSteps")
+             class = "linkToModuleSteps")
 )
