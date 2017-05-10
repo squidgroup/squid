@@ -8,8 +8,13 @@ span(
   # Sub-goal
   p(HTML("<b>Sub-goal:</b> Introducing within-individual correlations and variance-covariance matrices")), 
   
+  conditionalPanel(
+    condition = "0",
+    uiOutput("Mod4Step1_hidden")
+  ),
+  
   # Introduction
-	p(HTML(paste0("<b>Introduction:</b> As we have seen in other modules (",Module_titles$mod1,", 
+  p(HTML(paste0("<b>Introduction:</b> As we have seen in other modules (",Module_titles$mod1,", 
 				 ",Module_titles$mod6,"), repeatedly expressed traits can vary both within and among individuals. 
   			 In this module, we apply the same logic to correlations between traits. 
   			 We do this by introducing the notion that correlations also exist at multiple hierarchical levels. 
@@ -37,11 +42,11 @@ span(
   
   p("Set the amount of within-individual variance in each of the two traits 
   	($V_{",NOT$error,"_",NOT$trait.1,"}$ and $V_{",NOT$error,"_",NOT$trait.2,"}$):"),
-	# Within-individual variances (Ve)
-	fluidRow(
-	  column(6,getSliderInput("Mod4Step1_Ve1", Modules_VAR$Ve1)),
-	  column(6,getSliderInput("Mod4Step1_Ve2", Modules_VAR$Ve2))
-	),
+  # Within-individual variances (Ve)
+  fluidRow(
+    column(6,getSliderInput("Mod4Step1_Ve1", Modules_VAR$Ve1)),
+    column(6,getSliderInput("Mod4Step1_Ve2", Modules_VAR$Ve2))
+  ),
   
   p(paste0("Now set the within-individual correlation. Remember, for this example this 
   	correlation should be negative as we are considering trade-offs between 
@@ -49,13 +54,13 @@ span(
   
   # Within-individual correlation
   getSliderInput("Mod4Step1_Corr_e", Modules_VAR$Corr_e),
-
+  
   p(strong("Results:")),
   p('Above, you have defined the elements of the within-individual "variance-covariance matrix".  
   	This matrix holds the variances of the two traits on the diagonals and their covariance on the off-diagonals:'),
   
   p(paste0(
-  	"$$ \\Omega_{",NOT$error,"}=
+    "$$ \\Omega_{",NOT$error,"}=
 		  	\\begin{pmatrix}
 		  	Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
 		  	Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
@@ -69,8 +74,7 @@ span(
   p("The values that you have entered above result in the following variance covariance matrix:"),
   
   ######## Matrix with the values entered
-  p(strong("######## Matrix with the values entered")),
-  
+  uiOutput("Mod4Step1_Covariance_Matrix"),
   
   p(paste0("Notably, you did not enter the covariance ($Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$) 
   				 between the two traits but rather their correlation. As you will learn later on in this module, 
@@ -80,8 +84,8 @@ span(
   				 across samples differing in variance.")),
   
   p(paste0("The relationship between the within-individual correlation ($r_{",NOT$error,"_",NOT$trait.1,",",
-  				 NOT$error,"_",NOT$trait.2,"}$) and covariance ($Cov_{",NOT$error,"_",NOT$trait.1,",",
-  				 NOT$error,"_",NOT$trait.2,"}$) is:")),
+           NOT$error,"_",NOT$trait.2,"}$) and covariance ($Cov_{",NOT$error,"_",NOT$trait.1,",",
+           NOT$error,"_",NOT$trait.2,"}$) is:")),
   
   p(paste0("$$r_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}=
              \\frac{Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}}
@@ -90,8 +94,15 @@ span(
   p("Here is a plot of the simulated data showing the within-individual correlation, 
   	where each individual is given a different colour:"),
   
-  ##### PLOT 1 ---------------------------------------------------------------------->>>>>>>>>>
-  p(strong("##### PLOT 1 ---------------------------------------------------------------------->>>>>>>>>>")),
+  p(),
+  # Simulation run button
+  actionButton("Mod4Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  p(),
+  
+  ##### Plot correlation between two trait
+  p(),
+  plotOutput("Mod4Step1_correlationplot", width = Modules_VAR$Plot$width),
   
   p("Note that the relationship between the two traits should be negative if you did 
   	enter a negative correlation above, and that this relationship exists within individuals. 

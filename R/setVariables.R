@@ -52,11 +52,11 @@ setVariables <- function(input, module, environments, sep){
   Mu   <- 0    # mean value of the normal distribution
   
   x <- ifelse(inputNames$Tmax %in% names(input),
-  						error_management(input[[inputNames$Tmax]], 
-															 inputNames$Tmax, 
-															 "check_one_integer",
-															 minimum=1),
-  						1)
+              error_management(input[[inputNames$Tmax]], 
+                               inputNames$Tmax, 
+                               "check_one_integer",
+                               minimum=1),
+              1)
   
   if(inputNames$Time_sampling %in% names(input)){
     y <- input[[inputNames$Time_sampling]]
@@ -75,44 +75,44 @@ setVariables <- function(input, module, environments, sep){
     "TsampI"   = 0,                           # Sampling time per individual
     
     "Vhsi"  = ifelse(inputNames$Vhsi %in% names(input),
-    								 error_management(input[[inputNames$Vhsi]], 
-																			inputNames$Vhsi, 
-																			"check_one_numeric",
-																			minimum=0,
-																			maximum=0.95),
-    								 0), # Among-individual variance in timing of sampling (between 0 and 1)
+                     error_management(input[[inputNames$Vhsi]], 
+                                      inputNames$Vhsi, 
+                                      "check_one_numeric",
+                                      minimum=0,
+                                      maximum=0.95),
+                     0), # Among-individual variance in timing of sampling (between 0 and 1)
     
     "NR_ind"   = ifelse(inputNames$NR_ind %in% names(input),
-    										error_management(input[[inputNames$NR_ind]], 
-																				inputNames$NR_ind, 
-																				"check_one_boolean"),
-    										TRUE),            
+                        error_management(input[[inputNames$NR_ind]], 
+                                         inputNames$NR_ind, 
+                                         "check_one_boolean"),
+                        TRUE),            
     # Number of records among individuals
-	# TRUE  : same number in records for all individuals
+    # TRUE  : same number in records for all individuals
     # FALSE : different number of records among individuals
     "NR_trait" = ifelse(inputNames$NR_trait  %in% names(input),
-    										error_management(input[[inputNames$NR_trait]], 
-																				inputNames$NR_trait, 
-																				"check_one_boolean"),
-    										TRUE),
+                        error_management(input[[inputNames$NR_trait]], 
+                                         inputNames$NR_trait, 
+                                         "check_one_boolean"),
+                        TRUE),
     # Number of records among traits within individuals
-	# TRUE  : same number of records among traits within individuals
+    # TRUE  : same number of records among traits within individuals
     # FALSE : different number of records among traits whitin individua    
     "ST_ind"   = ifelse(inputNames$ST_ind   %in% names(input),
-    										error_management(input[[inputNames$ST_ind]], 
-																				 inputNames$ST_ind, 
-																				 "check_one_boolean"),
-    										TRUE),          
+                        error_management(input[[inputNames$ST_ind]], 
+                                         inputNames$ST_ind, 
+                                         "check_one_boolean"),
+                        TRUE),          
     # Sampling time among individuals
-	# TRUE  : same sampling time among individuals
+    # TRUE  : same sampling time among individuals
     # FALSE : different sampling time individuals
     "ST_trait" = ifelse(inputNames$ST_trait %in% names(input),
-    										error_management(input[[inputNames$ST_trait]], 
-																				 inputNames$ST_trait, 
-																				 "check_one_boolean"),
-    										TRUE),     
+                        error_management(input[[inputNames$ST_trait]], 
+                                         inputNames$ST_trait, 
+                                         "check_one_boolean"),
+                        TRUE),     
     # Sampling time among traits within individuals
-	# TRUE  : same sampling time among traits within individuals
+    # TRUE  : same sampling time among traits within individuals
     # FALSE : different sampling time among traits whitin individuals
     "NR_Fixe"  = ifelse(inputNames$NR_Fixe %in% names(input),input[[inputNames$NR_Fixe]],TRUE) # if TRUE the same NR for all the populations
   )
@@ -122,31 +122,31 @@ setVariables <- function(input, module, environments, sep){
   
   N <- list(
     "NP"  = ifelse(inputNames$NP %in% names(input),
-    							 error_management(input[[inputNames$NP]], 
-																		inputNames$NP, 
-																		"check_one_integer",
-																		minimum=1),
-    							 1),      # Number of populations (between 1 and inf)
+                   error_management(input[[inputNames$NP]], 
+                                    inputNames$NP, 
+                                    "check_one_integer",
+                                    minimum=1),
+                   1),      # Number of populations (between 1 and inf)
     "NI"  = ifelse(inputNames$NI %in% names(input),
-    							 error_management(input[[inputNames$NI]], 
-																		inputNames$NI, 
-																		"check_one_integer",
-																		minimum=1),
-    							 1),      # Number of individuals (between 2 and inf)
+                   error_management(input[[inputNames$NI]], 
+                                    inputNames$NI, 
+                                    "check_one_integer",
+                                    minimum=1),
+                   1),      # Number of individuals (between 2 and inf)
     "NT"  = ifelse(inputNames$NT %in% names(input),
-    							 error_management(as.numeric(input[[inputNames$NT]]), 
-																		inputNames$NT, 
-																		"check_one_integer",
-																		minimum=1,
-																		maximum=2),
-    							 1),   # Number of traits (between 1 and inf)
+                   error_management(as.numeric(input[[inputNames$NT]]), 
+                                    inputNames$NT, 
+                                    "check_one_integer",
+                                    minimum=1,
+                                    maximum=2),
+                   1),   # Number of traits (between 1 and inf)
     "NS"  = (Time$Tmax - Time$Tmin + 1)/Time$TS,                                   # Number of step of time 
     "NR"  = ifelse(inputNames$NR %in% names(input),
-    							 error_management(input[[inputNames$NR]], 
-																		inputNames$NR, 
-																		"check_one_integer",
-																		minimum=1),
-    							 1),      # Number of mean records by individual (between 1 and inf) 
+                   error_management(input[[inputNames$NR]], 
+                                    inputNames$NR, 
+                                    "check_one_integer",
+                                    minimum=1),
+                   1),      # Number of mean records by individual (between 1 and inf) 
     "NRI" = NULL,                                                                  # Number of records for each individual
     "NG"  = ifelse(inputNames$NG %in% names(input),
                    error_management(input[[inputNames$NG]], 
@@ -167,31 +167,31 @@ setVariables <- function(input, module, environments, sep){
   
   # Variance 
   V <- list(
-  	"Vp"     = 1          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)
+    "Vp"     = 1          # Totale variance value (Vp = Vind0 + Vind1 + Vt + Ve)
   )
   
   # Ve: residual (Co)variance matrix
   if(inputNames$Ve %in% names(input)){
-  	
-  	V$Ve <- as.matrix(input[[inputNames$Ve]])
-  	V$Ve <- error_management(V$Ve, inputNames$Ve, 
-  													 "check_matrix", 
-  													 nb_col = N$NT, 
-  													 nb_row = N$NT)
+    
+    V$Ve <- as.matrix(input[[inputNames$Ve]])
+    V$Ve <- error_management(V$Ve, inputNames$Ve, 
+                             "check_matrix", 
+                             nb_col = N$NT, 
+                             nb_row = N$NT)
   }else{
-  	V$Ve <- matrix(0, N$NT, N$NT)
+    V$Ve <- matrix(0, N$NT, N$NT)
   }
   
   # Ve: residual (Co)variance matrix
   if(inputNames$VG %in% names(input)){
-  	
-  	V$VG <- as.matrix(input[[inputNames$VG]])
-  	V$VG <- error_management(V$VG, inputNames$VG, 
-  													 "check_matrix", 
-  													 nb_col = N$NT, 
-  													 nb_row = N$NT)
+    
+    V$VG <- as.matrix(input[[inputNames$VG]])
+    V$VG <- error_management(V$VG, inputNames$VG, 
+                             "check_matrix", 
+                             nb_col = N$NT, 
+                             nb_row = N$NT)
   }else{
-  	V$VG <- matrix(0, N$NT, N$NT)
+    V$VG <- matrix(0, N$NT, N$NT)
   }
   
   # Vind0 : Random intercept Variance (among-individual variance)

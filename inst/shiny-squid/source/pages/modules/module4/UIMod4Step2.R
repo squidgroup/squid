@@ -194,8 +194,8 @@ span(
   
   p("We will now return to the equation that describes the components that shape the phenotypic correlation:"),
   ####### eq 1
-  p(paste0("$$",
-           "r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
+  p(paste0("$$
+           r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
            
            r_{",NOT$devI,"_" ,NOT$trait.1,",",NOT$devI,"_" ,NOT$trait.2,"}
            \\sqrt{
@@ -224,6 +224,17 @@ span(
   				 we can simplify the equation into:")),
   
   ###### Equation
+  p(paste0("$$
+           r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} =
+
+           r_{",NOT$error,"_" ,NOT$trait.1,",",NOT$error,"_" ,NOT$trait.2,"}
+           \\sqrt{
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.1,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+           (\\frac{V_{",NOT$error,"_" ,NOT$trait.2,"}}
+           {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})}
+           $$")),
+  
   
   p("Doing so clarifies that the geometric mean repeatability of the two traits defines how well 
   	the phenotypic correlation in the data corresponds to the within-individual correlation occurring 

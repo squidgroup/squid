@@ -20,7 +20,7 @@ span(
 								eggs and large clutches whereas individuals with fewer resources produce small eggs 
 								and small clutches instead. Variation in acquisition combined with allocation trade-offs 
 								therefore will lead to level-specific associations (van Noordwijk & de Jong 1986). 
-								In statistical terms, an individual’s average egg size will correlate positively with 
+								In statistical terms, an individual's average egg size will correlate positively with 
 								its average clutch size over all its expressions. Essentially, what we have now set up 
 								is a situation where the correlations between egg size and number are opposite across hierarchical levels."))),
 	
@@ -56,7 +56,7 @@ span(
 	# Among-individual correlation
 	getSliderInput("Mod4Step3_Corr_I", Modules_VAR$Corr_I),
 	
-	p(b("Results:")),
+	p(strong("Results:")),
 	
 	p('You have defined the elements of the within-individual "variance-covariance matrix":'),
 	p(paste0(
@@ -91,7 +91,25 @@ span(
 	
 	p("We will now again return to the equation describing the components affecting the phenotypic correlation:"),
 	
-	####### eq 1 ---------------------------------------------------->>>>>>>>>>>>>>>>>>>
+	####### eq 1
+	p(paste0("$$",
+	         "r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"} = 
+	         
+	         r_{",NOT$devI,"_" ,NOT$trait.1,",",NOT$devI,"_" ,NOT$trait.2,"}
+	         \\sqrt{
+	         (\\frac{V_{",NOT$devI,"_" ,NOT$trait.1,"}}
+	         {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+	         (\\frac{V_{",NOT$devI,"_" ,NOT$trait.2,"}}
+	         {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})} + 
+	         
+	         r_{",NOT$error,"_" ,NOT$trait.1,",",NOT$error,"_" ,NOT$trait.2,"}
+	         \\sqrt{
+	         (\\frac{V_{",NOT$error,"_" ,NOT$trait.1,"}}
+	         {V_{",NOT$devI,"_" ,NOT$trait.1,"} + V_{",NOT$error,"_" ,NOT$trait.1,"}})
+	         (\\frac{V_{",NOT$error,"_" ,NOT$trait.2,"}}
+	         {V_{",NOT$devI,"_" ,NOT$trait.2,"} + V_{",NOT$error,"_" ,NOT$trait.2,"}})}"
+	         
+	         ,"$$")),
 	
 	p("Your entries resulted in the following values:"),
 	
@@ -126,13 +144,13 @@ span(
 	
 	##### PLOT
 	
-	p("Third, we can calculate how each observation deviates from an individual’s mean value for 
+	p("Third, we can calculate how each observation deviates from an individual's mean value for 
 		each of the two traits, and plot these two values in a scatter plot. This plot of 
 		within-individual deviations from individual-means represents a visual of the within-individual correlation:"),
 	
 	##### PLOT
 	
-	p("<b>Conclusion:</b> Repeatedly expressed traits often vary across multiple hierarchical levels, 
+	p(HTML("<b>Conclusion:</b> Repeatedly expressed traits often vary across multiple hierarchical levels, 
 		such as within and among individuals. This means that the phenotypic correlation summarizes 
 		the correlations existing at different levels but that their respective influences are weighted 
 		by the amount of variance existing at each level. In other words, the correlation between 
@@ -141,15 +159,17 @@ span(
 		(e.g. morphology) will largely represent among-individual correlations. For this reason it is 
 		important to partition the phenotypic correlation into its underlying components when one is 
 		interested in level-specific patterns of correlations, such as correlations within individuals 
-		due to trade-offs."),
+		due to trade-offs.")),
 	
 	
-	p("van Noordwijk & de Jong 1986"),
+	p(strong("References:")),
+	p(HTML("van Noordwijk, A.J. & de Jong, G. (1986) Acquisition and allocation of resources - 
+	       Their influence on variation in life-history tactics. <i>American Naturalist</i>, 128, 137-142.")),
 	
-	div(class="line"),
+	div(class = "line"),
 	
-	actionLink("Mod4Step3GotoStep2", label = "<< Previous Step (2)", class="linkToModuleSteps"), # Go to previous step
-	span(Modules_VAR$StepLink$sep, class="step-Link"),
-	actionLink("Mod4Step3GotoStep4", label = "Next Step (4) >>", class="linkToModuleSteps") # Go to next step
+	actionLink("Mod4Step3GotoStep2", label = "<< Previous Step (2)", class = "linkToModuleSteps"), # Go to previous step
+	span(Modules_VAR$StepLink$sep, class = "step-Link"),
+	actionLink("Mod4Step3GotoStep4", label = "Next Step (4) >>", class = "linkToModuleSteps") # Go to next step
 
 )

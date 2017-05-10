@@ -35,9 +35,9 @@ fixedPage( HTML("<div>"),
 	        h3(HTML(module3_txt$title)),
 	        p(HTML(module3_txt$goal)), 
 	        tabsetPanel(id = "Module3TabsetPanel", type = "pills", selected = "Step 1",
-	          tabPanel("Step 1", source("./source/pages/modules/module3/UIMod3Step1.R",local=TRUE)[["value"]]),
-	          tabPanel("Step 2", source("./source/pages/modules/module3/UIMod3Step2.R",local=TRUE)[["value"]]),
-	          tabPanel("Step 3", source("./source/pages/modules/module3/UIMod3Step3.R",local=TRUE)[["value"]])
+	          tabPanel("Step 1", source("./source/pages/modules/module3/UIMod3Step1.R",local = TRUE)[["value"]]),
+	          tabPanel("Step 2", source("./source/pages/modules/module3/UIMod3Step2.R",local = TRUE)[["value"]]),
+	          tabPanel("Step 3", source("./source/pages/modules/module3/UIMod3Step3.R",local = TRUE)[["value"]])
 	        )
 	      )
      ), # END Module 3
@@ -50,10 +50,10 @@ fixedPage( HTML("<div>"),
 	 		 	p(HTML("<b>Goal:</b> to develop understanding of how phenotypic correlations between two 
 	 		 				 repeatedly expressed traits are affected by the amount of variation, 
 	 		 				 and the magnitude of correlations occurring at each underlying hierarchical level.")), 
-	 		 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 2",
+	 		 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 1",
 	 		 							tabPanel("Step 1", source("./source/pages/modules/module4/UIMod4Step1.R",local = TRUE)[["value"]]),
-	 		 							tabPanel("Step 2", source("./source/pages/modules/module4/UIMod4Step2.R",local = TRUE)[["value"]])#,
-	 		 							# tabPanel("Step 3", source("./source/pages/modules/module4/UIMod4Step3.R",local=TRUE)[["value"]])
+	 		 							tabPanel("Step 2", source("./source/pages/modules/module4/UIMod4Step2.R",local = TRUE)[["value"]]),
+	 		 							tabPanel("Step 3", source("./source/pages/modules/module4/UIMod4Step3.R",local = TRUE)[["value"]])
 	 		 	) # End tabsetPanel
  		 	) # End Wellpanel
      ), # END Module 4
@@ -69,9 +69,9 @@ fixedPage( HTML("<div>"),
 	      h3(HTML(module6_txt$title)),
 	      p(HTML(module6_txt$goal)), 
 	      tabsetPanel(id = "Module6TabsetPanel", type = "pills", selected = "Step 1",
-	        tabPanel("Step 1", source("./source/pages/modules/module6/UIMod6Step1.R",local=TRUE)[["value"]]),
-	        tabPanel("Step 2", source("./source/pages/modules/module6/UIMod6Step2.R",local=TRUE)[["value"]]),
-	        tabPanel("Step 3",source("./source/pages/modules/module6/UIMod6Step3.R",local=TRUE)[["value"]])
+	        tabPanel("Step 1", source("./source/pages/modules/module6/UIMod6Step1.R",local = TRUE)[["value"]]),
+	        tabPanel("Step 2", source("./source/pages/modules/module6/UIMod6Step2.R",local = TRUE)[["value"]]),
+	        tabPanel("Step 3",source("./source/pages/modules/module6/UIMod6Step3.R" ,local = TRUE)[["value"]])
 	      ) # End tabsetPanel
 	    ) # End Wellpanel
      ) # END Module 6
