@@ -50,7 +50,7 @@ fixedPage( HTML("<div>"),
 	 		 	p(HTML("<b>Goal:</b> to develop understanding of how phenotypic correlations between two 
 	 		 				 repeatedly expressed traits are affected by the amount of variation, 
 	 		 				 and the magnitude of correlations occurring at each underlying hierarchical level.")), 
-	 		 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 1",
+	 		 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 2",
 	 		 							tabPanel("Step 1", source("./source/pages/modules/module4/UIMod4Step1.R",local = TRUE)[["value"]]),
 	 		 							tabPanel("Step 2", source("./source/pages/modules/module4/UIMod4Step2.R",local = TRUE)[["value"]]),
 	 		 							tabPanel("Step 3", source("./source/pages/modules/module4/UIMod4Step3.R",local = TRUE)[["value"]])

@@ -53,10 +53,10 @@ shinyServer(function(input, output, session) {
   source("./source/server/modules/module4/SVRMod4Step1.R",local = TRUE)
   
   # # Module 3 Step 2 ---------------------------------------------------------
-  # source("./source/server/modules/module3/SVRMod3Step2.R",local = TRUE)
+  source("./source/server/modules/module4/SVRMod4Step2.R",local = TRUE)
   # 
   # # Module 3 Step 3 ---------------------------------------------------------
-  # source("./source/server/modules/module3/SVRMod3Step3.R",local = TRUE)
+  # source("./source/server/modules/module4/SVRMod4Step3.R",local = TRUE)
   
   
   # Module 6  --------------------------------------------------------- 

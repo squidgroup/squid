@@ -9,6 +9,12 @@ span(
   p(HTML("<b>Sub-goal:</b> Understanding the role of repeatability in shaping phenotypic 
          correlations in repeatedly expressed traits")),
 
+  conditionalPanel(
+    condition = "1",
+    uiOutput("Mod4Step2_hidden")
+  ),
+
+  
   # Introduction
 	p(HTML(paste0("<b>Introduction:</b> In step one, we focussed on within-individual correlations caused by trade-offs 
 								between two costly traits that were repeatedly expressed within the same individual. 
@@ -120,6 +126,9 @@ span(
   				 where you have set the within-individual variances for traits y and z as well as their 
   				 covariance but where you assumed that the among-individual variances 
   				 ($V_{",NOT$devI,"_",NOT$trait.1,"}$, $V_{",NOT$devI,"_",NOT$trait.2,"}$) were equal to zero:")),
+
+  ######## Equation of phenotopic correlation
+  uiOutput("Mod4Step2_Phenotopic_correlation"),
   
   p("What you should note is that the geometric mean repeatability (defined above) is equal to zero, 
   	while one minus this metric is equal to one, in cases such as these where at least 
@@ -168,7 +177,8 @@ span(
   
   p("Your entries resulted in the following values for this matrix"),
   
-  ######## input matrix 
+  ######## Matrix with the values entered
+  uiOutput("Mod4Step2_Within_Covariance_Matrix"),
   
   p("You have now also defined the values for the among-individual matrix:"),
   p(paste0(
@@ -181,7 +191,8 @@ span(
   
   p("Your entries resulted in the following values for this matrix"),
   
-  ######## input matrix 
+  ######## Matrix with the values entered
+  uiOutput("Mod4Step2_Among_Covariance_Matrix"),
   
   p(paste0("As you have set both the among- and within-individual variances, you have defined the repeatabilities of both traits. 
   	As detailed in module on ",Module_titles$mod1,", repeatability ranges between 0 and 1 and is calculated as:")),
@@ -190,7 +201,8 @@ span(
   
   p("The repeatabilities of your two traits are:"),
   
-	###### Repeatabilities OUTPUT  
+  ######## Matrix with the values entered
+  uiOutput("Mod4Step2_Repeatabilities"),
   
   p("We will now return to the equation that describes the components that shape the phenotypic correlation:"),
   ####### eq 1
