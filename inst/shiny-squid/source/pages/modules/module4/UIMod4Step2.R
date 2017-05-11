@@ -10,7 +10,7 @@ span(
          correlations in repeatedly expressed traits")),
 
   conditionalPanel(
-    condition = "1",
+    condition = "0",
     uiOutput("Mod4Step2_hidden")
   ),
 
@@ -227,7 +227,7 @@ span(
   
   p("Your entries resulted in the following values:"),
   
-  ###### output matrix
+  uiOutput("Mod4Step2_Phenotopic_correlation2"),
   
   p(paste0("Note that the phenotypic correlation ($r_{",NOT$total,"_",NOT$trait.1,",",NOT$total,"_",NOT$trait.2,"}$)
   				 no longer matches the within-individual correlation ($r_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$). 
@@ -257,12 +257,20 @@ span(
   p("The first scatter plot shows the correlation between the two traits that your entries 
   	(of within- and among-individual variances and covariances) above produced:"),
   
-  ###### PLOT
+  p(),
+  # Simulation run button
+  actionButton("Mod4Step2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  p(),
+  
+  p(),
+  plotOutput("Mod4Step2_correlationplot", width = Modules_VAR$Plot$width),
   
   p("The second scatter plot also uses your entries but assumes that you entered zero among-individual variances. 
   	This second plot therefore depicts the correlation in your data at the within-individual level alone:"),
   
-  ###### PLOT
+  p(),
+  plotOutput("Mod4Step2_correlationplot2", width = Modules_VAR$Plot$width),
   
   p("The first graph should show a weaker overall phenotypic association as explained above."),
   

@@ -23,47 +23,72 @@ c(
     
     ######### Run simulation #########
     # Run simulation and return results
-    # Mod4Step2_output <- reactive({
-    #   if (input$Mod4Step2_Run == 0) # if Run button is pressed
-    #     return(NULL)
-    #   
-    #   isolate({
-    #     
-    #     updateCheckboxInput(session, "isRunning", value = TRUE)
-    #     
-    #     # Call app main function
-    #     data <- squid::squidR(input, module = "Mod4Step1")
-    #     
-    #     updateCheckboxInput(session, "isRunning", value = FALSE)
-    #     
-    #     return(data)
-    #   })
-    # }),
-    
-    # output$Mod4Step2_correlationplot <- renderPlot({
-    #   
-    #   data  <- Mod4Step2_output()
-    #   
-    #   if (!is.null(data)) {
-    #     
-    #     dt <- as.data.table(data$sampled_data)
-    #     dt <- dt[ , .(Time, Individual, Trait, Phenotype)]
-    #     dt[ , Trait := paste0("Trait_", Trait)]
-    #     dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
-    #     
-    #     ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
-    #       ggplot2::geom_point() +
-    #       ggplot2::xlab("Phenotype of trait y") +
-    #       ggplot2::ylab("Phenotype of trait z") + 
-    #       ggplot2::theme(legend.position = "none")
-    # 	    
-    # 	  }else{
-    # 	    print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
-    # 	  }
-    # 	  
-    # 	}),
+    Mod4Step2_output <- reactive({
+      if (input$Mod4Step2_Run == 0) # if Run button is pressed
+        return(NULL)
 
-    # Display results (Matrix)
+      isolate({
+
+        updateCheckboxInput(session, "isRunning", value = TRUE)
+
+        # Call app main function
+        data <- squid::squidR(input, module = "Mod4Step2")
+
+        updateCheckboxInput(session, "isRunning", value = FALSE)
+
+        return(data)
+      })
+    }),
+    
+    output$Mod4Step2_correlationplot <- renderPlot({
+
+      data  <- Mod4Step2_output()
+
+      if (!is.null(data)) {
+
+        dt <- as.data.table(data$sampled_data)
+        dt <- dt[ , .(Time, Individual, Trait, Phenotype)]
+        dt[ , Trait := paste0("Trait_", Trait)]
+        dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
+
+        ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
+          ggplot2::geom_point() +
+          ggplot2::xlab("Phenotype of trait y") +
+          ggplot2::ylab("Phenotype of trait z") +
+          ggplot2::theme(legend.position = "none")
+
+    	  }else{
+    	    print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    	  }
+
+    	}),
+    
+    output$Mod4Step2_correlationplot2 <- renderPlot({
+    	
+    	data  <- Mod4Step2_output()
+    	
+    	if (!is.null(data)) {
+    		
+    		dt <- as.data.table(data$sampled_data)
+    		dt <- dt[ , .(Time, Individual, Trait, Phenotype)]
+    		dt[ , Trait := paste0("Trait_", Trait)]
+    		dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
+    		dt[ , ':='(Trait_1 = Trait_1 - mean(Trait_1), 
+    							 Trait_2 = Trait_2 - mean(Trait_2)), by = Individual]
+    		
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
+    			ggplot2::geom_point() +
+    			ggplot2::xlab("Phenotype of trait y") +
+    			ggplot2::ylab("Phenotype of trait z") +
+    			ggplot2::theme(legend.position = "none")
+    		
+    	}else{
+    		print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    	}
+    	
+    }),
+
+    # Display results
     output$Mod4Step2_Phenotopic_correlation <- renderUI({
 
       equation <- paste0("$$
@@ -87,6 +112,33 @@ c(
       
    	  return(withMathJax(equation))
    	}),
+    
+    output$Mod4Step2_Phenotopic_correlation2 <- renderUI({
+    	
+    	rpp <- round(input$Mod4Step2_Corr_e * sqrt((input$Mod4Step2_Ve1 / (input$Mod4Step2_Vi1 + input$Mod4Step2_Ve1)) * 
+    																			 (input$Mod4Step2_Ve2 / (input$Mod4Step2_Vi2 + input$Mod4Step2_Ve2))), 3)
+    	
+    	equation <- paste0("$$
+    										 ",rpp," = 
+    										 
+    										 0
+    										 \\sqrt{
+    										 (\\frac{",input$Mod4Step2_Vi1,"}
+    										 {",input$Mod4Step2_Vi1," + ",input$Mod4Step2_Ve1,"})
+    										 (\\frac{",input$Mod4Step2_Vi2,"}
+    										 {",input$Mod4Step2_Vi2," + ",input$Mod4Step2_Ve2,"})} + 
+    										 
+    										 ",input$Mod4Step2_Corr_e,"
+    										 \\sqrt{
+    										 (\\frac{",input$Mod4Step2_Ve1,"}
+    										 {",input$Mod4Step2_Vi1," + ",input$Mod4Step2_Ve1,"})
+    										 (\\frac{",input$Mod4Step2_Ve2,"}
+    										 {",input$Mod4Step2_Vi2," + ",input$Mod4Step2_Ve2,"})}"
+    										 
+    										 ,"$$")
+    	
+    	return(withMathJax(equation))
+    }),
     
     output$Mod4Step2_Within_Covariance_Matrix <- renderUI({
       
