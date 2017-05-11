@@ -27,9 +27,14 @@ c(
         # Call app main function
         data <- squid::squidR(input, module = "Mod4Step1")
         
+        dt <- as.data.table(data$sampled_data)
+        dt <- dt[ , .(Time, Individual, Trait, Phenotype)]
+        dt[ , Trait := paste0("Trait_", Trait)]
+        dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
+        
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
-        return(data)
+        return(dt)
       })
     }),
     
@@ -39,11 +44,8 @@ c(
       
       if (!is.null(data)) {
         
-        dt <- as.data.table(data$sampled_data)
-        dt <- dt[ , .(Time, Individual, Trait, Phenotype)]
-        dt[ , Trait := paste0("Trait_", Trait)]
-        dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
-        
+      	dt <- copy(data)
+      	
         ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
           ggplot2::geom_point() +
           ggplot2::xlab("Phenotype of trait y") +

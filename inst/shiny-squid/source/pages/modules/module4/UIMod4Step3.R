@@ -8,6 +8,12 @@ span(
 	p(HTML("<b>Sub-goal:</b> Understanding the role of level-specific correlations in shaping 
 				 phenotypic correlations in repeatedly expressed traits")), 
 	
+	
+	conditionalPanel(
+		condition = "0",
+		uiOutput("Mod4Step3_hidden")
+	),
+	
 	# Introduction
 	p(HTML(paste0("<b>Introduction:</b> As a final step in our analysis of the within-individual 
 								trade-off between egg and clutch size, we will introduce another level of complexity. 
@@ -69,7 +75,8 @@ span(
 	
 	p("Your entries resulted in the following values for this matrix:"),
 	
-	######## input matrix 
+	######## Matrix with the values entered
+	uiOutput("Mod4Step3_Within_Covariance_Matrix"),
 	
 	p("You have now also defined the elements of the among-individual matrix:"),
 	p(paste0(
@@ -82,12 +89,14 @@ span(
 	
 	p("Your entries resulted in the following values for this matrix:"),
 	
-	######## input matrix 
+	######## Matrix with the values entered
+	uiOutput("Mod4Step3_Among_Covariance_Matrix"),
 	
 	p("As you have set both the among- and within-individual variances, 
 		you have set the repeatabilities of both traits. Those are:"),
 	
 	###### Repeatabilities OUTPUT  
+	uiOutput("Mod4Step3_Repeatabilities"),
 	
 	p("We will now again return to the equation describing the components affecting the phenotypic correlation:"),
 	
@@ -113,7 +122,7 @@ span(
 	
 	p("Your entries resulted in the following values:"),
 	
-	######## input matrix 
+	uiOutput("Mod4Step3_Phenotopic_correlation"),
 	
 	p("Note that if you have entered different values for the within-individual correlation 
 		($r_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$) versus the among-individual correlation 
@@ -133,22 +142,32 @@ span(
 	
 	p("But how can we visualize the patterns of correlation within vs. among individuals? 
 		We can do this by producing three types of scatter plots."),
+
 	p("First, we can simply plot the raw data in a scatter plot; 
 		this plot represents the overall phenotypic association between the two traits:"),
+
+	p(),
+	# Simulation run button
+	actionButton("Mod4Step3_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+	runningIndicator(),
+	p(),
 	
-	#### PLOT
+	p(),
+	plotOutput("Mod4Step3_correlationplot", width = Modules_VAR$Plot$width),
 	
-	p("Second, we can calculate each individual’s mean value for each of the two traits, 
+	p("Second, we can calculate each individual's mean value for each of the two traits, 
 		and plot these two values in a scatter plot. This plot of individual-mean values represents 
 		a visual of the among-individual correlation:"),
 	
-	##### PLOT
+	p(),
+	plotOutput("Mod4Step3_correlationplot2", width = Modules_VAR$Plot$width),
 	
 	p("Third, we can calculate how each observation deviates from an individual's mean value for 
 		each of the two traits, and plot these two values in a scatter plot. This plot of 
 		within-individual deviations from individual-means represents a visual of the within-individual correlation:"),
 	
-	##### PLOT
+	p(),
+	plotOutput("Mod4Step3_correlationplot3", width = Modules_VAR$Plot$width),
 	
 	p(HTML("<b>Conclusion:</b> Repeatedly expressed traits often vary across multiple hierarchical levels, 
 		such as within and among individuals. This means that the phenotypic correlation summarizes 
