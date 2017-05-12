@@ -167,13 +167,7 @@ span(
   p(strong("Results:")),
   
   p('As we have seen in step 1, you have defined the elements of the within-individual "variance-covariance matrix":'),
-  p(paste0(
-  	"$$ \\Omega_{",NOT$error,"}=
-  	\\begin{pmatrix}
-  	Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-  	Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
-  	\\end{pmatrix} 
-  	$$")),
+
   
   p("Your entries resulted in the following values for this matrix"),
   
