@@ -254,6 +254,28 @@ Modules_VAR <- list(
                    "errorTxt"    = "Mean effect of measured environment (beta ES) must be a number."
   ),
   
+  "B11"   = list(  "label"        = paste0("Population-level slope trait $",NOT$trait.1,"$ ($",EQ$mean1.1,"$):"),
+  								"infoTxt"     = "Population mean response to the environment.",
+  								"value"       = 0,
+  								"min"         = -1,
+  								"max"         = 1,
+  								"step"        = 0.01,
+  								"errorTxt"    = ""
+  ),
+  "B12"   = list(  "label"        = paste0("Population-level slope $",NOT$trait.2,"$ ($",EQ$mean1.2,"$):"),
+  								 "infoTxt"     = "Population mean response to the environment.",
+  								 "value"       = 0,
+  								 "min"         = -1,
+  								 "max"         = 1,
+  								 "step"        = 0.01,
+  								 "errorTxt"    = ""
+  ),
+  
+  
+  
+  
+  
+  
   # Among-individual variance in timing of sampling
   "Vhsi"   = list(  "label"       = "Among-individual variance in timing of sampling:",
                    "infoTxt"     = "Among-individual variance in timing of sampling.",

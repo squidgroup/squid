@@ -52,12 +52,14 @@ shinyServer(function(input, output, session) {
   # Module 4 Step 1 ---------------------------------------------------------
   source("./source/server/modules/module4/SVRMod4Step1.R",local = TRUE)
   
-  # # Module 3 Step 2 ---------------------------------------------------------
+  # # Module 4 Step 2 ---------------------------------------------------------
   source("./source/server/modules/module4/SVRMod4Step2.R",local = TRUE)
-  # 
-  # # Module 3 Step 3 ---------------------------------------------------------
+  
+  # # Module 4 Step 3 ---------------------------------------------------------
   source("./source/server/modules/module4/SVRMod4Step3.R",local = TRUE)
   
+  # # Module 4 Step 5 ---------------------------------------------------------
+  source("./source/server/modules/module4/SVRMod4Step5.R",local = TRUE)
   
   # Module 6  --------------------------------------------------------- 
   
@@ -69,6 +71,7 @@ shinyServer(function(input, output, session) {
   
   # Module 6 Step 3 ---------------------------------------------------------
   source("./source/server/modules/module6/SVRMod6Step3.R",local = TRUE)
+  
   
   
   # Full model  (Step by Step)   ----------------

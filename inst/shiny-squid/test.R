@@ -3,14 +3,14 @@ require(grid)
 
 input <- list()
 
-input$Tmax <- 10 # default = 1
-input$Time_sampling <- c(1,10)
+input$Tmax <- 100 # default = 1
+input$Time_sampling <- c(1,100)
 
 input$NP <- 1 # default = 1
-input$NI <- 2# default = 1
+input$NI <- 100# default = 1
 input$NT <- 2 # default = 1
 input$NG <- 1 # default = 1
-input$NR <- 2 # default = 1
+input$NR <- 10 # default = 1
 
 # input$B    <- rep(0, 8)
 # input$Vind <- matrix(c(0.7 , 0  , 0 , 0,
@@ -27,12 +27,27 @@ input$Ve <- matrix(c(0.05,0,
 # input$VG <- matrix(c(0.05,0,
 # 										 0.2, 0.05), 2, byrow = TRUE) # Default 0
 
+input$X1_state      <- TRUE # default = FALSE
+# Stochastic
+input$X1_sto_state  <- TRUE  # default = FALSE
+
 
 mydata <- squid::squidR(input = input, plot = TRUE)
 
 
-library(data.table)
-mydata <- as.data.table(mydata$full_data) 
+dt <- as.data.table(mydata$sampled_data)
+dt <- dt[ , .(Time, Individual, Trait, Phenotype, X1)]
+dt[ , Trait := paste0("Trait_", Trait)]
+dt <- dcast(dt, Time + Individual + X1 ~ Trait, value.var = "Phenotype")
+
+
+
+
+
+
+
+
+
 
 
 
