@@ -6,7 +6,7 @@ span(
 	
 	# Sub-goal
 	p(HTML("<b>Sub-goal:</b> Understanding the role of level-specific correlations in shaping 
-				 phenotypic correlations in repeatedly expressed traits")), 
+				 phenotypic correlations in repeatedly expressed traits.")), 
 	
 	
 	conditionalPanel(
