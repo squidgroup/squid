@@ -306,7 +306,7 @@ Module_titles <- list(
   "mod2"  = "",
   "mod3"  = "Non-stochastic environments",
   "mod4"  = "Multiple traits",
-  "mod5"  = "",
+  "mod5"  = "Multi-dimentional phenotypic plasticity",
   "mod6"  = "Random regressions",
   "mod7"  = "",
   "mod8"  = "",

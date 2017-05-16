@@ -74,7 +74,7 @@ span(
   
   div(class="line"),
   
-  actionLink("Mod3Step2GotoStep1", label = "<< Previous Step (1)", class= "linkToModuleSteps"), # Go to previous step       
+  actionLink("Mod3Step2GotoStep1", label = "<< Previous Step (1)", class= "linkToModuleSteps"), # Go to previous step
   span(Modules_VAR$StepLink$sep, class="step-Link"),
   actionLink("Mod3Step2GotoStep3", label = "Next Step (3) >>", class= "linkToModuleSteps") # Go to next step
 )
