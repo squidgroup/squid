@@ -8,7 +8,7 @@ span(
   p(HTML("<b>Sub-goal:</b> To understand average (population-level) effects of multiple environmental factors on the phenotype.")),
 
   conditionalPanel(
-    condition = "1",
+    condition = "0",
     uiOutput("Mod5Step1_hidden")
   ),
 
@@ -108,13 +108,10 @@ span(
 	p("This is a multiple regression within a mixed model. A 3-dimensional graph helps visualize 
 		the way in which the two x variables affect a phenotype in the 2 dimensions defined by the environment."),
 	
-	p("This is a multiple regression within a mixed model. A 3-dimensional graph helps visualize the way in which the 
-		two x variables affect a phenotype in the 2 dimensions defined by the environment."),
-	
 	# Output: Figure 1
-	strong("---------> Output: Figure 1"),p(),
-	
-	p(paste0("Individuals in this simulation vary in their intercept by the amount you entered (....). 
+  uiOutput("Mod5Step1_3D_1"),
+  
+	p(paste0("Individuals in this simulation vary in their intercept by the amount you entered. 
 		Below we pick three individuals across the range of the intercept variance to illustrate 
 		how each individual's plane sits in the space defined by the two environmental variables. 
 		You can see that the three planes are parallel or very close to parallel, and differ only 
@@ -122,11 +119,11 @@ span(
 		you will see that the resolution of these planes requires fairly large sample sizes 
 		(this is covered in more detail later).")),
 	
-	p(paste0("New 3-D graph with three individuals picked from the low end of $",NOT$devI,"$, 
+	p(paste0("A new 3-D graph with three individuals picked from the low end of $",NOT$devI,"$, 
 					 the middle, and from the high end of $",NOT$devI,"$.")),
   
   # Output: Figure 2
-  strong("---------> Output: Figure 2"),p(),
+  uiOutput("Mod5Step1_3D_2"),
 	
 	p(paste0("Run through this simulation several times using different values for $",EQ1$mean1,"$ and $",EQ1$mean2,"$, 
 					 including having some slopes negative. In particular, try making the two have opposite signs.

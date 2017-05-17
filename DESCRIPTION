@@ -35,6 +35,7 @@ Imports:
     MASS (>= 7.3-45),
     lme4 (>= 1.1-10),
     arm (>= 1.8-6),
-    data.table (>= 1.9.6)
+    data.table (>= 1.9.6),
+    threejs (>= 0.2.2)
 RoxygenNote: 5.0.1
 Suggests: testthat

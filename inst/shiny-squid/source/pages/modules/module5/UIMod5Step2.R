@@ -8,7 +8,7 @@ span(
   p(HTML("<b>Sub-goal:</b> To account for dependencies in the effect of one factor by another factor.")),
 
   conditionalPanel(
-    condition = "1",
+    condition = "0",
     uiOutput("Mod5Step2_hidden")
   ),
 
@@ -69,16 +69,15 @@ span(
   getSliderInput("Mod5Step2_B12", Modules_VAR$B1122),
   
  
-	#   p(),
-	#   # Simulation run button
-	#   actionButton("Mod5Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
-	#   runningIndicator(),
-	#   p(),
-  
+  p(),
+  # Simulation run button
+  actionButton("Mod5Step2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  p(),
 
 	p(strong("Results")),
 
-  p("Let’s analyze this simulated population by omitting the interaction term first. 
+  p("Let's analyze this simulated population by omitting the interaction term first. 
   	In the first case we assume the following statistical model:"),
   
 	# Equation 1
@@ -86,7 +85,7 @@ span(
 							NOT$trait.1,"_{",NOT$time,NOT$ind,"} =
 
 							",EQ1$mean0," +
-							",EQ1$dev1,"  +
+							",EQ1$dev0,"  +
 							",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
 							",EQ1$mean2,NOT$env,"_{2",NOT$time,NOT$ind,"} +
 
@@ -99,7 +98,7 @@ span(
   				 NOT$trait.1,"_{",NOT$time,NOT$ind,"} =
   				 
   				 ",EQ1$mean0," +
-  				 ",EQ1$dev1,"  +
+  				 ",EQ1$dev0,"  +
   				 ",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
   				 ",EQ1$mean2,NOT$env,"_{2",NOT$time,NOT$ind,"} +
      			 ",EQ1$mean12,NOT$env,"_{1",NOT$time,NOT$ind,"}",NOT$env,"_{2",NOT$time,NOT$ind,"} +
@@ -110,8 +109,8 @@ span(
   
 	p("Statistical output:"),
 
-	# Output: Table 1
-	strong("---------> Output: Table 1"), p(),
+  # Output: Table 1
+  uiOutput("Mod5Step2_summary_table"),
   
   p("You should find from the above that the variance caused by the interaction term, when that term is omitted, 
   	ends up mostly in the residuals, although some may end up elsewhere due to sampling issues."),
@@ -119,10 +118,8 @@ span(
   p("You can visualize the impact of the interaction term in the graph below. Here we have graphed 
   	the population average plane derived from the parameter estimates in the simulated data in the space defined by both environments."),
   
-  p("Graphical visualization of population mean plane based on parameter estimates."),
-  
   # Output: Figure 1
-  strong("---------> Output: Figure 1"), p(),
+  uiOutput("Mod5Step2_3D"),
   
   p(paste0("Examine this graph carefully. The plane produced should look different than the ones you 
   				 produced in step 1. Those planes were flat but tilted in various ways. If $",EQ1$mean12,"$ is not 0, 
