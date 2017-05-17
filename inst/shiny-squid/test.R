@@ -9,46 +9,28 @@ input$Time_sampling <- c(1,100)
 
 input$NP <- 1 # default = 1
 input$NI <- 50# default = 1
-input$NT <- 2 # default = 1
+input$NT <- 1 # default = 1
 input$NG <- 1 # default = 1
-input$NR <- 30 # default = 1
+input$NR <- 50 # default = 1
 
-input$B    <- rep(0, 8)
-input$Vind <- matrix(rep(0, 8*8),8)
+# input$B    <- rep(0, 8)
+input$B    <- c(0 , 0.5, 0, 0)
+input$Vind <- matrix(rep(0, 4*4),4)
 diag(input$Vind)[1] <- 0.7
-diag(input$Vind)[5] <- 0.7
-input$Vind[5, 1] <- 1
+# diag(input$Vind)[5] <- 0.7
+# input$Vind[5, 1] <- 1
 
-input$Ve <- matrix(c(0.05,0,
-										 1, 0.05), 2, byrow = TRUE) # Default 0
+input$Ve <- 0.05
 
-# input$X1_state      <- TRUE # default = FALSE
-# # Stochastic
-# input$X1_sto_state  <- TRUE  # default = FALSE
+# input$Ve <- matrix(c(0.05,0,
+# 										 1, 0.05), 2, byrow = TRUE) # Default 0
+
+input$X1_state      <- TRUE # default = FALSE
+# Stochastic
+input$X1_sto_state  <- TRUE  # default = FALSE
 
 
 mydata <- squid::squidR(input = input, plot = TRUE)
-
-
-library(nlme)
-data <- as.data.table(mydata$sampled_data)
-data$Trait <- as.factor(data$Trait)
-mm.1 <- lme(Phenotype ~ Trait-1,
-						random  = ~ Trait-1 | Individual, 
-					  weights = varIdent(form = ~ 1 | Trait),
-					  corr    = corSymm(form = ~ 1 | Individual/Time),data = data) 
-
-
-
-
-dt <- as.data.table(mydata$sampled_data)
-dt <- dt[ , .(Time, Individual, Trait, Phenotype, X1)]
-dt[ , Trait := paste0("Trait_", Trait)]
-dt <- dcast(dt, Time + Individual + X1 ~ Trait, value.var = "Phenotype")
-
-
-
-
 
 
 

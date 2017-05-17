@@ -61,6 +61,16 @@ shinyServer(function(input, output, session) {
   # # Module 4 Step 5 ---------------------------------------------------------
   source("./source/server/modules/module4/SVRMod4Step5.R",local = TRUE)
   
+  
+  # Module 5  --------------------------------------------------------- 
+  
+  # Module 45Step 1 ---------------------------------------------------------
+  source("./source/server/modules/module5/SVRMod5Step1.R",local = TRUE)
+  
+  # # Module 5 Step 2 ---------------------------------------------------------
+  source("./source/server/modules/module5/SVRMod5Step2.R",local = TRUE)
+  
+  
   # Module 6  --------------------------------------------------------- 
   
   # Module 6 Step 1 ---------------------------------------------------------

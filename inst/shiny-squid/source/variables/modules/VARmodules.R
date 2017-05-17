@@ -245,16 +245,34 @@ Modules_VAR <- list(
   
   
   # Mean Environemental effect
-  "B1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
-                   "infoTxt"     = "Mean effect of specific (unshared among individuals)and known (measured) environmental effect",
-                   "value"       = 1,
-                   "min"         = 0,
+  "B1.1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
+                   "infoTxt"     = "Population mean response to the environment.",
+                   "value"       = 0,
+                   "min"         = -1,
                    "max"         = 1,
                    "step"        = 0.01,
-                   "errorTxt"    = "Mean effect of measured environment (beta ES) must be a number."
+                   "errorTxt"    = ""
   ),
   
-  "B11"   = list(  "label"        = paste0("Population-level slope trait $",NOT$trait.1,"$ ($",EQ$mean1.1,"$):"),
+  "B2.1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean2,"$):"),
+  								"infoTxt"     = "Population mean response to the environment.",
+  								"value"       = 0,
+  								"min"         = -1,
+  								"max"         = 1,
+  								"step"        = 0.01,
+  								"errorTxt"    = ""
+  ),
+ 
+  "B1122" = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean12,"$):"),
+  								"infoTxt"     = "Population mean response to the environment.",
+  								"value"       = 0,
+  								"min"         = -1,
+  								"max"         = 1,
+  								"step"        = 0.01,
+  								"errorTxt"    = ""
+  ),
+  
+  "B11"   = list( "label"        = paste0("Population-level slope trait $",NOT$trait.1,"$ ($",EQ$mean1.1,"$):"),
   								"infoTxt"     = "Population mean response to the environment.",
   								"value"       = 0,
   								"min"         = -1,
@@ -270,11 +288,6 @@ Modules_VAR <- list(
   								 "step"        = 0.01,
   								 "errorTxt"    = ""
   ),
-  
-  
-  
-  
-  
   
   # Among-individual variance in timing of sampling
   "Vhsi"   = list(  "label"       = "Among-individual variance in timing of sampling:",

@@ -7,10 +7,10 @@ span(
   # Sub-goal
   p(HTML("<b>Sub-goal:</b> To account for dependencies in the effect of one factor by another factor.")),
 
-  # conditionalPanel(
-  #   condition = "0",
-  #   uiOutput("Mod5Step2_hidden")
-  # ),
+  conditionalPanel(
+    condition = "1",
+    uiOutput("Mod5Step2_hidden")
+  ),
 
   # Introduction
   p(HTML("<b>Introduction:</b> In step 1 above, we developed the idea that 2 or more environments 
@@ -41,33 +41,32 @@ span(
   # Exercise
   p(HTML("<b>Exercise:</b> As in step 1, we need to simulate a population and the data we collect from that population.")),
 
-
-	# Input: Number of individuals
-	strong("---------> Input: Number of individuals"),
-
-	# Input: Among-individual variance (Vi)
-	strong("---------> Input: Among-individual variance (Vi)"),
-
-	# Input: NMeasurement error variance
-	strong("---------> Input: Measurement error variance"),
-
-	# Input: Number of trait expression measured
-	strong("---------> Input: Number of trait expression measured"),
+  # Input: Number of individuals
+  getSliderInput("Mod5Step2_NI", Modules_VAR$NI),
+  
+  # Input: Among-individual variance (Vi)
+  getSliderInput("Mod5Step2_Vi", Modules_VAR$Vi),
+  
+  # Input: NMeasurement error variance
+  getSliderInput("Mod5Step2_Ve", Modules_VAR$Vm),
+  
+  # Input: Number of trait expression measured
+  getSliderInput("Mod5Step2_NR", Modules_VAR$NR),
 
 	p("Note: For now, we will assume all individuals are sampled equally often and at the same time."),
 
-	strong("The environment"),
+	p(strong("The environment")),
 
 	p("Enter the slope for each environmental factor and the interaction term. These can be either positive or negative."),
 
-	# Input: Environment 1
-	strong("---------> Input: Environment 1"),
-
-	# Input: Environment 2
-	strong("---------> Input: Environment 2"),
+  # Input: Environment 1
+  getSliderInput("Mod5Step2_B1", Modules_VAR$B1.1),
+  
+  # Input: Environment 2
+  getSliderInput("Mod5Step2_B2", Modules_VAR$B2.1),
   
   # Input: Interaction
-  strong("---------> Input: Interaction"),
+  getSliderInput("Mod5Step2_B12", Modules_VAR$B1122),
   
  
 	#   p(),
@@ -77,7 +76,7 @@ span(
 	#   p(),
   
 
-	strong("Results"),
+	p(strong("Results")),
 
   p("Let’s analyze this simulated population by omitting the interaction term first. 
   	In the first case we assume the following statistical model:"),
@@ -91,7 +90,7 @@ span(
 							",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
 							",EQ1$mean2,NOT$env,"_{2",NOT$time,NOT$ind,"} +
 
-						  ",NOT$error,"_{",NOT$time,NOT$ind,"$$")),
+						  ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
   p("The full statistical model including the interaction is:"),
   
@@ -105,14 +104,14 @@ span(
   				 ",EQ1$mean2,NOT$env,"_{2",NOT$time,NOT$ind,"} +
      			 ",EQ1$mean12,NOT$env,"_{1",NOT$time,NOT$ind,"}",NOT$env,"_{2",NOT$time,NOT$ind,"} +
   				 
-  				 ",NOT$error,"_{",NOT$time,NOT$ind,"$$")),
+  				 ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
   p("Here the results compared:"),
   
 	p("Statistical output:"),
 
 	# Output: Table 1
-	strong("---------> Output: Table 1"),
+	strong("---------> Output: Table 1"), p(),
   
   p("You should find from the above that the variance caused by the interaction term, when that term is omitted, 
   	ends up mostly in the residuals, although some may end up elsewhere due to sampling issues."),
@@ -123,17 +122,17 @@ span(
   p("Graphical visualization of population mean plane based on parameter estimates."),
   
   # Output: Figure 1
-  strong("---------> Output: Figure 1"),
+  strong("---------> Output: Figure 1"), p(),
   
   p(paste0("Examine this graph carefully. The plane produced should look different than the ones you 
-  				 produced in step 1. Those planes were flat but tilted in various ways. If ",EQ1$mean12," is not 0, 
+  				 produced in step 1. Those planes were flat but tilted in various ways. If $",EQ1$mean12,"$ is not 0, 
   				 the plane in this graph should look warped or bent. This is the influence of the interaction term.")),
   
   p(paste0("Now redo the above and manipulate both the magnitude of the interaction between $",NOT$env,"_1$ and $",NOT$env,"_2$ 
-  				 (",EQ1$mean12,") and its direction relative to the other slopes to assess how this affects your 
+  				 ($",EQ1$mean12,"$) and its direction relative to the other slopes to assess how this affects your 
   				 results if you leave it out of your statistical analysis.")),
   
-  p(paste("You can also see in the graph how the parameter ",EQ1$mean12," changes the warping of the plane.")),
+  p(paste("You can also see in the graph how the parameter $",EQ1$mean12,"$ changes the warping of the plane.")),
 
   p(HTML("<b>Conclusion:</b> Multidimensionality of environmental effects on phenotypic attributes is very likely. 
   			 It may seem redundant to keep demonstrating that leaving out an important term causes that variance to 
@@ -144,7 +143,5 @@ span(
 
   div(class = "line"),
 
-  actionLink("Mod5Step2GotoStep1", label = "<< Previous Step (1)", class = "linkToModuleSteps"), # Go to previous step
-  span(Modules_VAR$StepLink$sep, class="step-Link"),
-  actionLink("Mod5Step2GotoStep3", label = "Next Step (3) >>", class = "linkToModuleSteps") # Go to next step
+  actionLink("Mod5Step2GotoStep1", label = "<< Previous Step (1)", class = "linkToModuleSteps") # Go to previous step
 )
