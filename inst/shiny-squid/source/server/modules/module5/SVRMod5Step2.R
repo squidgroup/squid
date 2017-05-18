@@ -131,7 +131,7 @@ c(
     output$Mod5Step2_summary_table <- renderUI({Mod5Step2_table()}),
     
     # Display 3D figure
-    output$Mod5Step2_3D_scatterplot  <- renderScatterplotThree({
+    output$Mod5Step2_3D_scatterplot  <- threejs::renderScatterplotThree({
       
       data <- Mod5Step2_output2()$sampled_data
       
@@ -144,7 +144,7 @@ c(
         setkey(data, Individual); setkey(dt, Individual);
         data <- merge(data, dt, all.x = TRUE)
         
-        threejs::scatterplot3js(x = data$X1, y = data$Phenotype_predict, z = data$X2,
+        threejs::scatterplot3js(x = data$X1, y = data$X2, z = data$Phenotype_predict,
                                 color = data$Colour,
                                 axisLabels = c("X1", "Phenotype", "X2"),
                                 renderer   = "canvas")
@@ -152,6 +152,6 @@ c(
         print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
       }
     }),
-    output$Mod5Step2_3D <- renderUI({scatterplotThreeOutput("Mod5Step2_3D_scatterplot")})
+    output$Mod5Step2_3D <- renderUI({threejs::scatterplotThreeOutput("Mod5Step2_3D_scatterplot")})
    
 ) # End return

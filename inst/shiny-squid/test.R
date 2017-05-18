@@ -8,19 +8,19 @@ input$Tmax          <- 100 # default = 1
 input$Time_sampling <- c(1,100)
 
 input$NP <- 1 # default = 1
-input$NI <- 50# default = 1
+input$NI <- 1# default = 1
 input$NT <- 1 # default = 1
 input$NG <- 1 # default = 1
-input$NR <- 50 # default = 1
+input$NR <- 100 # default = 1
 
 # input$B    <- rep(0, 8)
-input$B    <- c(0 , 0.5, 0, 0)
+input$B    <- c(0 , 1, 1, 0)
 input$Vind <- matrix(rep(0, 4*4),4)
 diag(input$Vind)[1] <- 0.7
 # diag(input$Vind)[5] <- 0.7
 # input$Vind[5, 1] <- 1
 
-input$Ve <- 0.05
+input$Ve <- 0
 
 # input$Ve <- matrix(c(0.05,0,
 # 										 1, 0.05), 2, byrow = TRUE) # Default 0
@@ -29,9 +29,14 @@ input$X1_state      <- TRUE # default = FALSE
 # Stochastic
 input$X1_sto_state  <- TRUE  # default = FALSE
 
+input$X2_state      <- TRUE # default = FALSE
+# Stochastic
+input$X2_sto_state  <- TRUE  # default = FALSE
 
-mydata <- squid::squidR(input = input, plot = TRUE)
 
+input$X_Interaction <- FALSE
+
+mydata <- squid::squidR(input = input, plot = FALSE)$sampled_data
 
 
 
