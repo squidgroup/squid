@@ -322,8 +322,7 @@ Module_titles <- list(
   "mod5"  = "Multi-dimentional phenotypic plasticity",
   "mod6"  = "Random regressions",
   "mod7"  = "",
-  "mod8"  = "",
-  "mod9"  = "",
+  "mod8"  = "MDPP and random slopes",
   "mod10" = ""
 )
 

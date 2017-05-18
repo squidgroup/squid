@@ -3,7 +3,7 @@ fixedPage( HTML("<div>"),
    navlistPanel( 
      
      id       = "modulesNavList",
-     selected = Module_titles$mod1,
+     selected = Module_titles$mod8,
      well     = TRUE,  
      fluid    = FALSE,
      widths   = c(2,9),
@@ -107,16 +107,26 @@ fixedPage( HTML("<div>"),
    				 							tabPanel("Step 2", source("./source/pages/modules/module5/UIMod5Step2.R",local = TRUE)[["value"]])
    				 	) # End tabsetPanel
    				 	) # End Wellpanel
-   				 ) # END Module 5
+   				 ), # END Module 5
      
 
 
 
 #          # Module 7
 #          tabPanel("Module 7",UImodule7()), # END Module 7
-#          
-#          # Module 8
-#          tabPanel("Module 8",UImodule8()), # END Module 8
+#    
+
+          #######  Module 8: MDPP and random slopes  #######################################
+          tabPanel(Module_titles$mod8,
+           wellPanel(
+             # Title
+             h3("Combining multidimensionality with random regression"),
+             tabsetPanel(id = "Module8TabsetPanel", type = "pills", selected = "Step 1",
+                tabPanel("Step 1", source("./source/pages/modules/module8/UIMod8Step1.R",local = TRUE)[["value"]])
+             ) # End tabsetPanel
+            ) # End Wellpanel
+           )# END Module 8
+
 #          
 #          # Module 9
 #          tabPanel("Module 9",UImodule9()) # END Module 9
