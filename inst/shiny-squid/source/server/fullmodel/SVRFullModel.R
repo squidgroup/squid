@@ -222,7 +222,7 @@ SVRFullModel <- function(myModule, input, output, session){
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
          # Call app main function
-         data <- squid::squidR(input=input, plot=TRUE, module=myModule) 
+         data <- squid::squidR(input=input, plot=TRUE, module=myModule)
          
          names(data$full_data)    <- outputNames
          names(data$sampled_data) <- outputNames
@@ -307,23 +307,29 @@ SVRFullModel <- function(myModule, input, output, session){
 
       # Update environment states
       observe({
-         ifelse(input[[myLabels$X1_sto_state]] || input[[myLabels$X1_lin_state]]|| input[[myLabels$X1_cyc_state]], 
-                updateCheckboxInput(session, myLabels$X1_state, value = TRUE), 
-                updateCheckboxInput(session, myLabels$X1_state, value = FALSE))
+        
+        # Update X1 environment state
+        if(input[[myLabels$X1_sto_state]] || input[[myLabels$X1_lin_state]]|| input[[myLabels$X1_cyc_state]]){
+          updateCheckboxInput(session, myLabels$X1_state, value = TRUE)
+        }else{
+          updateCheckboxInput(session, myLabels$X1_state, value = FALSE)
+        }
         
         # Update X2 environment state
-        ifelse(input[[myLabels$X2_sto_state]] || input[[myLabels$X2_lin_state]]|| input[[myLabels$X2_cyc_state]], 
-               updateCheckboxInput(session, myLabels$X2_state, value = TRUE), 
-               updateCheckboxInput(session, myLabels$X2_state, value = FALSE))
-        
+        if(input[[myLabels$X2_sto_state]] || input[[myLabels$X2_lin_state]]|| input[[myLabels$X2_cyc_state]]){
+          updateCheckboxInput(session, myLabels$X2_state, value = TRUE)
+        }else{
+          updateCheckboxInput(session, myLabels$X2_state, value = FALSE)
+        }
+
         if(!input[[myLabels$X1_sto_state]]) updateCheckboxInput(session, myLabels$X1_sto_shared, value = TRUE)
         if(!input[[myLabels$X1_lin_state]]) updateCheckboxInput(session, myLabels$X1_lin_shared, value = TRUE)
         if(!input[[myLabels$X1_cyc_state]]) updateCheckboxInput(session, myLabels$X1_cyc_shared, value = TRUE)
-        
-        if(!input[[myLabels$X2_sto_state]]) updateCheckboxInput(session, myLabels$X2_sto_shared, value = TRUE)  
+
+        if(!input[[myLabels$X2_sto_state]]) updateCheckboxInput(session, myLabels$X2_sto_shared, value = TRUE)
         if(!input[[myLabels$X2_lin_state]]) updateCheckboxInput(session, myLabels$X2_lin_shared, value = TRUE)
         if(!input[[myLabels$X2_cyc_state]]) updateCheckboxInput(session, myLabels$X2_cyc_shared, value = TRUE)
-        
+
         # Interaction state
         if(!input[[myLabels$X1_state]] || !input[[myLabels$X2_state]]) updateCheckboxInput(session, myLabels$X_Interaction, value = FALSE)
 
