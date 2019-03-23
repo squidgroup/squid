@@ -1,9 +1,7 @@
 ---
 title: "SQUID"
-output: 
-  html_document: 
-    keep_md: yes
-    css: ./inst/shiny-squid/www/css/stylesheet.css
+output:
+  md_document:
     variant: markdown_github
 ---
 
@@ -81,6 +79,6 @@ It all started in Hannover in November 2013 at the occasion of a workshop on per
 
 
 #### References
-Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Réale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models. Methods in Ecology and Evolution, Accepted 15/9/2016, p29.
+Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Réale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models. Methods in Ecology and Evolution, 8:257-267.
 
-Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation in behaviour: mixed-effect modelling approaches. Journal of Animal Ecology, 82: 39-54.
+Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation in behaviour: mixed-effect modelling approaches. Journal of Animal Ecology, 82:39-54.
