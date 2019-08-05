@@ -49,7 +49,7 @@ It all started in Hannover in November 2013 at the occasion of a workshop on per
 
 #### SQuID team
 
--   Hassen Allegue (University of British Columbia, Vancouver, Canada)
+-   Hassen Allegue (Université du Québec À Montréal, Montreal, Canada)
 -   Yimen G. Araya-Ajoy (Norwegian University of Science and Technology, Trondheim, Norway)
 -   Niels J. Dingemanse (Max Planck Institute for Ornithology, Seewiesen & University of Munich, Germany)
 -   Ned A. Dochtermann (North Dakota State University, Fargo, USA)
