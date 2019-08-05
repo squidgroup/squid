@@ -1,6 +1,12 @@
-# NEWS
+---
+title: "NEWS"
+output: 
+  html_document: 
+    keep_md: yes
+    variant: markdown_github
+---
 
-# squid 0.1.1.9000
+# squid 0.1.2
 
 * Reset individual identifier to 1 for each replicate. 
 
