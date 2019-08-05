@@ -1,6 +1,6 @@
 ## Test environments
-* local Windows 10, R 3.5.3
-* local OS X El Capitan V10.11.4, R 3.3.0
+* local Windows 10, R 3.6.1
+* ubuntu 16.04.6 LTS (on travis-ci), R 3.6.1
 * win-builder (devel and release)
 
 ## R CMD check results
