@@ -38,7 +38,7 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
   
   # Set up other variables
   variables    <- setVariables(input, module, environments, sep)
-
+  
   Mu        <- variables$Mu
   N         <- variables$N
   B         <- variables$B
@@ -73,7 +73,7 @@ squidR <- function(input=list(), plot=FALSE, data=NULL, module=NULL, X_previsual
   }else{
     
     if(length(X_previsualization) == 1 && X_previsualization %in% c("X1", "X2")){
-    
+      
       x<-r<-envData<-colour<-NULL
       
       ### Generate environment for previsualization

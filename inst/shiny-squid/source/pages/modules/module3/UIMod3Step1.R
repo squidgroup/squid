@@ -21,13 +21,13 @@ span(
     column(8,getSliderInput("Mod3Step1_Ve", Modules_VAR$Vm)),
     column(4,textOutput("Mod3Step1_Ve_proportion", inline = TRUE))
   ),
-
+  
   # Variance of Mean Environment effects in the slope (V Beta1 X1)
   fluidRow(
     column(8,getSliderInput("Mod3Step1_Vbx", Modules_VAR$VE)),
     column(4,textOutput("Mod3Step1_Vbx_proportion", inline = TRUE))
   ),
-
+  
   conditionalPanel(
     condition = "0",
     uiOutput("Mod3Step1_hidden")
@@ -81,11 +81,11 @@ span(
   p(HTML(Mod3Step1_txt$para9)),       # Text: para9
   p(HTML(Mod3Step1_txt$para10)),      # Text: para10
   p(HTML(Mod3Step1_txt$para11)),      # Text: para11
-
+  
   div(class="line"),
   
   # Go to next step
   actionLink("Mod3Step1GotoStep2",
-           label = "Next Step (2) >>",
-           class= "linkToModuleSteps")
+             label = "Next Step (2) >>",
+             class= "linkToModuleSteps")
 )

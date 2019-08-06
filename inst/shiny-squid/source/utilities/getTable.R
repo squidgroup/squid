@@ -18,7 +18,7 @@ getTable  <- function(myTable, header=FALSE){
                                 tags$td(myTable[row, col])
                               }))
                             }))
-                  )
+  )
   return(withMathJax(myHTMLTable))
 }
 

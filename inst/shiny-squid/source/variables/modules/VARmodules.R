@@ -48,6 +48,35 @@ Modules_VAR <- list(
                "errorTxt"    = "Among-individual variance ($V_",NOT$devI,"$) must be a number between 0 and 1."
   ),
   
+  # Among-individual variance of the trait 1 (Vi)
+  "Vi1"  = list("label"       = paste0("Among-individual variance trait $",NOT$trait.1,"$ ($V_{",NOT$devI,"_",NOT$trait.1,"}$):"),
+  						 "infoTxt"     = "Among-individual variance (random intercepts).",
+  						 "value"       = 0.7,
+  						 "min"         = 0,
+  						 "max"         = 1,
+  						 "step"        = 0.01,
+  						 "errorTxt"    = ""
+  ),
+  # Among-individual variance of the trait 2 (Vi)
+  "Vi2"  = list("label"       = paste0("Among-individual variance trait $",NOT$trait.2,"$ ($V_{",NOT$devI,"_",NOT$trait.2,"}$):"),
+  							"infoTxt"     = "Among-individual variance (random intercepts).",
+  							"value"       = 0.7,
+  							"min"         = 0,
+  							"max"         = 1,
+  							"step"        = 0.01,
+  							"errorTxt"    = ""
+  ),
+  
+  # Among-individual Correlation in the intercept
+  "Corr_I"   = list("label"       = paste0("Among-individual correlation."),
+  									"infoTxt"     = "",
+  									"value"       = 0,
+  									"min"         = -1,
+  									"max"         = 1,
+  									"step"        = 0.01,
+  									"errorTxt"    = ""
+  ),
+  
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
   "Vsx"    = list(  "label"       = paste0("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,NOT$env,"}$): "),
                     "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
@@ -77,6 +106,33 @@ Modules_VAR <- list(
                 "max"         = 1,
                 "step"        = 0.01,
                 "errorTxt"    = "Residual variance ($V_",NOT$mError,"$) must be a number between 0 and 1."
+  ),
+  # Residual variance (Ve)
+  "Ve1"   = list("label"       = paste0("Within-individual variance trait $",NOT$trait.1,"$"),
+  							 "infoTxt"     = "",
+  							 "value"       = 0.05,
+  							 "min"         = 0.01,
+  							 "max"         = 1,
+  							 "step"        = 0.01,
+  							 "errorTxt"    = ""
+  ),
+  # Residual variance (Ve)
+  "Ve2"   = list("label"       = paste0("Within-individual variance trait $",NOT$trait.2,"$"),
+  							 "infoTxt"     = "",
+  							 "value"       = 0.05,
+  							 "min"         = 0.01,
+  							 "max"         = 1,
+  							 "step"        = 0.01,
+  							 "errorTxt"    = ""
+  ),
+  # Residual Correlation
+  "Corr_e"   = list("label"       = paste0("Within-individual correlation."),
+	  							 "infoTxt"     = "",
+	  							 "value"       = 0,
+	  							 "min"         = -1,
+	  							 "max"         = 1,
+	  							 "step"        = 0.01,
+	  							 "errorTxt"    = ""
   ),
   
   # measurement error variance
@@ -189,13 +245,48 @@ Modules_VAR <- list(
   
   
   # Mean Environemental effect
-  "B1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
-                   "infoTxt"     = "Mean effect of specific (unshared among individuals)and known (measured) environmental effect",
-                   "value"       = 1,
-                   "min"         = 0,
+  "B1.1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
+                   "infoTxt"     = "Population mean response to the environment.",
+                   "value"       = 0,
+                   "min"         = -1,
                    "max"         = 1,
                    "step"        = 0.01,
-                   "errorTxt"    = "Mean effect of measured environment (beta ES) must be a number."
+                   "errorTxt"    = ""
+  ),
+  
+  "B2.1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean2,"$):"),
+  								"infoTxt"     = "Population mean response to the environment.",
+  								"value"       = 0,
+  								"min"         = -1,
+  								"max"         = 1,
+  								"step"        = 0.01,
+  								"errorTxt"    = ""
+  ),
+ 
+  "B1122" = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean12,"$):"),
+  								"infoTxt"     = "Population mean response to the environment.",
+  								"value"       = 0,
+  								"min"         = -1,
+  								"max"         = 1,
+  								"step"        = 0.01,
+  								"errorTxt"    = ""
+  ),
+  
+  "B11"   = list( "label"        = paste0("Population-level slope trait $",NOT$trait.1,"$ ($",EQ$mean1.1,"$):"),
+  								"infoTxt"     = "Population mean response to the environment.",
+  								"value"       = 0,
+  								"min"         = -1,
+  								"max"         = 1,
+  								"step"        = 0.01,
+  								"errorTxt"    = ""
+  ),
+  "B12"   = list(  "label"        = paste0("Population-level slope $",NOT$trait.2,"$ ($",EQ$mean1.2,"$):"),
+  								 "infoTxt"     = "Population mean response to the environment.",
+  								 "value"       = 0,
+  								 "min"         = -1,
+  								 "max"         = 1,
+  								 "step"        = 0.01,
+  								 "errorTxt"    = ""
   ),
   
   # Among-individual variance in timing of sampling
@@ -228,11 +319,10 @@ Module_titles <- list(
   "mod2"  = "",
   "mod3"  = "Non-stochastic environments",
   "mod4"  = "Multiple traits",
-  "mod5"  = "",
+  "mod5"  = "Multi-dimentional phenotypic plasticity",
   "mod6"  = "Random regressions",
   "mod7"  = "",
-  "mod8"  = "",
-  "mod9"  = "",
+  "mod8"  = "MDPP and random slopes",
   "mod10" = ""
 )
 
