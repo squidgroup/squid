@@ -62,8 +62,8 @@ span(
   p(paste0(
     "$$ \\Omega_{",NOT$error,"}=
 		  	\\begin{pmatrix}
-		  	Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-		  	Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
+		  	V_{",NOT$error,"_",NOT$trait.1,"} & Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} \\\\
+		  	Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} & V_{", NOT$error,"_",NOT$trait.2,"} \\\\
 		  	\\end{pmatrix} 
 		 $$")),
   

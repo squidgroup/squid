@@ -20,7 +20,7 @@ span(
 								between two costly traits that were repeatedly expressed within the same individual. 
 								We assumed for simplicity that both traits harboured no among-individual variance. 
 								This meant that the individual repeatability was zero for both traits 
-								(see module on ",Module_titles$mod1," for an introduction to repeatability). 
+								(see module on <i>",Module_titles$mod1,"</i> for an introduction to repeatability). 
 								We will now consider a more complex but realistic scenario where these two traits (egg size and egg number) 
 								varied both within- and among-individuals, as we know is the case in natural populations.
 								The models for this step will be:"))),

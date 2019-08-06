@@ -3,7 +3,7 @@ fixedPage( HTML("<div>"),
    navlistPanel( 
      
      id       = "modulesNavList",
-     selected = Module_titles$mod1,
+     selected = Module_titles$mod4,
      well     = TRUE,  
      fluid    = FALSE,
      widths   = c(2,9),
@@ -54,25 +54,25 @@ fixedPage( HTML("<div>"),
 	        tabPanel("Step 3",source("./source/pages/modules/module6/UIMod6Step3.R" ,local = TRUE)[["value"]])
 	      ) # End tabsetPanel
 	    ) # End Wellpanel
-     ) # END Module 6
+     ), # END Module 6
 
-		# #######  Module 4: Multiple traits  #######################################
-		# tabPanel(Module_titles$mod4,
-		# 				 wellPanel(
-		# 				 	# Title
-		# 				 	h3("Multiple traits: processes influencing phenotypic correlations in repeatedly expressed traits."),
-		# 				 	p(HTML("<b>Goal:</b> to develop understanding of how phenotypic correlations between two 
-		# 	 		 				 repeatedly expressed traits are affected by the amount of variation, 
-		# 	 		 				 and the magnitude of correlations occurring at each underlying hierarchical level.")), 
-		# 				 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 1",
-		# 				 							tabPanel("Step 1", source("./source/pages/modules/module4/UIMod4Step1.R",local = TRUE)[["value"]]),
-		# 				 							tabPanel("Step 2", source("./source/pages/modules/module4/UIMod4Step2.R",local = TRUE)[["value"]]),
-		# 				 							tabPanel("Step 3", source("./source/pages/modules/module4/UIMod4Step3.R",local = TRUE)[["value"]]),
-		# 				 							tabPanel("Step 4", source("./source/pages/modules/module4/UIMod4Step4.R",local = TRUE)[["value"]]),
-		# 				 							tabPanel("Step 5", source("./source/pages/modules/module4/UIMod4Step5.R",local = TRUE)[["value"]])
-		# 				 	) # End tabsetPanel
-		# 				 ) # End Wellpanel
-		# ), # END Module 4
+		#######  Module 4: Multiple traits  #######################################
+		tabPanel(Module_titles$mod4,
+						 wellPanel(
+						 	# Title
+						 	h3("Multiple traits: processes influencing phenotypic correlations in repeatedly expressed traits."),
+						 	p(HTML("<b>Goal:</b> to develop understanding of how phenotypic correlations between two
+			 		 				 repeatedly expressed traits are affected by the amount of variation,
+			 		 				 and the magnitude of correlations occurring at each underlying hierarchical level.")),
+						 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 1",
+						 							tabPanel("Step 1", source("./source/pages/modules/module4/UIMod4Step1.R",local = TRUE)[["value"]]),
+						 							tabPanel("Step 2", source("./source/pages/modules/module4/UIMod4Step2.R",local = TRUE)[["value"]]),
+						 							tabPanel("Step 3", source("./source/pages/modules/module4/UIMod4Step3.R",local = TRUE)[["value"]]),
+						 							tabPanel("Step 4", source("./source/pages/modules/module4/UIMod4Step4.R",local = TRUE)[["value"]]),
+						 							tabPanel("Step 5", source("./source/pages/modules/module4/UIMod4Step5.R",local = TRUE)[["value"]])
+						 	) # End tabsetPanel
+						 ) # End Wellpanel
+		) # END Module 4
    
    #######  Module 5: Multi-dimensional Phenotypic Plasticity  #######################################
 #    tabPanel(Module_titles$mod5,

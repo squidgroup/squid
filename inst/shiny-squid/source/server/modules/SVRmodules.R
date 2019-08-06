@@ -14,15 +14,15 @@ c(
   observe({if (input$Mod3Step3GotoStep2 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 2")}),
   observe({if (input$Mod3Step2GotoStep3 != 0) updateTabsetPanel(session, "Module3TabsetPanel", selected = "Step 3")}),
   
-  # # Module 4
-  # observe({if (input$Mod4Step2GotoStep1 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 1")}),
-  # observe({if (input$Mod4Step1GotoStep2 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 2")}),
-  # observe({if (input$Mod4Step3GotoStep2 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 2")}),
-  # observe({if (input$Mod4Step2GotoStep3 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 3")}),
-  # observe({if (input$Mod4Step4GotoStep3 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 3")}),
-  # observe({if (input$Mod4Step3GotoStep4 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 4")}),
-  # observe({if (input$Mod4Step5GotoStep4 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 4")}),
-  # observe({if (input$Mod4Step4GotoStep5 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 5")}),
+  # Module 4
+  observe({if (input$Mod4Step2GotoStep1 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 1")}),
+  observe({if (input$Mod4Step1GotoStep2 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 2")}),
+  observe({if (input$Mod4Step3GotoStep2 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 2")}),
+  observe({if (input$Mod4Step2GotoStep3 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 3")}),
+  observe({if (input$Mod4Step4GotoStep3 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 3")}),
+  observe({if (input$Mod4Step3GotoStep4 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 4")}),
+  observe({if (input$Mod4Step5GotoStep4 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 4")}),
+  observe({if (input$Mod4Step4GotoStep5 != 0) updateTabsetPanel(session, "Module4TabsetPanel", selected = "Step 5")}),
 
   # # Module 5
   # observe({if (input$Mod5Step2GotoStep1 != 0) updateTabsetPanel(session, "Module5TabsetPanel", selected = "Step 1")}),
