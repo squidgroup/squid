@@ -7,6 +7,4 @@
 There were no ERRORs, WARNINGs or NOTEs.
   
 ## Downstream dependencies
-I have also run R CMD check on downstream dependencies of squid 
-(https://github.com/hallegue/squid/revdep). 
-All packages that I could install passed.
+squid package does not have any downstream dependencies. 

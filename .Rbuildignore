@@ -9,3 +9,4 @@ README.Rmd
 ^NEWS\.Rmd$
 ^cran-comments\.md$
 notes.txt
+^CRAN-RELEASE$
