@@ -1,3 +1,4 @@
+^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 .Rprofile
@@ -8,3 +9,4 @@ README.Rmd
 ^NEWS\.Rmd$
 ^cran-comments\.md$
 notes.txt
+^CRAN-RELEASE$

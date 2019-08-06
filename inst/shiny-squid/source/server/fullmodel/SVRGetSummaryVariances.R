@@ -1,21 +1,25 @@
-SVRGetSummaryVariances <- function(input,B,Vind,Ve,VG,NT,step,nb.IS,trait,X1_state,X2_state,X_Interaction) {
+SVRGetSummaryVariances <- function(input,
+																	 myLabels,
+																	 step,
+																	 nb.IS,
+																	 trait) {
   
-  myNT  <- as.numeric(input[[NT]]) 
-  VCov  <- round(Cor2CovMatrix(as.matrix(input[[Vind]])),2)
+  myNT  <- as.numeric(input[[myLabels$NT]]) 
+  VCov  <- round(Cor2CovMatrix(as.matrix(input[[myLabels$Vind]])),2)
   
-  B2    <- as.matrix(input[[B]])
+  B2    <- as.matrix(input[[myLabels$B]])
   
-  if(!input[[X1_state]]){
+  if(!input[[myLabels$X1_state]]){
     VCov[seq(from=X1, to=(nb.IS*myNT), by=nb.IS), ] <- 0 
     VCov[ ,seq(from=X1, to=(nb.IS*myNT), by=nb.IS)] <- 0 
     B2[1, seq(from=X1, to=(nb.IS*myNT), by=nb.IS)] <- 0
   }
-  if(!input[[X2_state]]){
+  if(!input[[myLabels$X2_state]]){
     VCov[seq(from=X2, to=(nb.IS*myNT), by=nb.IS), ] <- 0 
     VCov[ ,seq(from=X2, to=(nb.IS*myNT), by=nb.IS)] <- 0
     B2[1, seq(from=X2, to=(nb.IS*myNT), by=nb.IS)] <- 0 
   }
-  if(!input[[X_Interaction]]){
+  if(!input[[myLabels$X_Interaction]]){
     VCov[seq(from=X1X2, to=(nb.IS*myNT), by=nb.IS), ] <- 0 
     VCov[ ,seq(from=X1X2, to=(nb.IS*myNT), by=nb.IS)] <- 0 
     B2[1, seq(from=X1X2, to=(nb.IS*myNT), by=nb.IS)] <- 0 
@@ -36,8 +40,8 @@ SVRGetSummaryVariances <- function(input,B,Vind,Ve,VG,NT,step,nb.IS,trait,X1_sta
 #                  2*VCov[X2+step, X1+step], # Cov Vslope1 and Vslope2
 #                  2*VCov[X1X2+step, X1+step], # Cov Vslope1 and Vslope12
 #                  2*VCov[X1X2+step, X2+step], # Cov Vslope1 and Vslope12
-                 input[[VG]], # group variance
-                 input[[Ve]] # measurement error variance
+                 input[[myLabels$VG]], # group variance
+                 input[[myLabels$Ve]] # measurement error variance
                  )
 
   Vp             <- sum(Variances, na.rm = TRUE)

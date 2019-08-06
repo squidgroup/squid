@@ -30,72 +30,71 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
 	
     #######################################################################################
     # Create environmnetal effect values 
-  
-  X                <- matrix(0,  N$NI*N$NS*N$NP, variables$nb.IS)    
-  X[,variables$B0] <- 1 # Intercept (slope is by default = 1 ) 
-  
-  ### Generate environments
-  # X1
-  if(environments$X1$state){
-    X[,variables$X1] <- getEnvironment(environments$X1, N, FALSE)
-  }else{ 
-    X[,variables$X1] <- 0
-  }
-  # X2
-  if(environments$X2$state){
-    X[,variables$X2] <- getEnvironment(environments$X2, N, FALSE)
-  }else{
-    X[,variables$X2] <- 0
-  }
-  
-  # Interaction 
-  if(environments$Interaction) X[,variables$X1X2] <- X[,variables$X1]*X[,variables$X2]
-  
-  # Add environment for all traits
-  X <- repmat(X,N$NT,1)
-  
-  ############################################## 
-  # Higher-level grouping (Co)variance (h)  
-  if(sum(diag(V$VG)) != 0){
-    VCov_G <- Cor2CovMatrix(V$VG)
-    G      <- rep(rep(as.vector(MASS::mvrnorm(N$NG*N$NP, rep(Mu,N$NT), VCov_G)), each=N$NI/N$NG), each=N$NS)
-  }else{
-    G      <- vector(N$NI*N$NT*N$NP*N$NS, mode = "double")
-  }
-  
-  Group <- as.factor(rep(rep(1:N$NG, each=N$NI/N$NG), each=N$NS))
-  
-  ############################################## 
-  # Residual (Co)Variance matrix
-  if(sum(diag(V$Ve)) != 0){
-    VCov_e <- Cor2CovMatrix(V$Ve)
-    ### Generate residuals 
-    e      <- as.vector(MASS::mvrnorm(N$NI*N$NS*N$NP, rep(Mu,N$NT), VCov_e))
-  }else{
-    e      <- rep(0,  N$NI*N$NS*N$NP*N$NT)  
-  }
-  
-  ############################################## 
-  # Phenotypic equation
-  Phenotype   <-  base::rowSums((B + ind) * X) + G + e
-  
-  ############################################## 
-  
-  Individual       <- as.factor(rep(rep(1:(N$NI*N$NP), each = N$NS), N$NT))
-  
-  Individual_Trait <- vector(mode = "integer", N$NI*N$NP*N$NT)
-  
-  myFun  <- function(i){
-    mySeq <- c(seq(from = i, to = (N$NI*N$NP*N$NT), by = N$NT))
-    x <- (i - 1) * N$NI*N$NP + 1
-    y <- i * N$NI*N$NP
-    Individual_Trait[x:y] <<- mySeq
-  }
-  M      <- sapply(1:N$NT, myFun)
-  Individual_Trait <- as.factor(rep(Individual_Trait, each = N$NS))
-  
-  Population   <- as.factor(rep(rep(1:N$NP, each = N$NI*N$NS),N$NT))
-  Trait        <- as.factor(rep(1:N$NT, each = N$NS*N$NI*N$NP))
+    X                <- matrix(0,  N$NI*N$NS*N$NP, variables$nb.IS)    
+    X[,variables$B0] <- 1 # Intercept (slope is by default = 1 ) 
+    
+    ### Generate environments
+    # X1
+    if(environments$X1$state){
+      X[,variables$X1] <- getEnvironment(environments$X1, N, FALSE)
+    }else{ 
+      X[,variables$X1] <- 0
+    }
+    # X2
+    if(environments$X2$state){
+      X[,variables$X2] <- getEnvironment(environments$X2, N, FALSE)
+    }else{
+      X[,variables$X2] <- 0
+    }
+
+    # Interaction 
+    if(environments$Interaction) X[,variables$X1X2] <- X[,variables$X1]*X[,variables$X2]
+    
+    # Add environment for all traits
+    X <- repmat(X,N$NT,1)
+    
+    ############################################## 
+    # Higher-level grouping (Co)variance (h)  
+    if(sum(diag(V$VG)) != 0){
+     	VCov_G <- Cor2CovMatrix(V$VG)
+    	G      <- rep(rep(as.vector(MASS::mvrnorm(N$NG*N$NP, rep(Mu,N$NT), VCov_G)), each=N$NI/N$NG), each=N$NS)
+    }else{
+    	G      <- vector(N$NI*N$NT*N$NP*N$NS, mode = "double")
+    }
+
+    Group <- as.factor(rep(rep(1:N$NG, each=N$NI/N$NG), each=N$NS))
+    
+    ############################################## 
+    # Residual (Co)Variance matrix
+    if(sum(diag(V$Ve)) != 0){
+    	VCov_e <- Cor2CovMatrix(V$Ve)
+    	### Generate residuals 
+    	e      <- as.vector(MASS::mvrnorm(N$NI*N$NS*N$NP, rep(Mu,N$NT), VCov_e))
+    }else{
+    	e      <- rep(0,  N$NI*N$NS*N$NP*N$NT)  
+    }
+      
+    ############################################## 
+    # Phenotypic equation
+    Phenotype   <-  base::rowSums((B + ind) * X) + G + e
+    
+    ############################################## 
+    
+    Individual       <- rep(rep(rep(1:N$NI, each=N$NS), N$NP), N$NT)
+    
+    Individual_Trait <- vector(mode="integer", N$NI*N$NP*N$NT)
+    
+    myFun  <- function(i){
+     mySeq <- c(seq(from = i, to = (N$NI*N$NP*N$NT), by = N$NT))
+     x <- (i-1) * N$NI*N$NP + 1
+     y <- i * N$NI*N$NP
+     Individual_Trait[x:y] <<- mySeq
+    }
+    M      <- sapply(1:N$NT, myFun)
+    Individual_Trait <- as.factor(rep(Individual_Trait, each=N$NS))
+    
+    Population   <- as.factor(rep(rep(1:N$NP, each=N$NI*N$NS),N$NT))
+    Trait        <- as.factor(rep(1:N$NT, each=N$NS*N$NI*N$NP))
     time         <- rep(1:N$NS, N$NI*N$NP*N$NT)
     
     full_Data    <- data.frame("Replicate"        = Population,

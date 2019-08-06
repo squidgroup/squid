@@ -145,9 +145,9 @@ portal_txt <- list(
                               SQuID - Statistical Quantification of Individual Differences: an educational 
                               and statistical tool for understanding multi-level phenotypic data 
                               in the mixed modelling framework. Methods in Ecology and Evolution, 
-                              submitted manuscript.<br><br>
+                              8:257-267.<br><br>
                               Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation in behaviour: 
-                              mixed-effect modelling approaches. Journal of Animal Ecology, 82: 39-54."
+                              mixed-effect modelling approaches. Journal of Animal Ecology, 82:39-54."
       
 
 )

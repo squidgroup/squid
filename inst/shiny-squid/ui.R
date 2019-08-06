@@ -83,6 +83,11 @@ shinyUI(
              tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
     ), # End tabPanel Full Model 
 
+    # R code page
+    tabPanel("R code",
+    				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/Rcode/Rcode.md")))
+    ), # End tabPanel People
+    
     # About us page
     tabPanel("About us", icon=icon("users", "fa-users"),
        tags$div(class="myPage myTutorial",
@@ -113,12 +118,6 @@ shinyUI(
                 )
              )
     ), # End tabPanel People
-    
-    
-    # Contact us page
-    tabPanel("Mutiple simulations", icon=icon("envelope", "fa-users"),
-			fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/mult_simulations/UImult_simulations.md")))
-		), # End tabPanel People
 
     # Footer
     tags$div(class="footer",

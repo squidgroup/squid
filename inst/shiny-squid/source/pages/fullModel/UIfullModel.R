@@ -13,6 +13,7 @@ fixedPage( HTML("<div id='FullModel'>"),
      ),
       
      actionButton("FMod_runButton", label = FullModel_VAR$Run$label, icon= FullModel_VAR$Run$icon, class="runButton"),
+     downloadButton("FMod_download_Rcode", label = FullModel_VAR$download_Rcode$label),
      #      downloadButton("FMod_save_inputs", label = FullModel_VAR$save$label),
 #      fileInput("FMod_load_inputs", label = FullModel_VAR$load$label, accept=c(".RData")),
      runningIndicator(),
