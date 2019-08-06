@@ -191,10 +191,10 @@ Garamszegi, L.Z., Nakagawa, S., Réale, D., Schielzeth, H. and Westneat,
 D.F. (2016). SQuID - Statistical Quantification of Individual
 Differences: an educational and statistical tool for understanding
 multi-level phenotypic data in linear mixed models. Methods in Ecology
-and Evolution, 8:257-267.[DOI:
+and Evolution, 8:257-267. [DOI:
 10.1111/2041-210X.12659](https://doi.org/10.1111/2041-210X.12659)
 
 Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual
 variation in behaviour: mixed-effect modelling approaches. Journal of
-Animal Ecology, 82:39-54.[DOI:
+Animal Ecology, 82:39-54. [DOI:
 10.1111/1365-2656.12013](https://doi.org/10.1111/1365-2656.12013)
