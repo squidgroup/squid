@@ -178,8 +178,8 @@ span(
   p(paste0(
   	"$$ \\Omega_{",NOT$devI,"}=
   	\\begin{pmatrix}
-  	Var(",NOT$devI,"_",NOT$trait.1,") & Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") \\\\
-  	Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") & Var(", NOT$devI,"_",NOT$trait.2,")\\\\
+  	V_{",NOT$devI,"_",NOT$trait.1,"} & Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}  \\\\
+  	Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} & V_{", NOT$devI,"_",NOT$trait.2,"} \\\\
   	\\end{pmatrix} 
   	$$")),
   
@@ -275,12 +275,15 @@ span(
   
   p(strong("References:")),
   p(HTML("Dingemanse, N.J. & Dochtermann, N.A. (2013) Quantifying individual variation in behaviour: 
-         mixed-effect modelling approaches. <i>Journal of Animal Ecology</i>, 82, 39-54.")),
+         mixed-effect modelling approaches. <i>Journal of Animal Ecology</i>, 82, 39-54.
+         <a href='https://doi.org/10.1111/1365-2656.12013' target='_blank'>doi: 10.1111/1365-2656.12013</a>")),
   p(HTML('Dingemanse, N.J., Dochtermann, N.A. & Nakagawa, S. (2012) Defining behavioural syndromes and the role of 
-         "syndrome deviation" to study its evolution. <i>Behavioral Ecology and Sociobiology</i>, 66, 1543-1548.')),
+         "syndrome deviation" to study its evolution. <i>Behavioral Ecology and Sociobiology</i>, 66, 1543-1548.
+         <a href="https://doi.org/10.1007/s00265-012-1416-2" target="_blank">doi: 10.1007/s00265-012-1416-2</a>')),
   p(HTML("Nicolaus, M., Brommer, J.E., Ubels, R., Tinbergen, J.M. & Dingemanse, N.J. (2013) 
           Exploring patterns of variation in clutch size-density reaction norms in a wild passerine bird. 
-          <i>Journal of Evolutionary Biology</i>, 26, 2031-2043.")),
+          <i>Journal of Evolutionary Biology</i>, 26, 2031-2043.
+          <a href='https://doi.org/10.1111/jeb.12210' target='_blank'>doi: 10.1111/jeb.12210</a>")),
 	
 	div(class = "line"),
 	
