@@ -68,8 +68,8 @@ span(
 	p(paste0(
 		"$$ \\Omega_{",NOT$error,"}=
 		\\begin{pmatrix}
-		Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
+		V_{",NOT$error,"_",NOT$trait.1,"} & Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}  \\\\
+		Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} & V_{", NOT$error,"_",NOT$trait.2,"} \\\\
 		\\end{pmatrix} 
 		$$")),
 	
@@ -82,8 +82,8 @@ span(
 	p(paste0(
 		"$$ \\Omega_{",NOT$devI,"}=
 		\\begin{pmatrix}
-		Var(",NOT$devI,"_",NOT$trait.1,") & Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") & Var(", NOT$devI,"_",NOT$trait.2,")\\\\
+		V_{",NOT$devI,"_",NOT$trait.1,"} & Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}  \\\\
+		Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} & V_{", NOT$devI,"_",NOT$trait.2,"} \\\\
 		\\end{pmatrix} 
 		$$")),
 	
@@ -134,8 +134,8 @@ span(
 	
 	p("Another issue that you may investigate by changing the entry values above is the role of repeatability. 
 		You may for example choose within- and among-individual correlations of equal strength but opposite sign 
-		(e.g. -0.8 vs. 0.8) for a range of different repeatabilities. (You could also play with creating 
-		a dataset where one trait has a high and another trait has a low repeatability). 
+		(e.g. -0.8 vs. 0.8) for a range of different repeatabilities. You could also play with creating 
+		a dataset where one trait has a high and another trait has a low repeatability. 
 		You will find that when both traits are highly repeatable, the phenotypic correlation will more 
 		closely reflect the among-individual correlation. By contrast, if both traits have a low repeatability, 
 		the phenotypic correlation will more closely reflect the within-individual correlations."),
@@ -183,7 +183,8 @@ span(
 	
 	p(strong("References:")),
 	p(HTML("van Noordwijk, A.J. & de Jong, G. (1986) Acquisition and allocation of resources - 
-	       Their influence on variation in life-history tactics. <i>American Naturalist</i>, 128, 137-142.")),
+	       Their influence on variation in life-history tactics. <i>American Naturalist</i>, 128, 137-142.
+	       <a href='https://doi.org/10.1086/284547' target='_blank'>doi: 10.1086/284547</a>")),
 	
 	div(class = "line"),
 	

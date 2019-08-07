@@ -120,7 +120,7 @@ c(
     																				(input$Mod4Step3_Ve2 / (input$Mod4Step3_Vi2 + input$Mod4Step3_Ve2)))
     	
       equation <- paste0("$$
-                         ",rpp," =
+                         ",round(rpp, 2)," =
 
                          ",input$Mod4Step3_Corr_I,"
                          \\sqrt{
