@@ -35,6 +35,7 @@ source("./source/utilities/error_msg.R",local=TRUE)
 source("./source/utilities/multiplot.R",local=TRUE)
 source("./source/utilities/Cor2CovMatrix.R",local=TRUE)
 source("./source/utilities/disableActionButton.R",local=TRUE)
+source("./source/utilities/plotDesign.R",local=TRUE)
 
 #### Inputs ####
 source("./source/inputs/getNumericInput.R",local=TRUE)

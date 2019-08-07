@@ -36,7 +36,7 @@ span(
 	p(paste0("$$[",NOT$error,"_{",NOT$time,NOT$ind,"}] \\sim N(0, \\Omega_{",NOT$error,"}): \\Omega_{",NOT$error,"} = [V_",NOT$error,"]$$")),
 	
 	p(HTML(paste0("In the bivariate mixed-effects models, we are estimating these parameters simultaneously for two traits. 
-								That is, the model can be formulated as a set of two phenotypic equations (one for ",NOT$trait.1," and one for ",NOT$trait.2,"):"))),
+								That is, the model can be formulated as a set of two phenotypic equations (one for $",NOT$trait.1,"$ and one for $",NOT$trait.2,"$):"))),
 
 	p(paste0("$$",
 					 NOT$trait.1,"_{",NOT$time,NOT$ind,"} = 
@@ -61,8 +61,8 @@ span(
 	p(paste0(
 		"$$ \\Omega_{",NOT$devI,"}=
 		\\begin{pmatrix}
-		Var(",NOT$devI,"_",NOT$trait.1,") & Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") & Var(", NOT$devI,"_",NOT$trait.2,")\\\\
+		V_{",NOT$devI,"_",NOT$trait.1,"} & Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} \\\\
+		Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} & V_{", NOT$devI,"_",NOT$trait.2,"}\\\\
 		\\end{pmatrix} 
 		$$")),
 	
@@ -73,8 +73,8 @@ span(
 	p(paste0(
 		"$$ \\Omega_{",NOT$error,"}=
 		\\begin{pmatrix}
-		Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
+		V_{",NOT$error,"_",NOT$trait.1,"} & Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}  \\\\
+		Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} & V_{", NOT$error,"_",NOT$trait.2,"} \\\\
 		\\end{pmatrix} 
 		$$")),
 	

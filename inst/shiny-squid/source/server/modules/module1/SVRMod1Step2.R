@@ -60,11 +60,13 @@ c(
                 	   ggplot2::facet_wrap(~ lines) +
                      ggplot2::xlab("Model component values") +
                      ggplot2::ylab("Density") + 
-                     ggplot2::theme(legend.position="none")
+                     ggplotCustomTheme() +
+                     ggplot2::theme(legend.title    = ggplot2::element_blank(),
+                                    legend.position = "bottom")
           
 
         }else{
-          print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
+          defaultPlot()
         }
                 
       }),
@@ -103,10 +105,11 @@ c(
           
           ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
           	   ggplot2::geom_point(size=3, color=color$color2) +
-	          	 ggplot2::xlab("First measurement") +
-	          	 ggplot2::ylab("Second measurement")
+	          	 ggplot2::xlab("First measurement")  +
+	          	 ggplot2::ylab("Second measurement") +
+               ggplotCustomTheme()
           
-        }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
+        }else{defaultPlot()}
       })
             
   ) # End return

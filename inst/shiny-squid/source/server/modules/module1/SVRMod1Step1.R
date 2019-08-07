@@ -46,10 +46,12 @@ c(
     											ggplot2::ggtitle("Distribution of total and individual phenotype values") +
     											ggplot2::xlab("Phenotype values") +
     											ggplot2::ylab("Density") + 
-    											ggplot2::theme(legend.title=ggplot2::element_blank())
+                          ggplotCustomTheme() +
+                          ggplot2::theme(legend.title    = ggplot2::element_blank(),
+                                         legend.position = "bottom")
           
         }else{
-          print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
+          defaultPlot()
         }
         
       }),

@@ -84,11 +84,12 @@ c(
               ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
               ggplot2::ylab("Phenotype") + 
-              ggplot2::ggtitle(bquote(italic(beta[(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[(true)]) == .(round(input$Mod1Step4_B[1,2],2)))))
+              ggplot2::ggtitle(bquote(italic(beta[(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[(true)]) == .(round(input$Mod1Step4_B[1,2],2))))) +
+              ggplotCustomTheme()
         
           })
           
-        }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
+        }else{defaultPlot()}
                 
       }),
 
@@ -108,11 +109,11 @@ c(
               ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
               ggplot2::ylab("Phenotype per individual") +
-              ggplot2::theme(legend.position="none")
+              ggplotCustomTheme()
 
           })
           
-        }else{ plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n") }
+        }else{defaultPlot()}
       }),
 
       # Table : display true and measured values (Vp, Ve, mean and Beta es)

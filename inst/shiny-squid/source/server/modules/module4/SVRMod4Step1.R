@@ -46,14 +46,14 @@ c(
         
       	dt <- copy(data)
       	
-        ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
+        ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
           ggplot2::geom_point() +
           ggplot2::xlab("Phenotype of trait y") +
           ggplot2::ylab("Phenotype of trait z") + 
-          ggplot2::theme(legend.position = "none")
+          ggplotCustomTheme()
     	    
     	  }else{
-    	    print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    	    defaultPlot()
     	  }
     	  
     	}),

@@ -98,10 +98,11 @@ c(
                   ggplot2::stat_smooth(method = "lm", se=FALSE) + 
                   ggplot2::theme(legend.position="none") + 
                   ggplot2::xlab("Environmental effect") + 
-                  ggplot2::ylab("Phenotype"))
+                  ggplot2::ylab("Phenotype")) +
+                  ggplotCustomTheme()
         
       }else{
-        print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
+        defaultPlot()
       }
     }),
     

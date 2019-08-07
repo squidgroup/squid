@@ -115,16 +115,16 @@ span(
 	p(paste0(
 		"$$ \\Omega_{",NOT$devI,"}=
 		\\begin{pmatrix}
-		Var(",NOT$devI,"_",NOT$trait.1,") & Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") & Var(", NOT$devI,"_",NOT$trait.2,")\\\\
+		V_{",NOT$devI,"_",NOT$trait.1,"} & Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}  \\\\
+		Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} & V_{", NOT$devI,"_",NOT$trait.2,"} \\\\
 		\\end{pmatrix} 
 		$$")),
 	
 	p(paste0(
 		"$$ \\Omega_{",NOT$error,"}=
 		\\begin{pmatrix}
-		Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
+		V_{",NOT$error,"_",NOT$trait.1,"} & Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}  \\\\
+		Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} & V_{", NOT$error,"_",NOT$trait.2,"} \\\\
 		\\end{pmatrix} 
 		$$")),
 	
@@ -132,7 +132,7 @@ span(
 	
 	
 	p("As we have seen in previous steps, we can visualize the patterns at the 
-		overall phenotypic level, within individuals, and within individuals."),
+		overall phenotypic level, within individuals, and among individuals."),
 	
 	p("First, we plot the raw data in a scatter plot; this plot represents 
 		the overall phenotypic association between the two traits:"),

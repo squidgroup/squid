@@ -113,10 +113,11 @@ c(
       ggplot2::ggplot(data, ggplot2::aes(x=Value)) +
               ggplot2::geom_histogram(binwidth = 0.1) + 
               ggplot2::geom_vline(ggplot2::aes(xintercept = z), vline.data, color="red") +
-              ggplot2::facet_grid(Parameter ~ nIndividual + nRecord)
+              ggplot2::facet_grid(Parameter ~ nIndividual + nRecord) +
+              ggplotCustomTheme()
       
     }else{
-      print(plot(0,type='n',ann=FALSE, xaxt = "n", yaxt = "n"))
+      defaultPlot()
     }
   }),
   

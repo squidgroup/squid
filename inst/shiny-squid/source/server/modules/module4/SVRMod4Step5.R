@@ -65,14 +65,14 @@ c(
     		
     		dt <- copy(data[["sampled"]])
     		
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Phenotype of trait y") +
-    			ggplot2::ylab("Phenotype of trait z") +
-    			ggplot2::theme(legend.position = "none")
+    			ggplot2::ylab("Phenotype of trait z") + 
+    		  ggplotCustomTheme()
     		
     	}else{
-    		print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    		defaultPlot()
     	}
     	
     }),
@@ -87,14 +87,14 @@ c(
     		dt <- dt[ , .(Trait_1 = mean(Trait_1),
     									Trait_2 = mean(Trait_2)), by = Individual]
 
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Mean phenotype of trait y") +
-    			ggplot2::ylab("Mean Phenotype of trait z") +
-    			ggplot2::theme(legend.position = "none")
+    			ggplot2::ylab("Mean phenotype of trait z") + 
+    		  ggplotCustomTheme()
 
     	}else{
-    		print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    		defaultPlot()
     	}
 
     }),
@@ -109,14 +109,14 @@ c(
     		dt[ , ':='(Trait_1 = Trait_1 - mean(Trait_1),
     							 Trait_2 = Trait_2 - mean(Trait_2)), by = Individual]
 
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = Individual, colour = Individual)) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Deviation from individual phenotype mean of trait y") +
-    			ggplot2::ylab("Deviation from individual phenotype mean of trait y") +
-    			ggplot2::theme(legend.position = "none")
+    			ggplot2::ylab("Deviation from individual phenotype mean of trait z") + 
+    		  ggplotCustomTheme()
 
     	}else{
-    		print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    		defaultPlot()
     	}
 
     }),
@@ -130,14 +130,14 @@ c(
     		dt <- copy(data[["full_data"]])
     		dt <-  dt[1:(input$Mod4Step5_Tmax),]
 
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Time, y = X1,  fill = Individual, colour = Individual)) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Time, y = X1,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Time") +
-    			ggplot2::ylab("Environment value") +
-    			ggplot2::theme(legend.position = "none")
+    			ggplot2::ylab("Environment value") + 
+    		  ggplotCustomTheme()
 
     	}else{
-    		print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
+    		defaultPlot()
     	}
 
     }),
