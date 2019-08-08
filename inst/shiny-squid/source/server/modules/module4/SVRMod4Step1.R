@@ -29,7 +29,7 @@ c(
         
         dt <- as.data.table(data$sampled_data)
         dt <- dt[ , .(Time, Individual, Trait, Phenotype)]
-        dt[ , Trait := paste0("Trait_", Trait)]
+        dt[ , Trait := paste0("Phenotype_", Trait)]
         dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
@@ -46,7 +46,7 @@ c(
         
       	dt <- copy(data)
       	
-        ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
+        ggplot2::ggplot(dt, ggplot2::aes(x = Phenotype_1, Phenotype_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
           ggplot2::geom_point() +
           ggplot2::xlab("Phenotype of trait y") +
           ggplot2::ylab("Phenotype of trait z") + 

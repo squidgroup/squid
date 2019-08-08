@@ -112,23 +112,7 @@ span(
 	p("You have also defined the elements of the among-individual and 
 		residual within-individual variance-covariance matrices:"),
 	
-	p(paste0(
-		"$$ \\Omega_{",NOT$devI,"}=
-		\\begin{pmatrix}
-		V_{",NOT$devI,"_",NOT$trait.1,"} & Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}  \\\\
-		Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} & V_{", NOT$devI,"_",NOT$trait.2,"} \\\\
-		\\end{pmatrix} 
-		$$")),
-	
-	p(paste0(
-		"$$ \\Omega_{",NOT$error,"}=
-		\\begin{pmatrix}
-		V_{",NOT$error,"_",NOT$trait.1,"} & Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}  \\\\
-		Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} & V_{", NOT$error,"_",NOT$trait.2,"} \\\\
-		\\end{pmatrix} 
-		$$")),
-	
-	uiOutput("Mod4Step5_Result_Matrices"),
+	uiOutput("Mod4Step5_Matrices_1"),
 	
 	
 	p("As we have seen in previous steps, we can visualize the patterns at the 
@@ -191,30 +175,19 @@ span(
 					 ",NOT$error,"_{",NOT$trait.2,NOT$time,NOT$ind,"}
 					 $$")),
 	
-	p(paste0(
-		"$$ \\Omega_{",NOT$devI,"}=
-		\\begin{pmatrix}
-		Var(",NOT$devI,"_",NOT$trait.1,") & Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") & Var(", NOT$devI,"_",NOT$trait.2,")\\\\
-		\\end{pmatrix} 
-		$$")),
-	
-	p(paste0(
-		"$$ \\Omega_{",NOT$error,"}=
-		\\begin{pmatrix}
-		Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
-		\\end{pmatrix} 
-		$$")),
+	uiOutput("Mod4Step5_Matrices_2"),
 	
 	p("Here we print the point estimates derived from a REML-analysis of these data:"),
 	
+	##### RESULTS	#######################################
 	
+	uiOutput("Mod4Step5_Result_Matrices_Model1"),
 	
+	p("With these values, we can calculate the point estimates for the level-specific correlations:"),
 	
-	##### RESULTS *****************************
+	uiOutput("Mod4Step5_Result_Matrices_Model1_corr"),
 	
-	
+	####################################################
 	
 	p("Importantly, the estimates printed above are from a model where the effect of food availability (x) 
 		was not modelled. Given the structure of the data, where food availability affected both traits but only 
@@ -237,29 +210,19 @@ span(
 					 ",NOT$error,"_{",NOT$trait.2,NOT$time,NOT$ind,"}
 					 $$")),
 
-	p(paste0(
-		"$$ \\Omega_{",NOT$devI,"}=
-		\\begin{pmatrix}
-		Var(",NOT$devI,"_",NOT$trait.1,") & Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,") & Var(", NOT$devI,"_",NOT$trait.2,")\\\\
-		\\end{pmatrix} 
-		$$")),
-	
-	p(paste0(
-		"$$ \\Omega_{",NOT$error,"}=
-		\\begin{pmatrix}
-		Var(",NOT$error,"_",NOT$trait.1,") & Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") \\\\
-		Cov(",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,") & Var(", NOT$error,"_",NOT$trait.2,")\\\\
-		\\end{pmatrix} 
-		$$")),
-	
+	uiOutput("Mod4Step5_Matrices_3"),
 	
 	p("Here we print the point estimates derived from a REML-analysis of these data:"),
 	
+	##### RESULTS	#######################################
 	
-	##### RESULTS *****************************
+	uiOutput("Mod4Step5_Result_Matrices_Model2"),
 	
+	p("With these values, we can calculate the point estimates for the level-specific correlations:"),
 	
+	uiOutput("Mod4Step5_Result_Matrices_Model2_corr"),
+	
+	####################################################
 	
 	p(paste0("This new model should properly recover the effect of x on y and z. 
 					 You will notice that the residual within-individual covariance ($Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}$) 

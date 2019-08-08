@@ -32,7 +32,7 @@ analysis of multilevel and multivariate data.
 
 #### Install squid package
 
-To install the latest released version (v0.1.1) from CRAN:
+To install the latest released version from CRAN:
 
     install.packages("squid")
 

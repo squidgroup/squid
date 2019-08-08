@@ -48,12 +48,21 @@ c(
     		
     		dt <- as.data.table(data$sampled_data)
     		dt <- dt[ , .(Time, Individual, Trait, Phenotype, X1)]
-    		dt[ , Trait := paste0("Trait_", Trait)]
-    		dt <- dcast(dt, Time + Individual ~ Trait, value.var = "Phenotype")
+    		dt[ , Trait := paste0("Phenotype_", Trait)]
+    		dt <- dcast(dt, Time + Individual + X1 ~ Trait, value.var = "Phenotype")
+    		
+    		library(brms)
+    		fit1 <- readRDS("./source/server/modules/module4/stanFiles/module4_step5_brms_model1.rds")
+    		fit1 <- update(fit1, newdata = dt,
+    		               iter = 300, warmup = 100, chains = 1)
+    		
+    		fit2 <- readRDS("./source/server/modules/module4/stanFiles/module4_step5_brms_model2.rds")
+    		fit2 <- update(fit2, newdata = dt,
+    		               iter = 300, warmup = 100, chains = 1)
     		
     		updateCheckboxInput(session, "isRunning", value = FALSE)
     		
-    		return(list("sampled" = dt, "full_data" = data$full_data))
+    		return(list("sampled" = dt, "full_data" = data$full_data, "fit1" = fit1, "fit2" = fit2))
     	})
     }),
     
@@ -65,7 +74,7 @@ c(
     		
     		dt <- copy(data[["sampled"]])
     		
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Phenotype_1, Phenotype_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Phenotype of trait y") +
     			ggplot2::ylab("Phenotype of trait z") + 
@@ -84,10 +93,10 @@ c(
     	if (!is.null(data)) {
 
     		dt <- copy(data[["sampled"]])
-    		dt <- dt[ , .(Trait_1 = mean(Trait_1),
-    									Trait_2 = mean(Trait_2)), by = Individual]
+    		dt <- dt[ , .(Phenotype_1 = mean(Phenotype_1),
+    									Phenotype_2 = mean(Phenotype_2)), by = Individual]
 
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Phenotype_1, Phenotype_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Mean phenotype of trait y") +
     			ggplot2::ylab("Mean phenotype of trait z") + 
@@ -106,10 +115,10 @@ c(
     	if (!is.null(data)) {
 
     		dt <- copy(data[["sampled"]])
-    		dt[ , ':='(Trait_1 = Trait_1 - mean(Trait_1),
-    							 Trait_2 = Trait_2 - mean(Trait_2)), by = Individual]
+    		dt[ , ':='(Phenotype_1 = Phenotype_1 - mean(Phenotype_1),
+    							 Phenotype_2 = Phenotype_2 - mean(Phenotype_2)), by = Individual]
 
-    		ggplot2::ggplot(dt, ggplot2::aes(x = Trait_1, Trait_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
+    		ggplot2::ggplot(dt, ggplot2::aes(x = Phenotype_1, Phenotype_2,  fill = as.factor(Individual), colour = as.factor(Individual))) +
     			ggplot2::geom_point() +
     			ggplot2::xlab("Deviation from individual phenotype mean of trait y") +
     			ggplot2::ylab("Deviation from individual phenotype mean of trait z") + 
@@ -160,27 +169,149 @@ c(
        return(withMathJax(eq))
      }),
     
-    output$Mod4Step5_Result_Matrices <- renderUI({
-    	
-    	cov1 <- round(input$Mod4Step5_Corr_I * sqrt(input$Mod4Step5_Vi1 * input$Mod4Step5_Vi2),3)
-    	eq1 <- paste0(
-    		"$$ \\Omega_{",NOT$devI,"}=
-    		\\begin{pmatrix}
-    		",input$Mod4Step5_Vi1," & ",cov1," \\\\
-    		",cov1," & ",input$Mod4Step5_Vi2,"\\\\
-    		\\end{pmatrix} 
-    		$$")
-    	
-    	cov2 <- round(input$Mod4Step5_Corr_e * sqrt(input$Mod4Step5_Ve1 * input$Mod4Step5_Ve2),3)
-    	eq2 <- paste0(
-    		"$$ \\Omega_{",NOT$error,"}=
-    		\\begin{pmatrix}
-    		",input$Mod4Step5_Ve1," & ",cov2," \\\\
-    		",cov2," & ",input$Mod4Step5_Ve2,"\\\\
-    		\\end{pmatrix} 
-    		$$")
-    	
-    	return(withMathJax(paste0(eq1, eq2)))
+    
+    Matrices <- reactive({
+      
+      cov1 <- round(input$Mod4Step5_Corr_I * sqrt(input$Mod4Step5_Vi1 * input$Mod4Step5_Vi2),3)
+      eq1 <- paste0(
+        "$$ \\Omega_{",NOT$devI,"}=
+        		\\begin{pmatrix}
+          		V_{",NOT$devI,"_",NOT$trait.1,"} & Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"}  \\\\
+          		Cov_{",NOT$devI,"_",NOT$trait.1,",",NOT$devI,"_",NOT$trait.2,"} & V_{", NOT$devI,"_",NOT$trait.2,"} \\\\
+        		\\end{pmatrix} 
+        		=
+        		\\begin{pmatrix}
+          		",input$Mod4Step5_Vi1," & ",cov1," \\\\
+          		",cov1," & ",input$Mod4Step5_Vi2,"\\\\
+        		\\end{pmatrix} 
+    		 $$")
+      
+      cov2 <- round(input$Mod4Step5_Corr_e * sqrt(input$Mod4Step5_Ve1 * input$Mod4Step5_Ve2),3)
+      eq2 <- paste0(
+        "$$ \\Omega_{",NOT$error,"}=
+        		\\begin{pmatrix}
+          		V_{",NOT$error,"_",NOT$trait.1,"} & Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"}  \\\\
+          		Cov_{",NOT$error,"_",NOT$trait.1,",",NOT$error,"_",NOT$trait.2,"} & V_{", NOT$error,"_",NOT$trait.2,"} \\\\
+        		\\end{pmatrix} 
+        		=
+        		\\begin{pmatrix}
+          		",input$Mod4Step5_Ve1," & ",cov2," \\\\
+          		",cov2," & ",input$Mod4Step5_Ve2,"\\\\
+        		\\end{pmatrix} 
+    		 $$")
+      
+      return(withMathJax(paste0(eq1, eq2)))
+      
+    }),
+    
+    output$Mod4Step5_Matrices_1 <- renderUI({Matrices()}),
+    output$Mod4Step5_Matrices_2 <- renderUI({Matrices()}),
+    output$Mod4Step5_Matrices_3 <- renderUI({Matrices()}),
+    
+    output$Mod4Step5_Result_Matrices_Model1 <- renderUI({
+      
+      data  <- Mod4Step5_output()
+      
+      if (!is.null(data)) {
+        
+        RanCoef <- VarCorr(data$fit1)
+        varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
+        varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
+        covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
+        
+        varE1   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype1", "Estimate"]^2, 2)
+        varE2   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype2", "Estimate"]^2, 2)
+        covE12  <- round(RanCoef[["residual__"]][["cov"]]["Phenotype1", "Estimate", "Phenotype2"], 2)
+        
+        eq1 <- paste0(
+          "$$\\Omega_{",NOT$devI,"'}=
+      		\\begin{pmatrix}
+      		",varI1," & ",covI12," \\\\
+      		",covI12," & ",varI2,"\\\\
+      		\\end{pmatrix}\\quad")
+        
+        eq2 <- paste0(
+          "\\Omega_{",NOT$error,"'}=
+      		\\begin{pmatrix}
+      		",varE1," & ",covE12," \\\\
+      		",covE12," & ",varE2,"\\\\
+      		\\end{pmatrix} 
+      		$$")
+        
+        return(withMathJax(paste0(eq1, eq2)))
+        
+      }else{return(NULL)}
+    }),
+    
+    output$Mod4Step5_Result_Matrices_Model1_corr <- renderUI({
+      
+      data  <- Mod4Step5_output()
+      
+      if (!is.null(data)) {
+        
+        RanCoef <- VarCorr(data$fit1)
+        
+        corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
+        corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
+        
+        return(c(paste0("<p><b>Among-individual correlation: ", corI12, "<\b><\p>"),
+                 paste0("<p><b>Residual within-individual correlation: ", corE12, "<\b><\p>")))
+        
+      }else{return(NULL)}
+      
+    }),
+    
+    output$Mod4Step5_Result_Matrices_Model2 <- renderUI({
+      
+      data  <- Mod4Step5_output()
+      
+      if (!is.null(data)) {
+        
+        RanCoef <- VarCorr(data$fit2)
+        varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
+        varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
+        covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
+          
+        varE1   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype1", "Estimate"]^2, 2)
+        varE2   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype2", "Estimate"]^2, 2)
+        covE12  <- round(RanCoef[["residual__"]][["cov"]]["Phenotype1", "Estimate", "Phenotype2"], 2)
+        
+        eq1 <- paste0(
+          "$$\\Omega_{",NOT$devI,"'}=
+      		\\begin{pmatrix}
+      		",varI1," & ",covI12," \\\\
+      		",covI12," & ",varI2,"\\\\
+      		\\end{pmatrix}\\quad")
+        
+        eq2 <- paste0(
+          "\\Omega_{",NOT$error,"'}=
+      		\\begin{pmatrix}
+      		",varE1," & ",covE12," \\\\
+      		",covE12," & ",varE2,"\\\\
+      		\\end{pmatrix} 
+      		$$")
+        
+        return(withMathJax(paste0(eq1, eq2)))
+      
+      }else{return(NULL)}
+    }),
+    
+    output$Mod4Step5_Result_Matrices_Model2_corr <- renderUI({
+      
+      data  <- Mod4Step5_output()
+      
+      if (!is.null(data)) {
+        
+        RanCoef <- VarCorr(data$fit2)
+        
+        corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
+        corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
+        
+        return(c(paste0("<p><b>Among-individual correlation: ", corI12, "<\b><\p>"),
+                 paste0("<p><b>Residual within-individual correlation: ", corE12, "<\b><\p>")))
+        
+      }else{return(NULL)}
+      
     })
     
 ) # End return
