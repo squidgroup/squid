@@ -106,7 +106,7 @@ portal_txt <- list(
                                 of the analysis shown in an output. For the full model the user has the opportunity to download 
                                 the operational data set for further analyses."),
       "parag4_title"         = "SQuID team",
-      "parag4_contents"      = "Hassen Allegue (University of British Columbia, Vancouver, Canada)<br>
+      "parag4_contents"      = "Hassen Allegue (Universit&eacute; du Qu&eacute;bec &Agrave; Montr&eacute;al, Montreal, Canada)<br>
                                 Yimen G. Araya-Ajoy (Norwegian University of Science and Technology, Trondheim, Norway)<br>
                                 Niels J. Dingemanse (Max Planck Institute for Ornithology, Seewiesen & University of Munich, Germany)<br>
                                 Ned A. Dochtermann (North Dakota State University, Fargo, USA)<br>

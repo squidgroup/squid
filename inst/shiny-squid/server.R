@@ -65,10 +65,10 @@ shinyServer(function(input, output, session) {
   # Module 5  --------------------------------------------------------- 
   
   # Module 45Step 1 ---------------------------------------------------------
-  # source("./source/server/modules/module5/SVRMod5Step1.R",local = TRUE)
-  
+  source("./source/server/modules/module5/SVRMod5Step1.R",local = TRUE)
+
   # # Module 5 Step 2 ---------------------------------------------------------
-  # source("./source/server/modules/module5/SVRMod5Step2.R",local = TRUE)
+  source("./source/server/modules/module5/SVRMod5Step2.R",local = TRUE)
   
   
   # Module 6  --------------------------------------------------------- 
