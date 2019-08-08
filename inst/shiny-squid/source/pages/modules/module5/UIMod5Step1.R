@@ -16,7 +16,7 @@ span(
   p(HTML(paste0("<b>Introduction:</b> Here we model multiple sources of environmental variance ($V_",NOT$envEffect,"$) in a single trait, 
   							expressed multiple times within individuals but measured within a single population. 
   							This step illustrates some differences between simple and multiple regression, but may 
-  							also allow simulation of more complex data structures, such as correlations between environments (see step 4)."))),
+  							also allow simulation of more complex data structures, such as correlations between environments."))),
 
   # Exercise
   p(HTML("<b>Exercise:</b> to explore multiple sources of $V_",NOT$envEffect,"$.")),
@@ -34,7 +34,7 @@ span(
   getSliderInput("Mod5Step1_NR", Modules_VAR$NR),
 	
 	
-	p("Note: For now, we will assume all individuals are sampled equally often and at the same time."),
+  info_msg("For now, we will assume all individuals are sampled equally often and at the same time."),
 	
 	p(strong("The environment")),
 	
@@ -54,11 +54,11 @@ span(
 	# Input: Environment 2
   getSliderInput("Mod5Step1_B2", Modules_VAR$B2.1),
 	
-	p(),
+
 	# Simulation run button
 	actionButton("Mod5Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
 	runningIndicator(),
-	p(),
+  sim_msg(),
 	
 	p(strong("Results")),
 	
@@ -70,78 +70,84 @@ span(
 							NOT$trait.1,"_{",NOT$time,NOT$ind,"} = 
 							
 							",EQ1$mean0," +
-							",EQ1$dev1,"  +
+							",EQ1$dev0,"  +
 							",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
 						  ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
 	
 	p("A mixed statistical model estimates the parameters:"),
+  
+  displayRCode("# install.packages(&quot;lme4&quot;)<br>
+                 LMM <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = sampled_data)"),
 	
 	p("Statistical output:"),
 	
 	# Output: Table 1
   uiOutput("Mod5Step1_summary_table1"),
 	
-	p(HTML(paste0("This makes the simple point, also made in Module <i>",Module_titles$mod3,"</i>, 
-		that leaving out an important factor inflates other variance components. In this case 
-		it was mostly the residual variance because the environment was set as random from one 
+	p(HTML(paste0("This makes the simple point, also made in Module <i>",Module_titles$mod3,"</i>,
+		that leaving out an important factor inflates other variance components. In this case
+		it was mostly the residual variance because the environment was set as random from one
 		measurement to the next and all individuals experienced it."))),
-	
+
 	p("A reanalysis with the following model pulls the missing environmental variance out of the residual term:"),
-	
+
 	# Equation
 	p(paste0("$$",
-					 NOT$trait.1,"_{",NOT$time,NOT$ind,"} = 
-					 
+					 NOT$trait.1,"_{",NOT$time,NOT$ind,"} =
+
 					 ",EQ1$mean0," +
-					 ",EQ1$dev1,"  +
+					 ",EQ1$dev0,"  +
 
 					 ",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
 					 ",EQ1$mean2,NOT$env,"_{2",NOT$time,NOT$ind,"} +
 
 					 ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
-	
+  
+  displayRCode("# install.packages(&quot;lme4&quot;)<br>
+                 LMM <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + (1|Individual), data = sampled_data)"),
+
 	p("Statistical output:"),
-	
+
 	# Output: Table 2
   uiOutput("Mod5Step1_summary_table2"),
-	
-	p("This is a multiple regression within a mixed model. A 3-dimensional graph helps visualize 
-		the way in which the two x variables affect a phenotype in the 2 dimensions defined by the environment."),
-	
-	# Output: Figure 1
-  uiOutput("Mod5Step1_3D_1"),
-  
-	p(paste0("Individuals in this simulation vary in their intercept by the amount you entered. 
-		Below we pick three individuals across the range of the intercept variance to illustrate 
-		how each individual's plane sits in the space defined by the two environmental variables. 
-		You can see that the three planes are parallel or very close to parallel, and differ only 
-		in their elevation. If you play around with the number of measures within an individual, 
-		you will see that the resolution of these planes requires fairly large sample sizes 
-		(this is covered in more detail later).")),
-	
-	p(paste0("A new 3-D graph with three individuals picked from the low end of $",NOT$devI,"$, 
-					 the middle, and from the high end of $",NOT$devI,"$.")),
-  
-  # Output: Figure 2
-  uiOutput("Mod5Step1_3D_2"),
-	
-	p(paste0("Run through this simulation several times using different values for $",EQ1$mean1,"$ and $",EQ1$mean2,"$, 
-					 including having some slopes negative. In particular, try making the two have opposite signs.
-					 Inspect the table above and look at the two graphs so you gain a feel for how the two slopes 
-					 produce a flat plane that may be tilted in various ways.")),
-	
-  p(HTML("<b>Conclusion:</b> is exercise should reinforce your understanding of where measured 
-  			 and unmeasured sources of variance end up in a statistical analysis and how systematic 
-  			 effects of multiple environments can be appropriately captured. In the next step, 
-  			 we illustrate one important complexity.")),
-  
-  p(strong("References:")),
-  p(HTML("Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. 
-  			 and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and 
-  			 statistical tool for understanding multi-level phenotypic data in linear mixed models. 
-  			 <i>Methods in Ecology and Evolution</i>, 8, 257-267.")),
-  
 
+	p("This is a multiple regression within a mixed model. A 3-dimensional graph helps visualize
+		the way in which the two x variables affect a phenotype in the 2 dimensions defined by the environment."),
+
+	# Output: Figure 1
+  p(uiOutput("Mod5Step1_3D_1")),
+
+	p(paste0("Individuals in this simulation vary in their intercept by the amount you entered previously in $V_{",NOT$devI,"}$.
+		Below we pick three individuals across the range of the intercept variance to illustrate
+		how each individual's plane sits in the space defined by the two environmental variables.
+		You can see that the three planes are parallel or very close to parallel, and differ only
+		in their elevation. If you play around with the number of measures within an individual,
+		you will see that the resolution of these planes requires fairly large sample sizes
+		(this is covered in more detail later).")),
+
+	p(paste0("A new 3-D graph with three individuals picked from the low end of $",NOT$devI,"$,
+					 the middle, and from the high end of $",NOT$devI,"$.")),
+
+  # Output: Figure 2
+  p(uiOutput("Mod5Step1_3D_2")),
+
+	p(paste0("Run through this simulation several times using different values for $",EQ1$mean1,"$ and $",EQ1$mean2,"$,
+					 including having some slopes negative. In particular, try making the two have opposite signs.
+					 Inspect the table above and look at the two graphs so you gain a feel for how the two slopes
+					 produce a flat plane that may be tilted in various ways.")),
+
+  p(HTML("<b>Conclusion:</b> is exercise should reinforce your understanding of where measured
+  			 and unmeasured sources of variance end up in a statistical analysis and how systematic
+  			 effects of multiple environments can be appropriately captured. In the next step,
+  			 we illustrate one important complexity.")),
+
+  p(strong("References:")),
+  p(HTML("Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H.
+  			 and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and
+  			 statistical tool for understanding multi-level phenotypic data in linear mixed models.
+  			 <i>Methods in Ecology and Evolution</i>, 8, 257-267. 
+         <a href='https://doi.org/10.1111/2041-210X.12659' target='_blank'>doi: 10.1111/2041-210X.12659</a>")),
+  
     div(class = "line"),
 
     # Go to next step
