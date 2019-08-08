@@ -3,7 +3,7 @@ fixedPage( HTML("<div>"),
    navlistPanel( 
      
      id       = "modulesNavList",
-     selected = Module_titles$mod4,
+     selected = Module_titles$mod1,
      well     = TRUE,  
      fluid    = FALSE,
      widths   = c(2,9),

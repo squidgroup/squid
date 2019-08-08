@@ -264,37 +264,66 @@ c(
     output$Mod4Step5_Matrices_2 <- renderUI({Matrices()}),
     output$Mod4Step5_Matrices_3 <- renderUI({Matrices()}),
     
+    
+    show_model_variance_results <- function(fit){
+      
+      RanCoef <- VarCorr(fit)
+      varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
+      varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
+      covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
+      
+      varE1   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype1", "Estimate"]^2, 2)
+      varE2   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype2", "Estimate"]^2, 2)
+      covE12  <- round(RanCoef[["residual__"]][["cov"]]["Phenotype1", "Estimate", "Phenotype2"], 2)
+      
+      
+      
+      cov1 <- round(input$Mod4Step5_Corr_I * sqrt(input$Mod4Step5_Vi1 * input$Mod4Step5_Vi2),3)
+      cov2 <- round(input$Mod4Step5_Corr_e * sqrt(input$Mod4Step5_Ve1 * input$Mod4Step5_Ve2),3)
+      
+      eq1 <- paste0(
+        "$$\\Omega_{",NOT$devI,"'}=
+        		\\begin{pmatrix}
+        		",varI1,"\\,[",input$Mod4Step5_Vi1,"] & ",covI12,"\\,[",cov1,"] \\\\
+        		",covI12,"\\,[",cov1,"] & ",varI2,"\\,[",input$Mod4Step5_Vi2,"]\\\\
+        		\\end{pmatrix}\\quad")
+      
+      eq2 <- paste0(
+        "\\Omega_{",NOT$error,"'}=
+        		\\begin{pmatrix}
+        		",varE1,"\\,[",input$Mod4Step5_Ve1,"] & ",covE12,"\\,[",cov2,"] \\\\
+        		",covE12,"\\,[",cov2,"] & ",varE2,"\\,[",input$Mod4Step5_Ve1,"]\\\\
+        		\\end{pmatrix} 
+        		$$")
+      
+      return(paste0(eq1, eq2))
+      
+    },
+    
+    
+    show_model_correlation_results <- function(fit){
+      
+      RanCoef <- VarCorr(fit)
+      
+      corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
+      corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
+      
+      cor <- paste0("$$\\text{Among-individual correlation: }",corI12,"\\,[",input$Mod4Step5_Corr_I,"]$$
+                     $$\\text{Residual within-individual correlation: }",corE12,"\\,[",input$Mod4Step5_Corr_e,"]$$")
+      
+      return(cor)
+      
+    },
+    
     output$Mod4Step5_Result_Matrices_Model1 <- renderUI({
       
       fit1  <- Mod4Step5_output_model1()
       
       if (!is.null(fit1)) {
         
-        RanCoef <- VarCorr(fit1)
-        varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
-        varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
-        covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
+        isolate({res <- show_model_variance_results(fit1)})
         
-        varE1   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype1", "Estimate"]^2, 2)
-        varE2   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype2", "Estimate"]^2, 2)
-        covE12  <- round(RanCoef[["residual__"]][["cov"]]["Phenotype1", "Estimate", "Phenotype2"], 2)
-        
-        eq1 <- paste0(
-          "$$\\Omega_{",NOT$devI,"'}=
-      		\\begin{pmatrix}
-      		",varI1," & ",covI12," \\\\
-      		",covI12," & ",varI2,"\\\\
-      		\\end{pmatrix}\\quad")
-        
-        eq2 <- paste0(
-          "\\Omega_{",NOT$error,"'}=
-      		\\begin{pmatrix}
-      		",varE1," & ",covE12," \\\\
-      		",covE12," & ",varE2,"\\\\
-      		\\end{pmatrix} 
-      		$$")
-        
-        return(withMathJax(paste0(eq1, eq2)))
+        return(withMathJax(res))
         
       }else{return(withMathJax("$$...$$"))}
     }),
@@ -305,13 +334,7 @@ c(
       
       if (!is.null(fit1)) {
         
-        RanCoef <- VarCorr(fit1)
-        
-        corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
-        corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
-        
-        cor <- paste0("$$\\text{Among-individual correlation: }",corI12,"$$
-                       $$\\text{Residual within-individual correlation: }",corE12,"$$")
+        isolate({cor <- show_model_correlation_results(fit1)})
         
         return(withMathJax(cor))       
         
@@ -325,31 +348,9 @@ c(
       
       if (!is.null(fit2)) {
         
-        RanCoef <- VarCorr(fit2)
-        varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
-        varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
-        covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
-          
-        varE1   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype1", "Estimate"]^2, 2)
-        varE2   <- round(RanCoef[["residual__"]][["sd"]]["Phenotype2", "Estimate"]^2, 2)
-        covE12  <- round(RanCoef[["residual__"]][["cov"]]["Phenotype1", "Estimate", "Phenotype2"], 2)
+        isolate({res <- show_model_variance_results(fit2)})
         
-        eq1 <- paste0(
-          "$$\\Omega_{",NOT$devI,"'}=
-      		\\begin{pmatrix}
-      		",varI1," & ",covI12," \\\\
-      		",covI12," & ",varI2,"\\\\
-      		\\end{pmatrix}\\quad")
-        
-        eq2 <- paste0(
-          "\\Omega_{",NOT$error,"'}=
-      		\\begin{pmatrix}
-      		",varE1," & ",covE12," \\\\
-      		",covE12," & ",varE2,"\\\\
-      		\\end{pmatrix} 
-      		$$")
-        
-        return(withMathJax(paste0(eq1, eq2)))
+        return(withMathJax(res))
       
       }else{return(withMathJax("$$...$$"))}
     }),
@@ -360,13 +361,7 @@ c(
       
       if (!is.null(fit2)) {
         
-        RanCoef <- VarCorr(fit2)
-        
-        corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
-        corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
-        
-        cor <- paste0("$$\\text{Among-individual correlation: }",corI12,"$$
-                       $$\\text{Residual within-individual correlation: }",corE12,"$$")
+        isolate({cor <- show_model_correlation_results(fit2)})
         
         return(withMathJax(cor))       
  

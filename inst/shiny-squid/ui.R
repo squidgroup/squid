@@ -22,8 +22,7 @@ shinyUI(
                         console.log(message)
                         eval(message.code); 
                       });')),
-    tags$script( "MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ]}});", type='text/x-mathjax-config'),
-    tags$script(type="text/javascript", src = "js/googleAnalytics.js")
+    tags$script( "MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ]}});", type='text/x-mathjax-config')
   ),
   
   # Navigation upper Bar

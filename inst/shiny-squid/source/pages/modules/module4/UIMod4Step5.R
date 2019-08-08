@@ -178,7 +178,8 @@ span(
 	runningIndicator(),
 	sim_msg(),
 	
-	p("Here we print the point estimates derived from a Bayesian-analysis of these data:"),
+	p("Here we print the point estimates derived from a Bayesian-analysis 
+	  of these data (true values are between brackets):"),
 	
 	##### RESULTS	#######################################
 	
@@ -189,7 +190,10 @@ span(
 	uiOutput("Mod4Step5_Result_Matrices_Model1_corr"),
 	
 	displayRCode("# install.packages(&quot;brms&quot;)<br>
-                BLMM1 <- brm(mvbind(Phenotype_1, Phenotype_2) ~ 1 + (1|p|Individual), data  = sampled_data)"),
+	              # for more inforation on the 
+	              <a href='https://paul-buerkner.github.io/brms/' target = '_blank'><i>brms</i> package</a>.<br>
+               library(brms) <br>
+	             BLMM1 <- brm(mvbind(Phenotype_1, Phenotype_2) ~ 1 + (1|p|Individual), data  = sampled_data)"),
 
 	####################################################
 	
@@ -221,7 +225,8 @@ span(
 	runningIndicator(),
 	sim_msg(),
 	
-	p("Here we print the point estimates derived from a Bayesian-analysis of these data:"),
+	p("Here we print the point estimates derived from a Bayesian-analysis 
+	  of these data (true values are between brackets):"),
 	
 	##### RESULTS	#######################################
 	
