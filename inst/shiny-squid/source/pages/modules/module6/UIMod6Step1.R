@@ -64,20 +64,19 @@ span(
       uiOutput("Mod6Step1_hidden")
     ),
     
-    (HTML(Mod6Step1_txt$para3)),    # Text: paragraph 3
+    p(HTML(Mod6Step1_txt$para3)),    # Text: paragraph 3
     
-    p(),
     # Simulation run button
     actionButton("Mod6Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
     runningIndicator(),
-    p(),
+    sim_msg(),
     
-    (HTML(Mod6Step1_txt$results)),    # Text: results
+    p(HTML(Mod6Step1_txt$results)),    # Text: results
     
     # Table : display true and measured values (Vp, Vi and mean)
     uiOutput("Mod6Step1_summary_table"),
     
-    (HTML(Mod6Step1_txt$para4)),    # Text: paragraph
+    p(HTML(Mod6Step1_txt$para4)),    # Text: paragraph
     
     # Phenotype against environment figure
     p(plotOutput("Mod6Step1_plot", width = Modules_VAR$Plot$width)),

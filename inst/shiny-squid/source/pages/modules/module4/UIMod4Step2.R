@@ -251,13 +251,11 @@ span(
   p("The first scatter plot shows the correlation between the two traits that your entries 
   	(of within- and among-individual variances and covariances) above produced:"),
   
-  p(),
   # Simulation run button
   actionButton("Mod4Step2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
   runningIndicator(),
-  p(),
+  sim_msg(),
   
-  p(),
   plotOutput("Mod4Step2_correlationplot", width = Modules_VAR$Plot$width),
   
   p("The second scatter plot also uses your entries but assumes that you entered zero among-individual variances. 

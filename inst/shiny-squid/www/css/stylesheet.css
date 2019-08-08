@@ -164,9 +164,12 @@ input[type="number"]{
   margin: 0 20px;
 }
 
-.runButton{
+.runButton, .refreshButton{
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.runButton{
   color: #fff; 
   background-color: #337ab7; 
   border-color: #2e6da4;

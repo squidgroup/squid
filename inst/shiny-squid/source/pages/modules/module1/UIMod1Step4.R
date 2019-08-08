@@ -39,14 +39,12 @@ span(
           NOT$env,"_{",NOT$time,NOT$ind,"} +",
           NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
   p(HTML(Mod1Step4_txt$para2)),      # Text: paragraph 2
-  div(info_msg(Mod1Step4_txt$note1)), # Text: note
+  info_msg(Mod1Step4_txt$note1), # Text: note
   
-  p(),
   # Simulation run button
   actionButton("Mod1Step4_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
-  p(),
-  # Simulation progress bar
+  sim_msg(),
   
   # Output
     # Table : display true and measured values (Vp, Vme, mean and Beta es)  

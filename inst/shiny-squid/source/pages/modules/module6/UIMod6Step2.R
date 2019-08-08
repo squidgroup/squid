@@ -76,11 +76,10 @@ span(
       uiOutput("Mod6Step2_hidden")
     ),
     
-    p(),
     # Simulation run button
     actionButton("Mod6Step2_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
     runningIndicator(),
-    p(),
+    sim_msg(),
     
     p(HTML(Mod6Step2_txt$results)),    # Text: results
     

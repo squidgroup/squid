@@ -121,13 +121,11 @@ span(
 	p("First, we plot the raw data in a scatter plot; this plot represents 
 		the overall phenotypic association between the two traits:"),
 	
-	p(),
 	# Simulation run button
 	actionButton("Mod4Step5_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
 	runningIndicator(),
-	p(),
-
-	p(),
+	sim_msg(),
+	
 	plotOutput("Mod4Step5_correlationplot", width = Modules_VAR$Plot$width),
 	
 	
@@ -143,13 +141,11 @@ span(
 		each of the two traits, and plot these two values in a scatter plot. This plot of 
 		within-individual deviations from individual-means represents a visual of the within-individual correlation:"),
 	
-	p(),
 	plotOutput("Mod4Step5_correlationplot3", width = Modules_VAR$Plot$width),
 	
 	
 	p("Here is also the plot showing how the environment is changing over time:"),
 	
-	p(),
 	plotOutput("Mod4Step5_environment", width = Modules_VAR$Plot$width),
 	
 	
@@ -177,7 +173,12 @@ span(
 	
 	uiOutput("Mod4Step5_Matrices_2"),
 	
-	p("Here we print the point estimates derived from a REML-analysis of these data:"),
+	# Simulation run button
+	actionButton("Mod4Step5_Run_1", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+	runningIndicator(),
+	sim_msg(),
+	
+	p("Here we print the point estimates derived from a Bayesian-analysis of these data:"),
 	
 	##### RESULTS	#######################################
 	
@@ -187,6 +188,9 @@ span(
 	
 	uiOutput("Mod4Step5_Result_Matrices_Model1_corr"),
 	
+	displayRCode("# install.packages(&quot;brms&quot;)<br>
+                BLMM1 <- brm(mvbind(Phenotype_1, Phenotype_2) ~ 1 + (1|p|Individual), data  = sampled_data)"),
+
 	####################################################
 	
 	p("Importantly, the estimates printed above are from a model where the effect of food availability (x) 
@@ -212,7 +216,12 @@ span(
 
 	uiOutput("Mod4Step5_Matrices_3"),
 	
-	p("Here we print the point estimates derived from a REML-analysis of these data:"),
+	# Simulation run button
+	actionButton("Mod4Step5_Run_2", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+	runningIndicator(),
+	sim_msg(),
+	
+	p("Here we print the point estimates derived from a Bayesian-analysis of these data:"),
 	
 	##### RESULTS	#######################################
 	
@@ -221,6 +230,8 @@ span(
 	p("With these values, we can calculate the point estimates for the level-specific correlations:"),
 	
 	uiOutput("Mod4Step5_Result_Matrices_Model2_corr"),
+	
+	displayRCode("# BLMM2 <- brm(mvbind(Phenotype_1, Phenotype_2) ~ X1 + (1|p|Individual), data  = sampled_data)"),
 	
 	####################################################
 	

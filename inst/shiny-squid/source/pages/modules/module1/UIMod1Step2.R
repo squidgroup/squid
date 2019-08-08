@@ -26,13 +26,10 @@ span(
     uiOutput("Mod1Step2_hidden")
   ),
   
-  p(),
   # Simulation run button
-  # bsButton("Mod1Step2_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton", style = Modules_VAR$Run$style),
   actionButton("Mod1Step2_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
-  p(),
-  # Simulation progress bar
+  sim_msg(),
   
   p(HTML(Mod1Step2_txt$para2)),
   

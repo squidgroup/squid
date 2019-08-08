@@ -146,13 +146,11 @@ span(
 	p("First, we can simply plot the raw data in a scatter plot; 
 		this plot represents the overall phenotypic association between the two traits:"),
 
-	p(),
 	# Simulation run button
 	actionButton("Mod4Step3_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
 	runningIndicator(),
-	p(),
+	sim_msg(),
 	
-	p(),
 	plotOutput("Mod4Step3_correlationplot", width = Modules_VAR$Plot$width),
 	
 	p("Second, we can calculate each individual's mean value for each of the two traits, 

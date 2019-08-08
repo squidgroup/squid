@@ -94,11 +94,10 @@ span(
   p("Here is a plot of the simulated data showing the within-individual correlation, 
   	where each individual is given a different colour:"),
   
-  p(),
   # Simulation run button
   actionButton("Mod4Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
   runningIndicator(),
-  p(),
+  sim_msg(),
   
   ##### Plot correlation between two trait
   p(),

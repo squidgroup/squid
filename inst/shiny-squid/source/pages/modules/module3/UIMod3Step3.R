@@ -39,18 +39,17 @@ span(
   getSliderInput("Mod3Step3_NR",  Modules_VAR$NR),
   getSliderInput("Mod3Step3_Vhsi", Modules_VAR$Vhsi),
   
-  actionButton("Mod3Step3_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
-  p(),
+  actionButton("Mod3Step3_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, class="refreshButton"),
+  sim_msg(),
+  
   plotOutput("Mod3Step3_previewPlot", width = Modules_VAR$Plot$width),
-  p(),
   
   p(HTML(Mod3Step3_txt$para3)),      # Text: paragraph 3
   
-  p(),
   # Simulation run button
   actionButton("Mod3Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
-  p(),
+  sim_msg(),
   
   p(HTML(Mod3Step3_txt$results)),         # Text: results
   
@@ -87,11 +86,10 @@ span(
   
   getSliderInput("Mod3Step3_Vhsi2", Modules_VAR$Vhsi),
   
-  p(),
   # Simulation run button
   actionButton("Mod3Step3_Run2", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
-  p(),
+  sim_msg(),
   
   p(HTML(Mod3Step3_txt$para9)),      # Text: paragraph 9
   

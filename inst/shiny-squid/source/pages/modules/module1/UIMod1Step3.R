@@ -31,12 +31,10 @@ span(
     uiOutput("Mod1Step3_hidden")
   ),
   
-  p(),
   # Simulation run button
   actionButton("Mod1Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
-  p(),
-  # Simulation progress bar
+  sim_msg(),
   
   # Output
     # Graph: density distribution of true values (Vp)

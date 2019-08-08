@@ -52,16 +52,16 @@ span(
   
   p(HTML(Mod3Step1_txt$para5)),       # Text: paragraph 5
   
-  actionButton("Mod3Step1_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon),
-  p(),
+  actionButton("Mod3Step1_previewPlot_btn", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, class="refreshButton"),
+  sim_msg(),
+  
   plotOutput("Mod3Step1_previewPlot", width = Modules_VAR$Plot$width),
   
-  
-  p(),
+
   # Simulation run button
   actionButton("Mod3Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
-  p(),
+  sim_msg(),
   
   p(HTML(Mod3Step1_txt$results)),     # Text: results
   

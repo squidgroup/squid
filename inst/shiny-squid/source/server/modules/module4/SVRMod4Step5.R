@@ -32,6 +32,19 @@ c(
      }),
     outputOptions(output, "Mod4Step5_hidden", suspendWhenHidden = FALSE),
 
+    # get data from squidR()
+    get_data <- function(){
+      
+      # Call app main function
+      data <- squid::squidR(input, module = "Mod4Step5")
+      
+      dt <- as.data.table(data$sampled_data)
+      dt <- dt[ , .(Time, Individual, Trait, Phenotype, X1)]
+      dt[ , Trait := paste0("Phenotype_", Trait)]
+      dt <- dcast(dt, Time + Individual + X1 ~ Trait, value.var = "Phenotype")
+      
+      return(list("sampled" = dt, "full_data" = data$full_data))
+    },
     
     ######### Run simulation #########
     # Run simulation and return results
@@ -42,28 +55,70 @@ c(
     	isolate({
     		
     		updateCheckboxInput(session, "isRunning", value = TRUE)
-    		
-    		# Call app main function
-    		data <- squid::squidR(input, module = "Mod4Step5")
-    		
-    		dt <- as.data.table(data$sampled_data)
-    		dt <- dt[ , .(Time, Individual, Trait, Phenotype, X1)]
-    		dt[ , Trait := paste0("Phenotype_", Trait)]
-    		dt <- dcast(dt, Time + Individual + X1 ~ Trait, value.var = "Phenotype")
-    		
-    		library(brms)
-    		fit1 <- readRDS("./source/server/modules/module4/stanFiles/module4_step5_brms_model1.rds")
-    		fit1 <- update(fit1, newdata = dt,
-    		               iter = 300, warmup = 100, chains = 1)
-    		
-    		fit2 <- readRDS("./source/server/modules/module4/stanFiles/module4_step5_brms_model2.rds")
-    		fit2 <- update(fit2, newdata = dt,
-    		               iter = 300, warmup = 100, chains = 1)
-    		
+    	  dt <- get_data()
     		updateCheckboxInput(session, "isRunning", value = FALSE)
     		
-    		return(list("sampled" = dt, "full_data" = data$full_data, "fit1" = fit1, "fit2" = fit2))
+    		return(dt)
     	})
+    }),
+    
+    observe({
+      
+      data  <- Mod4Step5_output()
+      
+      if(is.null(data)){
+        disableActionButton("Mod4Step5_Run_1", session, "true")
+        disableActionButton("Mod4Step5_Run_2", session, "true")
+      }else{
+        disableActionButton("Mod4Step5_Run_1", session, "false")
+        disableActionButton("Mod4Step5_Run_2", session, "false")
+      }
+    }),
+    
+    Mod4Step5_output_model1 <- reactive({
+      
+      if (input$Mod4Step5_Run_1 == 0) # if Run button is pressed
+        return(NULL)
+      
+      isolate({
+        
+        updateCheckboxInput(session, "isRunning", value = TRUE)
+        
+        data  <- get_data()$sampled
+        
+        library(brms)
+        fit1 <- readRDS("./source/server/modules/module4/stanFiles/module4_step5_brms_model1.rds")
+        fit1 <- update(fit1, newdata = data,
+                       iter = 200, warmup = 100, chains = 1)
+        
+        updateCheckboxInput(session, "isRunning", value = FALSE)
+       
+        return(fit1)
+        
+      })
+    }),
+    
+    Mod4Step5_output_model2 <- reactive({
+      
+      if (input$Mod4Step5_Run_2 == 0) # if Run button is pressed
+        return(NULL)
+      
+      isolate({
+        
+        updateCheckboxInput(session, "isRunning", value = TRUE)
+        
+        data  <- get_data()$sampled
+        
+        library(brms)
+        fit2 <- readRDS("./source/server/modules/module4/stanFiles/module4_step5_brms_model2.rds")
+        fit2 <- update(fit2, newdata = data,
+                       iter = 200, warmup = 100, chains = 1)
+        
+        updateCheckboxInput(session, "isRunning", value = FALSE)
+        
+        return(fit2)
+        
+      })
     }),
     
     output$Mod4Step5_correlationplot <- renderPlot({
@@ -81,7 +136,8 @@ c(
     		  ggplotCustomTheme()
     		
     	}else{
-    		defaultPlot()
+    	  sim_msg()
+    		# defaultPlot()
     	}
     	
     }),
@@ -210,11 +266,11 @@ c(
     
     output$Mod4Step5_Result_Matrices_Model1 <- renderUI({
       
-      data  <- Mod4Step5_output()
+      fit1  <- Mod4Step5_output_model1()
       
-      if (!is.null(data)) {
+      if (!is.null(fit1)) {
         
-        RanCoef <- VarCorr(data$fit1)
+        RanCoef <- VarCorr(fit1)
         varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
         varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
         covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
@@ -240,34 +296,36 @@ c(
         
         return(withMathJax(paste0(eq1, eq2)))
         
-      }else{return(NULL)}
+      }else{return(withMathJax("$$...$$"))}
     }),
     
     output$Mod4Step5_Result_Matrices_Model1_corr <- renderUI({
       
-      data  <- Mod4Step5_output()
+      fit1  <- Mod4Step5_output_model1()
       
-      if (!is.null(data)) {
+      if (!is.null(fit1)) {
         
-        RanCoef <- VarCorr(data$fit1)
+        RanCoef <- VarCorr(fit1)
         
         corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
         corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
         
-        return(c(paste0("<p><b>Among-individual correlation: ", corI12, "<\b><\p>"),
-                 paste0("<p><b>Residual within-individual correlation: ", corE12, "<\b><\p>")))
+        cor <- paste0("$$\\text{Among-individual correlation: }",corI12,"$$
+                       $$\\text{Residual within-individual correlation: }",corE12,"$$")
         
-      }else{return(NULL)}
+        return(withMathJax(cor))       
+        
+      }else{return(withMathJax("$$...$$"))}
       
     }),
     
     output$Mod4Step5_Result_Matrices_Model2 <- renderUI({
       
-      data  <- Mod4Step5_output()
+      fit2  <- Mod4Step5_output_model2()
       
-      if (!is.null(data)) {
+      if (!is.null(fit2)) {
         
-        RanCoef <- VarCorr(data$fit2)
+        RanCoef <- VarCorr(fit2)
         varI1   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype1_Intercept", "Estimate"]^2, 2)
         varI2   <- round(RanCoef[["Individual"]][["sd"]]["Phenotype2_Intercept", "Estimate"]^2, 2)
         covI12  <- round(RanCoef[["Individual"]][["cov"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"], 2)
@@ -293,24 +351,26 @@ c(
         
         return(withMathJax(paste0(eq1, eq2)))
       
-      }else{return(NULL)}
+      }else{return(withMathJax("$$...$$"))}
     }),
     
     output$Mod4Step5_Result_Matrices_Model2_corr <- renderUI({
       
-      data  <- Mod4Step5_output()
+      fit2  <- Mod4Step5_output_model2()
       
-      if (!is.null(data)) {
+      if (!is.null(fit2)) {
         
-        RanCoef <- VarCorr(data$fit2)
+        RanCoef <- VarCorr(fit2)
         
         corI12 <- round(RanCoef[["Individual"]][["cor"]]["Phenotype1_Intercept", "Estimate", "Phenotype2_Intercept"],2)
         corE12 <- round(RanCoef[["residual__"]][["cor"]]["Phenotype1", "Estimate", "Phenotype2"],2)
         
-        return(c(paste0("<p><b>Among-individual correlation: ", corI12, "<\b><\p>"),
-                 paste0("<p><b>Residual within-individual correlation: ", corE12, "<\b><\p>")))
+        cor <- paste0("$$\\text{Among-individual correlation: }",corI12,"$$
+                       $$\\text{Residual within-individual correlation: }",corE12,"$$")
         
-      }else{return(NULL)}
+        return(withMathJax(cor))       
+ 
+      }else{return(withMathJax("$$...$$"))}
       
     })
     

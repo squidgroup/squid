@@ -37,11 +37,10 @@ span(
     # Table 
     uiOutput("Mod6Step3_summary_table"),
     
-     p(),
      # Simulation run button
-     actionButton("Mod6Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
-     runningIndicator(),
-     p(),
+    actionButton("Mod6Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
+    runningIndicator(),
+    sim_msg(),
    
     p(tags$b("Results")),
     
