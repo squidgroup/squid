@@ -152,9 +152,7 @@ c(
                                size  = 0.2,
                                axisLabels = c("X1", "Phenotype", "X2"),
                                renderer   = "auto")
-     }else{
-       print(plot(0,type = 'n',ann = FALSE, xaxt = "n", yaxt = "n"))
-     }
+     }else{defaultPlot()}
    }),
    output$Mod5Step1_3D_2 <- renderUI({threejs::scatterplotThreeOutput("Mod5Step1_3D_scatterplot_2")})
    

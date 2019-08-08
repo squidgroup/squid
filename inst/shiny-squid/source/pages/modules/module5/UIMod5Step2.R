@@ -26,17 +26,17 @@ span(
 					to one environment of a reaction norm to another (plasticity of plasticity) is a fascinating 
 					potential consequence of multidimensional environments.")),
   
-  p("So far, you have explored the effect of two environmental factors that produce a flat plane. 
+  p(HTML("So far, you have explored the effect of two environmental factors that produce a flat plane. 
   	The second statistical equation in step 1 illustrates these as additive effects of the two environmental 
   	factors. Put another way, the effects of the factors were treated as independent. Note the distinction 
-  	between independence of effects and independence of the factors themselves—weak to modest correlations 
+  	between independence of effects and independence of the factors themselves&mdash;weak to modest correlations 
   	among the factors themselves do not change the independence of the effects of those factors, as will 
   	be illustrated in a later module. However, high correlations between factors (colinearity) can have 
-  	unusual effects on statistical tests of parameter estimates—we ignore that issue for now. Instead, 
+  	unusual effects on statistical tests of parameter estimates&mdash;we ignore that issue for now. Instead, 
   	plasticity of plasticity as described above results from non-additive effects. The factors are said 
   	to interact, the term describing them in a mixed model or any related analysis (GLM) is an 
   	interaction term. Biologically, interactive effects on a phenotype between 2 environmental factors 
-  	may have multiple fascinating implications."),
+  	may have multiple fascinating implications.")),
   
   # Exercise
   p(HTML("<b>Exercise:</b> As in step 1, we need to simulate a population and the data we collect from that population.")),
@@ -53,7 +53,7 @@ span(
   # Input: Number of trait expression measured
   getSliderInput("Mod5Step2_NR", Modules_VAR$NR),
 
-	p("Note: For now, we will assume all individuals are sampled equally often and at the same time."),
+  info_msg("For now, we will assume all individuals are sampled equally often and at the same time."),
 
 	p(strong("The environment")),
 
@@ -68,12 +68,10 @@ span(
   # Input: Interaction
   getSliderInput("Mod5Step2_B12", Modules_VAR$B1122),
   
- 
-  p(),
   # Simulation run button
   actionButton("Mod5Step2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
   runningIndicator(),
-  p(),
+  sim_msg(),
 
 	p(strong("Results")),
 
@@ -91,6 +89,9 @@ span(
 
 						  ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
+  displayRCode("# install.packages(&quot;lme4&quot;)<br>
+                 LMM <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + (1|Individual), data = sampled_data)"),
+  
   p("The full statistical model including the interaction is:"),
   
   # Equation 2
@@ -105,6 +106,9 @@ span(
   				 
   				 ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
+  displayRCode("# install.packages(&quot;lme4&quot;)<br>
+                 LMM <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + X1X2 + (1|Individual), data = sampled_data)"),
+  
   p("Here the results compared:"),
   
 	p("Statistical output:"),
@@ -112,30 +116,30 @@ span(
   # Output: Table 1
   uiOutput("Mod5Step2_summary_table"),
   
-  p("You should find from the above that the variance caused by the interaction term, when that term is omitted, 
+  p("You should find from the above that the variance caused by the interaction term, when that term is omitted,
   	ends up mostly in the residuals, although some may end up elsewhere due to sampling issues."),
 
-  p("You can visualize the impact of the interaction term in the graph below. Here we have graphed 
+  p("You can visualize the impact of the interaction term in the graph below. Here we have graphed
   	the population average plane derived from the parameter estimates in the simulated data in the space defined by both environments."),
-  
+
   # Output: Figure 1
-  uiOutput("Mod5Step2_3D"),
-  
-  p(paste0("Examine this graph carefully. The plane produced should look different than the ones you 
-  				 produced in step 1. Those planes were flat but tilted in various ways. If $",EQ1$mean12,"$ is not 0, 
+  p(uiOutput("Mod5Step2_3D")),
+
+  p(paste0("Examine this graph carefully. The plane produced should look different than the ones you
+  				 produced in step 1. Those planes were flat but tilted in various ways. If $",EQ1$mean12,"$ is not 0,
   				 the plane in this graph should look warped or bent. This is the influence of the interaction term.")),
-  
-  p(paste0("Now redo the above and manipulate both the magnitude of the interaction between $",NOT$env,"_1$ and $",NOT$env,"_2$ 
-  				 ($",EQ1$mean12,"$) and its direction relative to the other slopes to assess how this affects your 
+
+  p(paste0("Now redo the above and manipulate both the magnitude of the interaction between $",NOT$env,"_1$ and $",NOT$env,"_2$
+  				 ($",EQ1$mean12,"$) and its direction relative to the other slopes to assess how this affects your
   				 results if you leave it out of your statistical analysis.")),
-  
+
   p(paste("You can also see in the graph how the parameter $",EQ1$mean12,"$ changes the warping of the plane.")),
 
-  p(HTML("<b>Conclusion:</b> Multidimensionality of environmental effects on phenotypic attributes is very likely. 
-  			 It may seem redundant to keep demonstrating that leaving out an important term causes that variance to 
-  			 end up in other terms. The unusual element of interactions is that the direction of the slope compared 
-  			 to the main effects matters also. Moreover, interaction terms generate an array of interesting biological 
-  			 questions about both the way organisms integrate information about environment and the selective forces 
+  p(HTML("<b>Conclusion:</b> Multidimensionality of environmental effects on phenotypic attributes is very likely.
+  			 It may seem redundant to keep demonstrating that leaving out an important term causes that variance to
+  			 end up in other terms. The unusual element of interactions is that the direction of the slope compared
+  			 to the main effects matters also. Moreover, interaction terms generate an array of interesting biological
+  			 questions about both the way organisms integrate information about environment and the selective forces
   			 shaping the reaction norm plane.")),
 
   div(class = "line"),
