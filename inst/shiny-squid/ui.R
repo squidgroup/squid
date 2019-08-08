@@ -28,7 +28,7 @@ shinyUI(
   # Navigation upper Bar
   navbarPage( 
     # Application title
-    title = "SQuID", selected = "Modules",
+    title = "SQuID", selected = "Portal",
 
     # Portal page
     tabPanel("Portal", # Title
