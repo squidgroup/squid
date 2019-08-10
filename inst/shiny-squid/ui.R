@@ -1,17 +1,15 @@
-#################################################################
-#################################################################
-################ My Shiny User Interface  #######################
-#################################################################
-#################################################################
+# My Shiny User Interface #
 
-## Include packages and source functions ########################
+#### Include #### 
 source("./source/UIsource.R", local=TRUE)
+
+
 
 shinyUI(
   fluidPage(
 
-  # Header
-  # add custom CSS and Javascipt file
+  #### Header  ####
+  #### CSS and Javascipt file ####  
   tags$head(
     tags$link(rel = "stylesheet", type = "text/css", href = "css/jquery.qtip.css"),
     tags$link(rel = "stylesheet", type = "text/css", href = "css/stylesheet.css"),
@@ -25,12 +23,16 @@ shinyUI(
     tags$script( "MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ]}});", type='text/x-mathjax-config')
   ),
   
+  #### For debugging ####
+  # verbatimTextOutput("debug"),
+  
+  
   # Navigation upper Bar
   navbarPage( 
-    # Application title
+    #### Title ####
     title = "SQuID", selected = "Portal",
 
-    # Portal page
+    #### Portal #### 
     tabPanel("Portal", # Title
              icon=icon("home", "fa-fw"),
              # Portal container
@@ -40,7 +42,7 @@ shinyUI(
              
     ), # End tabPanel Portal
     
-    # Background page
+    #### Background #### 
     tabPanel("Background", # Title
              icon=icon("folder-open", "fa-fw"),
              # Background container
@@ -58,7 +60,7 @@ shinyUI(
              
     ), # End tabPanel Background
     
-    # Modules page
+    #### Modules page ####
     tabPanel("Modules", # Title
              icon=icon("tasks", "fa-fw"), # Icon
              # Portal container
@@ -68,26 +70,26 @@ shinyUI(
                       )
     ), # End tabPanel Portal
 
-    # Simulation page
+    #### Full Model (Step by step) ####
     tabPanel("Full model (Step by step)", # title
              icon=icon("coffee", "fa-fw"), # Icon
              # Simulation container 
              tags$div(class="myPage",source("./source/pages/fullModelSbyS/UIfullModelSbyS.R",local=TRUE)[["value"]])
     ), # End tabPanel Simulation 
 
-    # Full model page
+    #### Full model (express) ####
     tabPanel("Full model (express)", # title
              icon=icon("fighter-jet", "fa-fw"), # Icon
              # Simulation container 
              tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
     ), # End tabPanel Full Model 
 
-    # R code page
+    #### R code ####
     tabPanel("R code",
     				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/Rcode/Rcode.md")))
     ), # End tabPanel People
     
-    # About us page
+    #### About us ####
     tabPanel("About us", icon=icon("users", "fa-users"),
        tags$div(class="myPage myTutorial",
         fixedPage(
@@ -104,7 +106,7 @@ shinyUI(
        )
     ), # End tabPanel About us
 
-    # Contact us page
+    #### Contact us ####
     tabPanel("Contact us", icon=icon("envelope", "fa-users"),
     				 
              tags$div(class="myPage myTutorial",
@@ -118,7 +120,7 @@ shinyUI(
              )
     ), # End tabPanel People
 
-    # Footer
+    #### Footer ####
     tags$div(class="footer",
      fixedPage(div(class="line"),
        # Boolean showing when a simulation is running

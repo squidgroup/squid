@@ -1,3 +1,4 @@
+
 #### Variables ####
 source("./source/variables/general/VARgeneral.R",local=TRUE)
 source("./source/variables/fullmodel/VARfullmodel.R",local=TRUE)
@@ -25,9 +26,8 @@ source("./source/utilities/all_msg.R",local=TRUE)
 source("./source/utilities/getLabel.R",local=TRUE)
 source("./source/utilities/displayRCode.R",local=TRUE)
 
-########
+#### Pages ####
 source("./source/pages/fullModel/UIenvironment.R",local=TRUE)
 source("./source/pages/fullModel/UIspecificEnvironment.R",local=TRUE)
 
-#####
 c()
