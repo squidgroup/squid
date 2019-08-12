@@ -38,6 +38,7 @@ Imports:
     lme4 (>= 1.1-21),
     arm (>= 1.10-1),
     data.table (>= 1.12.2),
-    brms (>= 2.9.0)
+    brms (>= 2.9.0),
+    RefManageR (>= 1.2.12)
 RoxygenNote: 6.1.1
 Suggests: testthat

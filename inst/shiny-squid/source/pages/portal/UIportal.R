@@ -29,6 +29,6 @@ fixedPage(
       p(HTML(portal_txt$parag3_contents2)),
       
       h4(portal_txt$references_title),
-      p(HTML(portal_txt$references_content))
+      print_ref(bib[c("Allegue2016a", "Dingemanse2013a")], .opts = bibPrintOptions)
     )      
 )
