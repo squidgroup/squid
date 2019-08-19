@@ -293,7 +293,7 @@ Mod1Step4_txt <- list(
                 $V_{",NOT$mean," ",NOT$env,"}$ and $V_",NOT$devI,"$ to better understand the effects."),
  
  "point"    = "<b>Point:</b> This exercise introduced explanatory variables (also known as fixed effects). 
-               Because individual is a &ldquo;random&rdquo; effect, this is thus a “mixed effects” model. 
+               Because individual is a &ldquo;random&rdquo; effect, this is thus a &ldquo;mixed effects&rdquo; model. 
                The fixed effect part is a linear regression. Even if this is all you want to do with your data, 
                it is important to understand that a sampling regime in which individuals 
                are measured more than once creates the need to do linear regression within a mixed model. 
