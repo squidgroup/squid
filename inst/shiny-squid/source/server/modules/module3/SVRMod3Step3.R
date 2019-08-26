@@ -51,6 +51,7 @@ c(
         data$B0     <- round(FIXEF["(Intercept)"],2)
         data$se.B0  <- round(SE.FIXEF["(Intercept)"],2)
         
+        ##
         LMR2      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data$sampled_data)
         FIXEF2    <- lme4::fixef(LMR2)
         SE.FIXEF2 <- arm::se.fixef(LMR2)
@@ -78,7 +79,7 @@ c(
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
-        data <- squid::squidR(input, module="Mod3Step3")
+        data <- squid::squidR(input, module="Mod3Step3")  
         
         LMR      <- lme4::lmer(Phenotype ~ 1 + (1|Individual), data = data$sampled_data)
         FIXEF    <- lme4::fixef(LMR)
@@ -90,12 +91,13 @@ c(
         data$B0     <- round(FIXEF["(Intercept)"],2)
         data$se.B0  <- round(SE.FIXEF["(Intercept)"],2)
         
+        ##
         myInput <- reactiveValuesToList(input)
         myInput[["Mod3Step3_B"]]  <- matrix(c(0, sqrt(input$Mod3Step3_Vbx*input$Mod3Step3_Vbx_proportion),0,0),1)
         myInput[["Mod3Step3_Ve"]] <- ((1-input$Mod3Step3_Vbx_proportion)*input$Mod3Step3_Vbx) + input$Mod3Step3_Ve
-        data    <- squid::squidR(myInput, module="Mod3Step3")
+        data2     <- squid::squidR(myInput, module="Mod3Step3")
         
-        LMR2      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data$sampled_data)
+        LMR2      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual), data = data2$sampled_data)
         FIXEF2    <- lme4::fixef(LMR2)
         SE.FIXEF2 <- arm::se.fixef(LMR2)
         RANDEF2   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
@@ -159,6 +161,7 @@ c(
       Mod3Step3_table(data, "1.0")
     }),
     output$Mod3Step3_summary_table_2 <- renderUI({
+      # data   <- Mod3Step3_output()
       data   <- Mod3Step3_output_2()
       Mod3Step3_table(data, as.character(round(input$Mod3Step3_Vbx_proportion,2)))
     }),
