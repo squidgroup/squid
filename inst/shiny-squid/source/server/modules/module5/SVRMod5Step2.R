@@ -11,7 +11,7 @@ c(
     output$Mod5Step2_hidden <- renderUI({
       list(
         numericInput("Mod5Step2_Tmax", "", Modules_VAR$Tmax$max),
-        matrixInput2("Mod5Step2_Vind", "", Mod5Step1updateVind(input, nb.IS)),
+        matrixInput2("Mod5Step2_Vind", "", Mod5Step2updateVind(input, nb.IS)),
         matrixInput2("Mod5Step2_B",    "", data.frame(matrix(c(0,input$Mod5Step2_B1,input$Mod5Step2_B2,input$Mod5Step2_B12),1))),
         checkboxInput("Mod5Step2_X1_state", "", value = TRUE),
         checkboxInput("Mod5Step2_X1_sto_state", "", value = TRUE),
@@ -35,10 +35,10 @@ c(
         data <- squid::squidR(input, module = "Mod5Step2")  
         
         # Model 1
-        LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + (1|Individual), data = data$sampled_data)
-        FIXEF    <- lme4::fixef(LMR)
-        SE.FIXEF <- arm::se.fixef(LMR)
-        RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
+        LMR1     <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + (1|Individual), data = data$sampled_data)
+        FIXEF    <- lme4::fixef(LMR1)
+        SE.FIXEF <- arm::se.fixef(LMR1)
+        RANDEF   <- as.data.frame(lme4::VarCorr(LMR1))$vcov
         
         data$Vi_1      <- round(RANDEF[1],2)
         data$Vr_1      <- round(RANDEF[2],2)
@@ -51,10 +51,10 @@ c(
         data$se.B2_1   <- round(SE.FIXEF["X2"],2)
         
         # Model 2
-        LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + X1X2 + (1|Individual), data = data$sampled_data)
-        FIXEF    <- lme4::fixef(LMR)
-        SE.FIXEF <- arm::se.fixef(LMR)
-        RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
+        LMR2     <- lme4::lmer(Phenotype ~ 1 + X1 + X2 + X1X2 + (1|Individual), data = data$sampled_data)
+        FIXEF    <- lme4::fixef(LMR2)
+        SE.FIXEF <- arm::se.fixef(LMR2)
+        RANDEF   <- as.data.frame(lme4::VarCorr(LMR2))$vcov
         
         data$Vi_2      <- round(RANDEF[1],2)
         data$Vr_2      <- round(RANDEF[2],2) 
@@ -69,7 +69,7 @@ c(
         data$B12_2     <- round(FIXEF["X1X2"],2)
         data$se.B12_2  <- round(SE.FIXEF["X1X2"],2)
         
-        data$sampled_data$Phenotype_predict <- stats::predict(LMR)
+        data$sampled_data$Phenotype_predict <- stats::predict(LMR2)
         
         
         updateCheckboxInput(session, "isRunning", value = FALSE)
