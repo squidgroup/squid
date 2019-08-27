@@ -8,26 +8,26 @@ input$Tmax          <- 100 # default = 1
 input$Time_sampling <- c(1,100)
 
 input$NP <- 1 # default = 1
-input$NI <- 100# default = 1
-input$NT <- 2 # default = 1
+input$NI <- 2# default = 1
+input$NT <- 1 # default = 1
 input$NG <- 1 # default = 1
-input$NR <- 10 # default = 1
+input$NR <- 20 # default = 1
 
 # input$B    <- rep(0, 8)
-input$B    <- rep(c(0 , 0.2, 0, 0),2)
+input$B    <- rep(c(0 , -0.25, 0.8, 0),input$NT)
 
 # (Co)Variance matrix
-input$Vind <- matrix(0, 8, 8)
+input$Vind <- matrix(0, 4, 4)
 # Variances
-input$Vind[1,1] <- 0.5
-input$Vind[5,5] <- 0.5
+input$Vind[1,1] <- 1
+# input$Vind[5,5] <- 0.5
 # Correlations
-input$Vind[5,1] <- 0.5
+# input$Vind[5,1] <- 0.5
 
 # Residual (Co)Variance matrix
 input$Ve <- matrix(0, input$NT, input$NT)
 diag(input$Ve) <- 0.05
-input$Ve[2,1]  <- -0.5
+# input$Ve[2,1]  <- -0.5
 
 
 # Envrionmental covariates
@@ -35,20 +35,46 @@ input$X1_state      <- TRUE # default = FALSE
 # Stochastic
 input$X1_sto_state  <- TRUE  # default = FALSE
 
-# input$X2_state      <- TRUE # default = FALSE
-# # Stochastic
-# input$X2_sto_state  <- TRUE  # default = FALSE
+input$X2_state      <- TRUE # default = FALSE
+# Stochastic
+input$X2_sto_state  <- TRUE  # default = FALSE
 
-# input$X_Interaction <- FALSE
+input$X_Interaction <- TRUE
 
 mydata <- as.data.table(squid::squidR(input = input, plot = FALSE)$sampled_data)
 
 
+#### 3d plots ####
+
+X_seq <- seq(from = min(mydata[ , c("X1", "X2")]), to = max(mydata[ , c("X1", "X2")]), length.out = 10)
+
+predictors      <- cbind("intecept" = 1, expand.grid("X1" = X_seq, "X2" = X_seq))
+predictors$X1X2 <- predictors$X1 * predictors$X2
+
+
+Phenotype_mean <- as.matrix(predictors) %*% as.vector(input$B)
+Phenotype_mean <- t(matrix(Phenotype_mean, nrow = length(X_seq), ncol = length(X_seq)))
+
+
+library(plotly)
+plot_ly(hoverinfo = "none")  %>%
+  add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
+              colorscale = list(c(0, 1), c("black", "black"))) %>%
+  add_markers(data = mydata, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual, size = 3) %>%
+  add_markers(data = mydata, x = 0, y = 0, z = input$B[1], color = c("black"), size = 20) %>%
+  layout(showlegend = FALSE) %>%
+  hide_colorbar()
+
+
+
+
+ 
+ 
+##### Multivariate models ####
+
 mydata <- mydata[ , .(Time, Individual, Trait, Phenotype, X1)]
 mydata[ , Trait := paste0("Phenotype_", Trait)]
 mydata <- dcast(mydata, Time + Individual + X1 ~ Trait, value.var = "Phenotype")
-
-
 
 
 library(brms)
@@ -93,99 +119,3 @@ FixCoef["Phenotype1_Intercept", "Estimate"]
 FixCoef["Phenotype2_Intercept", "Estimate"]
 FixCoef["Phenotype1_X1", "Estimate"]
 FixCoef["Phenotype2_X1", "Estimate"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ##### MULTIPLOTS #######
-# 
-# print(multiplot(data$plot$X1,
-#                 data$plot$X2,
-#                 data$plot$X1X2,
-#                 cols=1))
-# 
-# print(multiplot(data$plot$totPhen,
-#                 data$plot$sampPhen,
-#                 data$plot$sampTime,
-#                 cols=1))
-
-
-
-LMR  <- lme4::lmer(Phenotype ~ X1 + (1|Individual), data = data$sampled_data)
-
-FIXEF    <- lme4::fixef(LMR)
-SE.FIXEF <- arm::se.fixef(LMR)
-RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
-
-LMR <- lmer(Phenotype ~ 1 + X1 + (X1|Individual), data = test)
-summary(LMR)
-
-cov2cor(VarCorr(LMR)$Individual[,])[2]
-
-ggplot(data = data$data_S, aes(y=Phenotype, x=X1, color=as.factor(Individual))) +
-  stat_smooth(method = "lm", se=FALSE) + 
-  theme(legend.position="none") + 
-  xlab("Environmental effect") + 
-  ylab("Phenotype")
-
-
-
-
-library(lme4)
-library(arm)
-library(dplyr)
-
-df <- data$data_S
-new_data <- df %>% 
-  group_by(Individual) %>%
-  summarise(Xmean = mean(X1)) %>%
-  inner_join(df) %>%
-  mutate(CMW = X1 - Xmean, 
-         CMB = Xmean - mean(X1))
-
-
-LMR <- lmer(Phenotype ~ Xmean + (Xmean|Individual), data = data$data_S)
-summary(LMR)
-
-
-
-
-library(lme4)
-library(arm)
-LMR <- lmer(Phenotype ~ 0 + X1 + (X1|Individual), data = data$data_S)
-summary(LMR)
-
-LMR <- lmer(Phenotype ~  0 + (1|Individual), data = data$data_S)
-LMR <- update(LMR, ~.+ X1)
-
-LMR <- lmer(Phenotype ~ -1  + (1|Individual), data = data$data_S)
-LMR <- update(LMR, ~.+ X1 + (X1|Individual) - (1|Individual))
-LMR <- update(LMR, ~.+ X2 + (X2|Individual) - (1|individual))
-
-LMR      <- lme4::lmer(Phenotype ~ 1 + X1 + (1|Individual) + (0+X1|Individual), data = data$data_S)
-RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
-
-summary(LMR)
-V <- as.data.frame(VarCorr(LMR))
-P <- print(VarCorr(LMR),comp="Variance")
-
-
-fixef(LMR) # get fixed effect coefficients
-se.coef (LMR)
-se.fixef(LMR) # get standard error of fixed effect coefficients
-
-as.data.frame(VarCorr(LMR))$vcov # get random effect (variances)
-
-re1 <- ranef(LMR, condVar=TRUE, whichel = "Individual") # get random effect for each individual
-print(re1)
-dotplot(re1) # plot random effect for each Individual with the standard error

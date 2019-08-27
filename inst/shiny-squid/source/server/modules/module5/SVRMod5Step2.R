@@ -113,27 +113,53 @@ c(
       
     }),
     
+    
+    # output$Mod5Step2_3D_scatterplot  <- threejs::renderScatterplotThree({
+    # 
+    #   data <- Mod5Step2_output()$sampled_data
+    # 
+    #   if (!is.null(data)) {
+    # 
+    #     data <- as.data.table(data)
+    #     dt   <- data.table("Individual" = unique(data$Individual),
+    #                        "Colour"     = rainbow(length(unique(data$Individual))))
+    # 
+    #     setkey(data, Individual); setkey(dt, Individual);
+    #     data <- merge(data, dt, all.x = TRUE)
+    # 
+    #     threejs::scatterplot3js(x = data$X1, y = data$X2, z = data$Phenotype_predict,
+    #                             color = data$Colour,
+    #                             size  = 0.2,
+    #                             axisLabels = c("X1", "Phenotype", "X2"),
+    #                             renderer   = "auto")
+    #   }else{defaultPlot()}
+    # }),
+    # output$Mod5Step2_3D <- renderUI({threejs::scatterplotThreeOutput("Mod5Step2_3D_scatterplot")})
+    
+  
     # Display 3D figure
-    output$Mod5Step2_3D_scatterplot  <- threejs::renderScatterplotThree({
-
+    output$Mod5Step2_3D <- renderPlotly({
+      
       data <- Mod5Step2_output()$sampled_data
-
+      
       if (!is.null(data)) {
-
-        data <- as.data.table(data)
-        dt   <- data.table("Individual" = unique(data$Individual),
-                           "Colour"     = rainbow(length(unique(data$Individual))))
-
-        setkey(data, Individual); setkey(dt, Individual);
-        data <- merge(data, dt, all.x = TRUE)
-
-        threejs::scatterplot3js(x = data$X1, y = data$X2, z = data$Phenotype_predict,
-                                color = data$Colour,
-                                size  = 0.2,
-                                axisLabels = c("X1", "Phenotype", "X2"),
-                                renderer   = "auto")
+      
+        X_seq <- seq(from = min(data[ , c("X1", "X2")]), to = max(data[ , c("X1", "X2")]), length.out = 10)
+        
+        predictors      <- cbind("intecept" = 1, expand.grid("X1" = X_seq, "X2" = X_seq))
+        predictors$X1X2 <- predictors$X1 * predictors$X2
+        
+        Phenotype_mean <- as.matrix(predictors) %*% as.vector(input$Mod5Step2_B)
+        Phenotype_mean <- t(matrix(Phenotype_mean, nrow = length(X_seq), ncol = length(X_seq)))
+        
+        plot_ly(hoverinfo = "none")  %>%
+          add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
+                      colorscale = list(c(0, 1), c("black", "black"))) %>%
+          add_markers(data = data, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual) %>%
+          layout(showlegend = FALSE) %>%
+          hide_colorbar()
+      
       }else{defaultPlot()}
-    }),
-    output$Mod5Step2_3D <- renderUI({threejs::scatterplotThreeOutput("Mod5Step2_3D_scatterplot")})
+    })
    
 ) # End return

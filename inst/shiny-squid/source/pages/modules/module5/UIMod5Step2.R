@@ -123,8 +123,10 @@ span(
   	the population average plane derived from the parameter estimates in the simulated data in the space defined by both environments."),
 
   # Output: Figure 1
-  p(uiOutput("Mod5Step2_3D")),
-
+  # p(uiOutput("Mod5Step2_3D")),
+  info_msg("The grey plane in the figures represents the population mean phenotypic plane."),
+  p(plotlyOutput("Mod5Step2_3D")),
+  
   p(paste0("Examine this graph carefully. The plane produced should look different than the ones you
   				 produced in step 1. Those planes were flat but tilted in various ways. If $",EQ1$mean12,"$ is not 0,
   				 the plane in this graph should look warped or bent. This is the influence of the interaction term.")),

@@ -115,7 +115,10 @@ span(
 		the way in which the two x variables affect a phenotype in the 2 dimensions defined by the environment."),
 
 	# Output: Figure 1
-  p(uiOutput("Mod5Step1_3D_1")),
+  # p(uiOutput("Mod5Step1_3D_1")),
+  info_msg("The grey plane in the figures represents the population mean phenotypic plane."),
+  p(plotlyOutput("Mod5Step1_3D_1")),
+  
 
 	p(paste0("Individuals in this simulation vary in their intercept by the amount you entered previously in $V_{",NOT$devI,"}$.
 		Below we pick three individuals across the range of the intercept variance to illustrate
@@ -129,7 +132,8 @@ span(
 					 the middle, and from the high end of $",NOT$devI,"$.")),
 
   # Output: Figure 2
-  p(uiOutput("Mod5Step1_3D_2")),
+  # p(uiOutput("Mod5Step1_3D_2")),
+  p(plotlyOutput("Mod5Step1_3D_2")),
 
 	p(paste0("Run through this simulation several times using different values for $",EQ1$mean1,"$ and $",EQ1$mean2,"$,
 					 including having some slopes negative. In particular, try making the two have opposite signs.
