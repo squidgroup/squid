@@ -143,7 +143,7 @@ c(
          plot_ly(hoverinfo = "none")  %>%
             add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
                         colorscale = list(c(0, 1), c("black", "black"))) %>%
-            add_markers(data = data, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual) %>%
+            add_markers(data = data, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual, size=4) %>%
             layout(showlegend = FALSE) %>%
             hide_colorbar()
          
@@ -205,7 +205,7 @@ c(
          plot_ly(hoverinfo = "none")  %>%
             add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
                         colorscale = list(c(0, 1), c("black", "black"))) %>%
-            add_markers(data = data, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual) %>%
+            add_markers(data = data, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual, size=4) %>%
             layout(showlegend = FALSE) %>%
             hide_colorbar()
          
