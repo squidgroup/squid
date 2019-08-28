@@ -67,6 +67,10 @@ h5 {
   margin: 10px 0 20px 0;
 }
 
+.myPage .well{
+  background-color: #fafafa;
+}
+
 .shiny-plot-output{
   margin-bottom: 10px;
 }
@@ -175,7 +179,7 @@ input[type="number"]{
   border-color: #2e6da4;
 }
 
-.highlight-source-r {
+.myPage .highlight-source-r {
 	font-family: Consolas, monaco, monospace;
 	font-size: 13px;
 	font-style: normal;

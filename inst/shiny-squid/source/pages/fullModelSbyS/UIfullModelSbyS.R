@@ -1,4 +1,4 @@
-fixedPage( 
+wellPanel( 
   HTML("<div id='FullModelStepByStep'>"), 
     h2("Full model simulation (a step by step approach)"),
     
