@@ -86,7 +86,7 @@ shinyUI(
 
     #### R code ####
     tabPanel("squidR",
-    				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/squidR/squidR.md"))
+    				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/squidR/squidR.md")))
     ), # End tabPanel People
     
     #### About us ####
