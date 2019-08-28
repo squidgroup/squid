@@ -2,11 +2,9 @@
 \alias{squidApp}
 \title{SQuID application}
 \usage{
-squidApp(launch.browser = TRUE, ...)
+squidApp(...)
 }
 \arguments{
-\item{launch.browser}{\code{logical}; If \code{TRUE} (default), the system's default web browser will be launched automatically after the app is started. If \code{FALSE} the app will be launched in an interactive session only. The value of this parameter can also be a function to call with the application's URL.}
-
 \item{...}{any argument that could be passed to the function \code{\link[shiny]{runApp}} from the \href{https://cran.r-project.org/package=shiny}{shiny} package.}
 }
 \description{
