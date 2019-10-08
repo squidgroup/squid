@@ -6,8 +6,8 @@ SVRGetModelEquation <- function(myModule, name, input, nb.IS){
   X1_state        <- input[[paste(myModule, "X1_state", sep="_")]]
   X2_state        <- input[[paste(myModule, "X2_state", sep="_")]]
   X_Interaction   <- input[[paste(myModule, "X_Interaction", sep="_")]]
-  VG              <- input[[paste(myModule, "VG", sep="_")]]
-  Ve              <- input[[paste(myModule, "Ve", sep="_")]]
+  VG              <- input[[paste(myModule, "VG_input", sep="_")]]
+  Ve              <- input[[paste(myModule, "Ve_input", sep="_")]]
   
   myEqu <- paste(
     "$$",NOT[[paste("trait.",name,sep="")]],"_{",NOT$time,NOT$ind,NOT$group,"}=",

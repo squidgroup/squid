@@ -110,6 +110,7 @@ c(
         data$df$covariance           <- "Without covariance"
         data$sampled_data$covariance <- "With covariance"
         myDf <- rbind(data$sampled_data, data$df)
+        myDf$covariance <- factor(myDf$covariance, levels = c("Without covariance", "With covariance"))
         
         print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype, 
                                                         x     = X1, 

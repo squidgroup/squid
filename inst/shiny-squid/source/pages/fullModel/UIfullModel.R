@@ -98,13 +98,20 @@ fixedPage( HTML("<div id='FullModel'>"),
             uiOutput("FMod_Vind_UI"), 
             fixedRow(
               column(width = 6,
-                     getNumericInput("FMod_Ve", FullModel_VAR$Ve, "FMod_error_Ve")
+                     getNumericInput("FMod_Ve_input", FullModel_VAR$Ve, "FMod_error_Ve"),
+                     conditionalPanel(
+                       condition = "0",
+                       uiOutput("FMod_Ve_hidden")
+                     )
               ),
               column(width = 6,
-                     getNumericInput("FMod_VG", FullModel_VAR$VG, "FMod_error_VG")
+                     getNumericInput("FMod_VG_input", FullModel_VAR$VG, "FMod_error_VG"),
+                     conditionalPanel(
+                       condition = "0",
+                       uiOutput("FMod_VG_hidden")
+                     )
               )
             )
-            
           )
        ), # End: Individual variances design
       

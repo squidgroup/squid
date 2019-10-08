@@ -40,8 +40,8 @@ SVRGetSummaryVariances <- function(input,
 #                  2*VCov[X2+step, X1+step], # Cov Vslope1 and Vslope2
 #                  2*VCov[X1X2+step, X1+step], # Cov Vslope1 and Vslope12
 #                  2*VCov[X1X2+step, X2+step], # Cov Vslope1 and Vslope12
-                 input[[myLabels$VG]], # group variance
-                 input[[myLabels$Ve]] # measurement error variance
+                 input[[myLabels$VG_input]], # group variance
+                 input[[myLabels$Ve_input]] # measurement error variance
                  )
 
   Vp             <- sum(Variances, na.rm = TRUE)

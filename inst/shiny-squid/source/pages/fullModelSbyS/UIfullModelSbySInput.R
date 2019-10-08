@@ -100,10 +100,18 @@ span(
                uiOutput("FModSbyS_Vind_UI"), 
                fixedRow(                     
                  column(width = 6,
-                        getNumericInput("FModSbyS_Ve", FullModel_VAR$Ve, "FModSbyS_error_Ve")                   
+                        getNumericInput("FModSbyS_Ve_input", FullModel_VAR$Ve, "FModSbyS_error_Ve"),
+                        conditionalPanel(
+                          condition = "0",
+                          uiOutput("FModSbyS_Ve_hidden")
+                        )
                  ),
                  column(width = 6,
-                        getNumericInput("FModSbyS_VG", FullModel_VAR$VG, "FModSbyS_error_VG")
+                        getNumericInput("FModSbyS_VG_input", FullModel_VAR$VG, "FModSbyS_error_VG"),
+                        conditionalPanel(
+                          condition = "0",
+                          uiOutput("FModSbyS_VG_hidden")
+                        )
                  )
                )
              )

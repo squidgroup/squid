@@ -1,7 +1,7 @@
 #Server functions for the full model
 SVRFullModel <- function(myModule, input, output, session){
   
-	myLabels           <- list()
+	myLabels                    <- list()
 	
 	myLabels$myEquations        <- paste(myModule, "myEquations", sep="_")
   
@@ -10,8 +10,12 @@ SVRFullModel <- function(myModule, input, output, session){
 	myLabels$NP                 <- paste(myModule, "NP", sep="_")
 	myLabels$NI                 <- paste(myModule, "NI", sep="_")
 	myLabels$Ve                 <- paste(myModule, "Ve", sep="_")
+	myLabels$Ve_input           <- paste(myModule, "Ve_input", sep="_")
+	myLabels$Ve_hidden          <- paste(myModule, "Ve_hidden", sep="_")
 	myLabels$NG                 <- paste(myModule, "NG", sep="_")
 	myLabels$VG                 <- paste(myModule, "VG", sep="_")
+	myLabels$VG_input           <- paste(myModule, "VG_input", sep="_")
+	myLabels$VG_hidden          <- paste(myModule, "VG_hidden", sep="_")
 	myLabels$NR                 <- paste(myModule, "NR", sep="_")
 	myLabels$Vhsi               <- paste(myModule, "Vhsi", sep="_")
 
@@ -211,6 +215,27 @@ SVRFullModel <- function(myModule, input, output, session){
        }
      }),
      
+     output[[myLabels$Ve_hidden]] <- renderUI({
+       list(
+         matrixInput2(myLabels$Ve, "", data.frame(matrix(
+                                      c(input[[myLabels$Ve_input]], 0, 0, input[[myLabels$Ve_input]]), 
+                                       ncol = as.numeric(input[[myLabels$NT]]),
+                                       nrow = as.numeric(input[[myLabels$NT]]))))       
+         )
+     }),
+     outputOptions(output, myLabels$Ve_hidden, suspendWhenHidden = FALSE),
+     
+     output[[myLabels$VG_hidden]] <- renderUI({
+       list(
+         matrixInput2(myLabels$VG, "", data.frame(matrix(
+                                     c(input[[myLabels$VG_input]], 0, 0, input[[myLabels$VG_input]]), 
+                                     ncol = as.numeric(input[[myLabels$NT]]),
+                                     nrow = as.numeric(input[[myLabels$NT]]))))       
+       )
+     }),
+     outputOptions(output, myLabels$VG_hidden, suspendWhenHidden = FALSE),
+     
+     
      myFullModel <- reactive({ 
        
        # if Run button is pressed
@@ -237,7 +262,7 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[myLabels$plotEnvironment]] <- renderPlot({
           
        data <- myFullModel()
-       #   print result graphs 
+       #   print result graphs
        if(!is.null(data)){
          print(multiplot(data$plots$X1,
                          data$plots$X2,
@@ -249,8 +274,8 @@ SVRFullModel <- function(myModule, input, output, session){
      
      output[[myLabels$plotPhenotype]] <- renderPlot({
          
-       data <- myFullModel() 
-       #   print result graphs 
+       data <- myFullModel()
+       #   print result graphs
        if(!is.null(data)){
          print(multiplot(data$plots$totPhen,
                          data$plots$sampPhen,
@@ -261,7 +286,7 @@ SVRFullModel <- function(myModule, input, output, session){
      
      output[[myLabels$plotSamples]] <- renderPlot({
        data <- myFullModel()
-       #   print result graphs 
+       #   print result graphs
        if(!is.null(data)) print(data$plots$sampTime)
      }),
      
@@ -432,8 +457,8 @@ SVRFullModel <- function(myModule, input, output, session){
          !testInput(input[[myLabels$X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
          !testInput(input[[myLabels$X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, FALSE)       || 
          !testInput(input[[myLabels$NI]], FullModel_VAR$NI, TRUE, FALSE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0)) ||
-         !testInput(input[[myLabels$Ve]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
-         !testInput(input[[myLabels$VG]], FullModel_VAR$VG, FALSE, FALSE)                     ||
+         !testInput(input[[myLabels$Ve_input]], FullModel_VAR$Ve, FALSE, FALSE)                   ||
+         !testInput(input[[myLabels$VG_input]], FullModel_VAR$VG, FALSE, FALSE)                     ||
          !testInput(input[[myLabels$NG]], FullModel_VAR$NG, TRUE, FALSE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0)) ||
          !testInput(input[[myLabels$NR]], FullModel_VAR$NR, TRUE, FALSE)                      ||
          !testInputBMatrix(input[[myLabels$B]] , FullModel_VAR$B, FALSE)                      ||
@@ -478,9 +503,9 @@ SVRFullModel <- function(myModule, input, output, session){
      output[[myLabels$error_X1_sto_corr]]     <- renderUI({testInput(input[[myLabels$X1_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
      output[[myLabels$error_X2_sto_corr]]     <- renderUI({testInput(input[[myLabels$X2_sto_corr]], FullModel_VAR$stoCorr, FALSE, TRUE)}),
      output[[myLabels$error_NI]]              <- renderUI({testInput(input[[myLabels$NI]], FullModel_VAR$NI, TRUE, TRUE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0))}),
-     output[[myLabels$error_Ve]]              <- renderUI({testInput(input[[myLabels$Ve]], FullModel_VAR$Ve, FALSE, TRUE)}),
+     output[[myLabels$error_Ve]]              <- renderUI({testInput(input[[myLabels$Ve_input]], FullModel_VAR$Ve, FALSE, TRUE)}),
      output[[myLabels$error_NG]]              <- renderUI({testInput(input[[myLabels$NG]], FullModel_VAR$NG, TRUE, TRUE, (input[[myLabels$NI]]%%input[[myLabels$NG]] != 0))}),
-     output[[myLabels$error_VG]]              <- renderUI({testInput(input[[myLabels$VG]], FullModel_VAR$VG, FALSE, TRUE)}),
+     output[[myLabels$error_VG]]              <- renderUI({testInput(input[[myLabels$VG_input]], FullModel_VAR$VG, FALSE, TRUE)}),
      output[[myLabels$error_NR]] <- renderUI({
           input[[myLabels$Tmax]];input[[myLabels$Vhsi]];
           testInput(input[[myLabels$NR]], FullModel_VAR$NR, TRUE, TRUE) 
