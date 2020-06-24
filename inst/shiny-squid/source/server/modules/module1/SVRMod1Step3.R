@@ -10,9 +10,9 @@ c(
        output$Mod1Step3_hidden <- renderUI({
           list(
             numericInput("Mod1Step3_Tmax", "", Modules_VAR$Tmax$max),
-            matrixInput2("Mod1Step3_Vind", "",data.frame(matrix(c(input$Mod1Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
+            matrixInput("Mod1Step3_Vind", matrix(c(input$Mod1Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS), class = "numeric"),
             numericInput("Mod1Step3_Vbx","", 1-input$Mod1Step3_Vi-input$Mod1Step3_Ve),
-            matrixInput2("Mod1Step3_B", "",data.frame(matrix(c(0,Mod1Step3updateB(input),0,0),1))),
+            matrixInput("Mod1Step3_B", matrix(c(0,Mod1Step3updateB(input),0,0),1), class = "numeric"),
             checkboxInput("Mod1Step3_X1_state", "", value = TRUE),
             checkboxInput("Mod1Step3_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod1Step3_X1_sto_shared", "", value = FALSE),

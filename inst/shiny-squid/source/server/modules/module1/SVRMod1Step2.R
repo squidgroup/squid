@@ -6,7 +6,7 @@ c(
       output$Mod1Step2_hidden <- renderUI({
         list(
           numericInput("Mod1Step2_Tmax", "", Modules_VAR$Tmax$max),
-          matrixInput2("Mod1Step2_Vind", "",data.frame(matrix(c(1-input$Mod1Step2_Ve,rep(0,(nb.IS*nb.IS)-1)),nb.IS)))
+          matrixInput("Mod1Step2_Vind", value = matrix(c(1-input$Mod1Step2_Ve,rep(0,(nb.IS*nb.IS)-1)),nb.IS), class = "numeric")
         )
       }),
       outputOptions(output, "Mod1Step2_hidden", suspendWhenHidden = FALSE),

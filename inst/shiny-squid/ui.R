@@ -74,7 +74,7 @@ shinyUI(
       tabPanel("Full model (express)", # title
                icon=icon("fighter-jet", "fa-fw"), # Icon
                # Simulation container 
-               tags$div(class="myPage",source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
+               tags$div(class="myPage", source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
       ) # End tabPanel Full Model 
       
     ), # End navBarMenu Simulation

@@ -3,11 +3,11 @@ c(
     ######### Set variables #########    
     # Set hidden variables
     Mod4Step3updateVind <- function(input, nb.IS){
-      df <- matrix(rep(0,(nb.IS*2)^2),(nb.IS*2))
-      diag(df)[1]         <- input$Mod4Step3_Vi1
-      diag(df)[1 + nb.IS] <- input$Mod4Step3_Vi2
-      df[nb.IS + 1,1]     <- input$Mod4Step3_Corr_I
-      return(as.data.frame(df))
+      m <- matrix(rep(0,(nb.IS*2)^2),(nb.IS*2))
+      diag(m)[1]         <- input$Mod4Step3_Vi1
+      diag(m)[1 + nb.IS] <- input$Mod4Step3_Vi2
+      m[nb.IS + 1,1]     <- input$Mod4Step3_Corr_I
+      return(m)
     },
      output$Mod4Step3_hidden <- renderUI({
         list(
@@ -15,9 +15,9 @@ c(
           numericInput("Mod4Step3_NI", "", 10),
           numericInput("Mod4Step3_NT", "", 2),
           numericInput("Mod4Step3_NR", "", 10),
-          matrixInput2("Mod4Step3_Vind", "", Mod4Step3updateVind(input, nb.IS)),
-          matrixInput2("Mod4Step3_Ve", "", data.frame(matrix(c(input$Mod4Step3_Ve1,   input$Mod4Step3_Corr_e,
-                                                               input$Mod4Step3_Corr_e, input$Mod4Step3_Ve2), 2)))
+          matrixInput("Mod4Step3_Vind", value = Mod4Step3updateVind(input, nb.IS), class = "numeric"),
+          matrixInput("Mod4Step3_Ve", value = matrix(c(input$Mod4Step3_Ve1,   input$Mod4Step3_Corr_e,
+                                                        input$Mod4Step3_Corr_e, input$Mod4Step3_Ve2), 2), class = "numeric")
         )
      }),
     outputOptions(output, "Mod4Step3_hidden", suspendWhenHidden = FALSE),

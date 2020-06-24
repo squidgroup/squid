@@ -8,11 +8,11 @@ c(
 
   ######### Set variables #########  
   Mod6Step3updateVind <- function(nb.IS){
-    df <- matrix(rep(0,nb.IS^2),nb.IS)
-    diag(df)[1] <- 0.5
-    diag(df)[2] <- 0.5
-    df[2,1]     <- 0.5
-    return(as.data.frame(df))
+    m <- matrix(rep(0,nb.IS^2),nb.IS)
+    diag(m)[1] <- 0.5
+    diag(m)[2] <- 0.5
+    m[2,1]     <- 0.5
+    return(m)
   },
     # Set hidden variables
      output$Mod6Step3_hidden <- renderUI({
@@ -20,8 +20,8 @@ c(
           numericInput("Mod6Step3_NP", "", 100),
           numericInput("Mod6Step3_Tmax", "", Modules_VAR$Tmax$max),
           numericInput("Mod6Step3_Ve", "", 0.05),
-          matrixInput2("Mod6Step3_Vind", "", Mod6Step3updateVind(nb.IS)),
-          matrixInput2("Mod6Step3_B", "",data.frame(matrix(c(0.5,0.5,0,0),1))),
+          matrixInput("Mod6Step3_Vind", value = Mod6Step3updateVind(nb.IS), class = "numeric"),
+          matrixInput("Mod6Step3_B", value = matrix(c(0.5,0.5,0,0), 1), class = "numeric"),
           checkboxInput("Mod6Step3_X1_state", "", value = TRUE),
           checkboxInput("Mod6Step3_X1_sto_state", "", value = TRUE),
           checkboxInput("Mod6Step3_X1_sto_shared", "", value = TRUE),

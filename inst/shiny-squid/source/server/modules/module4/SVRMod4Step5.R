@@ -3,17 +3,17 @@ c(
     ######### Set variables #########    
     # Set hidden variables
     Mod4Step5updateVind <- function(input, nb.IS){
-      df <- matrix(rep(0,(nb.IS*2)^2),(nb.IS*2))
-      diag(df)[1]         <- input$Mod4Step5_Vi1
-      diag(df)[1 + nb.IS] <- input$Mod4Step5_Vi2
-      df[nb.IS + 1,1]     <- input$Mod4Step5_Corr_I
-      return(as.data.frame(df))
+      m <- matrix(rep(0,(nb.IS*2)^2),(nb.IS*2))
+      diag(m)[1]         <- input$Mod4Step5_Vi1
+      diag(m)[1 + nb.IS] <- input$Mod4Step5_Vi2
+      m[nb.IS + 1,1]     <- input$Mod4Step5_Corr_I
+      return(m)
     },
     Mod4Step5updateB <- function(input, nb.IS){
-    	df <- matrix(rep(0,(nb.IS*2)), nrow = 1)
-    	df[1,2]             <- input$Mod4Step5_B11
-    	df[1,nb.IS + 2]     <- input$Mod4Step5_B12
-    	return(as.data.frame(df))
+    	m <- matrix(rep(0,(nb.IS*2)), nrow = 1)
+    	m[1,2]             <- input$Mod4Step5_B11
+    	m[1,nb.IS + 2]     <- input$Mod4Step5_B12
+    	return(m)
     },
      output$Mod4Step5_hidden <- renderUI({
         list(
@@ -21,10 +21,10 @@ c(
           numericInput("Mod4Step5_NI", "", 100),
           numericInput("Mod4Step5_NT", "", 2),
           numericInput("Mod4Step5_NR", "", 10),
-          matrixInput2("Mod4Step5_B", "",    Mod4Step5updateB(input, nb.IS)),
-          matrixInput2("Mod4Step5_Vind", "", Mod4Step5updateVind(input, nb.IS)),
-          matrixInput2("Mod4Step5_Ve", "", data.frame(matrix(c(input$Mod4Step5_Ve1,   input$Mod4Step5_Corr_e,
-                                                               input$Mod4Step5_Corr_e, input$Mod4Step5_Ve2), 2))),
+          matrixInput("Mod4Step5_B", value = Mod4Step5updateB(input, nb.IS), class = "numeric"),
+          matrixInput("Mod4Step5_Vind", value = Mod4Step5updateVind(input, nb.IS), class = "numeric"),
+          matrixInput("Mod4Step5_Ve", value = matrix(c(input$Mod4Step5_Ve1,   input$Mod4Step5_Corr_e,
+                                                       input$Mod4Step5_Corr_e, input$Mod4Step5_Ve2), 2), class = "numeric"),
           
           checkboxInput("Mod4Step5_X1_state", "",     value = TRUE),
           checkboxInput("Mod4Step5_X1_sto_state", "", value = TRUE)

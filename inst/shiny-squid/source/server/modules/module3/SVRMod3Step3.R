@@ -6,8 +6,8 @@ c(
       list(
         numericInput("Mod3Step3_Tmax", "", Modules_VAR$Tmax$max),
         numericInput("Mod3Step3_NI", "", 100),
-        matrixInput2("Mod3Step3_Vind", "",data.frame(matrix(c(input$Mod3Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS))),
-        matrixInput2("Mod3Step3_B", "",data.frame(matrix(c(0,sqrt(input$Mod3Step3_Vbx),0,0),1))), 
+        matrixInput("Mod3Step3_Vind", value = matrix(c(input$Mod3Step3_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS), class = "numeric"),
+        matrixInput("Mod3Step3_B", value = matrix(c(0,sqrt(input$Mod3Step3_Vbx),0,0),1), class = "numeric"), 
         
         checkboxInput("Mod3Step3_X1_state", "", value = TRUE),
         

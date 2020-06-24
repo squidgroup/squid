@@ -3,18 +3,18 @@ c(
   
     ######### Set variables #########  
     Mod6Step2updateVind <- function(input, nb.IS){
-      df <- matrix(rep(0,nb.IS^2),nb.IS)
-      diag(df)[1] <- input$Mod6Step2_Vi
-      diag(df)[2] <- input$Mod6Step2_Vs
-      df[2,1]     <- input$Mod6Step2_CorIS
-      return(as.data.frame(df))
+      m <- matrix(rep(0,nb.IS^2),nb.IS)
+      diag(m)[1] <- input$Mod6Step2_Vi
+      diag(m)[2] <- input$Mod6Step2_Vs
+      m[2,1]     <- input$Mod6Step2_CorIS
+      return(m)
     },
       # Set hidden variables
        output$Mod6Step2_hidden <- renderUI({
           list(
             numericInput("Mod6Step2_Tmax", "", Modules_VAR$Tmax$max),
-            matrixInput2("Mod6Step2_Vind", "", Mod6Step2updateVind(input, nb.IS)),
-            matrixInput2("Mod6Step2_B", "",data.frame(matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1))),
+            matrixInput("Mod6Step2_Vind", value = Mod6Step2updateVind(input, nb.IS), class = "numeric"),
+            matrixInput("Mod6Step2_B", value = matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1), class = "numeric"),
             checkboxInput("Mod6Step2_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_shared", "", value = TRUE),
@@ -31,6 +31,8 @@ c(
         return(NULL)
       
       isolate({ 
+        
+        browser()
         
         updateCheckboxInput(session, "isRunning", value = TRUE)
         

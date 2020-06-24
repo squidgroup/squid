@@ -1,3 +1,4 @@
+library(shinyMatrix)
 library(plotly)
 
 #### Variables ####

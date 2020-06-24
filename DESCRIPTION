@@ -6,7 +6,7 @@ Authors@R: c(
     person("Yimen"   , "G. Araya-Ajoy"  , email = "yimencr@gmail.com"                 , role = "aut"),
     person("Niels"   , "J. Dingemanse"  , email = "ndingemanse@orn.mpg.de"            , role = "aut"),
     person("Ned"     , "A. Dochtermann" , email = "ned.dochtermann@gmail.com"         , role = "aut"),
-    person("Laszlo"  , "Z. Garamszegi"  , email = "laszlo.garamszegi@ebd.csic.es"     , role = "aut"),
+    person("Laszlo"  , "Z. Garamszegi"  , email = "garamszegi.laszlo@okologia.mta.hu" , role = "aut"),
     person("Shinichi", "Nakagawa"       , email = "itchyshin@gmail.com"               , role = "aut"),
     person("Denis"   , "Reale"          , email = "reale.denis@uqam.ca"               , role = "aut"),
     person("Holger"  , "Schielzeth"     , email = "holger.schielzeth@uni-bielefeld.de", role = "aut"),
@@ -32,6 +32,7 @@ LazyData: true
 Imports:
     stats,
     shiny (>= 1.3.2),
+    shinyMatrix (>= 0.3.0),
     ggplot2 (>= 3.1.1),
     plotly (>= 4.9.0),
     grid (>= 3.5.3),

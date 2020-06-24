@@ -3,16 +3,16 @@ c(
     ######### Set variables #########
     # Set hidden variables
     Mod5Step2updateVind <- function(input, nb.IS){
-      df <- matrix(rep(0,nb.IS*nb.IS),nb.IS)
-      diag(df)[1] <- input$Mod5Step2_Vi
-      return(as.data.frame(df))
+      m <- matrix(rep(0,nb.IS*nb.IS),nb.IS)
+      diag(m)[1] <- input$Mod5Step2_Vi
+      return(m)
     },
     # Set hidden variables
     output$Mod5Step2_hidden <- renderUI({
       list(
         numericInput("Mod5Step2_Tmax", "", Modules_VAR$Tmax$max),
-        matrixInput2("Mod5Step2_Vind", "", Mod5Step2updateVind(input, nb.IS)),
-        matrixInput2("Mod5Step2_B",    "", data.frame(matrix(c(0,input$Mod5Step2_B1,input$Mod5Step2_B2,input$Mod5Step2_B12),1))),
+        matrixInput("Mod5Step2_Vind", value = Mod5Step2updateVind(input, nb.IS), class = "numeric"),
+        matrixInput("Mod5Step2_B", value = matrix(c(0,input$Mod5Step2_B1,input$Mod5Step2_B2,input$Mod5Step2_B12),1), class = "numeric"),
         checkboxInput("Mod5Step2_X1_state", "", value = TRUE),
         checkboxInput("Mod5Step2_X1_sto_state", "", value = TRUE),
         checkboxInput("Mod5Step2_X2_state", "", value = TRUE),

@@ -5,16 +5,18 @@ c(
       # Set hidden variables
       Mod1Step4updateB <- function(input){
         suppressWarnings(B <- sqrt(1-input$Mod1Step4_Vi-input$Mod1Step4_Ve))
-        return(ifelse(is.nan(B),0,B))
+        return(ifelse(is.finite(B), B, 0))
       },
       output$Mod1Step4_hidden <- renderUI({
         list(
           numericInput("Mod1Step4_Tmax", "", Modules_VAR$Tmax$max),
-          matrixInput2("Mod1Step4_Vind", "",data.frame(matrix(c(input$Mod1Step4_Vi,
-                                                                rep(0,(nb.IS*nb.IS)-1)),
-                                                              nb.IS))),
+          matrixInput("Mod1Step4_Vind", 
+                      value = matrix(c(input$Mod1Step4_Vi,
+                                      rep(0,(nb.IS*nb.IS)-1)),
+                                    nb.IS), 
+                      class = "numeric"),
           numericInput("Mod1Step4_Vbx","", 1-input$Mod1Step4_Vi-input$Mod1Step4_Ve),
-          matrixInput2("Mod1Step4_B", "",data.frame(matrix(c(0,Mod1Step4updateB(input),0,0),1))),
+          matrixInput("Mod1Step4_B", value = matrix(c(0,Mod1Step4updateB(input),0,0),1), class = "numeric"),
           checkboxInput("Mod1Step4_X1_state", "", value = TRUE),
           checkboxInput("Mod1Step4_X1_sto_state", "", value = TRUE),
           numericInput("Mod1Step4_X1_sto_V","", 1, min = 0, max = 1, step = 0.001)
