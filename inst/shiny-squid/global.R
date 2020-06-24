@@ -2,16 +2,16 @@ library(shinyMatrix)
 library(plotly)
 
 #### Variables ####
-source("./source/variables/general/VARgeneral.R",local=TRUE)
-source("./source/variables/fullmodel/VARfullmodel.R",local=TRUE)
-source("./source/variables/modules/VARmodules.R",local=TRUE)
+source("./source/variables/general/var_general.R",local=TRUE)
+source("./source/variables/fullmodel/var_fullmodel.R",local=TRUE)
+source("./source/variables/modules/var_modules.R",local=TRUE)
 
 
 #### Utilities ####
 source("./source/utilities/all_msg.R",local=TRUE)
-source("./source/utilities/getTable.R",local=TRUE)
-source("./source/utilities/getIcon.R",local=TRUE)
+source("./source/utilities/get_table.R",local=TRUE)
+source("./source/utilities/get_icon.R",local=TRUE)
 
 
 #### Inputs ####
-source("./source/inputs/getNumericInput.R",local=TRUE)
+source("./source/inputs/get_numeric_input.R",local=TRUE)

@@ -1,7 +1,7 @@
 # My Shiny User Interface #
 
 #### Include #### 
-source("./source/UIsource.R", local=TRUE)
+source("./source/ui_source.R", local=TRUE)
 
 
 
@@ -40,7 +40,7 @@ shinyUI(
                 
       #### Portal #### 
       tabPanel("Portal", # Title
-        source("./source/pages/portal/UIportal.R",local=TRUE)[["value"]]
+        source("./source/pages/portal/ui_portal.R",local=TRUE)[["value"]]
       ), # End tabPanel Portal
       
       #### Background #### 
@@ -58,7 +58,7 @@ shinyUI(
     )))), # End tabPanel Home
     
     #### Modules page ####
-    source("./source/pages/modules/UImodules.R",local=TRUE)[["value"]],
+    source("./source/pages/modules/ui_modules.R",local=TRUE)[["value"]],
 
     #### Simulate Full Model ####
     navbarMenu("Simulation",
@@ -67,21 +67,21 @@ shinyUI(
       tabPanel("Full model (Step by step)", # title
                icon=icon("coffee", "fa-fw"), # Icon
                # Simulation container 
-               fixedPage(tags$div(class="myPage", source("./source/pages/fullModelSbyS/UIfullModelSbyS.R",local=TRUE)[["value"]]))
+               fixedPage(tags$div(class="myPage", source("./source/pages/full_model_sbys/ui_full_model_sbys.R",local=TRUE)[["value"]]))
       ), # End tabPanel Simulation 
   
       #### Full model (express) ####
       tabPanel("Full model (express)", # title
                icon=icon("fighter-jet", "fa-fw"), # Icon
                # Simulation container 
-               tags$div(class="myPage", source("./source/pages/fullModel/UIfullModel.R",local=TRUE)[["value"]])
+               tags$div(class="myPage", source("./source/pages/full_model/ui_full_model.R",local=TRUE)[["value"]])
       ) # End tabPanel Full Model 
       
     ), # End navBarMenu Simulation
     
     #### R code ####
     tabPanel("squidR",
-    				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/squidR/squidR.md")))
+    				 fixedPage(wellPanel(shiny::includeMarkdown("./source/pages/squidr/squidr.md")))
     ), # End tabPanel People
     
     #### About us ####

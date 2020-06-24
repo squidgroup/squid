@@ -179,7 +179,7 @@ fixedPage( HTML("<div id='FullModel'>"),
       tabPanel("Sampling Time", plotOutput("FMod_plotSamples", height = "350px")), # END Environements 
       tabPanel("Data file description",
                tags$b("Full model equation"),
-               source("./source/pages/fullModelSbyS/UIfullModelEquation.R",local=TRUE)[["value"]],
+               source("./source/pages/full_model_sbys/ui_fullmodel_equation.R",local=TRUE)[["value"]],
                uiOutput("FMod_Data_Description_Table")
       ) # END Environements 
     )

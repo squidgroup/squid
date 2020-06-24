@@ -16,31 +16,31 @@ wellPanel(
           
           # Full model description
           tabPanel("Simulation model", 
-            source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionFullModel.R",local=TRUE)[["value"]]         
+            source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_full_model.R",local=TRUE)[["value"]]         
           ),
           # Model Summary
           tabPanel("Model summary", 
-                   source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionSummary.R",local=TRUE)[["value"]]
+                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_summary.R",local=TRUE)[["value"]]
           ),
           # Bivariate Model Summary
           tabPanel("Bivariate model",
-                   source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionBivariateSummary.R",local=TRUE)[["value"]]
+                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_bivariate_summary.R",local=TRUE)[["value"]]
           ),
           # Sampling design description
           tabPanel("Sampling design", 
-            source("./source/pages/fullModelSbyS/UIfullModelSbySDescriptionSamplingDesign.R",local=TRUE)[["value"]]  
+            source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_sampling_design.R",local=TRUE)[["value"]]  
           )         
         )
       ),
       
       # Inputs panel
       tabPanel("Inputs",
-        source("./source/pages/fullModelSbyS/UIfullModelSbySInput.R",local=TRUE)[["value"]]
+        source("./source/pages/full_model_sbys/ui_fullmodel_sbys_input.R",local=TRUE)[["value"]]
       ),# End tabPanel Inputs
     
       # Outputs panel
       tabPanel("Outputs",
-        source("./source/pages/fullModelSbyS/UIfullModelSbySOutput.R",local=TRUE)[["value"]]
+        source("./source/pages/full_model_sbys/ui_fullmodel_sbys_output.R",local=TRUE)[["value"]]
       ) # END tabpanel Outputs
     
     ), # End FModSbyS_TabsetPanel

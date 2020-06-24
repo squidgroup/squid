@@ -25,7 +25,7 @@ span(
     tabPanel("Sampling Time", plotOutput("FModSbyS_plotSamples", height = "350px")),
     tabPanel("Data file description", 
              tags$b("Full model equation"),
-             source("./source/pages/fullModelSbyS/UIfullModelEquation.R",local=TRUE)[["value"]],
+             source("./source/pages/full_model_sbys/ui_fullmodel_equation.R",local=TRUE)[["value"]],
              uiOutput("FModSbyS_Data_Description_Table")
     ) # END Environements 
   )

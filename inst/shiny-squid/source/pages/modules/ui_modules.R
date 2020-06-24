@@ -9,10 +9,10 @@ navbarMenu("Modules", # Title
       h3(HTML(module1_txt$title)),
       p(HTML(module1_txt$goal)), 
       tabsetPanel(id = "Module1TabsetPanel", type = "pills", selected = "Step 1",
-        tabPanel("Step 1", source("./source/pages/modules/module1/UIMod1Step1.R",local = TRUE)[["value"]]),    
-        tabPanel("Step 2", source("./source/pages/modules/module1/UIMod1Step2.R",local = TRUE)[["value"]]),
-        tabPanel("Step 3", source("./source/pages/modules/module1/UIMod1Step3.R",local = TRUE)[["value"]]),
-        tabPanel("Step 4", source("./source/pages/modules/module1/UIMod1Step4.R",local = TRUE)[["value"]])
+        tabPanel("Step 1", source("./source/pages/modules/module1/ui_mod1_step1.R",local = TRUE)[["value"]]),    
+        tabPanel("Step 2", source("./source/pages/modules/module1/ui_mod1_step2.R",local = TRUE)[["value"]]),
+        tabPanel("Step 3", source("./source/pages/modules/module1/ui_mod1_step3.R",local = TRUE)[["value"]]),
+        tabPanel("Step 4", source("./source/pages/modules/module1/ui_mod1_step4.R",local = TRUE)[["value"]])
       ) # End tabsetPanel
     ) # End Wellpanel
   ))), # END Module 1
@@ -28,9 +28,9 @@ navbarMenu("Modules", # Title
       h3(HTML(module3_txt$title)),
       p(HTML(module3_txt$goal)), 
       tabsetPanel(id = "Module3TabsetPanel", type = "pills", selected = "Step 1",
-        tabPanel("Step 1", source("./source/pages/modules/module3/UIMod3Step1.R",local = TRUE)[["value"]]),
-        tabPanel("Step 2", source("./source/pages/modules/module3/UIMod3Step2.R",local = TRUE)[["value"]]),
-        tabPanel("Step 3", source("./source/pages/modules/module3/UIMod3Step3.R",local = TRUE)[["value"]])
+        tabPanel("Step 1", source("./source/pages/modules/module3/ui_mod3_step1.R",local = TRUE)[["value"]]),
+        tabPanel("Step 2", source("./source/pages/modules/module3/ui_mod3_step2.R",local = TRUE)[["value"]]),
+        tabPanel("Step 3", source("./source/pages/modules/module3/ui_mod3_step3.R",local = TRUE)[["value"]])
       )
     )
   ))), # END Module 3
@@ -43,9 +43,9 @@ navbarMenu("Modules", # Title
       h3(HTML(module6_txt$title)),
       p(HTML(module6_txt$goal)), 
       tabsetPanel(id = "Module6TabsetPanel", type = "pills", selected = "Step 1",
-        tabPanel("Step 1", source("./source/pages/modules/module6/UIMod6Step1.R",local = TRUE)[["value"]]),
-        tabPanel("Step 2", source("./source/pages/modules/module6/UIMod6Step2.R",local = TRUE)[["value"]]),
-        tabPanel("Step 3",source("./source/pages/modules/module6/UIMod6Step3.R" ,local = TRUE)[["value"]])
+        tabPanel("Step 1", source("./source/pages/modules/module6/ui_mod6_step1.R",local = TRUE)[["value"]]),
+        tabPanel("Step 2", source("./source/pages/modules/module6/ui_mod6_step2.R",local = TRUE)[["value"]]),
+        tabPanel("Step 3",source("./source/pages/modules/module6/ui_mod6_step3.R" ,local = TRUE)[["value"]])
       ) # End tabsetPanel
     ) # End Wellpanel
   ))), # END Module 6
@@ -60,11 +60,11 @@ navbarMenu("Modules", # Title
   				 repeatedly expressed traits are affected by the amount of variation,
   				 and the magnitude of correlations occurring at each underlying hierarchical level.")),
 	 	tabsetPanel(id = "Module4TabsetPanel", type = "pills", selected = "Step 1",
-	 							tabPanel("Step 1", source("./source/pages/modules/module4/UIMod4Step1.R",local = TRUE)[["value"]]),
-	 							tabPanel("Step 2", source("./source/pages/modules/module4/UIMod4Step2.R",local = TRUE)[["value"]]),
-	 							tabPanel("Step 3", source("./source/pages/modules/module4/UIMod4Step3.R",local = TRUE)[["value"]]),
-	 							tabPanel("Step 4", source("./source/pages/modules/module4/UIMod4Step4.R",local = TRUE)[["value"]]),
-	 							tabPanel("Step 5", source("./source/pages/modules/module4/UIMod4Step5.R",local = TRUE)[["value"]])
+	 							tabPanel("Step 1", source("./source/pages/modules/module4/ui_mod4_step1.R",local = TRUE)[["value"]]),
+	 							tabPanel("Step 2", source("./source/pages/modules/module4/ui_mod4_step2.R",local = TRUE)[["value"]]),
+	 							tabPanel("Step 3", source("./source/pages/modules/module4/ui_mod4_step3.R",local = TRUE)[["value"]]),
+	 							tabPanel("Step 4", source("./source/pages/modules/module4/ui_mod4_step4.R",local = TRUE)[["value"]]),
+	 							tabPanel("Step 5", source("./source/pages/modules/module4/ui_mod4_step5.R",local = TRUE)[["value"]])
 	 	) # End tabsetPanel
 	 ) # End Wellpanel
   ))), # END Module 4
@@ -99,8 +99,8 @@ navbarMenu("Modules", # Title
       	gain some understanding of how specific parameter values in an analysis equation influence
       	shape and orientation of a reaction norm plane.'),
       tabsetPanel(id = "Module5TabsetPanel", type = "pills", selected = "Step 1",
-      						tabPanel("Step 1", source("./source/pages/modules/module5/UIMod5Step1.R",local = TRUE)[["value"]]),
-      						tabPanel("Step 2", source("./source/pages/modules/module5/UIMod5Step2.R",local = TRUE)[["value"]])
+      						tabPanel("Step 1", source("./source/pages/modules/module5/ui_mod5_step1.R",local = TRUE)[["value"]]),
+      						tabPanel("Step 2", source("./source/pages/modules/module5/ui_mod5_step2.R",local = TRUE)[["value"]])
       ) # End tabsetPanel
     ) # End Wellpanel
   ))) # END Module 5
@@ -115,7 +115,7 @@ navbarMenu("Modules", # Title
           #    # Title
           #    h3("Combining multidimensionality with random regression"),
           #    tabsetPanel(id = "Module8TabsetPanel", type = "pills", selected = "Step 1",
-          #       tabPanel("Step 1", source("./source/pages/modules/module8/UIMod8Step1.R",local = TRUE)[["value"]])
+          #       tabPanel("Step 1", source("./source/pages/modules/module8/ui_mod8_step1.R",local = TRUE)[["value"]])
           #    ) # End tabsetPanel
           #   ) # End Wellpanel
           #  )# END Module 8

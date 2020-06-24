@@ -61,7 +61,7 @@ span(
 		 
 	h4("Model equation"),
 
-	source("./source/pages/fullModelSbyS/UIfullModelEquation.R",local=TRUE)[["value"]],
+	source("./source/pages/full_model_sbys/ui_fullmodel_equation.R",local=TRUE)[["value"]],
 
 	myDefinitionTable,
 
