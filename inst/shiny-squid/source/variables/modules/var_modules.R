@@ -199,7 +199,7 @@ Modules_VAR <- list(
                                          Try to decrease other variances.",sep="")
   ),
   
-  # known Environemental effect variance
+  # Specific and known Environmental effect variance
   "Vesk"   = list(  "label"       = paste("Specific and known environmental effect variance ($",general_VAR$EnvSpecKno,"$): ",sep=""),
                      "infoTxt"     = "Specific (unshared among individuals) and known (measured) environmental effect variance",
                      "value"       = "",
@@ -210,7 +210,7 @@ Modules_VAR <- list(
                                          Try to decrease other variances.",sep="")
   ),
   
-  # General and unknown environemental effect variance
+  # General and unknown environmental effect variance
   "Vegu"   = list(  "label"       = paste("General and unknown environmental effect variance ($",general_VAR$EnvGenUnk,"$): ",sep=""),
                     "infoTxt"     = "General (unshared among individuals) and unknown (unmeasured) environmental effect variance",
                     "value"       = "",
@@ -232,7 +232,7 @@ Modules_VAR <- list(
                                          Try to decrease other variances.",sep="")
   ),
   
-  # Mean Environemental effect
+  # Mean Environmental effect
   "B1"   = list(  "label"        = paste0("Population mean response to the environment $",NOT$env,"$ ($",NOT$mean,"$):"),
                   "infoTxt"     = "Population mean response to the environment.",
                   "value"       = 0,
@@ -245,7 +245,7 @@ Modules_VAR <- list(
   
   
   # Mean Environemental effect
-  "B1.1"   = list(  "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
+  "B1.1"   = list( "label"        = paste0("Mean environmental effect ($",EQ3$mean1,"$):"),
                    "infoTxt"     = "Population mean response to the environment.",
                    "value"       = 0,
                    "min"         = -1,
@@ -290,7 +290,7 @@ Modules_VAR <- list(
   ),
   
   # Among-individual variance in timing of sampling
-  "Vhsi"   = list(  "label"       = "Among-individual variance in timing of sampling:",
+  "Vhsi"   = list( "label"       = "Among-individual variance in timing of sampling:",
                    "infoTxt"     = "Among-individual variance in timing of sampling.",
                    "value"       = 0.5,
                    "min"         = 0,

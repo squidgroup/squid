@@ -109,16 +109,19 @@ navbarMenu("Modules", # Title
 #          tabPanel("Module 7",UImodule7()), # END Module 7
 #    
 
-          # #######  Module 8: MDPP and random slopes  #######################################
-          # tabPanel(Module_titles$mod8,
-          #  wellPanel(
-          #    # Title
-          #    h3("Combining multidimensionality with random regression"),
-          #    tabsetPanel(id = "Module8TabsetPanel", type = "pills", selected = "Step 1",
-          #       tabPanel("Step 1", source("./source/pages/modules/module8/ui_mod8_step1.R",local = TRUE)[["value"]])
-          #    ) # End tabsetPanel
-          #   ) # End Wellpanel
-          #  )# END Module 8
+  # #######  Module 8: MDPP and random slopes  #######################################
+  # tabPanel(Module_titles$mod8,
+  # fixedPage(tags$div(class="myPage myTutorial",
+  #  wellPanel(
+  #    # Title
+  #    h3("Combining multidimensionality with random regression"),
+  #    tabsetPanel(id = "Module8TabsetPanel", type = "pills", selected = "Step 2",
+  #       tabPanel("Step 1", source("./source/pages/modules/module8/ui_mod8_step1.R",local = TRUE)[["value"]]),
+  #       tabPanel("Step 2", source("./source/pages/modules/module8/ui_mod8_step2.R",local = TRUE)[["value"]])
+  #       
+  #    ) # End tabsetPanel
+  #   ) # End Wellpanel
+  #  )))# END Module 8
 
 #          
 #          # Module 9

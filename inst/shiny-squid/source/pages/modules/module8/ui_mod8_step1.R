@@ -29,10 +29,10 @@ span(
                 adding individual variation to different bits of the equation describing a reaction norm plane."))),
 
   # Exercise
-  p(HTML(paste0("<b>Exercise:</b> Let’s start with the equation describing MDPP that ended the 
+  p(HTML(paste0("<b>Exercise:</b> Let's start with the equation describing MDPP that ended the 
                 module called <i>",Module_titles$mod5,"</i>."))),
 
-  # Equation 1
+  # Equation
   p(paste0("$$",
            NOT$trait.1,"_{",NOT$time,NOT$ind,"} =
   				 
@@ -71,126 +71,177 @@ span(
   
   p("where "),
   
-# 	# Input: Number of individuals
-#   getSliderInput("Mod5Step1_NI", Modules_VAR$NI),
-# 	
-# 	# Input: Among-individual variance (Vi)
-#   getSliderInput("Mod5Step1_Vi", Modules_VAR$Vi),
-# 	
-# 	# Input: NMeasurement error variance
-#   getSliderInput("Mod5Step1_Ve", Modules_VAR$Vm),
-# 	
-# 	# Input: Number of trait expression measured
-#   getSliderInput("Mod5Step1_NR", Modules_VAR$NR),
-# 	
-# 	
-# 	p("Note: For now, we will assume all individuals are sampled equally often and at the same time."),
-# 	
-# 	p(strong("The environment")),
-# 	
-# 	p(HTML(paste0("Let's simulate phenotypes that are influenced by two factors, both of which are shared by the 
-# 		whole population (e.g., spring temperature) and the values are random from one measurement period 
-# 		to the next. The environment thus has an intercept effect on phenotype of 0, and a slope that 
-# 		you can input (we recommend at first that the slope be >> 0). Each environment contributes 
-# 		the value $[slope]^2Var(",NOT$env,")$ to the total phenotypic variance (see Table 1 in Allegue <i>et al.</i> 2016), 
-# 		so by specifying the slope (positive or negative), you will affect the total phenotypic variance. 
-# 		Note that in SQuID each environmental effect is standardized (i.e. mean = 0 and variance = 1)."))),
-# 	
-# 	p("Enter the slope for each environmental factor. These can be either positive or negative. "),
-# 	
-# 	# Input: Environment 1
-#   getSliderInput("Mod5Step1_B1", Modules_VAR$B1.1),
-# 	
-# 	# Input: Environment 2
-#   getSliderInput("Mod5Step1_B2", Modules_VAR$B2.1),
-# 	
-# 	p(),
-# 	# Simulation run button
-# 	actionButton("Mod5Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
-# 	runningIndicator(),
-# 	p(),
-# 	
-# 	p(strong("Results")),
-# 	
-# 	p("Suppose we assume that there is only one environmental effect. That is, we analyse 
-# 		the population we simulated using the following model:"),
-# 	
-# 	# Equation
-# 	p(paste0("$$",
-# 							NOT$trait.1,"_{",NOT$time,NOT$ind,"} = 
-# 							
-# 							",EQ1$mean0," +
-# 							",EQ1$dev1,"  +
-# 							",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
-# 						  ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
-# 	
-# 	p("A mixed statistical model estimates the parameters:"),
-# 	
-# 	p("Statistical output:"),
-# 	
-# 	# Output: Table 1
-#   uiOutput("Mod5Step1_summary_table1"),
-# 	
-# 	p(HTML(paste0("This makes the simple point, also made in Module <i>",Module_titles$mod3,"</i>, 
-# 		that leaving out an important factor inflates other variance components. In this case 
-# 		it was mostly the residual variance because the environment was set as random from one 
-# 		measurement to the next and all individuals experienced it."))),
-# 	
-# 	p("A reanalysis with the following model pulls the missing environmental variance out of the residual term:"),
-# 	
-# 	# Equation
-# 	p(paste0("$$",
-# 					 NOT$trait.1,"_{",NOT$time,NOT$ind,"} = 
-# 					 
-# 					 ",EQ1$mean0," +
-# 					 ",EQ1$dev1,"  +
-# 
-# 					 ",EQ1$mean1,NOT$env,"_{1",NOT$time,NOT$ind,"} +
-# 					 ",EQ1$mean2,NOT$env,"_{2",NOT$time,NOT$ind,"} +
-# 
-# 					 ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
-# 	
-# 	p("Statistical output:"),
-# 	
-# 	# Output: Table 2
-#   uiOutput("Mod5Step1_summary_table2"),
-# 	
-# 	p("This is a multiple regression within a mixed model. A 3-dimensional graph helps visualize 
-# 		the way in which the two x variables affect a phenotype in the 2 dimensions defined by the environment."),
-# 	
-# 	# Output: Figure 1
-#   uiOutput("Mod5Step1_3D_1"),
-#   
-# 	p(paste0("Individuals in this simulation vary in their intercept by the amount you entered. 
-# 		Below we pick three individuals across the range of the intercept variance to illustrate 
-# 		how each individual's plane sits in the space defined by the two environmental variables. 
-# 		You can see that the three planes are parallel or very close to parallel, and differ only 
-# 		in their elevation. If you play around with the number of measures within an individual, 
-# 		you will see that the resolution of these planes requires fairly large sample sizes 
-# 		(this is covered in more detail later).")),
-# 	
-# 	p(paste0("A new 3-D graph with three individuals picked from the low end of $",NOT$devI,"$, 
-# 					 the middle, and from the high end of $",NOT$devI,"$.")),
-#   
-#   # Output: Figure 2
-#   uiOutput("Mod5Step1_3D_2"),
-# 	
-# 	p(paste0("Run through this simulation several times using different values for $",EQ1$mean1,"$ and $",EQ1$mean2,"$, 
-# 					 including having some slopes negative. In particular, try making the two have opposite signs.
-# 					 Inspect the table above and look at the two graphs so you gain a feel for how the two slopes 
-# 					 produce a flat plane that may be tilted in various ways.")),
-# 	
-#   p(HTML("<b>Conclusion:</b> is exercise should reinforce your understanding of where measured 
-#   			 and unmeasured sources of variance end up in a statistical analysis and how systematic 
-#   			 effects of multiple environments can be appropriately captured. In the next step, 
-#   			 we illustrate one important complexity.")),
-#   
-#   p(strong("References:")),
-#   p(HTML("Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. 
-#   			 and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and 
-#   			 statistical tool for understanding multi-level phenotypic data in linear mixed models. 
-#   			 <i>Methods in Ecology and Evolution</i>, 8, 257-267.")),
+  p(paste0("$$",
+
+           "\\begin{pmatrix}
+            ",EQ1$dev0," \\\\ ",EQ1$dev1,"
+            \\end{pmatrix}",
+           
+           "\\sim MVN(0, \\Omega_{",NOT$devI,NOT$devS,"}):  
+           
+           \\Omega_{",NOT$devI,NOT$devS,"}= ",
+           
+           "\\begin{pmatrix}
+            Var(",NOT$devI,") & Cov_{",NOT$devI,EQ3$dev1,"} \\\\ 
+            Cov_{",NOT$devI,EQ3$dev1,"} & Var(",EQ3$dev1,")
+            \\end{pmatrix}",
+
+           "$$")),
+
+  p(paste0("If you did the random regression module, you have seen this before although here we've added 
+           one subscript to identify that the slopes are with respect to $",NOT$env,"_{1}$. 
+           This statement means that the intercept value of the $",NOT$ind,"^{th}$ individual ($",EQ1$dev0,"$) 
+           and the slope of that individual ($",EQ1$dev1,"$) with respect to $",NOT$env,"_{1}$ are 
+           distributed as multivariate normal with means for each attribute of 0 and a variance-covariance 
+           structure of $\\Omega_{",NOT$devI,NOT$devS,"}$. We then specify the variance-covariance structure 
+           in a 2 by 2 matrix. $Cov_{",NOT$devI,EQ3$dev1,"}$ is the measure of how much $",EQ1$dev0,"$ and 
+           $",EQ1$dev1,"$ covary together.")),
+  
+  
+  p(paste0("We will simulate data with these terms, and assess one consequence of random slopes in a reaction 
+           norm plane. First, we will ask where variation due to the random slope exists in the 2 environmental 
+           dimensions.")),
+  
+  p("We will start with a population of 100 individuals each measured 20 times in which both 
+           x variables were also measured. Both environments are random and unshared."),
+
+  p("Below, specify some parameter values:"),
+  
+  
+  # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  
+  p(paste0("It may be useful at first to make the $Cov_{",NOT$devI,EQ3$dev1,"}=0$, 
+           but later you can explore other values.")),
+  
+  p(paste0("Once the data are simulated, we can analyze them with R package lmer4 
+           as was done in the random regression module and we will compare the full model 
+           to one without $",EQ1$dev1,"$ or $Cov_{",NOT$devI,EQ3$dev1,"}$.")),
+  
+  displayRCode("# install.packages(&quot;lme4&quot;)<br>
+                LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1|Individual), data = sampled_data)<br>
+                LMM2 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1|Individual), data = sampled_data)"),
+  
+  p("Statistical output:"),
+  
+  # output: table -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  
+  p("The above should illustrate again that leaving something out of an analysis model that exists 
+    in the data will produce errors in other terms."),
+  
+  p("To illustrate what variance the random slopes capture, look at the following graphs:"),
+  
+  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  
+  p(paste0("A key feature is that while there is a plane that describes the reaction norm in space defined 
+           by $",NOT$env,"_{1}$ and $",NOT$env,"_{2}$, the random slopes for $",NOT$env,"_{1}$ are measured 
+           in only one value of $",NOT$env,"_{2}$, where it is 0. Below we present another graph with 
+           the reaction norm planes of 3 individuals picked from the data.")),
+  
+  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  p(paste0("As you can see, these planes vary in only one dimension of the environmental space. 
+           Since we did not specify any variation in the reaction to $",NOT$env,"_{2}$, or to the interaction between 
+           $",NOT$env,"_{1}$ and $",NOT$env,"_{2}$, everyone is assumed to have the same plane in those directions.")),
+  
+  p(paste0("If you try this with several different values for the parameters 
+           $V_{",NOT$devI,"}$, $V_{",EQ3$dev1,"}$, and $Cov_{",NOT$devI,EQ3$dev1,"}$, 
+           you will see that these affect the orientation of the plane only in one dimension.")),
+  
+  
+  # Exercise
+  p(HTML(paste0("<b>Exercise:</b> Now we will add among-individual variation in response to $",NOT$env,"_{2}$. 
+                In the phenotypic equation, we simply add $",EQ1$dev2,"$ to the part that depends on $",NOT$env,"_{2}$."))),
+  
+  p(paste0("$$",
+           NOT$trait.1,"_{",NOT$time, NOT$ind,"} =
+           
+           ",EQ1$mean0," +
+           ",EQ1$dev0,"  +
+           
+           (",EQ1$mean1,"+",EQ1$dev1,")",NOT$env,"_{1",NOT$time,NOT$ind,"} +
+           
+           (",EQ1$mean2,"+",EQ1$dev2,")",NOT$env,"_{2",NOT$time,NOT$ind,"} +
+           
+           ",EQ1$mean12,NOT$env,"_{1",NOT$time,NOT$ind,"}",NOT$env,"_{2",NOT$time,NOT$ind,"} +
+           
+           ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
+  
+  p("However, we now have a more complex variance-covariance expression, 
+    which is the expansion of all possible combinations of 
+    three terms instead of two as before:"),
+  
+  p(paste0("$$",
+           
+           "\\begin{pmatrix}
+            ",EQ1$dev0," \\\\ ",EQ1$dev1," \\\\ ",EQ1$dev2,"
+            \\end{pmatrix}",
+           
+           "\\sim MVN(0, \\Omega_{",NOT$devI,NOT$devS,"}):  
+           
+           \\Omega_{",NOT$devI,NOT$devS,"}= ",
+           
+           "\\begin{pmatrix}
+            Var(",NOT$devI,") & Cov_{",NOT$devI,EQ3$dev1,"} & Cov_{",NOT$devI,EQ3$dev2,"} \\\\ 
+            Cov_{",NOT$devI,EQ3$dev1,"} & Var(",EQ3$dev1,") & Cov_{",EQ3$dev1,EQ3$dev2,"} \\\\ 
+            Cov_{",NOT$devI,EQ3$dev2,"} & Cov_{",EQ3$dev1,EQ3$dev2,"} & Var(",EQ3$dev2,")
+            \\end{pmatrix}",
+           
+           "$$")),
+  
+  p("Again, let's simulate some data and visualize the results."),
+  
+  p(paste0("We will start with a population of 100 individuals each measured 20 times in which 
+           both $",NOT$env,"$ variables were also measured. Both environments are random and unshared.")),
+  
+  
+  p("Below, specify some parameter values:"),
+  
+  
+  # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  
+  p("We might recommend you set two of these covariances to 0 to start and explore what 
+    the other looks like before giving them all values. Strong covariances, either positive 
+    or negative, will be easier to visualize."),
+  
+  p("Once the data are simulated, we can analyze them with lmer4 as was done in the random regression
+    module. This time we will just fit the full model and visualize the results in a graph."),
+  
+  displayRCode("# install.packages(&quot;lme4&quot;)<br>
+                LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1 + X2|Individual), data = sampled_data)"),
+  
+  p("Statistical output:"),
+  
+  # output: table -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  
+  p("To illustrate now what variance both random slopes produce, look at the following graphs:"),
+  
+  
+  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  
+  p(paste0("If you try this with several different values for the parameters 
+           $V_{",NOT$devI,"}$, $V_{",EQ3$dev1,"}$, and $V_{",EQ3$dev2,"}$, 
+           and the 3 covariances, you will see that these affect the orientation of the plane 
+           around the 0 point for both environments, and its height at that spot, 
+           but any curving of the plane due to the parameter $",EQ1$mean12,"$ is the same for everyone.")),
+  
+  
+  p("As you can see, these planes now vary in both dimensions of the environmental space. 
+    If you think of the intercept as a pole in this space, the individual slopes cause 
+    the planes to wobble or tip in all directions at the top of the pole relative 
+    to the population mean plane and the variation in intercept causes the plane 
+    to rise or sink at the intercept relative to the population mean plane. 
+    What do values of the covariances do? You can think of them constraining the range 
+    of plane tipping in just certain directions, and the different covariances 
+    cause different constraints."),
   
 
-    div(class = "line")
+  div(class = "line"),
+  
+  actionLink("Mod8Step1GotoStep2", label = "Next Step (2) >>", class= "linkToModuleSteps") # Go to next step
 )
