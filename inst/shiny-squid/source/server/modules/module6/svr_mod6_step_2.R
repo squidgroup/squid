@@ -32,8 +32,6 @@ c(
       
       isolate({ 
         
-        browser()
-        
         updateCheckboxInput(session, "isRunning", value = TRUE)
         
         # Call app main function
@@ -41,6 +39,8 @@ c(
         
         LMR      <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = data$sampled_data)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
+        
+        data$LMR       <- LMR
         
         data$Vi        <- round(RANDEF[1],2)
         data$Vs        <- round(RANDEF[2],2)
@@ -50,21 +50,28 @@ c(
         data$B1        <- round(lme4::fixef(LMR)[2],2) 
         
         # Remove covariance
-        df   <- as.data.table(data$sampled_data)
-        
         if(input$Mod6Step2_CorIS != 0){
           
+          df    <- as.data.table(data$sampled_data)
           newdf <- unique(copy(df[ , .(Individual, S1)]))[
                                    , Individual := sample(Individual)]
-          
+
           setkey(df,Individual)
           setkey(newdf,Individual)
           df <- df[, S1:=NULL][newdf, nomatch=0]
-          
+
           df[ , Phenotype := ((B0+I) + (B1+S1)*X1 + e)]
+          
+          LMR2  <- lme4::lmer(Phenotype ~ X1 + (X1|Individual), data = df)
+
+        }else{
+          LMR2 <- LMR
         }
         
-        data$df <- as.data.frame(df)
+        data$LMR2 <- LMR2
+        
+        # data$df <- as.data.frame(df)
+        
         updateCheckboxInput(session, "isRunning", value = FALSE)
         
         return(data)
@@ -109,20 +116,40 @@ c(
       
       if(!is.null(data)){
         
-        data$df$covariance           <- "Without covariance"
-        data$sampled_data$covariance <- "With covariance"
-        myDf <- rbind(data$sampled_data, data$df)
-        myDf$covariance <- factor(myDf$covariance, levels = c("Without covariance", "With covariance"))
+        data1 <- data$sampled_data
+        data2 <- data$sampled_data
         
-        print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype, 
-                                                        x     = X1, 
-                                                        color = as.factor(Individual))) +
-                      ggplot2::stat_smooth(method = "lm", se=FALSE) + 
-                      ggplot2::theme(legend.position="none") + 
-                      ggplot2::facet_grid(. ~ covariance) + 
-                      ggplot2::xlab("Environmental effect") + 
-                      ggplot2::ylab("Phenotype")) +
-                      ggplotCustomTheme()
+        data1$covariance     <- "With covariance"
+        data1$Phenotype_pred <- predict(data[["LMR"]])
+        
+        data2$covariance     <- "Without covariance"
+        data2$Phenotype_pred <- predict(data[["LMR2"]])
+
+        myDf <- rbind(data1, data2)
+        myDf$covariance <- factor(myDf$covariance, levels = c("Without covariance", "With covariance"))
+
+        ggplot2::ggplot(data = myDf, 
+                        ggplot2::aes(y     = Phenotype_pred, 
+                                     x     = X1, 
+                                     color = as.factor(Individual))) +
+          geom_line() +
+          ggplot2::theme(legend.position="none") +
+          ggplot2::facet_grid(. ~ covariance) +
+          ggplot2::xlab("Environmental effect") + 
+          ggplot2::ylab("Phenotype") +
+          ggplotCustomTheme()
+        
+        # print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype,
+        #                                                 x     = X1,
+        #                                                 color = as.factor(Individual))) +
+        #               ggplot2::stat_smooth(method = "lm", se=FALSE) +
+        #               ggplot2::theme(legend.position="none") +
+        #               ggplot2::facet_grid(. ~ covariance) +
+        #               ggplot2::xlab("Environmental effect") +
+        #               ggplot2::ylab("Phenotype")) +
+        #               ggplotCustomTheme()
+        # 
+        # defaultPlot()
 
       }else{
         defaultPlot()

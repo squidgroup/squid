@@ -41,12 +41,12 @@ c(
         SE.FIXEF <- arm::se.fixef(LMR)
         RANDEF   <- as.data.frame(lme4::VarCorr(LMR))$vcov
         
-        data$Vi       <- round(RANDEF[1],2)
-        data$Vs       <- round(RANDEF[2],2)
-        data$Vr       <- round(RANDEF[3],2) 
-        # data$B0        <- round(lme4::fixef(LMR)[1],2) 
-        # data$B1        <- round(lme4::fixef(LMR)[2],2) 
+        data$LMR     <- LMR
         
+        data$Vi      <- round(RANDEF[1],2)
+        data$Vs      <- round(RANDEF[2],2)
+        data$Vr      <- round(RANDEF[3],2) 
+
         data$B1      <- round(FIXEF["X1"],2)
         data$se.B1   <- round(SE.FIXEF["X1"],2)
         data$B0      <- round(FIXEF["(Intercept)"],2)
@@ -60,7 +60,7 @@ c(
     
     Mod6Step1_table <- reactive({
       
-      data    <- Mod6Step1_output()
+      data <- Mod6Step1_output()
       
       myTable <- data.frame(
         "True"       = c("$\\text{Fixed effects}$",
@@ -92,10 +92,11 @@ c(
       if(!is.null(data)){
         
         print(
-          ggplot2::ggplot(data = data$sampled_data, ggplot2::aes(y     = Phenotype, 
-                                                           x     = X1, 
-                                                           color = as.factor(Individual))) +
-                  ggplot2::stat_smooth(method = "lm", se=FALSE) + 
+          ggplot2::ggplot(data = data$sampled_data, 
+                          ggplot2::aes(y     = predict(data$LMR), 
+                                       x     = X1, 
+                                       color = as.factor(Individual))) +
+                  geom_line() +
                   ggplot2::theme(legend.position="none") + 
                   ggplot2::xlab("Environmental effect") + 
                   ggplot2::ylab("Phenotype")) +
