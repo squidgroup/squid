@@ -68,14 +68,14 @@ c(
                         paste("Population-specific slope of the environmental effect ($",NOT$mean,"$) =",round(input$Mod6Step1_B[2],2)),
                         "$\\text{Random effects}$",
                         paste("Among-individual variance in intercept ($V_",NOT$devI,"$) =",input$Mod6Step1_Vi),
-                        paste("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,NOT$env,"}$) =",input$Mod6Step1_Vs),
+                        paste("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,"}$) =",input$Mod6Step1_Vs),
                         paste("Residual variance ($V_",NOT$residualUpper,"$) =",input$Mod6Step1_Ve)),
         "Estimated" = c("$\\text{Fixed effects}$",
                         paste("Sampled mean of the trait ($",NOT$mean,"'_0$) =",ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),
                         paste("Estimated population-specific slope of the environmental effect ($",NOT$mean,"'$) =",ifelse(!is.null(data),paste(data$B1,"\U00b1", data$se.B1, sep=" "),"...")),
                         "$\\text{Random effects}$",
                         paste("Sampled among-individual variance in intercept ($V'_",NOT$devI,"$) = ", ifelse(!is.null(data),data$Vi,"...")),
-                        paste("Variance due to individual-specific responses to an environmental factor (random slopes; $V'_{",NOT$devS,NOT$env,"}$) = ", ifelse(!is.null(data),data$Vs,"...")),
+                        paste("Variance due to individual-specific responses to an environmental factor (random slopes; $V'_{",NOT$devS,"}$) = ", ifelse(!is.null(data),data$Vs,"...")),
                         paste("Residual variance of sample ($V'_",NOT$residualUpper,"$) = ", ifelse(!is.null(data),data$Vr,"...")))
       )  
       

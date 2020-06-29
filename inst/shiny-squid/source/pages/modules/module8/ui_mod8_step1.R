@@ -8,10 +8,10 @@ span(
   p(HTML("<b>Sub-goal:</b> Can we statistically test for individual variation in interaction 
          terms and what sampling regimes might improve the ability to do so?")),
 
-  # conditionalPanel(
-  #   condition = "0",
-  #   uiOutput("Mod8Step1_hidden")
-  # ),
+  conditionalPanel(
+    condition = "1",
+    uiOutput("Mod8Step1_hidden")
+  ),
 
   # Introduction
   p(HTML(paste0("<b>Introduction:</b> Multidimensional phenotypic plasticity is a widespread feature of most living organisms. 
@@ -98,7 +98,7 @@ span(
            $",EQ1$dev1,"$ covary together.")),
   
   
-  p(paste0("We will simulate data with these terms, and assess one consequence of random slopes in a reaction 
+  p(paste0("We will simulate data with these terms and assess one consequence of random slopes in a reaction 
            norm plane. First, we will ask where variation due to the random slope exists in the 2 environmental 
            dimensions.")),
   
@@ -107,9 +107,35 @@ span(
 
   p("Below, specify some parameter values:"),
   
+  info_msg("Note that covariance is entered as correlation (i.e. standardized covariance) ranging from -1 to 1."),
   
   # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   
+  # Input: Among-individual variance in intercept (Vi)
+  getSliderInput("Mod8Step1_Vi", Modules_VAR$Vi),
+  
+  # Input: Measurement error variance
+  getSliderInput("Mod8Step1_Ve", Modules_VAR$Vm),
+  
+  # Input: Environment 1
+  getSliderInput("Mod8Step1_B1", Modules_VAR$B1.1),
+  
+  # Input: Environment 2
+  getSliderInput("Mod8Step1_B2", Modules_VAR$B2.1),
+  
+  # Input: Environment 12
+  getSliderInput("Mod8Step1_B12", Modules_VAR$B1122),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step1_Vs1", Modules_VAR$Vsx.1),
+  
+  # Input: Correlation between Vi and Vs1
+  getSliderInput("Mod8Step1_CorIS1", Modules_VAR$CorIS1),
+  
+  # Simulation run button
+  actionButton("Mod8Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
   
   p(paste0("It may be useful at first to make the $Cov_{",NOT$devI,EQ3$dev1,"}=0$, 
            but later you can explore other values.")),
@@ -124,8 +150,8 @@ span(
   
   p("Statistical output:"),
   
-  # output: table -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Output: Table 1
+  uiOutput("Mod8Step1_summary_table1"),
   
   p("The above should illustrate again that leaving something out of an analysis model that exists 
     in the data will produce errors in other terms."),

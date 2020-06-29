@@ -39,7 +39,7 @@ Modules_VAR <- list(
   ),
 
   # Among-individual variance (Vi)
-  "Vi"  = list("label"       = paste("Among-individual variance ($V_",NOT$devI,"$):",sep=""),
+  "Vi"  = list("label"       = paste0("Among-individual variance in intercept ($V_",NOT$devI,"$):"),
                "infoTxt"     = "Among-individual variance (random intercepts).",
                "value"       = 0.7,
                "min"         = 0,
@@ -49,7 +49,7 @@ Modules_VAR <- list(
   ),
   
   # Among-individual variance of the trait 1 (Vi)
-  "Vi1"  = list("label"       = paste0("Among-individual variance trait $",NOT$trait.1,"$ ($V_{",NOT$devI,"_",NOT$trait.1,"}$):"),
+  "Vi1"  = list("label"       = paste0("Among-individual variance in intercept for trait $",NOT$trait.1,"$ ($V_{",NOT$devI,"_",NOT$trait.1,"}$):"),
   						 "infoTxt"     = "Among-individual variance (random intercepts).",
   						 "value"       = 0.7,
   						 "min"         = 0,
@@ -58,7 +58,7 @@ Modules_VAR <- list(
   						 "errorTxt"    = ""
   ),
   # Among-individual variance of the trait 2 (Vi)
-  "Vi2"  = list("label"       = paste0("Among-individual variance trait $",NOT$trait.2,"$ ($V_{",NOT$devI,"_",NOT$trait.2,"}$):"),
+  "Vi2"  = list("label"       = paste0("Among-individual variance in intercept for trait $",NOT$trait.2,"$ ($V_{",NOT$devI,"_",NOT$trait.2,"}$):"),
   							"infoTxt"     = "Among-individual variance (random intercepts).",
   							"value"       = 0.7,
   							"min"         = 0,
@@ -78,7 +78,7 @@ Modules_VAR <- list(
   ),
   
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
-  "Vsx"    = list(  "label"       = paste0("Variance due to individual-specific responses to an environmental factor (random slopes; $V_{",NOT$devS,NOT$env,"}$): "),
+  "Vsx"    = list(  "label"       = paste0("Among-individual variance in slope to $",NOT$env,"$ ($V_{",NOT$devS,"}$): "),
                     "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
                     "value"       = 0.2,
                     "min"         = 0,
@@ -87,15 +87,57 @@ Modules_VAR <- list(
                     "errorTxt"    = ""
   ),
   
-  # Environmental effect variance
+  # Individual-specific response to an environmental effect (random slopes) variance (VS)
+  "Vsx.1"    = list(  "label"       = paste0("Among-individual variance in slope to $",EQ2$env1,"$ ($V_{",EQ3$dev1,"}$): "),
+                    "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
+                    "value"       = 0.2,
+                    "min"         = 0,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = ""
+  ),
+  
+  # Individual-specific response to an environmental effect (random slopes) variance (VS)
+  "Vsx.2"    = list(  "label"       = paste0("Among-individual variance in slope to $",EQ2$env2,"$ ($V_{",EQ3$dev2,"}$): "),
+                    "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
+                    "value"       = 0.2,
+                    "min"         = 0,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = ""
+  ),
+  
+  # Individual-specific response to an environmental effect (random slopes) variance (VS)
+  "Vsx.12"    = list(  "label"       = paste0("Among-individual variance in slope to $",EQ2$env12,"$ ($V_{",EQ3$dev12,"}$): "),
+                    "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
+                    "value"       = 0.2,
+                    "min"         = 0,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = ""
+  ),
+  
+  # Random intercept and slope correlation
   "CorIS" = list(  "label"        = paste0("Correlation between $",NOT$devI,"$ and $",NOT$devS,"$ ($Cor_{",NOT$devI,NOT$devS,"}$):"),
-                    "infoTxt"     = paste0("Correlation between $",NOT$devI,"$ (random intercept) and $",NOT$devS,"$ (random slope)"),
-                    "value"       = "",
+                    "infoTxt"     = "",
+                    "value"       = 0,
                     "min"         = -1,
                     "max"         = 1,
                     "step"        = 0.01,
                     "errorTxt"    = ""
   ),
+  
+  
+  # Random intercept and slope correlation
+  "CorIS1" = list("label"       = paste0("Correlation between $",NOT$devI,"$ and $",EQ3$dev1,"$ ($Cor_{",NOT$devI,EQ3$dev1,"}$):"),
+                  "infoTxt"     = "",
+                  "value"       = 0,
+                  "min"         = -1,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = ""
+  ),
+  
   
   # Residual variance (Ve)
   "Ve"   = list("label"       = paste("Residual variance ($V_",NOT$residualUpper,"$):",sep=""),
@@ -176,7 +218,7 @@ Modules_VAR <- list(
   ),
   
   # Variance of population mean response to an environmental effect x
-  "Vbx"  = list(  "label"       = paste0("Variance due to population mean effect of an environmental factor $(V_{",NOT$mean," ",NOT$env,"})$:"),
+  "Vbx"  = list(  "label"       = paste0("Variance due to population mean effect of an environmental factor $(V_{",NOT$mean,"})$:"),
                   "infoTxt"     = "Variance due to population mean effect of an environmental factor.",
                   "value"       = 0.5,
                   "min"         = 0,

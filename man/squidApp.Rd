@@ -22,9 +22,9 @@ For more advanced and efficient simulations, SQuID is also available as an R fun
 Note that while the SQuID application is running, your \code{R} session will be busy. Then, in order to exit the SQuID application mode, you have to press the "Esc" key while you are on your \code{R} session window.
 }
 \section{References}{
-Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016). SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models. Methods in Ecology and Evolution, \bold{8}:257-267.
+Allegue, H., Araya-Ajoy, Y.G., Dingemanse, N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) SQuID - Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models. \emph{Methods in Ecology and Evolution}, \bold{8}:257-267.
 
-Dingemanse, N.J. and Dochtermann N.A. (2013). Quantifying individual variation in behaviour: mixed-effect modelling approaches. Journal of Animal Ecology, 82: 39-54.
+Dingemanse, N.J. and Dochtermann N.A. (2013) Quantifying individual variation in behaviour: mixed-effect modelling approaches. \emph{Journal of Animal Ecology}, \bold{82}:39-54.
 }
 \seealso{
 \code{\link{squidR}}

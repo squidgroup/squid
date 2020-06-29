@@ -21,7 +21,7 @@ Mod6Step1_txt <- list(
                         In Step 3 of module &ldquo;<i>",Module_titles$mod1,"</i>&rdquo;, individuals also varied, to some extent, 
                         in how an environmental factor influenced the expression of their phenotypes around this mean, 
                         and these deviations produce within-individual variance as a response 
-                        to environmental fluctuations $(V_{",NOT$mean," ",NOT$env,"})$. Throughout all these lessons, 
+                        to environmental fluctuations $(V_{",NOT$mean,"})$. Throughout all these lessons, 
                         we have assumed that if the environment changes, individuals change their phenotype 
                         in exactly the same way. This is a dubious assumption and in most biological situations, 
                         it is more reasonable and often more interesting to account for the fact that individuals 
@@ -155,7 +155,7 @@ Mod6Step3_txt <- list(
   "subgoal"    = paste0("<b>Sub-goal:</b> to develop understanding of how the level of replication 
                         in terms of the number of individuals and samples per individual 
                         influence the estimation of the among-individual variance in intercepts $(V_",NOT$devI,")$, 
-                        slopes $(V_{",NOT$devS,NOT$env,"})$ and their correlation $(Cor_{",NOT$devI,",",NOT$devS,"})$."),
+                        slopes $(V_{",NOT$devS,"})$ and their correlation $(Cor_{",NOT$devI,",",NOT$devS,"})$."),
   "intro"      = "<b>Introduction:</b> Several papers have addressed the issue of sample size requirements 
                   for random regression models. The general conclusion is that accurate estimates 
                   of random regression parameters require relatively high sample sizes, 

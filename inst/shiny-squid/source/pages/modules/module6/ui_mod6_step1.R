@@ -91,13 +91,13 @@ span(
              ",NOT$error,"_{",NOT$time, NOT$ind,"}$$")),
     p(paste0("$$V_",NOT$total,"=
             V_",NOT$devI,"+
-            V_{",NOT$mean," ",NOT$env,"}+
-            V_{",NOT$devS,NOT$env,"}+
+            V_{",NOT$mean,"}+
+            V_{",NOT$devS,"}+
             V_",NOT$residualUpper,"$$")),
     
     p("where"),
-    p(paste0("$$V_{",NOT$mean," ",NOT$env,"}=",NOT$mean,"^2Var(",NOT$env,")=",NOT$mean,"^2$$")),
-    p(paste0("$$V_{",NOT$devS,NOT$env,"}=Var(",NOT$devS,")Var(",NOT$env,")+E(",NOT$env,")^2Var(",NOT$devS,")=Var(",NOT$devS,")$$")),
+    p(paste0("$$V_{",NOT$mean,"}=",NOT$mean,"^2Var(",NOT$env,")=",NOT$mean,"^2$$")),
+    p(paste0("$$V_{",NOT$devS,"}=Var(",NOT$devS,")Var(",NOT$env,")+E(",NOT$env,")^2Var(",NOT$devS,")=Var(",NOT$devS,")$$")),
     p(paste0("Note that $Var(",NOT$env,")$ is the true variance in $",NOT$env,"$, and $E(",NOT$env,")$ is the true mean of $",NOT$env,"$.
              Also, in SQuID each environmental variable $(",NOT$env,")$ is standardized (i.e., $Var(",NOT$env,")=1$ and $E(",NOT$env,")=0$)$")),
     

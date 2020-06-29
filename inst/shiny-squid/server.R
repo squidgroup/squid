@@ -26,65 +26,72 @@ shinyServer(function(input, output, session) {
   
   # Module 1  ---------------------------------------------------------  
   
-  # Module 1 Step 1 ---------------------------------------------------------  
+  # Module 1 Step 1 -----------------------
   source("./source/server/modules/module1/svr_mod1_step_1.R",local = TRUE)
   
-  # Module 1 Step 2 ---------------------------------------------------------
+  # Module 1 Step 2 -----------------------
   source("./source/server/modules/module1/svr_mod1_step_2.R",local = TRUE)
   
-  # Module 1 Step 3 ---------------------------------------------------------
+  # Module 1 Step 3 -----------------------
   source("./source/server/modules/module1/svr_mod1_step_3.R",local = TRUE)
   
-  # Module 1 Step 4 ---------------------------------------------------------
+  # Module 1 Step 4 -----------------------
   source("./source/server/modules/module1/svr_mod1_step_4.R",local = TRUE)
   
   
   # Module 3  --------------------------------------------------------- 
   
-  # Module 3 Step 1 ---------------------------------------------------------
+  # Module 3 Step 1 -----------------------
   source("./source/server/modules/module3/svr_mod3_step_1.R",local = TRUE)
   
-  # Module 3 Step 2 ---------------------------------------------------------
+  # Module 3 Step 2 -----------------------
   source("./source/server/modules/module3/svr_mod3_step_2.R",local = TRUE)
   
-  # Module 3 Step 3 ---------------------------------------------------------
+  # Module 3 Step 3 -----------------------
   source("./source/server/modules/module3/svr_mod3_step_3.R",local = TRUE)
   
   
   # Module 4  --------------------------------------------------------- 
   
-  # Module 4 Step 1 ---------------------------------------------------------
+  # Module 4 Step 1 -----------------------
   source("./source/server/modules/module4/svr_mod4_step_1.R",local = TRUE)
   
-  # # Module 4 Step 2 ---------------------------------------------------------
+  # # Module 4 Step 2 -----------------------
   source("./source/server/modules/module4/svr_mod4_step_2.R",local = TRUE)
   
-  # # Module 4 Step 3 ---------------------------------------------------------
+  # # Module 4 Step 3 -----------------------
   source("./source/server/modules/module4/svr_mod4_step_3.R",local = TRUE)
   
-  # # Module 4 Step 5 ---------------------------------------------------------
+  # # Module 4 Step 5 -----------------------
   source("./source/server/modules/module4/svr_mod4_step_5.R",local = TRUE)
   
   
   # Module 5  --------------------------------------------------------- 
   
-  # Module 5 Step 1 ---------------------------------------------------------
+  # Module 5 Step 1 -----------------------
   source("./source/server/modules/module5/svr_mod5_step_1.R",local = TRUE)
 
-  # # Module 5 Step 2 ---------------------------------------------------------
+  # # Module 5 Step 2 -----------------------
   source("./source/server/modules/module5/svr_mod5_step_2.R",local = TRUE)
   
   
   # Module 6  --------------------------------------------------------- 
   
-  # Module 6 Step 1 ---------------------------------------------------------
+  # Module 6 Step 1 -----------------------
   source("./source/server/modules/module6/svr_mod6_step_1.R",local = TRUE)
   
-  # Module 6 Step 2 ---------------------------------------------------------
+  # Module 6 Step 2 -----------------------
   source("./source/server/modules/module6/svr_mod6_step_2.R",local = TRUE)
   
-  # Module 6 Step 3 ---------------------------------------------------------
+  # Module 6 Step 3 -----------------------
   source("./source/server/modules/module6/svr_mod6_step_3.R",local = TRUE)
+  
+  
+  # Module 8  --------------------------------------------------------- 
+  
+  # Module 6 Step 1 ---------------------------------------------------------
+  # source("./source/server/modules/module8/svr_mod8_step_1.R",local = TRUE)
+  
   
   
   

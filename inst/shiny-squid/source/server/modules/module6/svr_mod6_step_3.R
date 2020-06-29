@@ -71,7 +71,7 @@ c(
                                   paste0("Population-specific slope of the environmental effect ($",NOT$mean,"$)"),
                                   "$\\text{Random effects}$",
                                   paste0("Individual variance ($V_",NOT$devI,"$)"),
-                                  paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,NOT$env,"}$)"),
+                                  paste0("Individual-specific response to an environmental effect (random slopes) variance ($V_{",NOT$devS,"}$)"),
                                   paste0("Correlation between individual specific intercepts and slopes ($Cor_{",NOT$devI,",",NOT$devS,"}$)"),
                                   paste0("Measurement error ($V_",NOT$mError,"$)")),
         "Value" = c("Value",

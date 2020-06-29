@@ -115,10 +115,10 @@ navbarMenu("Modules", # Title
   #  wellPanel(
   #    # Title
   #    h3("Combining multidimensionality with random regression"),
-  #    tabsetPanel(id = "Module8TabsetPanel", type = "pills", selected = "Step 2",
+  #    tabsetPanel(id = "Module8TabsetPanel", type = "pills", selected = "Step 1",
   #       tabPanel("Step 1", source("./source/pages/modules/module8/ui_mod8_step1.R",local = TRUE)[["value"]]),
   #       tabPanel("Step 2", source("./source/pages/modules/module8/ui_mod8_step2.R",local = TRUE)[["value"]])
-  #       
+  # 
   #    ) # End tabsetPanel
   #   ) # End Wellpanel
   #  )))# END Module 8

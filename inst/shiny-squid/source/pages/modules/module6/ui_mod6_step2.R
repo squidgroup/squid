@@ -96,12 +96,12 @@ span(
     
     p(paste0("$$V_",NOT$total,"=
             V_",NOT$devI,"+
-            V_{",NOT$mean," ",NOT$env,"}+
-            V_{",NOT$devS,NOT$env,"}+
-            2COV_{",NOT$devI,",",NOT$devS,NOT$env,"}+
+            V_{",NOT$mean,"}+
+            V_{",NOT$devS,"}+
+            2COV_{",NOT$devI,",",NOT$devS,"}+
             V_",NOT$residualUpper,"$$")),
     p("where"),
-    p(paste0("$$COV_{",NOT$devI,",",NOT$devS,NOT$env,"}=
+    p(paste0("$$COV_{",NOT$devI,",",NOT$devS,"}=
              E(",NOT$env,")Cov(",NOT$devI,",",NOT$devS,")$$")),
     div(info_msg(Mod6Step2_txt$note2)),  # Text: note 2
     
