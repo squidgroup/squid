@@ -125,7 +125,7 @@ c(
         
         myTable <- data.frame("True"       = c(paste("Population intercept ($",EQ3$mean0,"$) = 0"),
                                                paste("Individual variance ($V_",NOT$devI,"$) =",input$Mod1Step4_Vi),
-                                               paste("Residual variance ($V_",NOT$residualUpper,"$) =",input$Mod1Step4_Ve),
+                                               paste("Measurement variance ($V_",NOT$mError,"$) =",input$Mod1Step4_Ve),
                                                "Mean of the trait ($\\mu$) = 0",
                                                paste("Slope of environmental effect ($",NOT$mean,"$) =",round(input$Mod1Step4_B[1,2],2))),
                               "Estimated" = c(paste("Population estimated mean ($",NOT$mean,"'_0$) = ", ifelse(!is.null(data),paste(data$B0,"\U00b1", data$se.B0, sep=" "),"...")),

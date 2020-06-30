@@ -120,10 +120,10 @@ c(
         data2 <- data$sampled_data
         
         data1$covariance     <- "With covariance"
-        data1$Phenotype_pred <- predict(data[["LMR"]])
+        data1$Phenotype_pred <- stats::predict(data[["LMR"]])
         
         data2$covariance     <- "Without covariance"
-        data2$Phenotype_pred <- predict(data[["LMR2"]])
+        data2$Phenotype_pred <- stats::predict(data[["LMR2"]])
 
         myDf <- rbind(data1, data2)
         myDf$covariance <- factor(myDf$covariance, levels = c("Without covariance", "With covariance"))

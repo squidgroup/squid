@@ -158,15 +158,16 @@ span(
   
   p("To illustrate what variance the random slopes capture, look at the following graphs:"),
   
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Figure 1
+  p(plotlyOutput("Mod8Step1_3D_1")),
   
   p(paste0("A key feature is that while there is a plane that describes the reaction norm in space defined 
            by $",NOT$env,"_{1}$ and $",NOT$env,"_{2}$, the random slopes for $",NOT$env,"_{1}$ are measured 
            in only one value of $",NOT$env,"_{2}$, where it is 0. Below we present another graph with 
            the reaction norm planes of 3 individuals picked from the data.")),
   
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  # Figure 2
+  p(plotlyOutput("Mod8Step1_3D_2")),
   
   p(paste0("As you can see, these planes vary in only one dimension of the environmental space. 
            Since we did not specify any variation in the reaction to $",NOT$env,"_{2}$, or to the interaction between 

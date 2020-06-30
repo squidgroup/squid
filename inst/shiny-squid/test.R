@@ -14,13 +14,13 @@ input$NG <- 1 # default = 1
 input$NR <- 20 # default = 1
 
 # input$B    <- rep(0, 8)
-input$B    <- rep(c(0 , 0, 0, 1),input$NT)
+input$B    <- rep(c(0 , 0.1, 0.1, 0.01),input$NT)
 
 # (Co)Variance matrix
 input$Vind <- matrix(0, 4, 4)
 # Variances
 input$Vind[1,1] <- 0.7
-input$Vind[2,2] <- 0.4
+input$Vind[2,2] <- 0
 # Correlations
 input$Vind[2,1] <- 0.5
 
@@ -34,13 +34,13 @@ diag(input$Ve) <- 0.05
 input$X1_state      <- TRUE # default = FALSE
 # Stochastic
 input$X1_sto_state  <- TRUE  # default = FALSE
-input$X1_sto_shared <- FALSE # default = TRUE
+input$X1_sto_shared <- TRUE # default = TRUE
 
 
 input$X2_state      <- TRUE # default = FALSE
 # Stochastic
 input$X2_sto_state  <- TRUE  # default = FALSE
-input$X2_sto_shared <- FALSE # default = TRUE
+input$X2_sto_shared <- TRUE # default = TRUE
 
 input$X_Interaction <- TRUE
 
@@ -50,7 +50,7 @@ mydata <- as.data.table(squid::squidR(input = input, plot = FALSE)$sampled_data)
 
 #### lmer ######
 
-LMR      <- lme4::lmer(Phenotype ~ 1 + X1*X2 + (1|Individual), data = mydata)
+LMR      <- lme4::lmer(Phenotype ~ 1 + X1*X2 + (1+X1|Individual), data = mydata)
 
 FIXEF    <- lme4::fixef(LMR)
 SE.FIXEF <- arm::se.fixef(LMR)
@@ -70,14 +70,50 @@ Phenotype_mean <- as.matrix(predictors) %*% as.vector(input$B)
 Phenotype_mean <- t(matrix(Phenotype_mean, nrow = length(X_seq), ncol = length(X_seq)))
 
 
-library(plotly)
-plot_ly(hoverinfo = "none")  %>%
-  add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
-              colorscale = list(c(0, 1), c("black", "black"))) %>%
-  add_markers(data = mydata, x = ~X1, y = ~X2, z = ~Phenotype, color = ~Individual, size = 3) %>%
-  add_markers(data = mydata, x = 0, y = 0, z = input$B[1], color = c("black"), size = 20) %>%
-  layout(showlegend = FALSE) %>%
-  hide_colorbar()
+newdata     <- copy(mydata)
+newdata     <- newdata[Individual %in% sample(unique(Individual),3)]
+
+Ind_data <- lapply(unique(newdata$Individual), function(id){
+  
+  # id <- unique(newdata$Individual)[1]
+
+  dt <- copy(newdata[Individual == id])
+  
+  X1_seq <- seq(min(dt$X1), max(dt$X2), length.out = 10)
+  X2_seq <- seq(min(dt$X2), max(dt$X2), length.out = 10)
+  
+  X     <- cbind("intecept" = 1,
+                  expand.grid("X1" = X1_seq, 
+                              "X2" = X2_seq))
+  X$X1X2 <- X$X1 * X$X2
+  
+  blup <- c(as.numeric(lme4::ranef(LMR)$Individual[id, ]), 0,0)
+  
+  Phenotype <- as.matrix(X) %*% (as.vector(input$B) + blup)
+  Phenotype <- t(matrix(Phenotype, nrow = length(X1_seq), ncol = length(X2_seq)))
+  
+  return(list("X1_seq"    = X1_seq,
+              "X2_seq"    = X2_seq, 
+              "Phenotype" = Phenotype))
+  
+})
+
+
+plotly::plot_ly(hoverinfo = "none")  %>%
+  plotly::add_surface(x = Ind_data[[1]]$X1_seq, y = Ind_data[[1]]$X2_seq, z = Ind_data[[1]]$Phenotype,
+                      opacity = 0.7, colorscale = list(c(0, 1), c("yellow", "yellow"))) %>%
+  plotly::add_surface(x = Ind_data[[2]]$X1_seq, y = Ind_data[[2]]$X2_seq, z = Ind_data[[2]]$Phenotype,
+                      opacity = 0.7, colorscale = list(c(0, 1), c("blue", "blue"))) %>%
+  plotly::add_surface(x = Ind_data[[3]]$X1_seq, y = Ind_data[[3]]$X2_seq, z = Ind_data[[3]]$Phenotype,
+                      opacity = 0.7, colorscale = list(c(0, 1), c("green", "green"))) %>%
+  
+  plotly::add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
+                      colorscale = list(c(0, 1), c("black", "black"))) %>%
+  plotly::layout(showlegend = FALSE) %>%
+  plotly::hide_colorbar() %>%
+  plotly::layout(scene = list(xaxis=list(title = "X1"),
+                              yaxis=list(title = "X2"),  
+                              zaxis=list(title = "Phenotype")))
 
 
 
