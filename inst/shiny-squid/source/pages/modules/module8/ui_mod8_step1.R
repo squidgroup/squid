@@ -8,11 +8,6 @@ span(
   p(HTML("<b>Sub-goal:</b> Can we statistically test for individual variation in interaction 
          terms and what sampling regimes might improve the ability to do so?")),
 
-  conditionalPanel(
-    condition = "1",
-    uiOutput("Mod8Step1_hidden")
-  ),
-
   # Introduction
   p(HTML(paste0("<b>Introduction:</b> Multidimensional phenotypic plasticity is a widespread feature of most living organisms. 
                 In many cases it appears to be adaptive. For example, copulating male dung flies stay in copula for 
@@ -110,6 +105,11 @@ span(
   info_msg("Note that covariance is entered as correlation (i.e. standardized covariance) ranging from -1 to 1."),
   
   # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  
+  conditionalPanel(
+    condition = "0",
+    uiOutput("Mod8Step1_hidden")
+  ),
   
   # Input: Among-individual variance in intercept (Vi)
   getSliderInput("Mod8Step1_Vi", Modules_VAR$Vi),
@@ -226,9 +226,47 @@ span(
   
   p("Below, specify some parameter values:"),
   
-  
   # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   
+  conditionalPanel(
+    condition = "0",
+    uiOutput("Mod8Step1_2_hidden")
+  ),
+  
+  # Input: Among-individual variance in intercept (Vi)
+  getSliderInput("Mod8Step1_2_Vi", Modules_VAR$Vi),
+  
+  # Input: Measurement error variance
+  getSliderInput("Mod8Step1_2_Ve", Modules_VAR$Vm),
+  
+  # Input: Environment 1
+  getSliderInput("Mod8Step1_2_B1", Modules_VAR$B1.1),
+  
+  # Input: Environment 2
+  getSliderInput("Mod8Step1_2_B2", Modules_VAR$B2.1),
+  
+  # Input: Environment 12
+  getSliderInput("Mod8Step1_2_B12", Modules_VAR$B1122),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step1_2_Vs1", Modules_VAR$Vsx.1),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step1_2_Vs2", Modules_VAR$Vsx.2),
+  
+  # Input: Correlation between Vi and Vs1
+  getSliderInput("Mod8Step1_2_CorIS1", Modules_VAR$CorIS1),
+  
+  # Input: Correlation between Vi and Vs2
+  getSliderInput("Mod8Step1_2_CorIS2", Modules_VAR$CorIS2),
+  
+  # Input: Correlation between Vs1 and Vs2
+  getSliderInput("Mod8Step1_2_CorS1S2", Modules_VAR$CorS1S2),
+  
+  # Simulation run button
+  actionButton("Mod8Step1_2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
   
   p("We might recommend you set two of these covariances to 0 to start and explore what 
     the other looks like before giving them all values. Strong covariances, either positive 
@@ -242,14 +280,13 @@ span(
   
   p("Statistical output:"),
   
-  # output: table -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Output: Table 2
+  uiOutput("Mod8Step1_2_summary_table1"),
   
   p("To illustrate now what variance both random slopes produce, look at the following graphs:"),
   
-  
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Figure 3
+  p(plotlyOutput("Mod8Step1_2_3D")),
   
   p(paste0("If you try this with several different values for the parameters 
            $V_{",NOT$devI,"}$, $V_{",EQ3$dev1,"}$, and $V_{",EQ3$dev2,"}$, 

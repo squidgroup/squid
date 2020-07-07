@@ -127,7 +127,6 @@ Modules_VAR <- list(
                     "errorTxt"    = ""
   ),
   
-  
   # Random intercept and slope correlation
   "CorIS1" = list("label"       = paste0("Correlation between $",NOT$devI,"$ and $",EQ3$dev1,"$ ($Cor_{",NOT$devI,EQ3$dev1,"}$):"),
                   "infoTxt"     = "",
@@ -138,6 +137,25 @@ Modules_VAR <- list(
                   "errorTxt"    = ""
   ),
   
+  # Random intercept and slope correlation
+  "CorIS2" = list("label"       = paste0("Correlation between $",NOT$devI,"$ and $",EQ3$dev2,"$ ($Cor_{",NOT$devI,EQ3$dev2,"}$):"),
+                  "infoTxt"     = "",
+                  "value"       = 0,
+                  "min"         = -1,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = ""
+  ),
+  
+  # Random slope correlation
+  "CorS1S2" = list("label"       = paste0("Correlation between $",EQ3$dev1,"$ and $",EQ3$dev2,"$ ($Cor_{",EQ3$dev1,EQ3$dev2,"}$):"),
+                  "infoTxt"     = "",
+                  "value"       = 0,
+                  "min"         = -1,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = ""
+  ),
   
   # Residual variance (Ve)
   "Ve"   = list("label"       = paste("Residual variance ($V_",NOT$residualUpper,"$):",sep=""),

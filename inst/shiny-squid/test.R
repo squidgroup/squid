@@ -14,15 +14,18 @@ input$NG <- 1 # default = 1
 input$NR <- 20 # default = 1
 
 # input$B    <- rep(0, 8)
-input$B    <- rep(c(0 , 0.1, 0.1, 0.01),input$NT)
+input$B    <- rep(c(0 , 0.1, 0.1, 0.1),input$NT)
 
 # (Co)Variance matrix
 input$Vind <- matrix(0, 4, 4)
 # Variances
 input$Vind[1,1] <- 0.7
-input$Vind[2,2] <- 0
+input$Vind[2,2] <- 0.5
+input$Vind[2,2] <- 0.5
 # Correlations
-input$Vind[2,1] <- 0.5
+input$Vind[2,1] <- 0.1
+input$Vind[3,1] <- 0.1
+input$Vind[3,2] <- 0.2
 
 # Residual (Co)Variance matrix
 input$Ve <- matrix(0, input$NT, input$NT)
@@ -50,7 +53,7 @@ mydata <- as.data.table(squid::squidR(input = input, plot = FALSE)$sampled_data)
 
 #### lmer ######
 
-LMR      <- lme4::lmer(Phenotype ~ 1 + X1*X2 + (1+X1|Individual), data = mydata)
+LMR      <- lme4::lmer(Phenotype ~ 1 + X1*X2 + (1+X1+X2|Individual), data = mydata)
 
 FIXEF    <- lme4::fixef(LMR)
 SE.FIXEF <- arm::se.fixef(LMR)
@@ -75,7 +78,7 @@ newdata     <- newdata[Individual %in% sample(unique(Individual),3)]
 
 Ind_data <- lapply(unique(newdata$Individual), function(id){
   
-  # id <- unique(newdata$Individual)[1]
+  id <- unique(newdata$Individual)[1]
 
   dt <- copy(newdata[Individual == id])
   
@@ -87,7 +90,7 @@ Ind_data <- lapply(unique(newdata$Individual), function(id){
                               "X2" = X2_seq))
   X$X1X2 <- X$X1 * X$X2
   
-  blup <- c(as.numeric(lme4::ranef(LMR)$Individual[id, ]), 0,0)
+  blup <- c(as.numeric(lme4::ranef(LMR)$Individual[id, ]), 0)
   
   Phenotype <- as.matrix(X) %*% (as.vector(input$B) + blup)
   Phenotype <- t(matrix(Phenotype, nrow = length(X1_seq), ncol = length(X2_seq)))
