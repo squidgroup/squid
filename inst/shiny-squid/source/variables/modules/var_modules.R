@@ -108,7 +108,7 @@ Modules_VAR <- list(
   ),
   
   # Individual-specific response to an environmental effect (random slopes) variance (VS)
-  "Vsx.12"    = list(  "label"       = paste0("Among-individual variance in slope to $",EQ2$env12,"$ ($V_{",EQ3$dev12,"}$): "),
+  "Vsx.12"    = list("label"       = paste0("Among-individual variance in slope to $",EQ2$env12,"$ ($V_{",EQ3$dev12,"}$): "),
                     "infoTxt"     = "Variance due to individual-specific responses to an environmental factor (random slopes)",
                     "value"       = 0.2,
                     "min"         = 0,
@@ -147,6 +147,16 @@ Modules_VAR <- list(
                   "errorTxt"    = ""
   ),
   
+  # Random intercept and slope correlation
+  "CorIS12" = list("label"       = paste0("Correlation between $",NOT$devI,"$ and $",EQ3$dev12,"$ ($Cor_{",NOT$devI,EQ3$dev12,"}$):"),
+                  "infoTxt"     = "",
+                  "value"       = 0,
+                  "min"         = -1,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = ""
+  ),
+  
   # Random slope correlation
   "CorS1S2" = list("label"       = paste0("Correlation between $",EQ3$dev1,"$ and $",EQ3$dev2,"$ ($Cor_{",EQ3$dev1,EQ3$dev2,"}$):"),
                   "infoTxt"     = "",
@@ -156,6 +166,27 @@ Modules_VAR <- list(
                   "step"        = 0.01,
                   "errorTxt"    = ""
   ),
+  
+  # Random slope correlation
+  "CorS1S12" = list("label"      = paste0("Correlation between $",EQ3$dev1,"$ and $",EQ3$dev12,"$ ($Cor_{",EQ3$dev1,EQ3$dev12,"}$):"),
+                   "infoTxt"     = "",
+                   "value"       = 0,
+                   "min"         = -1,
+                   "max"         = 1,
+                   "step"        = 0.01,
+                   "errorTxt"    = ""
+  ),
+  
+  # Random slope correlation
+  "CorS2S12" = list("label"      = paste0("Correlation between $",EQ3$dev2,"$ and $",EQ3$dev12,"$ ($Cor_{",EQ3$dev2,EQ3$dev12,"}$):"),
+                    "infoTxt"     = "",
+                    "value"       = 0,
+                    "min"         = -1,
+                    "max"         = 1,
+                    "step"        = 0.01,
+                    "errorTxt"    = ""
+  ),
+  
   
   # Residual variance (Ve)
   "Ve"   = list("label"       = paste("Residual variance ($V_",NOT$residualUpper,"$):",sep=""),

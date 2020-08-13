@@ -132,11 +132,6 @@ span(
   # Input: Correlation between Vi and Vs1
   getSliderInput("Mod8Step1_CorIS1", Modules_VAR$CorIS1),
   
-  # Simulation run button
-  actionButton("Mod8Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
-  runningIndicator(),
-  sim_msg(),
-  
   p(paste0("It may be useful at first to make the $Cov_{",NOT$devI,EQ3$dev1,"}=0$, 
            but later you can explore other values.")),
   
@@ -147,6 +142,11 @@ span(
   displayRCode("# install.packages(&quot;lme4&quot;)<br>
                 LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1|Individual), data = sampled_data)<br>
                 LMM2 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1|Individual), data = sampled_data)"),
+  
+  # Simulation run button
+  actionButton("Mod8Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
   
   p("Statistical output:"),
   
@@ -263,11 +263,6 @@ span(
   # Input: Correlation between Vs1 and Vs2
   getSliderInput("Mod8Step1_2_CorS1S2", Modules_VAR$CorS1S2),
   
-  # Simulation run button
-  actionButton("Mod8Step1_2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
-  runningIndicator(),
-  sim_msg(),
-  
   p("We might recommend you set two of these covariances to 0 to start and explore what 
     the other looks like before giving them all values. Strong covariances, either positive 
     or negative, will be easier to visualize."),
@@ -277,6 +272,11 @@ span(
   
   displayRCode("# install.packages(&quot;lme4&quot;)<br>
                 LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1 + X2|Individual), data = sampled_data)"),
+  
+  # Simulation run button
+  actionButton("Mod8Step1_2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
   
   p("Statistical output:"),
   

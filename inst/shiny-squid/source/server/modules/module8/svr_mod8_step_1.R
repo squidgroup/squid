@@ -438,7 +438,6 @@ c(
         
     }),
     
-    
     # Display 3D figure
     output$Mod8Step1_2_3D <- renderPlotly({
         

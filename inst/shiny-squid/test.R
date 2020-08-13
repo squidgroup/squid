@@ -20,12 +20,16 @@ input$B    <- rep(c(0 , 0.1, 0.1, 0.1),input$NT)
 input$Vind <- matrix(0, 4, 4)
 # Variances
 input$Vind[1,1] <- 0.7
-input$Vind[2,2] <- 0.5
-input$Vind[2,2] <- 0.5
+input$Vind[2,2] <- 0.2
+input$Vind[3,3] <- 0.2
+input$Vind[4,4] <- 0.2
 # Correlations
 input$Vind[2,1] <- 0.1
 input$Vind[3,1] <- 0.1
-input$Vind[3,2] <- 0.2
+input$Vind[3,2] <- 0.1
+input$Vind[4,1] <- 0.1
+input$Vind[4,2] <- 0.1
+input$Vind[4,3] <- 0.1
 
 # Residual (Co)Variance matrix
 input$Ve <- matrix(0, input$NT, input$NT)
@@ -53,7 +57,7 @@ mydata <- as.data.table(squid::squidR(input = input, plot = FALSE)$sampled_data)
 
 #### lmer ######
 
-LMR      <- lme4::lmer(Phenotype ~ 1 + X1*X2 + (1+X1+X2|Individual), data = mydata)
+LMR      <- lme4::lmer(Phenotype ~ 1 + X1*X2 + (1+X1*X2|Individual), data = mydata)
 
 FIXEF    <- lme4::fixef(LMR)
 SE.FIXEF <- arm::se.fixef(LMR)
