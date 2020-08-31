@@ -4,10 +4,10 @@ span(
 	# Text: title
   h4("Step 2: Adding the random interaction term"),
 
-  # conditionalPanel(
-  #   condition = "0",
-  #   uiOutput("Mod8Step2_hidden")
-  # ),
+  conditionalPanel(
+    condition = "0",
+    uiOutput("Mod8Step2_hidden")
+  ),
   
   p(paste0("Step 1 above layered on the random slopes for each $",NOT$env,"$ variable, 
            and these served to tip the population mean plane in various directions in environmental space, 
@@ -63,17 +63,60 @@ span(
     ends up in a model that lacks that term. Second, we will try to visualize where 
     variation caused by variation in warping is more likely to be seen."),
   
-  p(paste0("As before, we will start with a population of 100 individuals each measured 20 times 
-    in which both $",NOT$env,"$ variables were also measured. Both environments are random and unshared.")),
+  p(paste0("As the phenotypic equation is getting more complex, we will increase the number of sampled individuals to 500. 
+           As before, each individual is measured 20 times for both $",NOT$env,"$ variables and both environments are random and unshared.")),
   
   p("Below, specify some parameter values:"),
 
   # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   
-  p("As before, it might be easiest to start with 0 covariances and add them in 
+  # Input: Among-individual variance in intercept (Vi)
+  getSliderInput("Mod8Step2_Vi", Modules_VAR$Vi),
+  
+  # Input: Measurement error variance
+  getSliderInput("Mod8Step2_Ve", Modules_VAR$Vm),
+  
+  # Input: Environment 1
+  getSliderInput("Mod8Step2_B1", Modules_VAR$B1.1),
+  
+  # Input: Environment 2
+  getSliderInput("Mod8Step2_B2", Modules_VAR$B2.1),
+  
+  # Input: Environment 12
+  getSliderInput("Mod8Step2_B12", Modules_VAR$B1122),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step2_Vs1", Modules_VAR$Vsx.1),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step2_Vs2", Modules_VAR$Vsx.2),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step2_Vs12", Modules_VAR$Vsx.12),
+  
+  # Input: Correlation between Vi and Vs1
+  getSliderInput("Mod8Step2_CorIS1", Modules_VAR$CorIS1),
+  
+  # Input: Correlation between Vi and Vs2
+  getSliderInput("Mod8Step2_CorIS2", Modules_VAR$CorIS2),
+  
+  # Input: Correlation between Vi and Vs2
+  getSliderInput("Mod8Step2_CorIS12", Modules_VAR$CorIS12),
+  
+  # Input: Correlation between Vs1 and Vs2
+  getSliderInput("Mod8Step2_CorS1S2", Modules_VAR$CorS1S2),
+  
+  # Input: Correlation between Vs1 and Vs12
+  getSliderInput("Mod8Step2_CorS1S12", Modules_VAR$CorS1S12),
+  
+  # Input: Correlation between Vs2 and Vs12
+  getSliderInput("Mod8Step2_CorS2S12", Modules_VAR$CorS2S12),
+  
+
+  p("As before, it might be easiest to start with 0 covariances (represented as correlations) and add them in 
     individually so you can more easily see what each does."),
   
-  p("Once the data are simulated, we can analyze them with lmer4 as was done in 
+  p("Once the data are simulated, we can analyze them with lme4 as was done in 
     the random regression module. For example, we can use the following equation 
     in which the individual specific interaction term is omitted:"),
   
@@ -89,7 +132,7 @@ span(
            ",NOT$error,"_{",NOT$time,NOT$ind,"}$$")),
   
   displayRCode("# install.packages(&quot;lme4&quot;)<br>
-                LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1|Individual) 
+                LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1 + X2|Individual) 
                                    + (0 + X2|Individual), data = sampled_data)"),
   
   p("And we will compare those results with the full model:"),
@@ -108,9 +151,15 @@ span(
   
   displayRCode("LMM2 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1+X1*X2|Individual), data = sampled_data)"),
   
+  # Simulation run button
+  actionButton("Mod8Step2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
+  
   p("Statistical output:"),
   
-  # output: table -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  # output: table
+  uiOutput("Mod8Step2_summary_table"),
   
   p("As usual, omission of a key parameter causes variation to be placed elsewhere in the equation, 
     in this case mostly in the residual."),
@@ -119,21 +168,21 @@ span(
            to the average phenotype across the environmental space created by the two $",NOT$env,"$ variables. 
            We have also plotted the values different individuals will express at the corners of 
            the graph where they would experience an extreme in both $",NOT$env,"$ distributions.")),
-  
+
+  # output: figure ----------------
+  p(plotlyOutput("Mod8Step2_3D")),
+
   p("Run this simulation several times with different values for the interaction term 
     and the covariance terms. Where does the interaction term create the most phenotypic 
     variance and how do covariances affect this?"),
-  
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
-  
+    
   # Conclusion
   p(HTML("<b>Conclusion:</b> The effect of interactions between environments on phenotypes 
          has three important characteristics. First, it seems biologically likely given 
          the complexity of the environment and it in fact exists in many traits. 
          Second, these effects can be modelled using mixed models, including the random effects 
          of individual on the response to each environment and in theory on the interaction term itself. 
-         The third characteristic is that these models are exceedingly complex. At this point you 
+         The third characteristic is that these models are exceedingly complex. At this point, you 
          don't have in your mental pocket the full phenotypic equation. There are many more 
          complexities to explore, but you now have all the basic tools. 
          The SQuID platform can now be explored so you can assess what sampling 

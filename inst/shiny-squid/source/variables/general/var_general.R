@@ -122,17 +122,17 @@ EQ2 <- list(
 # Model equation components (without indices: trait, time, individual and group)
 EQ3 <- list(
   
-  "mean0"       = paste(NOT$mean,"_0",sep=""),
-  "dev0"        = NOT$devI,
+  "mean0"     = paste(NOT$mean,"_0",sep=""),
+  "dev0"      = NOT$devI,
   
-  "mean1"       = paste(NOT$mean,"_1",sep=""),
-  "dev1"        = paste(NOT$devS,"_1",sep=""),
+  "mean1"     = paste(NOT$mean,"_1",sep=""),
+  "dev1"      = paste(NOT$devS,"_1",sep=""),
   
-  "mean2"       = paste(NOT$mean,"_2",sep=""),
-  "dev2"        = paste(NOT$devS,"_2",sep=""),
+  "mean2"     = paste(NOT$mean,"_2",sep=""),
+  "dev2"      = paste(NOT$devS,"_2",sep=""),
   
-  "mean12"      = paste(NOT$mean,"_{12}",sep=""),
-  "dev12."      = paste(NOT$devS,"_{12}",sep="")
+  "mean12"    = paste(NOT$mean,"_{12}",sep=""),
+  "dev12"     = paste(NOT$devS,"_{12}",sep="")
 
 )
 

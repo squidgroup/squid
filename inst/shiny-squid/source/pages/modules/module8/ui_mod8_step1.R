@@ -8,11 +8,6 @@ span(
   p(HTML("<b>Sub-goal:</b> Can we statistically test for individual variation in interaction 
          terms and what sampling regimes might improve the ability to do so?")),
 
-  conditionalPanel(
-    condition = "1",
-    uiOutput("Mod8Step1_hidden")
-  ),
-
   # Introduction
   p(HTML(paste0("<b>Introduction:</b> Multidimensional phenotypic plasticity is a widespread feature of most living organisms. 
                 In many cases it appears to be adaptive. For example, copulating male dung flies stay in copula for 
@@ -111,6 +106,11 @@ span(
   
   # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   
+  conditionalPanel(
+    condition = "0",
+    uiOutput("Mod8Step1_hidden")
+  ),
+  
   # Input: Among-individual variance in intercept (Vi)
   getSliderInput("Mod8Step1_Vi", Modules_VAR$Vi),
   
@@ -132,11 +132,6 @@ span(
   # Input: Correlation between Vi and Vs1
   getSliderInput("Mod8Step1_CorIS1", Modules_VAR$CorIS1),
   
-  # Simulation run button
-  actionButton("Mod8Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
-  runningIndicator(),
-  sim_msg(),
-  
   p(paste0("It may be useful at first to make the $Cov_{",NOT$devI,EQ3$dev1,"}=0$, 
            but later you can explore other values.")),
   
@@ -148,6 +143,11 @@ span(
                 LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1|Individual), data = sampled_data)<br>
                 LMM2 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1|Individual), data = sampled_data)"),
   
+  # Simulation run button
+  actionButton("Mod8Step1_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
+  
   p("Statistical output:"),
   
   # Output: Table 1
@@ -158,15 +158,16 @@ span(
   
   p("To illustrate what variance the random slopes capture, look at the following graphs:"),
   
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Figure 1
+  p(plotlyOutput("Mod8Step1_3D_1")),
   
   p(paste0("A key feature is that while there is a plane that describes the reaction norm in space defined 
            by $",NOT$env,"_{1}$ and $",NOT$env,"_{2}$, the random slopes for $",NOT$env,"_{1}$ are measured 
            in only one value of $",NOT$env,"_{2}$, where it is 0. Below we present another graph with 
            the reaction norm planes of 3 individuals picked from the data.")),
   
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
+  # Figure 2
+  p(plotlyOutput("Mod8Step1_3D_2")),
   
   p(paste0("As you can see, these planes vary in only one dimension of the environmental space. 
            Since we did not specify any variation in the reaction to $",NOT$env,"_{2}$, or to the interaction between 
@@ -225,9 +226,42 @@ span(
   
   p("Below, specify some parameter values:"),
   
-  
   # input -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   
+  conditionalPanel(
+    condition = "0",
+    uiOutput("Mod8Step1_2_hidden")
+  ),
+  
+  # Input: Among-individual variance in intercept (Vi)
+  getSliderInput("Mod8Step1_2_Vi", Modules_VAR$Vi),
+  
+  # Input: Measurement error variance
+  getSliderInput("Mod8Step1_2_Ve", Modules_VAR$Vm),
+  
+  # Input: Environment 1
+  getSliderInput("Mod8Step1_2_B1", Modules_VAR$B1.1),
+  
+  # Input: Environment 2
+  getSliderInput("Mod8Step1_2_B2", Modules_VAR$B2.1),
+  
+  # Input: Environment 12
+  getSliderInput("Mod8Step1_2_B12", Modules_VAR$B1122),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step1_2_Vs1", Modules_VAR$Vsx.1),
+  
+  # Input: Among-individual variance in slope (Vs)
+  getSliderInput("Mod8Step1_2_Vs2", Modules_VAR$Vsx.2),
+  
+  # Input: Correlation between Vi and Vs1
+  getSliderInput("Mod8Step1_2_CorIS1", Modules_VAR$CorIS1),
+  
+  # Input: Correlation between Vi and Vs2
+  getSliderInput("Mod8Step1_2_CorIS2", Modules_VAR$CorIS2),
+  
+  # Input: Correlation between Vs1 and Vs2
+  getSliderInput("Mod8Step1_2_CorS1S2", Modules_VAR$CorS1S2),
   
   p("We might recommend you set two of these covariances to 0 to start and explore what 
     the other looks like before giving them all values. Strong covariances, either positive 
@@ -239,16 +273,20 @@ span(
   displayRCode("# install.packages(&quot;lme4&quot;)<br>
                 LMM1 <- lme4::lmer(Phenotype ~ 1 + X1*X2 (1 + X1 + X2|Individual), data = sampled_data)"),
   
+  # Simulation run button
+  actionButton("Mod8Step1_2_Run", label = Modules_VAR$Run$label, icon = Modules_VAR$Run$icon, class = "runButton"),
+  runningIndicator(),
+  sim_msg(),
+  
   p("Statistical output:"),
   
-  # output: table -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Output: Table 2
+  uiOutput("Mod8Step1_2_summary_table1"),
   
   p("To illustrate now what variance both random slopes produce, look at the following graphs:"),
   
-  
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
+  # Figure 3
+  p(plotlyOutput("Mod8Step1_2_3D")),
   
   p(paste0("If you try this with several different values for the parameters 
            $V_{",NOT$devI,"}$, $V_{",EQ3$dev1,"}$, and $V_{",EQ3$dev2,"}$, 

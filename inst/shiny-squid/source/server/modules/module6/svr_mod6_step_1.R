@@ -93,7 +93,7 @@ c(
         
         print(
           ggplot2::ggplot(data = data$sampled_data, 
-                          ggplot2::aes(y     = predict(data$LMR), 
+                          ggplot2::aes(y     = stats::predict(data$LMR), 
                                        x     = X1, 
                                        color = as.factor(Individual))) +
                   geom_line() +

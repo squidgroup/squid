@@ -90,9 +90,10 @@ shinyServer(function(input, output, session) {
   # Module 8  --------------------------------------------------------- 
   
   # Module 6 Step 1 ---------------------------------------------------------
-  # source("./source/server/modules/module8/svr_mod8_step_1.R",local = TRUE)
+  source("./source/server/modules/module8/svr_mod8_step_1.R",local = TRUE)
   
-  
+  # Module 6 Step 2 ---------------------------------------------------------
+  source("./source/server/modules/module8/svr_mod8_step_2.R",local = TRUE)
   
   
   # Full model  (Step by Step)   ----------------
