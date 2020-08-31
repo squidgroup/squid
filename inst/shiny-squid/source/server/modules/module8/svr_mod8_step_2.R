@@ -28,7 +28,7 @@ c(
     output$Mod8Step2_hidden <- renderUI({
         list(
             numericInput("Mod8Step2_Tmax", "", Modules_VAR$Tmax$max),
-            numericInput("Mod8Step2_NI", "",100),
+            numericInput("Mod8Step2_NI", "",500),
             numericInput("Mod8Step2_NR", "",20),
             
             matrixInput("Mod8Step2_Vind", value = Mod8Step2updateVind(input, nb.IS), class = "numeric"),
@@ -217,6 +217,74 @@ c(
         )
 
         getTable(myTable, header = TRUE)
+    }),
+    
+    # Display 3D figure
+    output$Mod8Step2_3D <- renderPlotly({
+        
+        data <- Mod8Step2_output()
+        
+        isolate({
+            
+            if (!is.null(data)) {
+                
+                datas <- as.data.table(data$sampled_data)
+                lmr   <- data$LMR2
+                
+                # population mean surface
+                X_seq <- seq(from = min(datas[ , c("X1", "X2")]), to = max(datas[ , c("X1", "X2")]), length.out = 10)
+                
+                predictors      <- cbind("intecept" = 1, expand.grid("X1" = X_seq, "X2" = X_seq))
+                predictors$X1X2 <- predictors$X1 * predictors$X2
+                
+                Phenotype_mean <- as.matrix(predictors) %*% as.vector(input$Mod8Step2_B)
+                Phenotype_mean <- t(matrix(Phenotype_mean, nrow = length(X_seq), ncol = length(X_seq)))
+                
+                # individual surfaces
+                datas     <- datas[Individual %in% sample(unique(Individual),3)]
+                
+                Ind_data <- lapply(unique(datas$Individual), function(id){
+                    
+                    dt <- copy(datas[Individual == id])
+                    
+                    X1_seq <- seq(min(dt$X1), max(dt$X2), length.out = 10)
+                    X2_seq <- seq(min(dt$X2), max(dt$X2), length.out = 10)
+                    
+                    X     <- cbind("intecept" = 1,
+                                   expand.grid("X1" = X1_seq, 
+                                               "X2" = X2_seq))
+                    X$X1X2 <- X$X1 * X$X2
+                    
+                    blup <- as.numeric(lme4::ranef(lmr)$Individual[id, ])
+                    
+                    Phenotype <- as.matrix(X) %*% (as.vector(input$Mod8Step2_B) + blup)
+                    Phenotype <- t(matrix(Phenotype, nrow = length(X1_seq), ncol = length(X2_seq)))
+                    
+                    return(list("X1_seq"    = X1_seq,
+                                "X2_seq"    = X2_seq, 
+                                "Phenotype" = Phenotype))
+                    
+                })
+                
+                plotly::plot_ly(hoverinfo = "none")  %>%
+                    plotly::add_surface(x = Ind_data[[1]]$X1_seq, y = Ind_data[[1]]$X2_seq, z = Ind_data[[1]]$Phenotype,
+                                        opacity = 0.7, colorscale = list(c(0, 1), c("yellow", "yellow"))) %>%
+                    plotly::add_surface(x = Ind_data[[2]]$X1_seq, y = Ind_data[[2]]$X2_seq, z = Ind_data[[2]]$Phenotype,
+                                        opacity = 0.7, colorscale = list(c(0, 1), c("blue", "blue"))) %>%
+                    plotly::add_surface(x = Ind_data[[3]]$X1_seq, y = Ind_data[[3]]$X2_seq, z = Ind_data[[3]]$Phenotype,
+                                        opacity = 0.7, colorscale = list(c(0, 1), c("green", "green"))) %>%
+                    
+                    plotly::add_surface(x = X_seq, y = X_seq, z = Phenotype_mean, opacity = 0.7,
+                                        colorscale = list(c(0, 1), c("black", "black"))) %>%
+                    plotly::layout(showlegend = FALSE) %>%
+                    plotly::hide_colorbar() %>%
+                    plotly::layout(scene = list(xaxis=list(title = "X1"),
+                                                yaxis=list(title = "X2"),  
+                                                zaxis=list(title = "Phenotype")))
+                
+            }else{defaultPlot()}
+            
+        })
     })
 
 ) # End return

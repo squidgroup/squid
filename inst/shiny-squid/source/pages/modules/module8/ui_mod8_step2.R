@@ -63,8 +63,8 @@ span(
     ends up in a model that lacks that term. Second, we will try to visualize where 
     variation caused by variation in warping is more likely to be seen."),
   
-  p(paste0("As before, we will start with a population of 100 individuals each measured 20 times 
-    in which both $",NOT$env,"$ variables were also measured. Both environments are random and unshared.")),
+  p(paste0("As the phenotypic equation is getting more complex, we will increase the number of sampled individuals to 500. 
+           As before, each individual is measured 20 times for both $",NOT$env,"$ variables and both environments are random and unshared.")),
   
   p("Below, specify some parameter values:"),
 
@@ -168,14 +168,14 @@ span(
            to the average phenotype across the environmental space created by the two $",NOT$env,"$ variables. 
            We have also plotted the values different individuals will express at the corners of 
            the graph where they would experience an extreme in both $",NOT$env,"$ distributions.")),
-  
+
+  # output: figure ----------------
+  p(plotlyOutput("Mod8Step2_3D")),
+
   p("Run this simulation several times with different values for the interaction term 
     and the covariance terms. Where does the interaction term create the most phenotypic 
     variance and how do covariances affect this?"),
-  
-  # output: figure -------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
-  
-  
+    
   # Conclusion
   p(HTML("<b>Conclusion:</b> The effect of interactions between environments on phenotypes 
          has three important characteristics. First, it seems biologically likely given 

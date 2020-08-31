@@ -94,7 +94,7 @@ Ind_data <- lapply(unique(newdata$Individual), function(id){
                               "X2" = X2_seq))
   X$X1X2 <- X$X1 * X$X2
   
-  blup <- c(as.numeric(lme4::ranef(LMR)$Individual[id, ]), 0)
+  blup <- as.numeric(lme4::ranef(LMR)$Individual[id, ])
   
   Phenotype <- as.matrix(X) %*% (as.vector(input$B) + blup)
   Phenotype <- t(matrix(Phenotype, nrow = length(X1_seq), ncol = length(X2_seq)))
