@@ -15,8 +15,8 @@ c(
           numericInput("Mod4Step3_NI", "", 10),
           numericInput("Mod4Step3_NT", "", 2),
           numericInput("Mod4Step3_NR", "", 10),
-          matrixInput("Mod4Step3_Vind", value = Mod4Step3updateVind(input, nb.IS), class = "numeric"),
-          matrixInput("Mod4Step3_Ve", value = matrix(c(input$Mod4Step3_Ve1,   input$Mod4Step3_Corr_e,
+          shinyMatrix::matrixInput("Mod4Step3_Vind", value = Mod4Step3updateVind(input, nb.IS), class = "numeric"),
+          shinyMatrix::matrixInput("Mod4Step3_Ve", value = matrix(c(input$Mod4Step3_Ve1,   input$Mod4Step3_Corr_e,
                                                         input$Mod4Step3_Corr_e, input$Mod4Step3_Ve2), 2), class = "numeric")
         )
      }),

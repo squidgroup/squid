@@ -8,8 +8,8 @@ c(
             numericInput("Mod3Step2_Tmax", "", Modules_VAR$Tmax$max),
             numericInput("Mod3Step2_NI", "", 100),
             getNumericInput("Mod3Step2_Tmax", Modules_VAR$Tmax, ""),
-            matrixInput("Mod3Step2_Vind", value = matrix(c(input$Mod3Step2_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS), class = "numeric"),
-            matrixInput("Mod3Step2_B", value = matrix(c(0,sqrt(input$Mod3Step2_Vbx),0,0),1), class = "numeric"), 
+            shinyMatrix::matrixInput("Mod3Step2_Vind", value = matrix(c(input$Mod3Step2_Vi,rep(0,(nb.IS*nb.IS)-1)),nb.IS), class = "numeric"),
+            shinyMatrix::matrixInput("Mod3Step2_B", value = matrix(c(0,sqrt(input$Mod3Step2_Vbx),0,0),1), class = "numeric"), 
             
             checkboxInput("Mod3Step2_X1_state", "", value = TRUE),
             

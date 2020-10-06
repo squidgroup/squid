@@ -8,7 +8,7 @@ c(
           numericInput("Mod4Step1_NI", "", 10),
           numericInput("Mod4Step1_NT", "", 2),
           numericInput("Mod4Step1_NR", "", 10),
-          matrixInput("Mod4Step1_Ve", value = matrix(c(input$Mod4Step1_Ve1,   input$Mod4Step1_Corr_e, 
+          shinyMatrix::matrixInput("Mod4Step1_Ve", value = matrix(c(input$Mod4Step1_Ve1,   input$Mod4Step1_Corr_e, 
                                                        input$Mod4Step1_Corr_e, input$Mod4Step1_Ve2), 2), class = "numeric")
         )
      }),

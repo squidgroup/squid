@@ -13,8 +13,8 @@ c(
        output$Mod6Step2_hidden <- renderUI({
           list(
             numericInput("Mod6Step2_Tmax", "", Modules_VAR$Tmax$max),
-            matrixInput("Mod6Step2_Vind", value = Mod6Step2updateVind(input, nb.IS), class = "numeric"),
-            matrixInput("Mod6Step2_B", value = matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1), class = "numeric"),
+            shinyMatrix::matrixInput("Mod6Step2_Vind", value = Mod6Step2updateVind(input, nb.IS), class = "numeric"),
+            shinyMatrix::matrixInput("Mod6Step2_B", value = matrix(c(0,sqrt(input$Mod6Step2_Vbx),0,0),1), class = "numeric"),
             checkboxInput("Mod6Step2_X1_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_state", "", value = TRUE),
             checkboxInput("Mod6Step2_X1_sto_shared", "", value = TRUE),

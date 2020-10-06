@@ -25,6 +25,8 @@ fixedPage( HTML("<div id='FullModel'>"),
        condition = "0",
        uiOutput('FMod_B_UI_hidden'),
        uiOutput('FMod_Vind_UI_hidden'),
+       uiOutput("FMod_Ve_hidden"), 
+       uiOutput("FMod_VG_hidden"),
        getCheckboxInput("FMod_X1_state", FullModel_VAR$X1$state),
        getCheckboxInput("FMod_X2_state", FullModel_VAR$X2$state)
      ),
@@ -92,25 +94,13 @@ fixedPage( HTML("<div id='FullModel'>"),
        tabPanel("Individual variances design",
           wellPanel( 
             h4("Individual variances design"),  
-            getLabel("FMod_B_UI", FullModel_VAR$B),
-            uiOutput("FMod_B_UI"),
-            getLabel("FMod_Vind_UI", FullModel_VAR$Vind),
-            uiOutput("FMod_Vind_UI"), 
+            
+            getLabel("FMod_B_UI", FullModel_VAR$B), uiOutput("FMod_B_UI"),
+            getLabel("FMod_Vind_UI", FullModel_VAR$Vind), uiOutput("FMod_Vind_UI"), 
+            
             fixedRow(
-              column(width = 6,
-                     getNumericInput("FMod_Ve_input", FullModel_VAR$Ve, "FMod_error_Ve"),
-                     conditionalPanel(
-                       condition = "0",
-                       uiOutput("FMod_Ve_hidden")
-                     )
-              ),
-              column(width = 6,
-                     getNumericInput("FMod_VG_input", FullModel_VAR$VG, "FMod_error_VG"),
-                     conditionalPanel(
-                       condition = "0",
-                       uiOutput("FMod_VG_hidden")
-                     )
-              )
+              column(width = 6, getNumericInput("FMod_Ve_input", FullModel_VAR$Ve, "FMod_error_Ve")),
+              column(width = 6, getNumericInput("FMod_VG_input", FullModel_VAR$VG, "FMod_error_VG"))
             )
           )
        ), # End: Individual variances design

@@ -3,7 +3,7 @@ c(
     ######### Set hidden variables #########    
       output$Mod1Step1_hidden <- renderUI({
         # Intercepts and slopes (Co)variance matrix
-        matrixInput2("Mod1Step1_Vind", "",data.frame(matrix(c(1-input$Mod1Step1_Ve,rep(0,(nb.IS*nb.IS)-1)),nb.IS)))
+        shinyMatrix::matrixInput("Mod1Step1_Vind", value=matrix(c(1-input$Mod1Step1_Ve,rep(0,(nb.IS*nb.IS)-1)),nb.IS), class = "numeric")
       }),
       outputOptions(output, "Mod1Step1_hidden", suspendWhenHidden = FALSE),
 

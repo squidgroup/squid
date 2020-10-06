@@ -26,8 +26,8 @@ c(
           numericInput("Mod8Step1_NI", "",100),
           numericInput("Mod8Step1_NR", "",20),
           
-          matrixInput("Mod8Step1_Vind", value = Mod8Step1updateVind(input, nb.IS), class = "numeric"),
-          matrixInput("Mod8Step1_B", value = Mod8Step1updateB(input), class = "numeric"),
+          shinyMatrix::matrixInput("Mod8Step1_Vind", value = Mod8Step1updateVind(input, nb.IS), class = "numeric"),
+          shinyMatrix::matrixInput("Mod8Step1_B", value = Mod8Step1updateB(input), class = "numeric"),
           
           checkboxInput("Mod8Step1_X1_state", "",      value = TRUE),
           checkboxInput("Mod8Step1_X1_sto_state", "",  value = TRUE),

@@ -11,8 +11,8 @@ c(
     output$Mod5Step2_hidden <- renderUI({
       list(
         numericInput("Mod5Step2_Tmax", "", Modules_VAR$Tmax$max),
-        matrixInput("Mod5Step2_Vind", value = Mod5Step2updateVind(input, nb.IS), class = "numeric"),
-        matrixInput("Mod5Step2_B", value = matrix(c(0,input$Mod5Step2_B1,input$Mod5Step2_B2,input$Mod5Step2_B12),1), class = "numeric"),
+        shinyMatrix::matrixInput("Mod5Step2_Vind", value = Mod5Step2updateVind(input, nb.IS), class = "numeric"),
+        shinyMatrix::matrixInput("Mod5Step2_B", value = matrix(c(0,input$Mod5Step2_B1,input$Mod5Step2_B2,input$Mod5Step2_B12),1), class = "numeric"),
         checkboxInput("Mod5Step2_X1_state", "", value = TRUE),
         checkboxInput("Mod5Step2_X1_sto_state", "", value = TRUE),
         checkboxInput("Mod5Step2_X2_state", "", value = TRUE),

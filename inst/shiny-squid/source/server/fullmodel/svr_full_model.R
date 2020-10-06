@@ -128,6 +128,7 @@ SVRFullModel <- function(myModule, input, output, session){
         SVRDispayModelEquation(myModule, input)    
       }),
           
+     # B vector
      output[[myLabels$B_UI]]<- renderUI({ 
         
         if(myLabels$B_temp %in% names(input)){
@@ -162,11 +163,11 @@ SVRFullModel <- function(myModule, input, output, session){
         }
         
         myB[which(is.na(myB))] <- 0
-        
-        matrixInput2(myLabels$B, "",data.frame(myB))
+        shinyMatrix::matrixInput(myLabels$B, value = myB, class = "numeric")
       }),
      outputOptions(output, myLabels$B_UI_hidden, suspendWhenHidden = FALSE),
      
+     # Vind matrix
      output[[myLabels$Vind_UI]] <- renderUI({
        
        if(myLabels$Vind_temp %in% names(input)){
@@ -199,42 +200,41 @@ SVRFullModel <- function(myModule, input, output, session){
          myVind         <- matrix(rep(0,(nb.IS*myNT)^2),nb.IS*myNT) 
          myVind[1:nb.IS, 1:nb.IS]     <- FullModel_VAR$Vind$value[1:nb.IS, 1:nb.IS] 
        }
-       
        myVind[which(is.na(myVind))] <- 0
        
-       matrixInput2(myLabels$Vind, "",data.frame(myVind))
+       shinyMatrix::matrixInput(myLabels$Vind, value = myVind, class = "numeric")
      }),
      outputOptions(output, myLabels$Vind_UI_hidden, suspendWhenHidden = FALSE),
+
+     # Ve matrix
+     output[[myLabels$Ve_hidden]] <- renderUI({
+        shinyMatrix::matrixInput(myLabels$Ve, 
+                                value = matrix(c(input[[myLabels$Ve_input]], 0, 0, input[[myLabels$Ve_input]]), 
+                                        ncol = as.numeric(input[[myLabels$NT]]),
+                                        nrow = as.numeric(input[[myLabels$NT]])), 
+                                class = "numeric")
+     }),
+     outputOptions(output, myLabels$Ve_hidden, suspendWhenHidden = FALSE),
      
+     # VG matrix
+     output[[myLabels$VG_hidden]] <- renderUI({
+       shinyMatrix::matrixInput(myLabels$VG, 
+                                value = matrix(c(input[[myLabels$VG_input]], 0, 0, input[[myLabels$VG_input]]), 
+                                               ncol = as.numeric(input[[myLabels$NT]]),
+                                               nrow = as.numeric(input[[myLabels$NT]])), 
+                                class = "numeric")
+     }),
+     outputOptions(output, myLabels$VG_hidden, suspendWhenHidden = FALSE),
+     
+          
      ########################
      
-     # Switch to the output panel when the app is runned
+     # Switch to the output panel when the app is run
      observe({
        if(input[[myLabels$runButton]] != 0 || input[[myLabels$rerunButton]] != 0){ 
          updateTabsetPanel(session, myLabels$modTabsetPanel, selected = "Outputs")
        }
      }),
-     
-     output[[myLabels$Ve_hidden]] <- renderUI({
-       list(
-         matrixInput2(myLabels$Ve, "", data.frame(matrix(
-                                      c(input[[myLabels$Ve_input]], 0, 0, input[[myLabels$Ve_input]]), 
-                                       ncol = as.numeric(input[[myLabels$NT]]),
-                                       nrow = as.numeric(input[[myLabels$NT]]))))       
-         )
-     }),
-     outputOptions(output, myLabels$Ve_hidden, suspendWhenHidden = FALSE),
-     
-     output[[myLabels$VG_hidden]] <- renderUI({
-       list(
-         matrixInput2(myLabels$VG, "", data.frame(matrix(
-                                     c(input[[myLabels$VG_input]], 0, 0, input[[myLabels$VG_input]]), 
-                                     ncol = as.numeric(input[[myLabels$NT]]),
-                                     nrow = as.numeric(input[[myLabels$NT]]))))       
-       )
-     }),
-     outputOptions(output, myLabels$VG_hidden, suspendWhenHidden = FALSE),
-     
      
      myFullModel <- reactive({ 
        
@@ -243,6 +243,8 @@ SVRFullModel <- function(myModule, input, output, session){
           return(NULL)
        
        isolate({ 
+         
+         # browser()
          
          updateCheckboxInput(session, "isRunning", value = TRUE)
          
