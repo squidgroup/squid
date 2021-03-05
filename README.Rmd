@@ -8,8 +8,7 @@ output:
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
 
-path <- "./inst/shiny-squid/"
-image <- paste0("<img id='logo' src='",path,"www/pictures/logo_2.png' align='left' alt='SQuID' style='padding-right:20px;'>")
+image <- paste0("<img id='logo' src='./man/pictures/logo_2.png' align='left' alt='' style='padding-right:20px;'>")
 ```
 
 ### Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models

@@ -1,4 +1,7 @@
 url: https://squid-group.github.io/squid
+home:
+  title: SQuID
+  description: Statistical Quantification of Individual Differences
 authors: 
   Hassen Allegue:
   Yimen G. Araya-Ajoy:

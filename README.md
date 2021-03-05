@@ -1,6 +1,6 @@
 ### Statistical Quantification of Individual Differences: an educational and statistical tool for understanding multi-level phenotypic data in linear mixed models
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/squid)](https://cran.r-project.org/package=squid)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/squid)](https://cran.r-project.org/package=squid)
 [![Build
 Status](https://travis-ci.org/hallegue/squid.svg?branch=master)](https://travis-ci.org/hallegue/squid)
 [![Downloads](http://cranlogs.r-pkg.org/badges/squid?color=brightgreen)](https://cran.rstudio.com/package=squid)
@@ -9,7 +9,7 @@ downloads](http://cranlogs.r-pkg.org/badges/grand-total/squid)](http://cranlogs.
 
 #### Brief description
 
-<img id='logo' src='./inst/shiny-squid/www/pictures/logo_2.png' align='left' alt='SQuID' style='padding-right:20px;'>
+<img id='logo' src='./man/pictures/logo_2.png' align='left' alt='' style='padding-right:20px;'>
 **SQuID** stands for **S**tatistical **Qu**antification of
 **I**ndividual **D**ifferences and is the product of the SQuID working
 group. The package aims to help scholars who, like us, are interested in
