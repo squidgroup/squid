@@ -2,7 +2,7 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/squid)](https://cran.r-project.org/package=squid)
 [![Build
-Status](https://travis-ci.org/hallegue/squid.svg?branch=master)](https://travis-ci.org/hallegue/squid)
+Status](https://travis-ci.org/squid-group/squid.svg?branch=master)](https://travis-ci.org/squid-group/squid)
 [![Downloads](http://cranlogs.r-pkg.org/badges/squid?color=brightgreen)](https://cran.rstudio.com/package=squid)
 [![total
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/squid)](http://cranlogs.r-pkg.org/badges/grand-total/squid)
