@@ -10,3 +10,5 @@ README.Rmd
 ^cran-comments\.md$
 notes.txt
 ^CRAN-RELEASE$
+^_pkgdown\.yml$
+^docs$
