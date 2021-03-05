@@ -12,3 +12,4 @@ notes.txt
 ^CRAN-RELEASE$
 ^_pkgdown\.yml$
 ^docs$
+^\.github$
