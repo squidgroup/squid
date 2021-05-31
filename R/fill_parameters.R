@@ -33,9 +33,24 @@ fill_parameters <- function(parameters,data_structure){
 #i <- names(parameters)[1]
   for (i in names(parameters)){
     
-  # Work out number of variables at that level (k)
-  # Check that size (k) of names, mean, cov, sd and var match - if not give error
-
+    # If cov is not a matrix, make it one. Need to do this before working out k, as code below requires a matrix
+    # if its a matrix check its square and symmetric
+    # if its a vector, make its the diagonal of a square matrix
+    # if neither give error
+    if(!is.null(parameters[[i]]$cov)){
+      if(is.matrix(parameters[[i]]$cov)){
+        if(nrow(parameters[[i]]$cov)!=ncol(parameters[[i]]$cov)) stop("need square cov matrix for ",i)
+        if(!isSymmetric(parameters[[i]]$cov)) stop("cov matrix should be symmetric for ",i)
+          #any(x[lower.tri(x)] != x[upper.tri(x)])
+      }else if(is.vector(parameters[[i]]$cov)){
+        parameters[[i]]$cov <- if(length(parameters[[i]]$cov)==1) as.matrix(parameters[[i]]$cov) else diag(parameters[[i]]$cov)
+      }else{
+        stop("cov must be symmetric square matrix or vector")
+      }
+    }
+  
+    # Work out number of variables at that level (k)
+    # Check that size (k) of names, mean, cov, sd and var match - if not give error
     lengths <- c(length(parameters[[i]]$names),
     	length(parameters[[i]]$mean),
     	ncol(parameters[[i]]$cov),
@@ -51,11 +66,17 @@ fill_parameters <- function(parameters,data_structure){
     if(is.null(parameters[[i]]$names)){
       if(k==1) parameters[[i]]$names <- i
       if(k>1) parameters[[i]]$names <- paste(i,1:k,sep="_")
+    }else if(!is.vector(parameters[[i]]$names)){
+      stop("'names' should be a vector")
     }
 
     # Check whether mean specified
     # If not, rep(0,k)
-    if(is.null(parameters[[i]]$mean)) parameters[[i]]$mean <- rep(0,k)
+    if(is.null(parameters[[i]]$mean)){
+      parameters[[i]]$mean <- rep(0,k)
+    }else if(!is.vector(parameters[[i]]$mean)){
+      stop("'mean' should be a vector")
+    }
     
     # Check whether cov specified
     # If not, diag(k)
@@ -72,7 +93,7 @@ fill_parameters <- function(parameters,data_structure){
     # - if no take from data structure 
     # - if yes check it matches data structure 	
     if(is.null(parameters[[i]]$n_level)){
-	  if(i=="residual") {
+	    if(i=="residual") {
           parameters[[i]]$n_level <- nrow(data_structure)
       } else {
 		  parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
