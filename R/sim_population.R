@@ -1,6 +1,9 @@
 library(boot)
 
-sim_population <- function(parameters, data_structure, formula){
+sim_population <- function(parameters, data_structure, formula, family="gaussian", link="identity"){
+
+  if(!link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit")) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
+  if(!family %in% c("gaussian", "poisson", "binomial")) stop("Family must be 'gaussian', 'poisson', 'binomial'")
   
   param<-fill_parameters(parameters,data_structure)
 
@@ -28,7 +31,19 @@ sim_population <- function(parameters, data_structure, formula){
   	z <- eval(parse(text=formula), envir = as.data.frame(z_traits))
   }
 
-  out <- as.data.frame(cbind(z=z,traits,data_structure))
+  inv <- function(x) 1/x
+# link="identity"
+  # family="gaussian"
+  link_function <- if(link=="log") "exp" else 
+    if(link=="inverse") "inv" else 
+    if(link=="logit") "inv.logit" else 
+    if(link=="probit") "pnorm" else link
+  z_link <- get(link_function)(z)
+  z_family <- if(family=="gaussian") z_link else 
+    if(family=="poisson") rpois(length(z_link),z_link) else 
+    if(family=="binomial") rbinom(length(z_link),1,z_link)
+
+  out <- as.data.frame(cbind(z=z_family,traits,data_structure))
   return(out)
 }
 
