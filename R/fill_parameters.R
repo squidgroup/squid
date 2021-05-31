@@ -85,7 +85,7 @@ fill_parameters <- function(parameters,data_structure){
     # If not, rep(1,k)
     if(is.null(parameters[[i]]$beta)){
       parameters[[i]]$beta <- rep(1,k)
-    }else if(!is.vector(parameters[[i]]$beta) || !is.matrix(parameters[[i]]$beta)){
+    }else if(!(is.vector(parameters[[i]]$beta) || is.matrix(parameters[[i]]$beta))){
       stop("'beta' should be a vector or matrix")
     }
 
