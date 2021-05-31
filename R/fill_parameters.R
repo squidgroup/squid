@@ -54,8 +54,7 @@ fill_parameters <- function(parameters,data_structure){
     lengths <- c(length(parameters[[i]]$names),
     	length(parameters[[i]]$mean),
     	ncol(parameters[[i]]$cov),
-    	length(parameters[[i]]$sd), ## possibly change this if allowing matrix of sds for multivariate
-    	length(parameters[[i]]$var)
+    	length(parameters[[i]]$beta) ## possibly change this if allowing matrix of sds for multivariate
     )
     k <- unique(lengths[lengths>0])
     if(length(k) != 1) stop("The number of parameters given for ", i, " are not consistent")
@@ -82,12 +81,13 @@ fill_parameters <- function(parameters,data_structure){
     # If not, diag(k)
     if(is.null(parameters[[i]]$cov)) parameters[[i]]$cov <- diag(k)
 
-    # Check whether sd and var specified - If both, give error
-    if(!is.null(parameters[[i]]$sd) & !is.null(parameters[[i]]$var)) stop("Specify either sd or var, not both")    
-    # - If neither, sd=rep(1,k)
-    if(is.null(parameters[[i]]$sd) & is.null(parameters[[i]]$var)) parameters[[i]]$sd <- rep(1,k)
-    # - If var, sd=sqrt(var)
-    if(is.null(parameters[[i]]$sd)) parameters[[i]]$sd <- sqrt(parameters[[i]]$var)
+    # Check whether cov specified
+    # If not, rep(1,k)
+    if(is.null(parameters[[i]]$beta)){
+      parameters[[i]]$beta <- rep(1,k)
+    }else if(!is.vector(parameters[[i]]$beta) || !is.matrix(parameters[[i]]$beta)){
+      stop("'beta' should be a vector or matrix")
+    }
 
     ## Check whether number of levels is specified
     # - if no take from data structure 

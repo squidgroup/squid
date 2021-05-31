@@ -20,9 +20,9 @@ sim_population <- function(parameters, data_structure, formula, family="gaussian
     return(x)
   }))
 
-  sds <- do.call(c,lapply(param,function(x) x$sd))
+  betas <- do.call(c,lapply(param,function(x) x$beta))
 
-  z_traits <- traits %*% diag(sds)
+  z_traits <- traits %*% diag(betas)
   colnames(z_traits) <- colnames(traits)
 
   if(missing("formula")) {
