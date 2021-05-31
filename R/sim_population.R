@@ -1,6 +1,6 @@
 library(boot)
 
-sim_population <- function(parameters, data_structure){
+sim_population <- function(parameters, data_structure, formula){
   
   param<-fill_parameters(parameters,data_structure)
 
@@ -22,8 +22,12 @@ sim_population <- function(parameters, data_structure){
   z_traits <- traits %*% diag(sds)
   colnames(z_traits) <- colnames(traits)
 
-  z <- rowSums(z_traits)
-  
+  if(missing("formula")) {
+    z <- rowSums(z_traits)
+  } else {
+  	z <- eval(parse(text=formula), envir = as.data.frame(z_traits))
+  }
+
   out <- as.data.frame(cbind(z=z,traits,data_structure))
   return(out)
 }
