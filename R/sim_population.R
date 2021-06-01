@@ -1,4 +1,3 @@
-library(boot)
 
 sim_population <- function(parameters, data_structure, formula, family="gaussian", link="identity"){
 
@@ -36,7 +35,7 @@ sim_population <- function(parameters, data_structure, formula, family="gaussian
   # family="gaussian"
   link_function <- if(link=="log") "exp" else 
     if(link=="inverse") "inv" else 
-    if(link=="logit") "inv.logit" else 
+    if(link=="logit") "plogis" else 
     if(link=="probit") "pnorm" else link
   z_link <- get(link_function)(z)
   z_family <- if(family=="gaussian") z_link else 
