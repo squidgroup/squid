@@ -43,4 +43,8 @@ Imports:
     brms (>= 2.9.0),
     RefManageR (>= 1.2.12)
 RoxygenNote: 7.1.1
-Suggests: testthat
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat
+VignetteBuilder: knitr

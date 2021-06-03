@@ -1,0 +1,20 @@
+---
+title: "Data structure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{data_structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+# library(squid)
+```
+

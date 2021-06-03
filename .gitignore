@@ -4,3 +4,4 @@
 *.Rproj
 *.Renviron
 docs/
+inst/doc
