@@ -7,10 +7,10 @@ is.wholenumber <- function(x, tol = .Machine$double.eps^0.5){
 	return(FALSE)
 }
 
-## function to get sample size out of squid formula structure
+## function to get sample size out of structure
 extract_N <- function(x) as.numeric(sub("\\w+\\((\\d+)\\)","\\1",x))
 
-## function to get grouping level names out of squid formula structure
+## function to get grouping level names out of structure
 extract_name <- function(x) sub("(\\w+)\\(\\d+\\)","\\1",x)
 
 ## function to generate grouping levels
@@ -53,12 +53,12 @@ generate_levels <- function(x, N, balanced=TRUE, randomise=TRUE){
 ## balanced - is the number of observations within each grouping level the same?
 ## - does not ensure that they are balanced across grouping levels
 ## need to add in warnings if chose balanced and the numbers don't match
-make_structure <- function(formula, N, balanced){
-	## strip white space from formula
-	formula <- gsub("\\s","",formula)
+make_structure <- function(structure, N, balanced=TRUE){
+	## strip white space from structure
+	structure <- gsub("\\s","",structure)
 
 	## separate into crossed and nested components
-	components <- strsplit(formula, "\\+")[[1]]
+	components <- strsplit(structure, "\\+")[[1]]
 
 	## split nested grouping levels
 	comp_list <- strsplit(components, "\\/")
