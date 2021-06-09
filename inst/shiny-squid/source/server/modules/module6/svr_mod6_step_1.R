@@ -99,8 +99,7 @@ c(
                   geom_line() +
                   ggplot2::theme(legend.position="none") + 
                   ggplot2::xlab("Environmental effect") + 
-                  ggplot2::ylab("Phenotype")) +
-                  ggplotCustomTheme()
+                  ggplot2::ylab("Phenotype"))
         
       }else{
         defaultPlot()

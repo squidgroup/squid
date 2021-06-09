@@ -136,8 +136,7 @@ c(
           ggplot2::theme(legend.position="none") +
           ggplot2::facet_grid(. ~ covariance) +
           ggplot2::xlab("Environmental effect") + 
-          ggplot2::ylab("Phenotype") +
-          ggplotCustomTheme()
+          ggplot2::ylab("Phenotype")
         
         # print(ggplot2::ggplot(data = myDf, ggplot2::aes(y     = Phenotype,
         #                                                 x     = X1,
@@ -146,8 +145,7 @@ c(
         #               ggplot2::theme(legend.position="none") +
         #               ggplot2::facet_grid(. ~ covariance) +
         #               ggplot2::xlab("Environmental effect") +
-        #               ggplot2::ylab("Phenotype")) +
-        #               ggplotCustomTheme()
+        #               ggplot2::ylab("Phenotype"))
         # 
         # defaultPlot()
 

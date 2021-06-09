@@ -1,6 +1,5 @@
 # INCLUDE
 
-
 #### Text ####
 source("./source/text/portal/txt_portal.R",local=TRUE)
 source("./source/text/modules/txt_module1.R",local=TRUE)

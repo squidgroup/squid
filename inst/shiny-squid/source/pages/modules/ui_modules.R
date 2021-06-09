@@ -16,9 +16,23 @@ navbarMenu("Modules", # Title
       ) # End tabsetPanel
     ) # End Wellpanel
   ))), # END Module 1
-     
-     # Module 2
-     # tabPanel("Module 2",UImodule2()), # END Module 2
+
+  ####### Module 2: Non-Gaussian traits ###########################################
+  tabPanel(Module_titles$mod2,
+    fixedPage(tags$div(class="myPage myTutorial",
+      wellPanel(
+        # Title
+        h3("Introduction to non-Gaussian traits (count, binary and proportion data) and generalized linear mixed-effects models"),
+        p(HTML("<b>Goal:</b> to understand what kinds of traits are 'non-Gaussian',
+               how they are different from Gaussian (normally distributed) traits,
+               and how they can be modeled using the 'generalized' linear mixed-effects model (GLMM) framework.")),
+        tabsetPanel(id = "Module2TabsetPanel", type = "pills", selected = "Step 1",
+                    tabPanel("Step 1", source("./source/pages/modules/module2/ui_mod2_step1.R",local = TRUE)[["value"]])
+                    # tabPanel("Step 2", source("./source/pages/modules/module2/ui_mod2_step2.R",local = TRUE)[["value"]]),
+                    # tabPanel("Step 3", source("./source/pages/modules/module2/ui_mod2_step3.R",local = TRUE)[["value"]])
+        ) # End tabsetPanel
+      ) # End Wellpanel
+  ))), # END Module 2
      
   ####### Module 3: Non-stochastic environments #######################################
   tabPanel(Module_titles$mod3, 
@@ -27,7 +41,8 @@ navbarMenu("Modules", # Title
       # Title
       h3(HTML(module3_txt$title)),
       p(HTML(module3_txt$goal)), 
-      tabsetPanel(id = "Module3TabsetPanel", type = "pills", selected = "Step 1",
+      
+      tabsetPanel(id = "Module2TabsetPanel", type = "pills", selected = "Step 1",
         tabPanel("Step 1", source("./source/pages/modules/module3/ui_mod3_step1.R",local = TRUE)[["value"]]),
         tabPanel("Step 2", source("./source/pages/modules/module3/ui_mod3_step2.R",local = TRUE)[["value"]]),
         tabPanel("Step 3", source("./source/pages/modules/module3/ui_mod3_step3.R",local = TRUE)[["value"]])

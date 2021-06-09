@@ -4,7 +4,7 @@
 Modules_VAR <- list(
   
   # Plot
-  "Plot"  = list( "width"      = "600px"
+  "Plot"       = list( "width"  = "600px"
   ),
   
   # Run Button
@@ -407,7 +407,7 @@ Modules_VAR <- list(
 
 Module_titles <- list(
   "mod1"  = "Basic Lessons about Variance",
-  "mod2"  = "",
+  "mod2"  = "Non-Gaussian traits",
   "mod3"  = "Non-stochastic environments",
   "mod4"  = "Multiple traits",
   "mod5"  = "Multi-dimensional phenotypic plasticity",

@@ -86,8 +86,7 @@ c(
               ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
               ggplot2::ylab("Phenotype") + 
-              ggplot2::ggtitle(bquote(italic(beta[(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[(true)]) == .(round(input$Mod1Step4_B[1,2],2))))) +
-              ggplotCustomTheme()
+              ggplot2::ggtitle(bquote(italic(beta[(estimated)]) == .(data$B1) %+-% .(data$se.B1) ~~ (italic(beta[(true)]) == .(round(input$Mod1Step4_B[1,2],2)))))
         
           })
           
@@ -110,8 +109,7 @@ c(
               ggplot2::geom_point() +
               ggplot2::geom_smooth(method = "lm", se = FALSE) +
               ggplot2::xlab("Environment") +
-              ggplot2::ylab("Phenotype per individual") +
-              ggplotCustomTheme()
+              ggplot2::ylab("Phenotype per individual")
 
           })
           

@@ -60,5 +60,7 @@ span(
   div(class="line"),
   
   # Go to next step
-  actionLink("Mod1Step1GotoStep2", label = "Next Step (2) >>", class= "linkToModuleSteps")
+  actionLink("Mod1Step1GotoStep2", 
+           label = "Next Step (2) >>",
+           class= "linkToModuleSteps")
 )
