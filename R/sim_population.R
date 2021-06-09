@@ -23,15 +23,18 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
   ## this isn't going to work if betas has multiple rows 
   betas <- do.call(c,lapply(param,function(x) x$beta))
-  z_traits <- traits %*% diag(betas)
-  colnames(z_traits) <- colnames(traits)
 
   ## evaluate model
   ## - if model is missing, add all simulated traits together
   ##- need to integrate multivariate
   if(missing("model")) {
-    z <- rowSums(z_traits)
+    z <- rowSums(traits %*% diag(betas))
   } else {
+    ## for more complex evaluation, 
+    z_traits <- cbind(traits %*% diag(betas),traits,data_structure)
+    colnames(z_traits) <- c(colnames(traits), paste0(colnames(traits),"_raw"), paste0(colnames(data_structure),"_ID"))
+    model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
+    model <- gsub("\\[(\\w+)\\]","\\[\\1_ID\\]",model)
   	z <- eval(parse(text=model), envir = as.data.frame(z_traits))
   }
 
