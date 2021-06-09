@@ -54,6 +54,10 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     if(family=="poisson") rpois(length(z_link),z_link) else 
     if(family=="binomial") rbinom(length(z_link),1,z_link)
 
+  # in output traits, if name matches something in data_stricture, then append "_effects"
+  matching_names <- colnames(traits) %in% colnames(data_structure)
+  colnames(traits)[matching_names] <- paste0(colnames(traits)[matching_names],"_effects")
+  
   out <- as.data.frame(cbind(z=z_family,traits,data_structure))
   return(out)
 }
