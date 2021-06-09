@@ -30,7 +30,7 @@ fill_parameters <- function(parameters,data_structure){
   # Check whether all groups match ones in data structure - If not, give error
   if(any(!sapply(parameters,function(x) x$group) %in% c(colnames(data_structure),"residual"))) stop("Group names in parameter list do not match group names in data_structure")
 
-#i <- names(parameters)[1]
+  #i <- names(parameters)[1]
   for (i in names(parameters)){
     
     # If cov is not a matrix, make it one. Need to do this before working out k, as code below requires a matrix
@@ -81,7 +81,7 @@ fill_parameters <- function(parameters,data_structure){
     # If not, diag(k)
     if(is.null(parameters[[i]]$cov)) parameters[[i]]$cov <- diag(k)
 
-    # Check whether cov specified
+    # Check whether beta specified
     # If not, rep(1,k)
     if(is.null(parameters[[i]]$beta)){
       parameters[[i]]$beta <- rep(1,k)
@@ -98,16 +98,17 @@ fill_parameters <- function(parameters,data_structure){
       } else {
 		  parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
       }
-	} else {
+	  } else {
       
-	}
+	  }
 
   
   }
 
+  ## Check whether all names in data_structure and parameters contain only words, digits and _
+  if(!all(grepl("^\\w+$",c(sapply(parameters,function(x) x$names), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _")
+
 	return(parameters)
-
-
 
 }
 
