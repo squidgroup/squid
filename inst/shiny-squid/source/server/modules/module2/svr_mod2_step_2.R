@@ -1,4 +1,4 @@
-#Server functions for module 2 step 1
+#Server functions for module 2 step 2
 c(
   ######### Display results (graph) #########
   

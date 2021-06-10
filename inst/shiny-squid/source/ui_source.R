@@ -24,12 +24,5 @@ source("./source/utilities/citations.R",local=TRUE)
 source("./source/pages/full_model/ui_environment.R",local=TRUE)
 source("./source/pages/full_model/ui_specific_environment.R",local=TRUE)
 
-#### Bibliography #####
-# bib             <- RefManageR::ReadBib("./inst/shiny-squid/source/bibliography/bibliography.bib")
-bib             <- RefManageR::ReadBib("./source/bibliography/bibliography.bib")
-
-bibCiteOptions <- list(bib.style = "authoryear", style = "R", first.inits = TRUE, max.names = 2,
-                        no.print.fields = c("ISSN", "URL", "ISBN", "file", "keywords", "mendeley-tags", "editor"))
-
 ######
 c()

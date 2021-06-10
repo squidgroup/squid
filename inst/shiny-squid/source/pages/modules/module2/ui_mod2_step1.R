@@ -172,7 +172,7 @@ span(
     as one because Poisson distributions have the additional property that the variance 
     of the distribution is equal to its mean."),
   
-  div(class="line")
+  div(class="line"),
   
-  # actionLink("Mod2Step1GotoStep2", label = "Next Step (2) >>", class= "linkToModuleSteps") # Go to next step
+  actionLink("Mod2Step1GotoStep2", label = "Next Step (2) >>", class= "linkToModuleSteps") # Go to next step
 )

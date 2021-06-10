@@ -21,7 +21,7 @@ span(
          of female offspring (see Step 1). More formally, we can write a trait y, which follows a Bernoulli 
          distribution along with its mean ($\\mu$) and variance ($V$) as:")),
   
-  span("$$y \\sim \\text{Bernoulli}(p)$$"),
+  span("$$y \\sim Bernoulli(p)$$"),
   span("$$\\mu = p$$"),
   span("$$V = p(1-p)$$"),
   
@@ -29,7 +29,7 @@ span(
          A biological example is the number of offspring in a brood (as $m$) with the probability of female being $p$. 
          More formally, we can write a proportional trait, $y$ as:")),
   
-  span("$$y \\sim \\text{binomial}(m,p)$$"),
+  span("$$y \\sim binomial(m,p)$$"),
   span("$$\\mu = mp$$"),
   span("$$V = mp(1-p)$$"),
   
@@ -39,7 +39,7 @@ span(
          This parameter is often called, $\\lambda$ (termed the 'rate' parameter).  
          We can formally write a count trait following a Poisson distribution as:")),
   
-  span("$$y \\sim \\text{Poisson}(\\lambda)$$"),
+  span("$$y \\sim Poisson(\\lambda)$$"),
   span("$$\\mu = \\lambda$$"),
   span("$$V = \\lambda$$"),
   
@@ -78,9 +78,8 @@ span(
   
   div(class="line"),
   
-  # actionLink("Mod2Step2GotoStep1", label = "<< Previous Step (1)", class="linkToModuleSteps"), # Go to previous step       
-  # span(Modules_VAR$StepLink$sep, class="step-Link"),
-  # actionLink("Mod2Step2GotoStep3", label = "Next Step (3) >>", class="linkToModuleSteps") # Go to next step
-  
-  span("")
+  actionLink("Mod2Step2GotoStep1", label = "<< Previous Step (1)", class="linkToModuleSteps"), # Go to previous step
+  span(Modules_VAR$StepLink$sep, class="step-Link"),
+  actionLink("Mod2Step2GotoStep3", label = "Next Step (3) >>", class="linkToModuleSteps") # Go to next step
+
 )

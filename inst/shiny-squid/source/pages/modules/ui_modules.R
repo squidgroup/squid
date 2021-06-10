@@ -26,10 +26,10 @@ navbarMenu("Modules", # Title
         p(HTML("<b>Goal:</b> to understand what kinds of traits are 'non-Gaussian',
                how they are different from Gaussian (normally distributed) traits,
                and how they can be modeled using the 'generalized' linear mixed-effects model (GLMM) framework.")),
-        tabsetPanel(id = "Module2TabsetPanel", type = "pills", selected = "Step 2",
+        tabsetPanel(id = "Module2TabsetPanel", type = "pills", selected = "Step 1",
                     tabPanel("Step 1", source("./source/pages/modules/module2/ui_mod2_step1.R",local = TRUE)[["value"]]),
-                    tabPanel("Step 2", source("./source/pages/modules/module2/ui_mod2_step2.R",local = TRUE)[["value"]])
-                    # tabPanel("Step 3", source("./source/pages/modules/module2/ui_mod2_step3.R",local = TRUE)[["value"]])
+                    tabPanel("Step 2", source("./source/pages/modules/module2/ui_mod2_step2.R",local = TRUE)[["value"]]),
+                    tabPanel("Step 3", source("./source/pages/modules/module2/ui_mod2_step3.R",local = TRUE)[["value"]])
         ) # End tabsetPanel
       ) # End Wellpanel
   ))), # END Module 2
