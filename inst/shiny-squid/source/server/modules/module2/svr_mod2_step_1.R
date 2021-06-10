@@ -22,10 +22,12 @@ c(
   # Graph: proportion of each sex
   output$Mod2Step1_plot_coin_flip <- renderPlot({ 
     
-    size    <- input$Mod2Step1_n_offspring
+    if(input$Mod2Step1_Refresh_1 == 0){}
+    
+    size <- input$Mod2Step1_n_offspring
     prop <- rbinom(n=1, size=size, prob=0.5) / size
-    dat <- data.frame("Sex"        = c("Female", "Male"),
-                      "Proportion" = c(1-prop, prop))
+    dat  <- data.frame("Sex"        = c("Female", "Male"),
+                       "Proportion" = c(1-prop, prop))
     
     ggplot2::ggplot(data=dat, aes(x=Sex, y=Proportion)) + 
       ggplot2::geom_col(width=0.3) +
@@ -36,6 +38,8 @@ c(
   
   # Graph: proportion of each sex
   output$Mod2Step1_plot_female_prob <- renderPlot({ 
+    
+    if(input$Mod2Step1_Refresh_2 == 0){}
     
     f_prob <- input$Mod2Step1_female_probability
     

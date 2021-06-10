@@ -58,6 +58,11 @@ span(
               width = "500px"
   ),
   
+  # Simulation run button
+  actionButton("Mod2Step1_Refresh_1", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, class="refreshButton"),
+  sim_msg(),
+  
+  
   # Figure: sex-determination proportion
   plotOutput("Mod2Step1_plot_coin_flip", width = "350px", height = "300px"), 
   
@@ -75,6 +80,10 @@ span(
               step  = 0.1,
               width = "500px"
   ),
+  
+  # Simulation run button
+  actionButton("Mod2Step1_Refresh_2", label = Modules_VAR$Refresh$label, icon= Modules_VAR$Refresh$icon, class="refreshButton"),
+  sim_msg(),
   
   # Figure: sex-determination proportion
   plotOutput("Mod2Step1_plot_female_prob", width = "350px", height = "300px"),
