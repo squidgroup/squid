@@ -106,7 +106,24 @@ fill_parameters <- function(parameters,data_structure){
   }
 
   ## Check whether all names in data_structure and parameters contain only words, digits and _
-  if(!all(grepl("^\\w+$",c(sapply(parameters,function(x) x$names), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _")
+  if(!all(grepl("^\\w+$",c(do.call(c,sapply(parameters,function(x) x$names)), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _")
+
+
+  ##Check extra parameters
+  param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
+
+  ## check is extra parameters are vectors
+  e_p_vector <- !unlist(sapply(parameters, function(x){
+    sapply(x[!names(x) %in% param_names],is.vector)
+    }))
+  if(any(e_p_vector)) stop("Additional parameters given to parameters lists must be vectors, this is not the case for ",names(e_p_vector)[e_p_vector])
+
+  ## check length of all extra parameters is 1
+  e_p_length <- unlist(sapply(parameters, function(x){
+    sapply(x[!names(x) %in% param_names],length)
+    }))
+  if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1])
+
 
 	return(parameters)
 
