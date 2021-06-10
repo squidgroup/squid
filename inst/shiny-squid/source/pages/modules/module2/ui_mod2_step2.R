@@ -1,66 +1,86 @@
-# UI: Module 1 Step 1
+# UI: Module 2 Step 2
 span(
     
   #### Title ####
-  h4(Mod1Step1_txt$title),           # Text: title
+  h4("Step 2: Introduction to Bernoulli, binomial and Poisson distributions"),
   
   #### Subgoal ####
-  p(HTML(Mod1Step1_txt$subgoal)),    # Text: subgoal
+  p(HTML("<b>Sub-goal:</b> to learn statistical properties of the three key non-Gaussian distributions.")), 
+  
   #### Introduction ####
-  p(HTML(Mod1Step1_txt$intro)),      # Text: introduction
-  #### Exercice ####
-  p(HTML(Mod1Step1_txt$exercise)),   # Text: exercise
+  p(HTML("Introduction: In Step 1, we considered biological scenarios where non-Gaussian data could be produced. 
+         The three important types of data are binary, proportional and count data, each of which corresponds to a 
+         uniquely named statistical distribution, namely Bernoulli, binomial and Poisson. Remember that a Gaussian 
+         (normal) distribution is characterized by a mean ($\\mu$) and a variance ($V$). These two quantities are called 
+         statistical parameters for the Gaussian distribution. Statistical parameters for the three non-Gaussian distributions 
+         are not the mean and variance (at least they are not called so). Let's look at the statistical parameters for 
+         each non-Gaussian distribution now.")),
   
-  # Number of individuals
-  getSliderInput("Mod1Step1_NI", Modules_VAR$NI),
+  p(HTML("A <b>Bernoulli</b> distribution is characterized by only one parameter, p, which is often interpreted 
+         as a probability of success. Or more biologically, for example, you can see it as the probability 
+         of female offspring (see Step 1). More formally, we can write a trait y, which follows a Bernoulli 
+         distribution along with its mean ($\\mu$) and variance ($V$) as:")),
   
-  p(HTML(Mod1Step1_txt$para1)),        # Text: Paragraph 1
-  p(HTML(Mod1Step1_txt$explanation1)), # Text: Notation explanation
-  div(info_msg(Mod1Step1_txt$note1)),  # Text: note
+  span("$$y \\sim \\text{Bernoulli}(p)$$"),
+  span("$$\\mu = p$$"),
+  span("$$V = p(1-p)$$"),
   
-  # Measurement error variance
-  getSliderInput("Mod1Step1_Ve", Modules_VAR$Vm),
+  p(HTML("A <b>binomial</b> distribution has one more statistical parameter, which is m, the number of trials. 
+         A biological example is the number of offspring in a brood (as $m$) with the probability of female being $p$. 
+         More formally, we can write a proportional trait, $y$ as:")),
   
-  # Hidden variable:
-    # Mod1Step1_Vind: Intercepts and slopes (Co)variance matrix
-  conditionalPanel(
-    condition = "0",
-    uiOutput("Mod1Step1_hidden")
+  span("$$y \\sim \\text{binomial}(m,p)$$"),
+  span("$$\\mu = mp$$"),
+  span("$$V = mp(1-p)$$"),
+  
+  p("As you can see a Bernoulli distribution is a special case of a binomial distribution with m being 1."),
+  
+  p(HTML("Like the Bernoulli distribution, the <b>Poisson</b> distribution has only one statistical parameter. 
+         This parameter is often called, $\\lambda$ (termed the 'rate' parameter).  
+         We can formally write a count trait following a Poisson distribution as:")),
+  
+  span("$$y \\sim \\text{Poisson}(\\lambda)$$"),
+  span("$$\\mu = \\lambda$$"),
+  span("$$V = \\lambda$$"),
+  
+  p("As you can see, the mean equals the variance in a Poisson distribution. 
+    Also, for both Bernoulli and binomial distributions, the mean and variance are also tightly related. 
+    In fact, a unique feature of a Gaussian distribution is non-existence of the relationship between the mean and variance. 
+    Non-Gaussian distributions, in general, have, what is called, a mean-variance relationship. 
+    It may be interesting to note that a binomial distribution becomes 
+    a form of a Poisson distribution when p is very small because:"),
+  
+  span("$$V = mp(1-p) \\approx mp = \\mu$$"),
+  
+  p(HTML("<b>Exercise:</b> We explore the mean-variance relationship for Bernoulli distributions with p ranging from 0 to 1.")),
+  
+  # Figure: mean-variance relationship in Bernoulli distribution
+  fluidRow(
+    column(6,
+      plotOutput("Mod2Step2_plot_bernoulli_mean", height="200px")
+    ),
+    column(6,
+      plotOutput("Mod2Step2_plot_bernoulli_var", height="200px")
+    )
   ),
   
-  #### Run 1 ####
-  actionButton("Mod1Step1_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
-  runningIndicator(), # Simulation progress bar
-  sim_msg(),
+  p("We now do the same for Poisson distributions where $\\lambda$ varies between 0.5 and 100."),
   
-  #### Figure 1 ####
-  # Graph: density distribution of true and measured phenotypic values
-  plotOutput("Mod1Step1_plot", width = Modules_VAR$Plot$width),
-  
-  #### Table 1 ####
-  # Table : display true and measured values (Vp, Vi and mean)
-  uiOutput("Mod1Step1_summary_table"),
-  
-  #### Point ####
-  p(HTML(Mod1Step1_txt$point)),       # Text: point
-  #### Solution ####
-  p(HTML(Mod1Step1_txt$solutions)),   # Text: solutions
-  
-  #### Statistical model ####
-  p(HTML(module1_txt$statModTitle)),
-  p(HTML(Mod1Step1_txt$statmodel1)),        # Text: statistical model paragraph 1
-  #### Eqaution 1 ####
-  p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",NOT$devI,"_",NOT$ind,"+",NOT$error,"_{",NOT$time,NOT$ind,"}$$",sep="")),
-  p(HTML(Mod1Step1_txt$statmodel2)),        # Text: statistical model paragraph 2
-
-  p(HTML(Mod1Step1_txt$statmodel3)),        # Text: statistical model paragraph 3
-  #### Eqaution 2 ####
-  p(paste("$$V_p=V_",NOT$devI,"+V_",NOT$mError,"$$",sep="")),
+  # Figure: mean-variance relationship in Poisson distribution
+  fluidRow(
+    column(6,
+           plotOutput("Mod2Step2_plot_poisson_mean", height="200px")
+    ),
+    column(6,
+           plotOutput("Mod2Step2_plot_poisson_var", height="200px")
+    )
+  ),
   
   div(class="line"),
   
-  # Go to next step
-  actionLink("Mod1Step1GotoStep2", 
-           label = "Next Step (2) >>",
-           class= "linkToModuleSteps")
+  # actionLink("Mod2Step2GotoStep1", label = "<< Previous Step (1)", class="linkToModuleSteps"), # Go to previous step       
+  # span(Modules_VAR$StepLink$sep, class="step-Link"),
+  # actionLink("Mod2Step2GotoStep3", label = "Next Step (3) >>", class="linkToModuleSteps") # Go to next step
+  
+  span("")
 )

@@ -2,10 +2,10 @@
 span(
     
   #### Title ####
-  h4("Step 1: The biology that produces binary, proportional, and count data."),
+  h4("Step 1: The biology that produces binary, proportional, and count data"),
   
   #### Subgoal ####
-  p(HTML("<b>Sub-goal:</b> Introducing how biology may result in non-normally distributed data")),    
+  p(HTML("<b>Sub-goal:</b> Introducing how biology may result in non-normally distributed data.")),    
   
   #### Introduction ####
   p(HTML("Introduction: Before you start analyzing your data, one thing you want to consider is the biology of 
@@ -174,5 +174,5 @@ span(
   
   div(class="line")
   
-  # actionLink("Mod2Step1GotoStep2", label = "<< Previous Step (3)", class= "linkToModuleSteps") # Go to previous step
+  # actionLink("Mod2Step1GotoStep2", label = "Next Step (2) >>", class= "linkToModuleSteps") # Go to next step
 )

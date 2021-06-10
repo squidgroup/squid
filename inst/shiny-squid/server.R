@@ -44,7 +44,7 @@ shinyServer(function(input, output, session) {
   source("./source/server/modules/module2/svr_mod2_step_1.R",local = TRUE)
   
   # # Module 2 Step 2 -----------------------
-  # source("./source/server/modules/module2/svr_mod2_step_2.R",local = TRUE)
+  source("./source/server/modules/module2/svr_mod2_step_2.R",local = TRUE)
   
   # # Module 2 Step 3 -----------------------
   # source("./source/server/modules/module2/svr_mod2_step_3.R",local = TRUE)
