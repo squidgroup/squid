@@ -1,5 +1,4 @@
-squid .9000
-===========
+# squid .9000
 
 -   Update personal info of SQuID members
 
@@ -10,8 +9,9 @@ squid .9000
 
 -   Module “Multidimentional phenotypic plasticity and random slopes”
 
-squid 0.1.2
-===========
+-   Add module “Non-Gaussian traits”
+
+# squid 0.1.2
 
 -   Reset individual identifier to 1 for each replicate.
 
@@ -25,8 +25,7 @@ squid 0.1.2
 -   Add the high-level grouping id column to the `squidR()` return
     data.frame
 
-squid 0.1.1
-===========
+# squid 0.1.1
 
 -   Change the name of module “Random slope” to “Random regression”.
 
@@ -35,7 +34,6 @@ squid 0.1.1
 -   Fix display issue in R documentation (in function `squidR()`,
     section Details).
 
-squid 0.1.0
-===========
+# squid 0.1.0
 
 -   First release.
