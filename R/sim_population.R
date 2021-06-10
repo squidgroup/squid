@@ -33,10 +33,27 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     ## for more complex evaluation, 
     z_traits <- cbind(traits %*% diag(betas),traits,data_structure)
     colnames(z_traits) <- c(colnames(traits), paste0(colnames(traits),"_raw"), paste0(colnames(data_structure),"_ID"))
+
+    ## extract extra parameters
+    param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
+    extra_param <- unlist(sapply(parameters, function(x){
+    x[!names(x) %in% param_names]
+    }))
+    names(extra_param) <- unlist(sapply(parameters, function(x){
+    names(x)[!names(x) %in% param_names]
+    }))
+
+    ## check extra param names dont clash with z_trait names
+    if(any(names(extra_param) %in% colnames(z_traits))) stop("You cannot name extra paramters the same as any variables")
+
+    ## allow I() and subsets to be properly linked to z_traits
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
     model <- gsub("\\[(\\w+)\\]","\\[\\1_ID\\]",model)
-  	z <- eval(parse(text=model), envir = as.data.frame(z_traits))
+
+    # evaluate the formula in the context of _tratis and the extra params
+  	z <- eval(parse(text=model), envir = c(as.data.frame(z_traits),as.list(extra_param)))
   }
+  ## add extra list elements into z_traits
 
   inv <- function(x) 1/x
 
