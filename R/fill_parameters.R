@@ -112,18 +112,23 @@ fill_parameters <- function(parameters,data_structure){
   ##Check extra parameters
   param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
 
-  ## check is extra parameters are vectors
-  e_p_vector <- !unlist(sapply(parameters, function(x){
-    sapply(x[!names(x) %in% param_names],is.vector)
+  e_p <- unlist(sapply(parameters, function(x){
+    names(x)[!names(x) %in% param_names]
     }))
-  if(any(e_p_vector)) stop("Additional parameters given to parameters lists must be vectors, this is not the case for ",names(e_p_vector)[e_p_vector])
 
-  ## check length of all extra parameters is 1
-  e_p_length <- unlist(sapply(parameters, function(x){
-    sapply(x[!names(x) %in% param_names],length)
-    }))
-  if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1])
-
+  if(length(e_p)>0){
+    ## check is extra parameters are vectors
+    e_p_vector <- !unlist(sapply(parameters, function(x){
+      sapply(x[!names(x) %in% param_names],is.vector)
+      }))
+    if(any(e_p_vector)) stop("Additional parameters given to parameters lists must be vectors, this is not the case for ",names(e_p_vector)[e_p_vector])
+  
+    ## check length of all extra parameters is 1
+    e_p_length <- unlist(sapply(parameters, function(x){
+      sapply(x[!names(x) %in% param_names],length)
+      }))
+    if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1])
+  }
 
 	return(parameters)
 
