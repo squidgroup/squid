@@ -51,10 +51,11 @@ fill_parameters <- function(parameters,data_structure){
   
     # Work out number of variables at that level (k)
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
+    beta_k <- if(is.vector(parameters[[i]]$beta)){length(parameters[[i]]$beta)}else if(is.matrix(parameters[[i]]$beta)){ncol(parameters[[i]]$beta)}
     lengths <- c(length(parameters[[i]]$names),
     	length(parameters[[i]]$mean),
     	ncol(parameters[[i]]$cov),
-    	length(parameters[[i]]$beta) ## possibly change this if allowing matrix of sds for multivariate
+    	beta_k ## possibly change this if allowing matrix of sds for multivariate
     )
     k <- unique(lengths[lengths>0])
     if(length(k) != 1) stop("The number of parameters given for ", i, " are not consistent")
@@ -106,8 +107,7 @@ fill_parameters <- function(parameters,data_structure){
   }
 
   ## Check whether all names in data_structure and parameters contain only words, digits and _
-  if(!all(grepl("^\\w+$",c(do.call(c,sapply(parameters,function(x) x$names)), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _")
-
+  if(!all(grepl("^\\w+$",c(do.call(c,lapply(parameters,function(x) x$names)), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _")
 
   ##Check extra parameters
   param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
