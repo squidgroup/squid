@@ -22,15 +22,17 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   }))
 
   ## this isn't going to work if betas has multiple rows 
-  betas <- do.call(c,lapply(param,function(x) x$beta))
+  betas <- do.call(cbind,lapply(param,function(x) x$beta))
 
   ## evaluate model
   ## - if model is missing, add all simulated traits together
-  ##- need to integrate multivariate
   if(missing("model")) {
-    z <- rowSums(traits %*% diag(betas))
+    z <- traits %*% t(betas)
+    
   } else {
     ## for more complex evaluation, 
+      ##- need to integrate multivariate
+
     z_traits <- cbind(traits %*% diag(betas),traits,data_structure)
     colnames(z_traits) <- c(colnames(traits), paste0(colnames(traits),"_raw"), paste0(colnames(data_structure),"_ID"))
 
@@ -44,7 +46,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     }))
 
     ## check extra param names dont clash with z_trait names
-    if(any(names(extra_param) %in% colnames(z_traits))) stop("You cannot name extra paramters the same as any variables")
+    if(any(names(extra_param) %in% colnames(z_traits))) stop("You cannot name extra parameters the same as any variables")
 
     ## allow I() and subsets to be properly linked to z_traits
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
