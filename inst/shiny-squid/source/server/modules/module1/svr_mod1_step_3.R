@@ -88,8 +88,7 @@ c(
      	    	ggplot2::geom_rug(ggplot2::aes(col=lines)) +
      	    	ggplot2::facet_wrap(~ lines) +
      	    	ggplot2::xlab("Model component values") +
-     	    	ggplot2::ylab("Density") + 
-     	      ggplotCustomTheme()      +
+     	    	ggplot2::ylab("Density") +
      	      ggplot2::theme(plot.title      = ggplot2::element_text(hjust = 0.5),
      	                     legend.title    = ggplot2::element_blank(),
      	                     legend.position = "bottom")
@@ -113,8 +112,7 @@ c(
    	    ggplot2::ggplot(data_plot, ggplot2::aes(x=phen_time1, y=phen_time2)) + 
    	    	ggplot2::geom_point(size=3, color=color$color2) +
    	    	ggplot2::xlab("First measurement")  +
-   	    	ggplot2::ylab("Second measurement") +
-   	      ggplotCustomTheme()
+   	    	ggplot2::ylab("Second measurement")
 
    	  }else{defaultPlot()}
    	}),

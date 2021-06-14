@@ -4,7 +4,7 @@
 Modules_VAR <- list(
   
   # Plot
-  "Plot"  = list( "width"      = "600px"
+  "Plot"       = list( "width"  = "600px"
   ),
   
   # Run Button
@@ -324,6 +324,16 @@ Modules_VAR <- list(
   ),
   
   # Mean Environmental effect
+  "B0"   = list(  "label"        = paste0("Population mean effect ($",EQ3$mean0,"$):"),
+                  "infoTxt"     = "",
+                  "value"       = 0,
+                  "min"         = -1,
+                  "max"         = 1,
+                  "step"        = 0.01,
+                  "errorTxt"    = ""
+  ),
+  
+  # Mean Environmental effect
   "B1"   = list(  "label"        = paste0("Population mean response to the environment $",NOT$env,"$ ($",NOT$mean,"$):"),
                   "infoTxt"     = "Population mean response to the environment.",
                   "value"       = 0,
@@ -407,7 +417,7 @@ Modules_VAR <- list(
 
 Module_titles <- list(
   "mod1"  = "Basic Lessons about Variance",
-  "mod2"  = "",
+  "mod2"  = "Non-Gaussian traits",
   "mod3"  = "Non-stochastic environments",
   "mod4"  = "Multiple traits",
   "mod5"  = "Multi-dimensional phenotypic plasticity",

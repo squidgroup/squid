@@ -15,3 +15,7 @@ source("./source/utilities/get_icon.R",local=TRUE)
 
 #### Inputs ####
 source("./source/inputs/get_numeric_input.R",local=TRUE)
+
+#### ggplot theme ####
+
+ggplot2::theme_set(ggplot2::theme_classic())

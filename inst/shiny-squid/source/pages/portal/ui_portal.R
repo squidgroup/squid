@@ -31,8 +31,14 @@ div(
       p(HTML(portal_txt$parag3_contents2))
   ),
   wellPanel(
-      h4(portal_txt$references_title),
-      print_ref(bib[c("Allegue2016a", "Dingemanse2013a")])
+      p(strong("References:")),
+      p(HTML("Allegue, H., Araya-Ajoy, Y. G., Dingemanse, N. J., Dochtermann, N. A., Garamszegi, L. Z., 
+              Nakagawa, S., Réale, D., Schielzeth, H.& Westneat, D. F. (2016) Statistical Quantification of 
+              Individual Differences: an educational and statistical tool for understanding multi-level phenotypic 
+              data in linear mixed models. <i>Methods in Ecology and Evolution</i>, 8, 257-267.
+              <a href='https://doi.org/10.1111/2041-210X.12659' target='_blank'>doi: 10.1111/2041-210X.12659</a>")),
+      p(HTML("Dingemanse, N. J.& Dochtermann, N. A. (2013) Quantifying individual variation in behaviour: 
+              mixed-effect modelling approaches. <i>Journal of Animal Ecology</i>, 82, 39-54.
+              <a href='https://doi.org/10.1111/1365-2656.12013' target='_blank'>doi: 10.1111/1365-2656.12013</a>"))
   )
 )
-

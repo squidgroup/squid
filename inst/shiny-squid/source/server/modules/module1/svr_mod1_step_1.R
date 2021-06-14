@@ -45,8 +45,7 @@ c(
     											ggplot2::geom_rug(ggplot2::aes(col=lines)) +
     											ggplot2::ggtitle("Distribution of total and individual phenotype values") +
     											ggplot2::xlab("Phenotype values") +
-    											ggplot2::ylab("Density") + 
-                          ggplotCustomTheme() +
+    											ggplot2::ylab("Density") +
                           ggplot2::theme(legend.title    = ggplot2::element_blank(),
                                          legend.position = "bottom")
           
