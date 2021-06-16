@@ -65,8 +65,6 @@ fill_parameters <- function(parameters,data_structure){
     
     # Work out number of variables at that level (k)
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
-    beta_k <- if(is.vector(parameters[[i]]$beta)){length(parameters[[i]]$beta)}else if(is.matrix(parameters[[i]]$beta)){ncol(parameters[[i]]$beta)}
-
     lengths <- c(length(parameters[[i]]$names),
     	length(parameters[[i]]$mean),
     	ncol(parameters[[i]]$cov),
