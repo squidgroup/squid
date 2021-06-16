@@ -1,4 +1,10 @@
 
+n_phenotypes <- function(parameters){
+
+  sapply(parameters, function(x) ncol(x$beta))
+}
+
+
 ## I've used loops rather than apply functions in here because then the original parameter list can then be added to rather than new lists made - this will be slightly slower but very negligible given their size
 fill_parameters <- function(parameters,data_structure){
 
@@ -45,17 +51,26 @@ fill_parameters <- function(parameters,data_structure){
       }else if(is.vector(parameters[[i]]$cov)){
         parameters[[i]]$cov <- if(length(parameters[[i]]$cov)==1) as.matrix(parameters[[i]]$cov) else diag(parameters[[i]]$cov)
       }else{
-        stop("cov must be symmetric square matrix or vector")
+        stop("cov must be a symmetric square matrix or a vector")
       }
     }
   
+    # If beta is not a matrix, make it one. good for working out k and for simulations, as code below requires a matrix
+    if(!is.null(parameters[[i]]$beta)){
+      if(is.vector(parameters[[i]]$beta)){
+        parameters[[i]]$beta <- matrix(parameters[[i]]$beta)
+      }else if(!is.matrix(parameters[[i]]$beta)){stop("'beta' should be a vector or matrix")
+      }
+    }
+    
     # Work out number of variables at that level (k)
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
     beta_k <- if(is.vector(parameters[[i]]$beta)){length(parameters[[i]]$beta)}else if(is.matrix(parameters[[i]]$beta)){ncol(parameters[[i]]$beta)}
+
     lengths <- c(length(parameters[[i]]$names),
     	length(parameters[[i]]$mean),
     	ncol(parameters[[i]]$cov),
-    	beta_k ## possibly change this if allowing matrix of sds for multivariate
+    	nrow(parameters[[i]]$beta) ## possibly change this if allowing matrix of sds for multivariate
     )
     k <- unique(lengths[lengths>0])
     if(length(k) != 1) stop("The number of parameters given for ", i, " are not consistent")
@@ -84,11 +99,7 @@ fill_parameters <- function(parameters,data_structure){
 
     # Check whether beta specified
     # If not, rep(1,k)
-    if(is.null(parameters[[i]]$beta)){
-      parameters[[i]]$beta <- rep(1,k)
-    }else if(!(is.vector(parameters[[i]]$beta) || is.matrix(parameters[[i]]$beta))){
-      stop("'beta' should be a vector or matrix")
-    }
+    if(is.null(parameters[[i]]$beta)) parameters[[i]]$beta <- matrix(rep(1,k))
 
     ## Check whether number of levels is specified
     # - if no take from data structure 
@@ -105,6 +116,13 @@ fill_parameters <- function(parameters,data_structure){
 
   
   }
+
+  ##check whether all betas have same dimension
+  j <- n_phenotypes(parameters)
+
+  if(length(unique(j))!= 1) stop("The number of phenotypes (columns in beta) are not consistent across hierarchical levels")
+
+
 
   ## Check whether all names in data_structure and parameters contain only words, digits and _
   if(!all(grepl("^\\w+$",c(do.call(c,lapply(parameters,function(x) x$names)), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _")
@@ -129,6 +147,8 @@ fill_parameters <- function(parameters,data_structure){
       }))
     if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1])
   }
+
+
 
 	return(parameters)
 
