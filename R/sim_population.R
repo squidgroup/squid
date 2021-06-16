@@ -5,6 +5,11 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   
   param <- fill_parameters(parameters,data_structure)
 
+  j <- n_phenotypes(param)
+
+  if(j > 1 & !missing("model")) stop("Currently cannot specify multiple phenotypes and a model formula")
+
+
   traits <- do.call(cbind, lapply( names(param), function(i){
     p <- param[[i]]
     k <- length(p$mean)
@@ -21,19 +26,19 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     return(x)
   }))
 
-  ## this isn't going to work if betas has multiple rows 
-  betas <- do.call(cbind,lapply(param,function(x) x$beta))
+  ## put all betas together
+  betas <- do.call(rbind,lapply(param,function(x) x$beta))
 
   ## evaluate model
   ## - if model is missing, add all simulated traits together
   if(missing("model")) {
-    z <- traits %*% t(betas)
-    
+    z <- traits %*% betas
+    colnames(z) <- if(j==1)"z" else paste0("z",1:j)
   } else {
     ## for more complex evaluation, 
       ##- need to integrate multivariate
 
-    z_traits <- cbind(traits %*% diag(betas),traits,data_structure)
+    z_traits <- cbind(traits %*% diag(as.vector(betas)),traits,data_structure)
     colnames(z_traits) <- c(colnames(traits), paste0(colnames(traits),"_raw"), paste0(colnames(data_structure),"_ID"))
 
     ## extract extra parameters
