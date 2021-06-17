@@ -1,4 +1,4 @@
-sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity"){
+sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree){
 
   if(!link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit")) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!family %in% c("gaussian", "poisson", "binomial")) stop("Family must be 'gaussian', 'poisson', 'binomial'")
@@ -9,6 +9,19 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
   if(j > 1 & !missing("model")) stop("Currently cannot specify multiple phenotypes and a model formula")
 
+  ## check pedigree is list, make one if not
+  if(missing(pedigree)){
+    pedigree <-list()
+  }else{
+    if(!is.list(pedigree) | is.data.frame(pedigree)) stop("pedigree needs to be a list")
+  }
+  ## check pedigree levels match data structure levels
+  # lapply(names(pedigree))
+
+  # unique(data_structure[,param[[i]]$group])
+  # unique(pedigree[[i]][,1])
+
+
 
   traits <- do.call(cbind, lapply( names(param), function(i){
     p <- param[[i]]
@@ -16,8 +29,13 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     n <- p$n_level
 
 	  ## simulate 'traits' at each level from multivariate normal 
-    x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov) + matrix(p$mean, n, k, byrow=TRUE)
-
+    ## if name is listed in pedigree argument, link to pedigree
+    if(i %in% names(pedigree)){
+      x <- MCMCglmm::rbv(pedigree[[i]],p$cov)
+    }else{
+      x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov) + matrix(p$mean, n, k, byrow=TRUE)  
+    }
+    
     ## expand traits to be the same length as the number of observations using data structure  
     if(i!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
     
