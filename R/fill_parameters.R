@@ -121,8 +121,7 @@ fill_parameters <- function(parameters,data_structure){
   ##check whether all betas have same dimension
   j <- n_phenotypes(parameters)
 
-  ## Check whether all names in data_structure and parameters contain only words, digits and _
-  if(!all(grepl("^\\w+$",c(do.call(c,lapply(parameters,function(x) x$names)), colnames(data_structure))))) stop("Names in data structure and in parameters must be letters, numbers or _", call.=FALSE)
+
 
   ##Check extra parameters
   param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
@@ -145,8 +144,13 @@ fill_parameters <- function(parameters,data_structure){
     if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1], call.=FALSE)
   }
 
+  ## Check whether all names in data_structure and parameters contain only words, digits and _
+  all_names <- c(e_p, do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure))
 
+  if(!all(grepl("^\\w+$",all_names))) stop("Names in data structure and in parameters must be letters, numbers or _", call.=FALSE)
 
+  ### check no names are repeated!!
+  if(any(duplicated(all_names))) stop("Names in data structure and in parameters must be unique")
 	return(parameters)
 
 }
