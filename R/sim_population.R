@@ -37,7 +37,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     }
     
     ## expand traits to be the same length as the number of observations using data structure  
-    if(i!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
+    if(p$group!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
     
     ## use names form parameter list 
     colnames(x) <- p$names
@@ -51,10 +51,8 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   ## - if model is missing, add all simulated traits together
   if(missing("model")) {
     z <- traits %*% betas
-    colnames(z) <- if(j==1)"z" else paste0("z",1:j)
   } else {
-    ## for more complex evaluation, 
-      ##- need to integrate multivariate
+    ## for evaluation with model formula 
 
     z_traits <- cbind(traits %*% diag(as.vector(betas)),traits,data_structure)
     colnames(z_traits) <- c(colnames(traits), paste0(colnames(traits),"_raw"), paste0(colnames(data_structure),"_ID"))
@@ -64,12 +62,13 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     extra_param <- unlist(sapply(parameters, function(x){
     x[!names(x) %in% param_names]
     }))
-    names(extra_param) <- unlist(sapply(parameters, function(x){
-    names(x)[!names(x) %in% param_names]
-    }))
-
-    ## check extra param names dont clash with z_trait names
-    if(any(names(extra_param) %in% colnames(z_traits))) stop("You cannot name extra parameters the same as any variables")
+    if(!is.null(extra_param)){
+      names(extra_param) <- unlist(sapply(parameters, function(x){
+        names(x)[!names(x) %in% param_names]
+        }))
+      ## check extra param names dont clash with z_trait names
+      if(any(names(extra_param) %in% colnames(z_traits))) stop("You cannot name extra parameters the same as any variables")
+    }
 
     ## allow I() and subsets to be properly linked to z_traits
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
@@ -77,13 +76,15 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
     # evaluate the formula in the context of _tratis and the extra params
   	z <- eval(parse(text=model), envir = c(as.data.frame(z_traits),as.list(extra_param)))
+    if(is.vector(z))
+      z <- matrix(z)
   }
   ## add extra list elements into z_traits
 
   inv <- function(x) 1/x
 
   ## convert the link argument into an actual function
-  link_function <- if(link=="log") "exp" else 
+  link_function <- if(link=="log") "exp" else
     if(link=="inverse") "inv" else 
     if(link=="logit") "plogis" else 
     if(link=="probit") "pnorm" else link
@@ -93,14 +94,23 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   
   ## sample from poisson or binomial 
   z_family <- if(family=="gaussian") z_link else 
-    if(family=="poisson") rpois(length(z_link),z_link) else 
-    if(family=="binomial") rbinom(length(z_link),1,z_link)
+    if(family=="poisson") matrix(rpois(length(z_link),z_link), nrow(z), ncol(z)) else 
+    if(family=="binomial") matrix(rbinom(length(z_link),1,z_link), nrow(z), ncol(z))
 
   # in output traits, if name matches something in data_stricture, then append "_effects"
   matching_names <- colnames(traits) %in% colnames(data_structure)
   colnames(traits)[matching_names] <- paste0(colnames(traits)[matching_names],"_effects")
   
-  out <- as.data.frame(cbind(z=z_family,traits,data_structure))
+  if(is.null(colnames(z_family))){
+    if(is.null(colnames(z))){
+      colnames(z_family) <- if(ncol(z_family)==1)"z" else paste0("z",1:ncol(z_family))
+    }
+    else{
+      colnames(z_family) <- colnames(z)
+    }
+  }
+
+  out <- as.data.frame(cbind(z_family,traits,data_structure))
   return(out)
 }
 
