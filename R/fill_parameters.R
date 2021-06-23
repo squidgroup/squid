@@ -76,7 +76,7 @@ fill_parameters <- function(parameters,data_structure){
     k <- unique(lengths[lengths>0])
     if(length(k) != 1) stop("The number of parameters given for ", i, " are not consistent", call.=FALSE)
     
-    
+
     # Check whether names specified
     # If not, generate names (length k)
     if(is.null(parameters[[i]]$names)){
@@ -85,6 +85,26 @@ fill_parameters <- function(parameters,data_structure){
     }else if(!is.vector(parameters[[i]]$names)){
       stop("'names' should be a vector", call.=FALSE)
     }
+
+    ## Check whether number of levels is specified
+    # - if no take from data structure 
+    # - if yes check it matches data structure  
+    if(is.null(parameters[[i]]$n_level)){
+      if(parameters[[i]]$group=="residual") {
+          parameters[[i]]$n_level <- nrow(data_structure)
+      } else {
+      parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
+      }
+    } else {
+      
+    }
+
+    ## fixed
+    if(is.null(parameters[[i]]$fixed)) parameters[[i]]$fixed <- FALSE
+    
+    if(parameters[[i]]$fixed & parameters[[i]]$n_level != k) stop("If fixed=TRUE, number of parameters should match the number of levels in grouping factor", call.=FALSE)
+    
+    if(parameters[[i]]$fixed & is.null(parameters[[i]]$beta)) stop("If fixed =TRUE, beta also needs to be specified", call.=FALSE)
 
     # Check whether mean specified
     # If not, rep(0,k)
@@ -102,18 +122,6 @@ fill_parameters <- function(parameters,data_structure){
     # If not, rep(1,k)
     if(is.null(parameters[[i]]$beta)) parameters[[i]]$beta <- matrix(rep(1,k))
 
-    ## Check whether number of levels is specified
-    # - if no take from data structure 
-    # - if yes check it matches data structure 	
-    if(is.null(parameters[[i]]$n_level)){
-	    if(parameters[[i]]$group=="residual") {
-          parameters[[i]]$n_level <- nrow(data_structure)
-      } else {
-		  parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
-      }
-	  } else {
-      
-	  }
 
   
   }
@@ -122,7 +130,7 @@ fill_parameters <- function(parameters,data_structure){
   j <- n_phenotypes(parameters)
 
   ##Check extra parameters
-  param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
+  param_names <- c("names", "group", "mean", "cov", "beta", "n_level", "fixed")
 
   e_p <- unlist(sapply(parameters, function(x){
     names(x)[!names(x) %in% param_names]

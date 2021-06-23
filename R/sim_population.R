@@ -29,16 +29,22 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     n <- p$n_level
 
 	  ## simulate 'traits' at each level from multivariate normal 
-    ## if name is listed in pedigree argument, link to pedigree
-    if(i %in% names(pedigree)){
-      x <- MCMCglmm::rbv(pedigree[[i]],p$cov)
+    
+    if(p$fixed){
+      
+      x<-model.matrix(formula(paste("~ factor(",p$group,")-1")),as.data.frame(data_structure))
+      # x<- p$mean[data_structure[,p$group]]
     }else{
-      x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov) + matrix(p$mean, n, k, byrow=TRUE)  
+      ## if name is listed in pedigree argument, link to pedigree
+      if(i %in% names(pedigree)){
+          x <- MCMCglmm::rbv(pedigree[[i]],p$cov)
+      }else{
+        x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov) + matrix(p$mean, n, k, byrow=TRUE)  
+      }
+      
+      ## expand traits to be the same length as the number of observations using data structure  
+      if(p$group!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
     }
-    
-    ## expand traits to be the same length as the number of observations using data structure  
-    if(p$group!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
-    
     ## use names form parameter list 
     colnames(x) <- p$names
     return(x)
