@@ -51,6 +51,8 @@ fill_parameters <- function(parameters,data_structure){
         if(nrow(parameters[[i]]$cov)!=ncol(parameters[[i]]$cov)) stop("need square cov matrix for ",i, call.=FALSE)
         if(!isSymmetric(parameters[[i]]$cov)) stop("cov matrix should be symmetric for ",i, call.=FALSE)
           #any(x[lower.tri(x)] != x[upper.tri(x)])
+        if(any(eigen(parameters[[i]]$cov)$values<0))stop("cov matrix should be positive definite for ",i, call.=FALSE)
+)
       }else if(is.vector(parameters[[i]]$cov)){
         parameters[[i]]$cov <- if(length(parameters[[i]]$cov)==1) as.matrix(parameters[[i]]$cov) else diag(parameters[[i]]$cov)
       }else{
