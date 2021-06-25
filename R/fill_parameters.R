@@ -63,10 +63,20 @@ fill_parameters <- function(parameters,data_structure){
     if(!is.null(parameters[[i]]$beta)){
       if(is.vector(parameters[[i]]$beta)){
         parameters[[i]]$beta <- matrix(parameters[[i]]$beta)
-      }else if(!is.matrix(parameters[[i]]$beta)){stop("'beta' should be a vector or matrix", call.=FALSE)
+      }else if(!is.matrix(parameters[[i]]$beta)){stop("'beta' in ", i, " should be a vector or matrix", call.=FALSE)
       }
-    }
-    
+      if(is.null(parameters[[i]]$n_response)){ 
+        parameters[[i]]$n_response <- ncol(parameters[[i]]$beta)
+      }else if(parameters[[i]]$n_response != ncol(parameters[[i]]$beta)){ 
+        stop("number of columns in beta is not the same as n_response for ",i, call.=FALSE)
+      }
+    }else{ 
+      if(is.null(parameters[[i]]$n_response)){ 
+        parameters[[i]]$n_response <- 1
+      }else if(parameters[[i]]$n_response>1){ parameters[[i]]$beta <- diag(parameters[[i]]$n_response)
+      }
+    } 
+
     # Work out number of variables at that level (k)
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
     lengths <- c(length(parameters[[i]]$names),
@@ -118,12 +128,11 @@ fill_parameters <- function(parameters,data_structure){
     # Check whether cov specified
     # If not, diag(k)
     if(is.null(parameters[[i]]$cov)) parameters[[i]]$cov <- diag(k)
-
-    # Check whether beta specified
-    # If not, rep(1,k)
-    if(is.null(parameters[[i]]$beta)) parameters[[i]]$beta <- matrix(rep(1,k))
-
-
+    
+    # Check whether beta and n_response specified
+    if(is.null(parameters[[i]]$beta)){
+      parameters[[i]]$beta <- matrix(1,k,parameters[[i]]$n_response)
+    }
   
   }
 
@@ -131,7 +140,7 @@ fill_parameters <- function(parameters,data_structure){
   j <- n_phenotypes(parameters)
 
   ##Check extra parameters
-  param_names <- c("names", "group", "mean", "cov", "beta", "n_level", "fixed")
+  param_names <- c("names", "group", "mean", "cov", "beta", "n_level", "fixed", "n_response")
 
   e_p <- unlist(sapply(parameters, function(x){
     names(x)[!names(x) %in% param_names]
