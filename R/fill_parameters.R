@@ -41,7 +41,7 @@ fill_parameters <- function(parameters,data_structure){
 
   #i <- names(parameters)[1]
   for (i in names(parameters)){
-    
+    # p <- parameters[[i]]
     # If cov is not a matrix, make it one. Need to do this before working out k, as code below requires a matrix
     # if its a matrix check its square and symmetric
     # if its a vector, make its the diagonal of a square matrix
@@ -94,7 +94,16 @@ fill_parameters <- function(parameters,data_structure){
       if(k==1) parameters[[i]]$names <- i
       if(k>1) parameters[[i]]$names <- paste(i,1:k,sep="_")
     }else if(!is.vector(parameters[[i]]$names)){
-      stop("'names' should be a vector", call.=FALSE)
+      stop("'names' should be a vector for ", i, call.=FALSE)
+    }
+    # check everything is not just interaction terms
+    if(!any(!grepl(":",parameters[[i]]$names))){
+     stop("'names' only include interaction terms for ", i, call.=FALSE) 
+    }
+    ## check that all main effects are also specified along with interactions
+    interactions <- grepl(":",parameters[[i]]$names)
+    if(!all(c(strsplit(parameters[[i]]$names[interactions],":"), recursive=TRUE) %in% parameters[[i]]$names[!interactions] )){
+      stop("'names' doesn't include all variables included in interactions for ", i, call.=FALSE) 
     }
 
     ## Check whether number of levels is specified
@@ -160,7 +169,7 @@ fill_parameters <- function(parameters,data_structure){
     if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1], call.=FALSE)
   }
 
-  ## Check whether all names in data_structure and parameters contain only words, digits and _
+  ## Check whether all names in data_structure and parameters contain only words, digits, : and _
   all_names <- c(e_p, do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure))
 
   if(!all(grepl("^[A-z0-9_:]*$",all_names))) stop("Names in data structure and in parameters must be alphanumeric, '_' or ':'", call.=FALSE)
