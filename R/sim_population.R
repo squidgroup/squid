@@ -1,3 +1,53 @@
+sim_predictors <- function(param, data_structure, pedigree){
+  
+  traits <- do.call(cbind, lapply( names(param), function(i){  
+
+# i<-"residual"
+    p <- param[[i]]
+    
+    ## sort out which are interactions   
+    interactions <- grepl(":",p$names)
+
+    # k <- length(p$mean)
+    k <- sum(!interactions)
+    n <- p$n_level
+
+    ## simulate 'traits' at each level from multivariate normal 
+    if(p$fixed){
+      
+      x<-model.matrix(formula(paste("~ factor(",p$group,")-1")),as.data.frame(data_structure))
+      # x<- p$mean[data_structure[,p$group]]
+
+      ## work out what to do with fixed effects and interactions
+
+    }else{
+      ## if name is listed in pedigree argument, link to pedigree
+      if(i %in% names(pedigree)){
+          x <- MCMCglmm::rbv(pedigree[[i]],p$cov[!interactions,!interactions])
+      }else{
+        x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov[!interactions,!interactions]) + matrix(p$mean[!interactions], n, k, byrow=TRUE)  
+      }
+      
+      ## expand traits to be the same length as the number of observations using data structure  
+      if(p$group!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
+    }
+    ## use names form parameter list 
+    colnames(x) <- p$names[!interactions]
+
+    ## add in interactions
+    y <- do.call(cbind,lapply(strsplit(p$names[interactions],":"), function(j){
+        eval(parse(text=paste(j, collapse="*")), envir = as.data.frame(x) )
+    }))
+    if(sum(interactions)>0) colnames(y) <- p$names[interactions]
+
+    cbind(x,y)
+  
+  }))
+  
+  return(traits)
+}
+
+
 sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree){
 
   if(!link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit")) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
@@ -7,7 +57,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
   j <- n_phenotypes(param)
 
-  if(j > 1 & !missing("model")) stop("Currently cannot specify multiple phenotypes and a model formula")
+  if(j > 1 & !missing("model")) stop("Currently cannot specify multiple responses and a model formula")
 
   ## check pedigree is list, make one if not
   if(missing(pedigree)){
@@ -21,47 +71,20 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   # unique(data_structure[,param[[i]]$group])
   # unique(pedigree[[i]][,1])
 
-
-
-  traits <- do.call(cbind, lapply( names(param), function(i){
-    p <- param[[i]]
-    k <- length(p$mean)
-    n <- p$n_level
-
-	  ## simulate 'traits' at each level from multivariate normal 
-    
-    if(p$fixed){
-      
-      x<-model.matrix(formula(paste("~ factor(",p$group,")-1")),as.data.frame(data_structure))
-      # x<- p$mean[data_structure[,p$group]]
-    }else{
-      ## if name is listed in pedigree argument, link to pedigree
-      if(i %in% names(pedigree)){
-          x <- MCMCglmm::rbv(pedigree[[i]],p$cov)
-      }else{
-        x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov) + matrix(p$mean, n, k, byrow=TRUE)  
-      }
-      
-      ## expand traits to be the same length as the number of observations using data structure  
-      if(p$group!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
-    }
-    ## use names form parameter list 
-    colnames(x) <- p$names
-    return(x)
-  }))
+  predictors <- sim_predictors(param, data_structure, pedigree)
 
   ## put all betas together
   betas <- do.call(rbind,lapply(param,function(x) x$beta))
 
   ## evaluate model
-  ## - if model is missing, add all simulated traits together
+  ## - if model is missing, add all simulated predictors together
   if(missing("model")) {
-    z <- traits %*% betas
+    z <- predictors %*% betas
   } else {
     ## for evaluation with model formula 
 
-    z_traits <- cbind(traits %*% diag(as.vector(betas)),traits,data_structure)
-    colnames(z_traits) <- c(colnames(traits), paste0(colnames(traits),"_raw"), paste0(colnames(data_structure),"_ID"))
+    z_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,data_structure)
+    colnames(z_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), paste0(colnames(data_structure),"_ID"))
 
     ## extract extra parameters
     param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
@@ -73,19 +96,19 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
         names(x)[!names(x) %in% param_names]
         }))
       ## check extra param names dont clash with z_trait names
-      if(any(names(extra_param) %in% colnames(z_traits))) stop("You cannot name extra parameters the same as any variables")
+      if(any(names(extra_param) %in% colnames(z_predictors))) stop("You cannot name extra parameters the same as any variables")
     }
 
-    ## allow I() and subsets to be properly linked to z_traits
+    ## allow I() and subsets to be properly linked to z_predictors
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
     model <- gsub("\\[(\\w+)\\]","\\[\\1_ID\\]",model)
 
     # evaluate the formula in the context of _tratis and the extra params
-  	z <- eval(parse(text=model), envir = c(as.data.frame(z_traits),as.list(extra_param)))
+  	z <- eval(parse(text=model), envir = c(as.data.frame(z_predictors),as.list(extra_param)))
     if(is.vector(z))
       z <- matrix(z)
   }
-  ## add extra list elements into z_traits
+  ## add extra list elements into z_predictors
 
   inv <- function(x) 1/x
 
@@ -103,9 +126,9 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     if(family=="poisson") matrix(rpois(length(z_link),z_link), nrow(z), ncol(z)) else 
     if(family=="binomial") matrix(rbinom(length(z_link),1,z_link), nrow(z), ncol(z))
 
-  # in output traits, if name matches something in data_stricture, then append "_effects"
-  matching_names <- colnames(traits) %in% colnames(data_structure)
-  colnames(traits)[matching_names] <- paste0(colnames(traits)[matching_names],"_effects")
+  # in output predictors, if name matches something in data_stricture, then append "_effects"
+  matching_names <- colnames(predictors) %in% colnames(data_structure)
+  colnames(predictors)[matching_names] <- paste0(colnames(predictors)[matching_names],"_effects")
   
   if(is.null(colnames(z_family))){
     if(is.null(colnames(z))){
@@ -116,10 +139,10 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     }
   }
 
-  out <- as.data.frame(cbind(z_family,traits,data_structure))
+  out <- as.data.frame(cbind(z_family,predictors,data_structure))
   return(out)
 }
 
-## problem that by default the traits and the level IDs will have the same names
+## problem that by default the predictors and the level IDs will have the same names
 ## - maybe append "_effects"
 

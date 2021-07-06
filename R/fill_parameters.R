@@ -175,7 +175,10 @@ fill_parameters <- function(parameters,data_structure){
   if(!all(grepl("^[A-z0-9_:]*$",all_names))) stop("Names in data structure and in parameters must be alphanumeric, '_' or ':'", call.=FALSE)
 
   ### check no names are repeated!!
-  if(any(duplicated(e_p)) || any(e_p %in% c(do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure)))) stop("Additional parameters names must be unique")
+  if(any(duplicated(e_p)) || any(e_p %in% c(do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure)))) stop("Additional parameters names must be unique", call.=FALSE)
+
+  ### check all names have at least 1 character!!
+  if(any(nchar(c(do.call(c, lapply(parameters,function(x) x$names)), e_p, colnames(data_structure)))==0 )) stop("Specified names must have nchar>0", call.=FALSE)
 	return(parameters)
 
 
