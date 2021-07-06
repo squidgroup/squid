@@ -48,16 +48,63 @@ sim_predictors <- function(param, data_structure, pedigree){
 }
 
 
+transform_dist <- function(z, family, link){
+
+  inv <- function(x) 1/x
+
+  j <- ncol(z)
+
+  if(length(link)==1 & j>1) link <- rep(link,j)
+  if(length(family)==1 & j>1) family <- rep(family,j)
+
+  ## convert the link argument into an actual function
+  link_function <- 
+  ifelse(link=="log", "exp", 
+  ifelse(link=="inverse", "inv", 
+  ifelse (link=="logit", "plogis", 
+  ifelse (link=="probit", "pnorm", 
+   link))))
+  
+
+  z_family <-  sapply(1:j,function(i){
+    ## apply link function to z
+    z_link <- get(link_function[i])(z[,i])
+    ## sample from poisson or binomial 
+    if(family[i]=="gaussian") z_link else 
+    if(family[i]=="poisson") rpois(length(z_link),z_link) else 
+    if(family[i]=="binomial") rbinom(length(z_link),1,z_link)
+  })
+  
+  if(is.null(colnames(z))){
+    colnames(z_family) <- if(j==1)"z" else paste0("z",1:j)
+  }
+  else{
+    colnames(z_family) <- colnames(z)
+  }
+
+  return(z_family)
+}
+
+
 sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree){
 
-  if(!link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit")) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
-  if(!family %in% c("gaussian", "poisson", "binomial")) stop("Family must be 'gaussian', 'poisson', 'binomial'")
-  
   param <- fill_parameters(parameters,data_structure)
 
   j <- n_phenotypes(param)
 
   if(j > 1 & !missing("model")) stop("Currently cannot specify multiple responses and a model formula")
+
+
+  if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
+  if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
+  
+  if(!(length(link)==j || length(link)==1)){
+    stop("Link must either be length 1 or same length as the number of parameters")
+  }
+  if(!(length(family)==j || length(family)==1)){
+    stop("Link must either be length 1 or same length as the number of parameters")
+  }
+
 
   ## check pedigree is list, make one if not
   if(missing(pedigree)){
@@ -108,36 +155,14 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     if(is.vector(z))
       z <- matrix(z)
   }
-  ## add extra list elements into z_predictors
 
-  inv <- function(x) 1/x
 
-  ## convert the link argument into an actual function
-  link_function <- if(link=="log") "exp" else
-    if(link=="inverse") "inv" else 
-    if(link=="logit") "plogis" else 
-    if(link=="probit") "pnorm" else link
-  
-  ## apply link function to z
-  z_link <- get(link_function)(z)
-  
-  ## sample from poisson or binomial 
-  z_family <- if(family=="gaussian") z_link else 
-    if(family=="poisson") matrix(rpois(length(z_link),z_link), nrow(z), ncol(z)) else 
-    if(family=="binomial") matrix(rbinom(length(z_link),1,z_link), nrow(z), ncol(z))
+  z_family <- transform_dist(z, family, link)
 
   # in output predictors, if name matches something in data_stricture, then append "_effects"
   matching_names <- colnames(predictors) %in% colnames(data_structure)
   colnames(predictors)[matching_names] <- paste0(colnames(predictors)[matching_names],"_effects")
   
-  if(is.null(colnames(z_family))){
-    if(is.null(colnames(z))){
-      colnames(z_family) <- if(ncol(z_family)==1)"z" else paste0("z",1:ncol(z_family))
-    }
-    else{
-      colnames(z_family) <- colnames(z)
-    }
-  }
 
   out <- as.data.frame(cbind(z_family,predictors,data_structure))
   return(out)
