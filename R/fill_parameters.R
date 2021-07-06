@@ -163,7 +163,7 @@ fill_parameters <- function(parameters,data_structure){
   ## Check whether all names in data_structure and parameters contain only words, digits and _
   all_names <- c(e_p, do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure))
 
-  if(!all(grepl("^\\w+$",all_names))) stop("Names in data structure and in parameters must be letters, numbers or _", call.=FALSE)
+  if(!all(grepl("^[A-z0-9_:]*$",all_names))) stop("Names in data structure and in parameters must be alphanumeric, '_' or ':'", call.=FALSE)
 
   ### check no names are repeated!!
   if(any(duplicated(e_p)) || any(e_p %in% c(do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure)))) stop("Additional parameters names must be unique")
