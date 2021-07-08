@@ -89,6 +89,8 @@ transform_dist <- function(z, family, link){
 
 sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree){
 
+  if(missing(data_structure))data_structure <- NULL
+
   param <- fill_parameters(parameters,data_structure)
 
   j <- n_phenotypes(param)
@@ -108,8 +110,12 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
 
   ## index data_structure
-  str_index <- apply(data_structure,2,function(x) as.numeric(factor(x)))
-
+  if(is.null(data_structure)){
+    str_index <- NULL
+  }else{
+    str_index <- apply(data_structure,2,function(x) as.numeric(factor(x)))
+  }
+  
   ## check pedigree is list, make one if not
   if(missing(pedigree)){
     pedigree <-list()

@@ -36,8 +36,7 @@ fill_parameters <- function(parameters,data_structure){
   group_names <- sapply(parameters,function(x) x$group)
 
   ## check data_structure
-  if(missing(data_structure)){
-    data_structure <- NULL
+  if(is.null(data_structure)){
     if(any(!group_names %in% c("observation","residual"))) stop("data_structure must be specified if there are more groups than 'observation' and 'residual' in parameter list", call.=FALSE)
   }else{
     if(!(is.matrix(data_structure)|is.data.frame(data_structure))) stop("data_structure is not a matrix or data.frame", call.=FALSE)   
