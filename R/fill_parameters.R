@@ -14,10 +14,10 @@ fill_parameters <- function(parameters,data_structure){
   # Check whether list is given
   if(!is.list(parameters)) stop("parameters are not provided as a list", call.=FALSE)
 
-  	# if(exists("data_structure"))
+  	# 
 
-  ## check data_structure
-  if(!(is.matrix(data_structure)|is.data.frame(data_structure))) stop("data_structure is not a matrix or data.frame", call.=FALSE)
+
+  
 
   # Check whether group specified -If not, then give name in list
   # Check whether length(group)==1 - If not, give warning and use only first group
@@ -34,6 +34,14 @@ fill_parameters <- function(parameters,data_structure){
   }
 
   group_names <- sapply(parameters,function(x) x$group)
+
+  ## check data_structure
+  if(missing(data_structure)){
+    data_structure <- NULL
+    if(any(!group_names %in% c("observation","residual"))) stop("data_structure must be specified if there are more groups than 'observation' and 'residual' in parameter list", call.=FALSE)
+  }else{
+    if(!(is.matrix(data_structure)|is.data.frame(data_structure))) stop("data_structure is not a matrix or data.frame", call.=FALSE)   
+  } 
 
   # User has to specify a "residual" level
   if(! "residual" %in% group_names) stop("One of the parameters groups must be 'residual'", call.=FALSE)
@@ -115,15 +123,19 @@ fill_parameters <- function(parameters,data_structure){
     ## Check whether number of levels is specified
     # - if no take from data structure 
     # - if yes check it matches data structure  
+    
     if(is.null(parameters[[i]]$n_level)){
-      if(parameters[[i]]$group %in% c("observation","residual")) {
+      if(is.null(data_structure)){ 
+        stop("If data_structure is not specified n_level must be specified in parameter list", call.=FALSE)
+      }else if(parameters[[i]]$group %in% c("observation","residual")) {
           parameters[[i]]$n_level <- nrow(data_structure)
-      } else {
-      parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
+      }else{
+          parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
       }
-    } else {
-      
+    }else if(!is.null(data_structure) && parameters[[i]]$n_level != length(unique(data_structure[,parameters[[i]]$group]))){
+      stop("If specified n_level must match the number of levels for a given grouping factor", call.=FALSE)
     }
+
 
     ## fixed
     if(is.null(parameters[[i]]$fixed)) parameters[[i]]$fixed <- FALSE
@@ -201,15 +213,8 @@ fill_parameters <- function(parameters,data_structure){
 
   ### check all names have at least 1 character!!
   if(any(nchar(c(pred_names, e_p, colnames(data_structure)))==0 )) stop("Specified names must have nchar>0", call.=FALSE)
+
 	return(parameters)
-
-
-
-
 
 }
 
-
-
-### possibly make it so that if data_structure is not specified then make one with completely crossed random effects?
-### then you would need to specify the number of levels
