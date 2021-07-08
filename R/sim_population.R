@@ -30,18 +30,18 @@ sim_predictors <- function(param, data_structure, pedigree){
       }
       
       ## expand traits to be the same length as the number of observations using data structure  
-      if(p$group!="residual") x <- x[data_structure[,p$group],,drop=FALSE]
+      if(!p$group %in% c("observation","residual")) x <- x[data_structure[,p$group],,drop=FALSE]
     }
     ## use names form parameter list 
     colnames(x) <- p$names[!interactions]
 
     ## add in interactions
-    y <- do.call(cbind,lapply(strsplit(p$names[interactions],":"), function(j){
+    x_int <- do.call(cbind,lapply(strsplit(p$names[interactions],":"), function(j){
         eval(parse(text=paste(j, collapse="*")), envir = as.data.frame(x) )
     }))
-    if(sum(interactions)>0) colnames(y) <- p$names[interactions]
+    if(sum(interactions)>0) colnames(x_int) <- p$names[interactions]
 
-    cbind(x,y)
+    cbind(x,x_int)
   
   }))
   

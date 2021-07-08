@@ -33,11 +33,16 @@ fill_parameters <- function(parameters,data_structure){
     parameters[[i]]$group <- group
   }
 
+  group_names <- sapply(parameters,function(x) x$group)
+
   # User has to specify a "residual" level
-  if(! "residual" %in% sapply(parameters,function(x) x$group)) stop("One of the parameters groups must be 'residual'", call.=FALSE)
+  if(! "residual" %in% group_names) stop("One of the parameters groups must be 'residual'", call.=FALSE)
  
   # Check whether all groups match ones in data structure - If not, give error
-  if(any(!sapply(parameters,function(x) x$group) %in% c(colnames(data_structure),"residual"))) stop("Group names in parameter list do not match group names in data_structure", call.=FALSE)
+  if(any(!group_names %in% c(colnames(data_structure),"observation","residual"))) stop("Group names in parameter list do not match group names in data_structure", call.=FALSE)
+
+  # Check no group is called observation or residual - If not, give error
+  if(any(colnames(data_structure) %in% c("observation","residual"))) stop("'observation' and 'residual' are reserved names for grouping factors. Please rename grouping factors in data_structure", call.=FALSE)
 
   #i <- names(parameters)[1]
   for (i in names(parameters)){
@@ -111,7 +116,7 @@ fill_parameters <- function(parameters,data_structure){
     # - if no take from data structure 
     # - if yes check it matches data structure  
     if(is.null(parameters[[i]]$n_level)){
-      if(parameters[[i]]$group=="residual") {
+      if(parameters[[i]]$group %in% c("observation","residual")) {
           parameters[[i]]$n_level <- nrow(data_structure)
       } else {
       parameters[[i]]$n_level <- length(unique(data_structure[,parameters[[i]]$group]))
