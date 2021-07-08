@@ -42,18 +42,19 @@ fill_parameters <- function(parameters,data_structure){
   #i <- names(parameters)[1]
   for (i in names(parameters)){
     # p <- parameters[[i]]
+    
     # If cov is not a matrix, make it one. Need to do this before working out k, as code below requires a matrix
     # if its a matrix check its square and symmetric
     # if its a vector, make its the diagonal of a square matrix
     # if neither give error
-    if(!is.null(parameters[[i]]$cov)){
-      if(is.matrix(parameters[[i]]$cov)){
-        if(nrow(parameters[[i]]$cov)!=ncol(parameters[[i]]$cov)) stop("need square cov matrix for ",i, call.=FALSE)
-        if(!isSymmetric(parameters[[i]]$cov)) stop("cov matrix should be symmetric for ",i, call.=FALSE)
+    if(!is.null(parameters[[i]][["cov"]])){
+      if(is.matrix(parameters[[i]][["cov"]])){
+        if(nrow(parameters[[i]][["cov"]])!=ncol(parameters[[i]][["cov"]])) stop("need square cov matrix for ",i, call.=FALSE)
+        if(!isSymmetric(parameters[[i]][["cov"]])) stop("cov matrix should be symmetric for ",i, call.=FALSE)
           #any(x[lower.tri(x)] != x[upper.tri(x)])
-        if(any(eigen(parameters[[i]]$cov)$values<0))stop("cov matrix should be positive definite for ",i, call.=FALSE)
-      }else if(is.vector(parameters[[i]]$cov)){
-        parameters[[i]]$cov <- if(length(parameters[[i]]$cov)==1) as.matrix(parameters[[i]]$cov) else diag(parameters[[i]]$cov)
+        if(any(eigen(parameters[[i]][["cov"]])$values<0))stop("cov matrix should be positive definite for ",i, call.=FALSE)
+      }else if(is.vector(parameters[[i]][["cov"]])){
+        parameters[[i]][["cov"]] <- if(length(parameters[[i]][["cov"]])==1) as.matrix(parameters[[i]][["cov"]]) else diag(parameters[[i]][["cov"]])
       }else{
         stop("cov must be a symmetric square matrix or a vector", call.=FALSE)
       }
@@ -81,7 +82,7 @@ fill_parameters <- function(parameters,data_structure){
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
     lengths <- c(length(parameters[[i]]$names),
     	length(parameters[[i]]$mean),
-    	ncol(parameters[[i]]$cov),
+    	ncol(parameters[[i]][["cov"]]),
     	nrow(parameters[[i]]$beta) ## possibly change this if allowing matrix of sds for multivariate
     )
     k <- unique(lengths[lengths>0])
@@ -126,6 +127,16 @@ fill_parameters <- function(parameters,data_structure){
     
     if(parameters[[i]]$fixed & is.null(parameters[[i]]$beta)) stop("If fixed =TRUE, beta also needs to be specified", call.=FALSE)
 
+    # Check whether covariate is specified
+    if(is.null(parameters[[i]]$covariate)) parameters[[i]]$covariate <- FALSE
+  
+    if(parameters[[i]]$covariate & (!is.null(parameters[[i]]$mean) || !is.null(parameters[[i]][["cov"]]))) warning("Covariate=TRUE for ",i,", so mean and cov are ignored", call.=FALSE)
+    
+    if(parameters[[i]]$covariate & is.null(parameters[[i]]$beta)) stop("If covariate =TRUE, beta also needs to be specified", call.=FALSE)
+
+    if(parameters[[i]]$covariate & is.null(parameters[[i]]$fixed)) stop("covariate =TRUE and fixed=TRUE for ", i, call.=FALSE)
+
+
     # Check whether mean specified
     # If not, rep(0,k)
     if(is.null(parameters[[i]]$mean)){
@@ -136,20 +147,23 @@ fill_parameters <- function(parameters,data_structure){
     
     # Check whether cov specified
     # If not, diag(k)
-    if(is.null(parameters[[i]]$cov)) parameters[[i]]$cov <- diag(k)
+    if(is.null(parameters[[i]][["cov"]])) parameters[[i]][["cov"]] <- diag(k)
     
-    # Check whether beta and n_response specified
+    # Check whether beta specified
     if(is.null(parameters[[i]]$beta)){
       parameters[[i]]$beta <- matrix(1,k,parameters[[i]]$n_response)
     }
-  
+
+
+
+
   }
 
   ##check whether all betas have same dimension
   j <- n_phenotypes(parameters)
 
   ##Check extra parameters
-  param_names <- c("names", "group", "mean", "cov", "beta", "n_level", "fixed", "n_response")
+  param_names <- c("names", "group", "mean", "cov", "beta", "n_level", "fixed", "n_response", "covariate")
 
   e_p <- unlist(sapply(parameters, function(x){
     names(x)[!names(x) %in% param_names]
@@ -170,15 +184,18 @@ fill_parameters <- function(parameters,data_structure){
   }
 
   ## Check whether all names in data_structure and parameters contain only words, digits, : and _
-  all_names <- c(e_p, do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure))
+  pred_names <- do.call(c, lapply(parameters,function(x) x$names))
+  if(any(duplicated(pred_names))) stop("Predictor names must be unique", call.=FALSE)
+  
+  all_names <- c(e_p, pred_names, colnames(data_structure))
 
   if(!all(grepl("^[A-z0-9_:]*$",all_names))) stop("Names in data structure and in parameters must be alphanumeric, '_' or ':'", call.=FALSE)
 
   ### check no names are repeated!!
-  if(any(duplicated(e_p)) || any(e_p %in% c(do.call(c, lapply(parameters,function(x) x$names)), colnames(data_structure)))) stop("Additional parameters names must be unique", call.=FALSE)
+  if(any(duplicated(e_p)) || any(e_p %in% c(pred_names, colnames(data_structure)))) stop("Additional parameters names must be unique", call.=FALSE)
 
   ### check all names have at least 1 character!!
-  if(any(nchar(c(do.call(c, lapply(parameters,function(x) x$names)), e_p, colnames(data_structure)))==0 )) stop("Specified names must have nchar>0", call.=FALSE)
+  if(any(nchar(c(pred_names, e_p, colnames(data_structure)))==0 )) stop("Specified names must have nchar>0", call.=FALSE)
 	return(parameters)
 
 

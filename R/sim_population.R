@@ -2,7 +2,7 @@ sim_predictors <- function(param, data_structure, pedigree){
   
   traits <- do.call(cbind, lapply( names(param), function(i){  
 
-# i<-"residual"
+# i<-"individual"
     p <- param[[i]]
     
     ## sort out which are interactions   
@@ -19,7 +19,8 @@ sim_predictors <- function(param, data_structure, pedigree){
       # x<- p$mean[data_structure[,p$group]]
 
       ## work out what to do with fixed effects and interactions
-
+    }else if(p$covariate){
+      x<- matrix(rep(data_structure[,p$group],k),nrow(data_structure),k)
     }else{
       ## if name is listed in pedigree argument, link to pedigree
       if(i %in% names(pedigree)){
@@ -106,6 +107,9 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   }
 
 
+  ## index data_structure
+  str_index <- apply(data_structure,2,function(x) as.numeric(factor(x)))
+
   ## check pedigree is list, make one if not
   if(missing(pedigree)){
     pedigree <-list()
@@ -118,7 +122,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   # unique(data_structure[,param[[i]]$group])
   # unique(pedigree[[i]][,1])
 
-  predictors <- sim_predictors(param, data_structure, pedigree)
+  predictors <- sim_predictors(param, str_index, pedigree)
 
   ## put all betas together
   betas <- do.call(rbind,lapply(param,function(x) x$beta))
@@ -130,7 +134,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   } else {
     ## for evaluation with model formula 
 
-    z_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,data_structure)
+    z_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,str_index)
     colnames(z_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), paste0(colnames(data_structure),"_ID"))
 
     ## extract extra parameters
@@ -150,7 +154,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
     model <- gsub("\\[(\\w+)\\]","\\[\\1_ID\\]",model)
 
-    # evaluate the formula in the context of _tratis and the extra params
+    # evaluate the formula in the context of z_predictors and the extra params
   	z <- eval(parse(text=model), envir = c(as.data.frame(z_predictors),as.list(extra_param)))
     if(is.vector(z))
       z <- matrix(z)
