@@ -42,7 +42,7 @@ Imports:
     data.table (>= 1.12.2),
     brms (>= 2.9.0),
     RefManageR (>= 1.2.12)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.1.9000
 Suggests: 
     rmarkdown,
     knitr,

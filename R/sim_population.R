@@ -1,3 +1,8 @@
+index_factors <- function(data_structure){
+  apply(data_structure,2,function(x) as.numeric(factor(x)))  
+}
+
+
 sim_predictors <- function(param, data_structure, pedigree){
   
   traits <- do.call(cbind, lapply( names(param), function(i){  
@@ -15,7 +20,7 @@ sim_predictors <- function(param, data_structure, pedigree){
     ## simulate 'traits' at each level from multivariate normal 
     if(p$fixed){
       
-      x<-model.matrix(formula(paste("~ factor(",p$group,")-1")),as.data.frame(data_structure))
+      x<-stats::model.matrix(stats::formula(paste("~ factor(",p$group,")-1")),as.data.frame(data_structure))
       # x<- p$mean[data_structure[,p$group]]
 
       ## work out what to do with fixed effects and interactions
@@ -26,7 +31,7 @@ sim_predictors <- function(param, data_structure, pedigree){
       if(i %in% names(pedigree)){
           x <- MCMCglmm::rbv(pedigree[[i]],p$cov[!interactions,!interactions])
       }else{
-        x <- matrix(rnorm( n*k,  0, 1), n, k) %*% chol(p$cov[!interactions,!interactions]) + matrix(p$mean[!interactions], n, k, byrow=TRUE)  
+        x <- matrix(stats::rnorm( n*k,  0, 1), n, k) %*% chol(p$cov[!interactions,!interactions]) + matrix(p$mean[!interactions], n, k, byrow=TRUE)  
       }
       
       ## expand traits to be the same length as the number of observations using data structure  
@@ -72,8 +77,8 @@ transform_dist <- function(z, family, link){
     z_link <- get(link_function[i])(z[,i])
     ## sample from poisson or binomial 
     if(family[i]=="gaussian") z_link else 
-    if(family[i]=="poisson") rpois(length(z_link),z_link) else 
-    if(family[i]=="binomial") rbinom(length(z_link),1,z_link)
+    if(family[i]=="poisson") stats::rpois(length(z_link),z_link) else 
+    if(family[i]=="binomial") stats::rbinom(length(z_link),1,z_link)
   })
   
   if(is.null(colnames(z))){
@@ -87,6 +92,22 @@ transform_dist <- function(z, family, link){
 }
 
 
+
+
+#' Simulate population level data
+#'
+#' @param parameters A list of parameters for each hierarchical level. See details.
+#' @param data_structure A matrix or dataframe with a named column for each grouping factor, inuding the levels
+#' @param model Optional. 
+#' @param family A description of the error distribution. Default "gaussian".
+#' @param link A description of the link function distribution. Default "identity".
+#' @param pedigree A list of pedigrees for each hierarchical level
+#' @details Parameter list ... 
+#' @return 
+#' @examples
+#' 
+#' @export
+#' @import MCMCglmm
 sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree){
 
   if(missing(data_structure))data_structure <- NULL
@@ -113,7 +134,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   if(is.null(data_structure)){
     str_index <- NULL
   }else{
-    str_index <- apply(data_structure,2,function(x) as.numeric(factor(x)))
+    str_index <- index_factors(data_structure)
   }
   
   ## check pedigree is list, make one if not
