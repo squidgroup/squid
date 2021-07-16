@@ -54,11 +54,11 @@ sim_predictors <- function(param, data_structure, pedigree){
 }
 
 
-transform_dist <- function(z, family, link){
+transform_dist <- function(y, family, link){
 
   inv <- function(x) 1/x
 
-  j <- ncol(z)
+  j <- ncol(y)
 
   if(length(link)==1 & j>1) link <- rep(link,j)
   if(length(family)==1 & j>1) family <- rep(family,j)
@@ -72,23 +72,23 @@ transform_dist <- function(z, family, link){
    link))))
   
 
-  z_family <-  sapply(1:j,function(i){
-    ## apply link function to z
-    z_link <- get(link_function[i])(z[,i])
+  y_family <-  sapply(1:j,function(i){
+    ## apply link function to y
+    y_link <- get(link_function[i])(y[,i])
     ## sample from poisson or binomial 
-    if(family[i]=="gaussian") z_link else 
-    if(family[i]=="poisson") stats::rpois(length(z_link),z_link) else 
-    if(family[i]=="binomial") stats::rbinom(length(z_link),1,z_link)
+    if(family[i]=="gaussian") y_link else 
+    if(family[i]=="poisson") stats::rpois(length(y_link),y_link) else 
+    if(family[i]=="binomial") stats::rbinom(length(y_link),1,y_link)
   })
   
-  if(is.null(colnames(z))){
-    colnames(z_family) <- if(j==1)"z" else paste0("z",1:j)
+  if(is.null(colnames(y))){
+    colnames(y_family) <- if(j==1)"y" else paste0("y",1:j)
   }
   else{
-    colnames(z_family) <- colnames(z)
+    colnames(y_family) <- colnames(y)
   }
 
-  return(z_family)
+  return(y_family)
 }
 
 
@@ -157,12 +157,12 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   ## evaluate model
   ## - if model is missing, add all simulated predictors together
   if(missing("model")) {
-    z <- predictors %*% betas
+    y <- predictors %*% betas
   } else {
     ## for evaluation with model formula 
 
-    z_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,str_index)
-    colnames(z_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), paste0(colnames(data_structure),"_ID"))
+    y_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,str_index)
+    colnames(y_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), paste0(colnames(data_structure),"_ID"))
 
     ## extract extra parameters
     param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
@@ -173,29 +173,29 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
       names(extra_param) <- unlist(sapply(parameters, function(x){
         names(x)[!names(x) %in% param_names]
         }))
-      ## check extra param names dont clash with z_trait names
-      if(any(names(extra_param) %in% colnames(z_predictors))) stop("You cannot name extra parameters the same as any variables")
+      ## check extra param names dont clash with y_trait names
+      if(any(names(extra_param) %in% colnames(y_predictors))) stop("You cannot name extra parameters the same as any variables")
     }
 
-    ## allow I() and subsets to be properly linked to z_predictors
+    ## allow I() and subsets to be properly linked to y_predictors
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
     model <- gsub("\\[(\\w+)\\]","\\[\\1_ID\\]",model)
 
-    # evaluate the formula in the context of z_predictors and the extra params
-  	z <- eval(parse(text=model), envir = c(as.data.frame(z_predictors),as.list(extra_param)))
-    if(is.vector(z))
-      z <- matrix(z)
+    # evaluate the formula in the context of y_predictors and the extra params
+  	y <- eval(parse(text=model), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
+    if(is.vector(y))
+      y <- matrix(y)
   }
 
 
-  z_family <- transform_dist(z, family, link)
+  y_family <- transform_dist(y, family, link)
 
   # in output predictors, if name matches something in data_stricture, then append "_effects"
   matching_names <- colnames(predictors) %in% colnames(data_structure)
   colnames(predictors)[matching_names] <- paste0(colnames(predictors)[matching_names],"_effects")
   
 
-  out <- as.data.frame(cbind(z_family,predictors,data_structure))
+  out <- as.data.frame(cbind(y_family,predictors,data_structure))
   return(out)
 }
 
