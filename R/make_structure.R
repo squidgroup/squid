@@ -49,7 +49,16 @@ generate_levels <- function(x, N, balanced=TRUE, randomise=TRUE){
 
 
 
-
+#' Make hierarchical structure
+#'
+#' @param structure A formula specifying the structure. See details.
+#' @param N Number of observations
+#' @param balanced Logical. Is the number of observations within each grouping level the same? Default TRUE. 
+#' @details structure ... 
+#' @return 
+#' @examples
+#' 
+#' @export
 ## balanced - is the number of observations within each grouping level the same?
 ## - does not ensure that they are balanced across grouping levels
 ## need to add in warnings if chose balanced and the numbers don't match

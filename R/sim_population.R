@@ -74,7 +74,7 @@ transform_dist <- function(y, family, link){
 
   y_family <-  sapply(1:j,function(i){
     ## apply link function to y
-    y_link <- get(link_function[i])(y[,i])
+  y_link <- get(link_function[i])(y[,i])
     ## sample from poisson or binomial 
     if(family[i]=="gaussian") y_link else 
     if(family[i]=="poisson") stats::rpois(length(y_link),y_link) else 
@@ -162,10 +162,10 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     ## for evaluation with model formula 
 
     y_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,str_index)
-    colnames(y_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), paste0(colnames(data_structure),"_ID"))
+    colnames(y_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), if(!is.null(data_structure)){paste0(colnames(data_structure),"_ID")})
 
     ## extract extra parameters
-    param_names <- c("names", "group", "mean", "cov", "beta", "n_level")
+    param_names <- c("names", "group", "mean", "cov", "beta", "n_response", "fixed", "covariate", "n_level")
     extra_param <- unlist(sapply(parameters, function(x){
     x[!names(x) %in% param_names]
     }))
@@ -183,8 +183,7 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
     # evaluate the formula in the context of y_predictors and the extra params
   	y <- eval(parse(text=model), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
-    if(is.vector(y))
-      y <- matrix(y)
+    if(is.vector(y)) y <- matrix(y)
   }
 
 
