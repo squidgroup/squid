@@ -3,7 +3,7 @@ title: "Simulating Phenotypes at Population Level"
 author: Joel Pick
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{data_structure}
+  %\VignetteIndexEntry{Simulating Phenotypes at Population Level}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -490,6 +490,7 @@ data <- sim_population(
   parameters=list(
     year_cont = list(
       group="year",
+      names= "year_cont",
       covariate=TRUE,
       beta=0.3
     ),
@@ -841,6 +842,7 @@ data <- sim_population(
       cov =c(1)
     ), 
     residual = list(
+      names = c("residual"),
       cov =c(0.5)
     )
   ),
@@ -866,6 +868,7 @@ data <- sim_population(
       beta =c(0.2)
     ), 
     residual = list(
+      names = c("residual"),
       cov =c(0.5)
     )
   ),
@@ -889,13 +892,17 @@ data <- sim_population(
       mean =c(0,0.5), 
       cov =matrix(c(1,0.5,0.5,1),2,2)
     ),
+    observation= list(
+      names = c("environment"),
+      beta =c(0.5)
+    ), 
     residual = list(
-      names = c("environment","resid"),
-      beta =c(0.5,1)
+      names = c("residual"),
+      cov =c(1)
     )
   ),
   data_structure=make_structure("individual(300)",N=3000),
-  model= "ind_int + environment + exp(ind_lnsd)*resid"
+  model= "ind_int + environment + exp(ind_lnsd)*residual"
 )
 ```
 
@@ -925,6 +932,7 @@ data <- sim_population(
       cov = matrix(c(1,0.3,0.3,0.5),2,2)
     ),
     residual = list(
+      names="residual",
       cov = 0.5
     )
   ),
