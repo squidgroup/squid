@@ -627,7 +627,7 @@ $$
 </div>
 
 
-```{r, eval=TRUE,cache=TRUE}
+```{r, eval=TRUE}
 
 data <- sim_population(
   parameters=list(
@@ -656,7 +656,7 @@ beta <- matrix(c(0.5,0.1,0.2,0.2,0.3,0.1),nrow=3,ncol=2)
 beta
 ```
 
-```{r, eval=TRUE,cache=TRUE}
+```{r, eval=TRUE}
 
 data <- sim_population(
   parameters= list(
