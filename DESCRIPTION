@@ -41,12 +41,12 @@ Imports:
     arm (>= 1.10-1),
     data.table (>= 1.12.2),
     brms (>= 2.9.0),
-    RefManageR (>= 1.2.12)
+    RefManageR (>= 1.2.12),
+    MCMCglmm
 RoxygenNote: 7.1.1.9000
 Suggests: 
     rmarkdown,
     knitr,
     testthat,
-    MCMCglmm,
     scales
 VignetteBuilder: knitr

@@ -105,10 +105,10 @@ print.squid <- function(x, ...){
 
 #' @title summary.squid
 #' @description summary method for class 'squid'
-#' @param x an R object of class 'squid'
+#' @param object an R object of class 'squid'
 #' @param ... further arguments passed to or from other methods.
 #' @export
-summary.squid <- function(x, ...){
+summary.squid <- function(object, ...){
   
 }
 

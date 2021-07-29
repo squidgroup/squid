@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_population.R
 \name{sim_population}
 \alias{sim_population}
-\title{Simulate population level data}
+\title{sim_population}
 \usage{
 sim_population(
   parameters,
