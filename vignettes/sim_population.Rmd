@@ -459,7 +459,7 @@ So far the simulated predictors have all been continuous, but we may want to sim
 
 Lets take the example of sex:
 
-```{r}
+```{r,fig.width=6,fig.height=6}
 data<-sim_population(
   parameters = list(
     sex=list(
@@ -508,7 +508,7 @@ data <- sim_population(
 note we have specified `group` in the parameter list. This enables us to link a set of parameters to the grouping factor in the data structure. This doesn't have to be specified and defaults to the name of the list item.
 
 
-```{r}
+```{r,fig.width=6,fig.height=6}
 head(data)
 plot(y ~ year_cont, data)
 ```
@@ -521,7 +521,7 @@ lmer(y ~ year_cont + (1|year), data)
 
 In a similar way we can also do quadratic effect of time.
 
-```{r}
+```{r,fig.width=6,fig.height=6}
 data <- sim_population(
   parameters=list(
     year_cont = list(
@@ -916,13 +916,7 @@ We can extend this to create a formula for the residual variance. We can give th
 <br>
 
 ## Indirect Genetic Effects
-Indirect genetic effects are a bit more difficult to code 
-
- <!-- Finally we can also use indexing `[]` whereby we can alter the levels of the random effects within the formula. This is useful for indirect genetic effects. -->
-
-This is where being able to index in the formula becomes important
-
-Biology - Maternal genetic effects
+Indirect genetic effects are a bit more difficult to code.Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
 ```{r, eval=TRUE, cache=TRUE}
 data <- sim_population(
@@ -945,4 +939,3 @@ head(data)
 
 ```
 
-NOTE: the maternal genetic effect returned for an individual, is that which it has the genes for, not that it has experienced

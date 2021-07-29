@@ -46,5 +46,7 @@ RoxygenNote: 7.1.1.9000
 Suggests: 
     rmarkdown,
     knitr,
-    testthat
+    testthat,
+    MCMCglmm,
+    scales
 VignetteBuilder: knitr
