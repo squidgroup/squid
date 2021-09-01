@@ -172,7 +172,8 @@ fill_parameters <- function(parameters,data_structure, ...){
     }
 
 
-
+## add names to means, cov and betas
+  names(parameters[[i]][["mean"]]) <- rownames(parameters[[i]][["beta"]]) <- rownames(parameters[[i]][["cov"]]) <- colnames(parameters[[i]][["cov"]]) <- parameters[[i]][["names"]]
 
   }
 
@@ -198,6 +199,7 @@ fill_parameters <- function(parameters,data_structure, ...){
       sapply(x[!names(x) %in% param_names],length)
       }))
     if(any(e_p_length>1)) stop("Additional parameters given to parameters lists must be length 1, this is not the case for ",names(e_p_length)[e_p_length>1], call.=FALSE)
+
   }
 
   ## Check whether all names in data_structure and parameters contain only words, digits, : and _
@@ -213,6 +215,7 @@ fill_parameters <- function(parameters,data_structure, ...){
 
   ### check all names have at least 1 character!!
   if(any(nchar(c(pred_names, e_p, colnames(data_structure)))==0 )) stop("Specified names must have nchar>0", call.=FALSE)
+
 
 	return(parameters)
 
