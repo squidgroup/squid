@@ -13,10 +13,18 @@
 #' 
 #' @export
 #' @import MCMCglmm
-sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree){
+sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree,N){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
+  
+  if(missing("N") & missing("data_structure")){
+    stop("Either N or data_structure need to be specified")
+  }else if(missing("N")){
+    N <- nrow(data_structure)
+  }else if(!missing("N") & !missing("data_structure")){
+    if(nrow(data_structure)!=N) stop("N and nrow(data_structure) are not equal. Only one needs to be specified.")
+  }
   
 
   ## gets the arguments into a list that is added to for the output
