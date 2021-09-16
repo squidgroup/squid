@@ -13,7 +13,7 @@
 #' 
 #' @export
 #' @import MCMCglmm
-sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree,N){
+sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree,N, N_pop=1){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
@@ -43,10 +43,13 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     stop("Family must either be length 1 or same length as the number of parameters")
   }
 
-  
+#####################  
+###---PEDIGREE  
+#####################  
+
   ## check pedigree is list, make one if not
   if(missing(pedigree)){
-    pedigree <-list()
+    output$pedigree <-list()
   }else{
     if(!is.list(pedigree) | is.data.frame(pedigree)) stop("pedigree needs to be a list")
   }
@@ -56,11 +59,28 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   # unique(data_structure[,param[[i]]$group])
   # unique(pedigree[[i]][,1])
 
-  output$predictors <- do.call(sim_predictors, output)
 
-  y <- do.call(generate_y, output)
+#####################  
+###---PREDICTORS 
+#####################  
 
-  output$y <- transform_dist(y, family, link)
+
+  #output$predictors <- do.call(sim_predictors, output)
+  output$predictors <- lapply(1:N_pop, function(x) do.call(sim_predictors, output))
+  ## returns list of predictor matrices
+
+#####################  
+###---GENERATE Y
+##################### 
+
+  # y <- do.call(generate_y, output)
+  y <- do.call(generate_y_list, output)
+
+#####################  
+###---TRANSFORM Y 
+##################### 
+
+  output$y <- lapply(y, function(x) transform_dist(x, family, link))
 
   # in output predictors, if name matches something in data_structure, then append "_effects"
 
@@ -93,7 +113,7 @@ print.squid <- function(x, ...){
             /    \\           
             |    |          
             |    |          
-      0     |    |     0     
+      0     |    |      0     
      /      \\____/      \\    
     {     __/(  )\\__     }   
      \\___/__\\_\\/_/__\\___/    
@@ -123,10 +143,21 @@ summary.squid <- function(object, ...){
 #' @title pop_data
 #' @description Extracts population level data from a squid object
 #' @param x an R object of class 'squid'
+#' @param list Logical - whether to return data as a list or data_table (FALSE; default).
 #' @param ... further arguments passed to or from other methods.
 #' @export
-pop_data <- function(x,...){
-  data.table(cbind(x$y,x$predictors,x$data_structure))
+pop_data <- function(x,list=FALSE,...){
+
+  # data.table(cbind(x$y,x$predictors,x$data_structure))
+
+  pop_list <- lapply(1:x$N_pop,function(i) data.table(cbind(x$y[[i]],x$predictors[[i]],x$data_structure,squid_pop=i)))
+
+  if(list){
+    return(pop_list)
+  }else{
+    do.call(rbind,pop_list)
+  }
+
 }
 
 

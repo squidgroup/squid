@@ -63,14 +63,10 @@ sim_predictors <- function(parameters, data_structure, pedigree, ...){
 }
 
 
-generate_y <- function(parameters, data_structure, predictors,model,...){
-  
-  ## index data_structure
-  str_index <- index_factors(data_structure)
-  
-  ## put all betas together
-  betas <- do.call(rbind,lapply(parameters,function(x) x$beta))
 
+
+generate_y <- function(predictors, betas, str_index,  model, y_pred_names,extra_param,...){
+  
   ## evaluate model
   ## - if model is missing, add all simulated predictors together
   if(is.null(model)) {
@@ -79,20 +75,7 @@ generate_y <- function(parameters, data_structure, predictors,model,...){
     ## for evaluation with model formula 
 
     y_predictors <- cbind(predictors %*% diag(as.vector(betas)),predictors,str_index)
-    colnames(y_predictors) <- c(colnames(predictors), paste0(colnames(predictors),"_raw"), if(!is.null(data_structure)){paste0(colnames(data_structure),"_ID")})
-
-    ## extract extra parameters
-    param_names <- c("names", "group", "mean", "cov", "beta", "n_response", "fixed", "covariate", "n_level")
-    extra_param <- unlist(sapply(parameters, function(x){
-    x[!names(x) %in% param_names]
-    }))
-    if(!is.null(extra_param)){
-      names(extra_param) <- unlist(sapply(parameters, function(x){
-        names(x)[!names(x) %in% param_names]
-        }))
-      ## check extra param names dont clash with y_trait names
-      if(any(names(extra_param) %in% colnames(y_predictors))) stop("You cannot name extra parameters the same as any variables")
-    }
+    colnames(y_predictors) <- y_pred_names
 
     ## allow I() and subsets to be properly linked to y_predictors
     model <- gsub("I\\((\\w+)\\)","\\1_raw",model)
@@ -106,6 +89,35 @@ generate_y <- function(parameters, data_structure, predictors,model,...){
   return(y)
 }
 
+generate_y_list <- function(parameters, data_structure, predictors,model,...){
+
+    ## index data_structure
+  str_index <- index_factors(data_structure)
+  
+  ## put all betas together
+  betas <- do.call(rbind,lapply(parameters,function(x) x$beta))
+
+  y_pred_names <- c(colnames(predictors[[1]]), paste0(colnames(predictors[[1]]),"_raw"), if(!is.null(str_index)){paste0(colnames(str_index),"_ID")})
+
+  ## extract and name extra parameters
+  if(!is.null(model)){
+
+    param_names <- c("names", "group", "mean", "cov", "beta", "n_response", "fixed", "covariate", "n_level")
+    extra_param <- unlist(sapply(parameters, function(x){ x[!names(x) %in% param_names] }))
+        
+    if(!is.null(extra_param)){
+      names(extra_param) <- unlist(sapply(parameters, function(x) names(x)[!names(x) %in% param_names]
+        ))
+      ## check extra param names dont clash with y_trait names
+      if(any(names(extra_param) %in% colnames(y_predictors))) stop("You cannot name extra parameters the same as any variables")
+    }
+  }
+
+  y <- lapply(predictors, function(x) generate_y(x, betas=betas, str_index=str_index,  model=model, y_pred_names=y_pred_names,extra_param=extra_param))
+
+  return(y)
+
+}
 
 
 transform_dist <- function(y, family, link,...){
