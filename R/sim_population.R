@@ -57,8 +57,8 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   ## check pedigree levels match data structure levels
   ped_check <- lapply(names(pedigree),function(i){
   # data_structure[,i]
-    if(!all(unique(pedigree[[i]][,1]) %in% unique(data_structure[,parameters[[i]]$group]))) stop(paste("all individuals in", i, "pedigree are not in the data_Structure"))
-    if(!all(unique(data_structure[,parameters[[i]]$group]) %in% unique(pedigree[[i]][,1]))) stop(paste("all individuals in data_structure are not in the", i, "pedigree"))      
+    if(!all(unique(pedigree[[i]][,1]) %in% unique(data_structure[,output$parameters[[i]]$group]))) stop(paste("all individuals in the pedigree linked with", i, "are not in the data_Structure"))
+    if(!all(unique(data_structure[,output$parameters[[i]]$group]) %in% unique(pedigree[[i]][,1]))) stop(paste("all individuals in data_structure are not in the pedigree linked with", i))      
   })
 
 
