@@ -1,18 +1,49 @@
-index_factors <- function(data_structure){
+index_factors <- function(data_structure, pedigree, parameters,...){
   
   if(is.null(data_structure)){
     NULL
   }else{
-    apply(data_structure,2,function(x) as.numeric(factor(x)))
-  }
+    ## for each column of the data structure, are any of the parameters list names associated with it, linked with a pedigree. If so, then get the row number in the pedigree, as that will match the indexing in the pedigree
     
+    new_ds <- do.call(cbind,lapply(colnames(data_structure), function(i){
+      # i = colnames(data_structure)[1]
+
+      if(any(names(parameters)[sapply(parameters,function(x) x$group) %in% i] %in% names(pedigree))){ 
+        
+        list_names <- names(parameters)[sapply(parameters,function(x) x$group) %in% i]
+        ped_link <- list_names[list_names %in% names(pedigree)]
+        if(length(ped_link)>1){stop("Multiple pedigrees linked to one grouping factor")}
+        match(data_structure[,i],pedigree[[ped_link]][,1])
+      }else{ 
+        as.numeric(factor(data_structure[,i]))
+      }
+    }))
+    
+    # apply(data_structure,2,function(x) as.numeric(factor(x)))
+    colnames(new_ds) <- colnames(data_structure)
+    return(new_ds)
+
+  }
+}
+
+index_ped <- function(pedigree, unknown=NA){
+  
+  new_ped <- data.frame(
+    1:nrow(pedigree), 
+    ifelse(is.na(pedigree[,2]),unknown,match(pedigree[,2], pedigree[,1])), 
+    ifelse(is.na(pedigree[,3]),unknown,match(pedigree[,3], pedigree[,1]))
+  )
+  colnames(new_ped) <- colnames(pedigree)[1:3]
+
+  return(new_ped)
 }
 
 
 sim_predictors <- function(parameters, data_structure, pedigree, ...){
   
   ## index data_structure
-  str_index <- index_factors(data_structure)
+  str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
+  ped_index <- lapply(pedigree,index_ped)
 
   traits <- do.call(cbind, lapply( names(parameters), function(i){  
 
@@ -89,10 +120,10 @@ generate_y <- function(predictors, betas, str_index,  model, y_pred_names,extra_
   return(y)
 }
 
-generate_y_list <- function(parameters, data_structure, predictors,model,...){
+generate_y_list <- function(parameters, data_structure, predictors, pedigree, model,...){
 
     ## index data_structure
-  str_index <- index_factors(data_structure)
+  str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
   
   ## put all betas together
   betas <- do.call(rbind,lapply(parameters,function(x) x$beta))
@@ -109,7 +140,7 @@ generate_y_list <- function(parameters, data_structure, predictors,model,...){
       names(extra_param) <- unlist(sapply(parameters, function(x) names(x)[!names(x) %in% param_names]
         ))
       ## check extra param names dont clash with y_trait names
-      if(any(names(extra_param) %in% colnames(y_predictors))) stop("You cannot name extra parameters the same as any variables")
+      if(any(names(extra_param) %in% colnames(y_pred_names))) stop("You cannot name extra parameters the same as any variables")
     }
   }
 
@@ -156,5 +187,4 @@ transform_dist <- function(y, family, link,...){
 
   return(y_family)
 }
-
 

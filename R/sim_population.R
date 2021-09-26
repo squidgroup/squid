@@ -49,12 +49,21 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 
   ## check pedigree is list, make one if not
   if(missing(pedigree)){
-    output$pedigree <-list()
+    output$pedigree <- pedigree <-list()
   }else{
     if(!is.list(pedigree) | is.data.frame(pedigree)) stop("pedigree needs to be a list")
   }
+
   ## check pedigree levels match data structure levels
-  # lapply(names(pedigree))
+  ped_check <- lapply(names(pedigree),function(i){
+  # data_structure[,i]
+    if(!all(unique(pedigree[[i]][,1]) %in% unique(data_structure[,parameters[[i]]$group]))) stop(paste("all individuals in", i, "pedigree are not in the data_Structure"))
+    if(!all(unique(data_structure[,parameters[[i]]$group]) %in% unique(pedigree[[i]][,1]))) stop(paste("all individuals in data_structure are not in the", i, "pedigree"))      
+  })
+
+
+## within sim_predictors, use factorise_ped, make sure it matches. maybe somehow factorise them together?
+  
 
   # unique(data_structure[,param[[i]]$group])
   # unique(pedigree[[i]][,1])
