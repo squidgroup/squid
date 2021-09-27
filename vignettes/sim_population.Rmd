@@ -794,7 +794,7 @@ param <- list(
 ```
 
 Then a bit of code to sort out the pedigree. **NOTE** the `sim_population` function has very little error checking of pedigree structure at the moment 
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 
 data(BTped)
 
@@ -809,15 +809,15 @@ squid_data <- sim_population(
 data <- pop_data(squid_data)
 head(data)
 
-Ainv<-inverseA(BTped)$Ainv
-data$animal_id <- data$individual
+# Ainv<-inverseA(BTped)$Ainv
+# data$animal_id <- data$individual
 # mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
 # summary(mod)
 
 ```
 
 We can also run multivariate animal models and have the breeding values simulated at the residual level
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 
 squid_data <- sim_population(
   parameters = list(
@@ -1044,7 +1044,7 @@ We can extend this to create a formula for the residual variance. We can give th
 ## Indirect Genetic Effects
 Indirect genetic effects are a bit more difficult to code.Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
-```{r, eval=TRUE, cache=TRUE}
+```{r, eval=TRUE}
 squid_data <- sim_population(
   parameters=list(
     animal = list(
