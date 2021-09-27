@@ -1,16 +1,11 @@
 ---
 title: "Simulating Phenotypes at Population Level"
-author: Joel Pick
-output: 
-  html_document:
-    highlight: pygments
-    toc: true
-    toc_float: true
-    number_sections: false
-    toc_depth: 3
-fig_caption: yes
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
-
 ```{r, echo=FALSE, message=FALSE,warning=FALSE}
 rm(list=ls())
 
