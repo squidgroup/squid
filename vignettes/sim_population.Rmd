@@ -1,0 +1,1172 @@
+---
+title: "Simulating Phenotypes at Population Level"
+author: Joel Pick
+output: 
+  html_document:
+    highlight: pygments
+    toc: true
+    toc_float: true
+    number_sections: false
+    toc_depth: 3
+fig_caption: yes
+---
+
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+rm(list=ls())
+
+options(width = 300)
+
+library(lme4)
+library(MCMCglmm)
+library(scales)
+devtools::load_all("~/squid/R")
+# devtools::check("~/github/squid/R")
+
+
+# devtools::install_github("squid-group/squid", ref="development")
+# library(squid)
+
+library(knitr)
+# the default source hook
+hook_source <- knit_hooks$get('source')
+knit_hooks$set(source = function(x, options) {
+  if (!is.null(n <- options$out.lines)) {
+    n <- as.numeric(n)
+    x <- unlist(stringr::str_split(x, "\n"))
+    nx <- length(x) 
+    x <- x[pmin(n,nx)]
+    if(min(n) > 1)  
+      x <- c(paste("[...]"), x)
+    if(max(n) < nx) 
+      x <- c(x, paste("[...]"))
+    x <- paste(c(x, "\n"), collapse = "\n")
+  }
+  hook_source(x, options)
+    })
+## adapted from https://stackoverflow.com/questions/48286722/rmarkdown-how-to-show-partial-output-from-chunk
+```
+
+<br>
+
+It would be great if you could report any suggestions, issues or bugs using github issues https://github.com/squid-group/squid/issues. It is worth checking to see if anyone else has a similar problem first, and  adding comments to their issue, before starting a new one. 
+
+<br>
+
+# Functionality
+
+This is a summary of the desired functionality laid out in the different SQuID working group documents. 
+
+
+<!-- | <span style="display: inline-block; width:300px">Multiple groups</span> |<span style="display: inline-block; width:100px">  </span> |
+ -->
+
+|     |     |
+| --- | --- |
+| No limit in the number of predictors  | ✅ |
+| Interactions between predictors | ✅ |
+| Temporal effects | |
+|    - Linear/non-linear/cyclical| ✅ |
+|    - Temporal autocorrelation| ❌ |
+| Non-Gaussian data | ✅ |
+| IxE / random slopes | ✅ |
+| Within level-specific residual variance (DGLMM) | ✅ |
+|     - Equation on residual variance | ✅ |
+| No limit in the number of responses | ✅ |
+| Recursive relationships | ❌ |
+| Environmental dependency of cov matrices | Needs Discussion |
+| Additive genetic effects | ✅ |
+|     - Including indirect genetic effects | ✅ |
+| G,E correlations | In Progress |
+| Phylogenetic effects | In Progress |
+|     - Different models of evolution | ❌ |
+
+<br>
+
+# Terminology
+
+Coming soon :D
+
+| <span style="display: inline-block; width:50px">Term</span> |<span style="display: inline-block; width:300px"> Meaning </span> |
+| --- | --- |
+| Predictor | |
+| Response | |
+| Grouping Factor | |
+| Level | |
+
+
+
+<br><br>
+<!-- 
+# Specifying Parameters
+Parameters for the simulation are specified as a nested list. Within the main list, there are named lists for the different hierarchical levels, containing the parameters for the predictors/random effects at that level. The residual level *must* be specified, all others are optional. Many of the components in the parameter list don't need to be specified normally, and default values will be created.
+```{r}
+parameters <- list(
+  residual = list(
+    group = "residual",
+    names = c("temperature", "rainfall", "residual"),
+    mean =c(0,0,0), 
+    cov =diag(3),
+    beta =c(0.5,0.3,0.7),
+    n_response=1,
+    fixed=FALSE, 
+    covariate=FALSE,
+    n_level=10000  )
+)
+```
+* `group` links to the grouping factor in the data structure. This doesn't have to be specified and defaults to the name of the list item, here 'residual'.
+* `names` is the name(s) of the variable(s) being simulated. They don't have to be specified. If there is one variable, this defaults to the name of the list, if multiple defaults to the name and "_1", "_2" etc
+* `mean` and `cov` are the mean(s) and covariance matrix of the predictor variable(s) being simulated from as multivariate normal distribution. They don't have to be specified and default to mean 0, var 1, cov 0. If cov is specified as a vector, then these are assumed to be variances (diagonal of cov matrix).
+* `beta` is a scalar / regression slopes for the variable(s) being simulated (when mean=0 also equate to specify random effect SDs). They don't have to be specified and default to 1.
+* `fixed` If `TRUE` assumed that the beta values are fixed . Defaults to `FALSE`
+* `covariate`
+* `n_response` 
+* `n_level` gives the number of levels (the number of observations for the residual). This doesn't have to be specified and is taken form the data structure. 
+* Extra parameters can also be added
+
+<br><br>
+ -->
+
+# 'Simple' additive Models
+
+## `sim_population` function
+
+We can use the `sim_population` function to simulate population level data. We provide the function with a set of parameters, a hierarchical data structure (if we are simulating hierarchical data), and various other optional arguments, which are demonstrated below. 
+
+The `sim_population` function simulates predictors at each hierarchical level, using provided mean and cov parameters, from a multivariate normal distribution. These predictors are then scaled by the beta parameters, and added together to create the response.
+
+The `sim_population` function is in the development version of the squid package on github:
+```r
+devtools::install_github("squid-group/squid", ref="development")
+library(squid)
+```
+
+
+<br>
+
+## Simple Linear Model
+
+<!-- <div class="panel panel-success">
+<div class="panel-heading">
+**Biological example**
+</div>
+<div class="panel-body">
+We are interested in how some environmental variables affect adult body mass.  
+</div>
+</div> -->
+
+
+We can simulate a set of predictors that vary at the level of the observation ($\boldsymbol X$), and some residuals ($\epsilon$). These predictors are scaled by some slopes ($\beta$), and added together to give the phenotype ($y$).
+
+<div class="alert alert-info">
+
+$$
+y = \beta_0 + \boldsymbol X \beta + \epsilon
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+The key to doing this is correctly specifying the parameters. These are specified as a nested list. Within the main list, there are named lists for the different hierarchical levels, containing the parameters for the predictors at that level. The residual level *must* be specified, all others are optional. Many of the components in the parameter list don't need to be specified and default values will be created.
+<!-- Anne: be more specific -->
+
+To simulate from the above model we can use the `observation` level in the parameter list to simulate predictors at this level, as well as specifying the residual variance.
+
+```{r}
+squid_data <- sim_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall"),
+      beta = c(0.5,-0.3)    ),
+    residual=list(
+      cov=1
+    )
+  ),
+  N=2000
+)
+
+```
+In this case for the observation level predictors, we have given the names of the predictor variables, and the beta values. By default, these predictors are simulated as i.i.d. unit normals (mean=0, sd=1, cov=0). As we haven't given any data structure, we also have to specify the N. 
+
+<!-- Anne:
+Overall, I would create more links between the explanation and the code, e.g. add the code in brackets when you mention them. One example: “As we haven’t given any data structure, we also have to specify the N (n_level)” or further along “We can also put a global intercept (β0), by specifying a mean for the residual part (below mean of 10 specified)”. Is it worth specifying the n_level should be equal between observation and residual? I know this sounds obvious in these cases, but we want to make sure everyone follows!
+ -->
+
+This generates a squid object, which when run returns a friendly message
+```{r}
+squid_data
+```
+
+There are then some further functions which we can use to access the data and simulation parameters. We can extract the simulated data using `pop_data` The generated response is returned as `y`, along with simulated predictors and the data structure (not relevant here). 
+```{r}
+data <- pop_data(squid_data)
+head(data)
+```
+
+We can run a linear model to check that we get back what we have simulated.
+```{r}
+coef(lm(y ~ temperature + rainfall,data))
+```
+
+We can also specify the predictors as having different means and variances, correlations between these predictors, and create patterns whereby simulated predictors do not affect the phenotype (i.e. beta=0). We can also put a global intercept ($\beta_0$), by specifying a mean for the residual part. In the observation list, `mean` and `cov` specify the means and covariance matrix of the predictors. If the predictors were uncorrelated, we could just specify the variances as a vector, and the function assumes the covariances are 0.
+
+For example, we may want to simulate the effect of a missing predictor. Here, rain and wind, but not temperature, affect adult body mass, but only temperature and rainfall are measured.
+
+```{r, 'lm',fig.width=10,fig.height=4}
+squid_data <- sim_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall", "wind"),
+      mean = c(10,1,20),
+      cov =matrix(c(1,0,1,0,0.1,0,1,0,2), nrow=3 ,ncol=3),
+      beta =c(0,-3,0.5)
+    ),
+    residual=list(
+      mean=10,
+      cov=1
+    )
+  ),
+  N=2000
+)
+
+data <- pop_data(squid_data)
+
+library(scales)
+par(mfrow=c(1,3))
+plot(y ~ temperature + rainfall + wind, data, pch=19, cex=0.5, col=alpha(1,0.5))
+
+coef(lm(y ~ temperature + rainfall, data))
+coef(lm(y ~ temperature + rainfall + wind, data))
+
+```
+
+<!--Dave:
+ 1. In the first box of code, it might be useful to have a few explanations for some of the lines. I sorted out the names and beta lines, but I think the beta especially could use an explanation (noting in particular that the order matches the names). 
+ 
+2. in the residual list, the cov=1 line needs explanation. Perhaps this is more important in the code for interactions and linear effects, where all of a sudden it is 0.3. I'm guessing this is really just the variance and "Cov" refers to a matrix of variances and covariances, which, so far, we only have 1 entry.  
+ -->
+
+
+<!-- measurement error - correlated variable -->
+
+
+<br>
+
+## Interactions and non-linear effects
+
+We can specify the interaction between two predictors using ":". Specified this way, interactions have to be between predictors at the same hierarchical level (see below for how to specify them across hierarchical levels). 
+
+```{r}
+squid_data <- sim_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall","temperature:rainfall"),
+      beta = c(0.5,0.3,0.1)
+    ),
+    residual=list(
+      cov=0.3
+    )
+  ),
+  N=2000
+)
+
+data <- pop_data(squid_data)
+head(data)
+
+coef(lm(y ~ temperature * rainfall, data))
+
+```
+
+Polynomial (quadratic, cubic, etc) functions are essentially interactions with the same predictor. They can therefore be specified in the same way:
+
+```{r, 'non-linear',fig.width=6,fig.height=6}
+squid_data <- sim_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","temperature:temperature"),
+      beta = c(0.5,-0.3)
+    ),
+    residual=list(
+      cov=0.3
+    )
+  ),
+  N=2000
+)
+data <- pop_data(squid_data)
+
+plot(y ~ temperature, data, pch=19, cex=0.5, col=alpha(1,0.5))
+
+coef(lm(y ~ temperature + I(temperature^2), data))
+
+```
+
+<br>
+
+## Non-Gaussian phenotypes
+
+To simulate non-Gaussian data, we can specify a link function and a family as arguments to the function. Underneath the predictors are being simulated as multivariate normal, and then the resulting phenotype is transformed.
+
+<div class="alert alert-info">
+
+$$
+y \sim Poisson(\hat{y})
+$$
+$$
+\hat{y} = exp( \beta_0 +  \boldsymbol X \beta + \epsilon )
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+
+```{r, 'non-gaussian',fig.width=6,fig.height=6}
+
+squid_data <- sim_population(
+  parameters=list(
+    observation=list(
+      names=c("temperature","rainfall"),
+      beta = c(0.2,0.1)
+    ),
+    residual=list(
+      mean=1.75,
+      cov=0.2
+    )
+  ),
+  N=2000,
+  family="poisson", 
+  link="log"
+)
+
+data <- pop_data(squid_data)
+head(data)
+
+plot(table(data$y), ylab="Frequency", xlab="z")
+
+glm(y ~ temperature + rainfall, data, family="poisson")
+
+```
+
+<!-- 
+Dave: worth pointing out that the bulk of the function is the same, but just need to add an instruction about the distribution.
+
+Anne: I would provide here also a bit more comments on the code provided, presently it’s very dry. E.g. how is the phenotype transformed?
+ -->
+
+<br>
+
+## Simple mixed model 
+<!-- <div class="panel panel-success">
+<div class="panel-heading">
+**Biological example**
+</div>
+<div class="panel-body">
+We have taken repeated measurements of adult body mass.  
+</div>
+</div> -->
+
+<!-- I would replace “this is simulating “ to something more explicit, like “In essence, running mixed models requires to simulate datasets with repeated values for individuals. This can be done by simulating a single combined predictor at each level…” -->
+In essence, this is simulating a single combined predictor at each level ($z$) with mean 0 and a given variance ($\sigma^2_z$). 
+
+<div class="alert alert-info">
+
+$$
+y_{i,j} = \beta_0 + z_j + \epsilon_{i,j}
+$$
+$$
+z \sim N(0,\sigma^2_z)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+At this point we need to specify some kind of hierarchical data structure. To make this we can use the `make_structure` function (which is still in development). The data structure is essentially a data.frame (or matrix), with all the grouping factors and their levels, as we would see in a typical dataset. To generate nested data with `make_structure` we use the `/` symbol and we specify the number of levels for each grouping factor with `(n)`. We also specify the total number of observation within (`N`). By default this function assumes everything is balanced.
+
+```{r}
+ds <- make_structure(structure = "sex(2)/individual(1000)", N=2000)
+
+head(ds)
+```
+In this case we have created a nested structure with 2000 observations or 1000 individuals nested within 2 sexes. We can then use this to simulate variation at different levels. Note that sample sizes are extracted from the data structure and so we do not need to specify `N` in the `sim_population` function as above.
+
+```{r}
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      cov = 0.5
+    ),
+    residual = list(
+      cov = 0.5
+    )
+  ),
+  data_structure = make_structure(structure = "sex(2)/individual(1000)", N=2000)
+)
+
+data <- pop_data(squid_data)
+head(data)
+
+library(lme4)
+short_summary <- function(x) print(summary(x), correlation=FALSE, show.resids=FALSE, ranef.comp = c("Variance"))
+
+short_summary(lmer(y ~ 1 + (1|individual), data))
+```
+
+Note, the names of the different levels in the parameter list need to exactly match those in the data structure. The order does not, however, have to be the same.
+
+<!-- Dave: Also, in the code for the first example, how are the number of replicate observations within individuals determined? The observation level is not listed in the data_structure line.
+ -->
+
+We could also use an existing data structure. Here we can take the grouping factors and levels from an existing dataset and input them to `sim_population`.
+<!-- Anne: Short summary of what BTdata is (or link in the explanation to the BTdata page?) and why it is useful for this example (i.e. that you use the structure of the pedigree of this population), what you aim to test with it?
+ -->
+
+```{r}
+library(MCMCglmm)
+data(BTdata)
+head(BTdata)
+
+squid_data <- sim_population(
+  parameters = list(
+    dam = list(
+      cov = 0.2
+    ),
+    fosternest = list(
+      cov = 0.3
+    ),
+    residual = list(
+      cov = 0.5
+    )
+  ),
+  data_structure = BTdata[,c("dam","fosternest","sex")]
+)
+
+data <- pop_data(squid_data)
+data
+
+```
+
+
+<!-- The importing a real dataset is very cool! But, I think there needs to be more explanation. How does this work when dam, fosternest, and residual lists are empty of variable names? Can you use the variances in the data instead of specifying them?
+ -->
+<!-- getME(mod,"theta")
+library(numDeriv)
+fm1Fun <- update(mod,devFunOnly=TRUE)
+fm1_thpar <- getME(mod,"theta")
+h <- hessian(fm1Fun, fm1_thpar)
+sqrt(diag(solve(h)))
+
+mySumm2 <- function(.) {
+    c(beta=fixef(.),sigma=sigma(.), sig01=unlist(VarCorr(.)))
+}
+bootMer(mod,mySumm2,nsim = 100) -->
+
+This setup also allows us to create variation at each level that is driven by specific predictors
+<!-- 
+Dave: At the bit just before Fixed Factors, what do you mean by “This setup”? It implies the data file import action in the previous section, which makes no sense. 
+Anne: the sentence “This setup also allows us to create variation at each level that is driven by specific predictors” comes out of the blue, and I find the wording ‘this setup’ too unspecific.
+
+-->
+
+<div class="alert alert-info">
+
+$$
+y = \beta_0 + \boldsymbol Z_j \boldsymbol\beta_z + \boldsymbol X_i \boldsymbol\beta_x + \epsilon_{i,j}
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\boldsymbol Z \sim MVN(\mu_z,\Sigma_z)
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+```{r}
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      names = c("size","behaviour","physiology"),
+      beta = c(0.1,0.3,0.2)
+    ),
+    observation = list(
+      names=c("temperature","rainfall"),
+      beta = c(0.2,-0.1)
+    ),
+    residual = list(
+      cov = 0.5
+    )
+  ),
+  data_structure = make_structure(structure = "sex(2)/individual(1000)", N=2000)
+)
+
+data <- pop_data(squid_data)
+
+short_summary(lmer(y ~ 1 + (1|individual), data))
+
+short_summary(lmer(y ~ size + rainfall + (1|individual), data))
+
+```
+
+
+
+<br>
+
+## Fixed Factors
+So far the simulated predictors have all been continuous, but we may want to simulate factors with known/fixed effects i.e. not drawn from a normal distribution. In this case we can specify `fixed = TRUE` for a particular level, and then give a beta for all the different levels of that group.
+<!-- 
+Anne: Fixed factors: perhaps the title could be more informative as “Known fixed effects”? Also, why the “/” in the text for “known/fixed effect”?
+ -->
+
+Lets take the example of sex:
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- sim_population(
+  parameters = list(
+    sex=list(
+      fixed=TRUE,
+      names=c("female","male"),
+      beta=c(-0.5,0.5)
+    ),
+    residual = list(
+      cov = 0.5
+    )
+  ),
+  data_structure = make_structure(structure = "sex(2)/individual(1000)", N=2000)
+)
+
+data <- pop_data(squid_data)
+
+boxplot( y ~ factor(sex), data)
+lm( y ~ factor(sex), data)
+```
+
+
+<br>
+
+## Temporal Effects
+
+We might have measured a variable over the course of a certain time period (e.g. 20 years). We might expect that there is stochastic year-to-year variation, which we can simulate already. However we might also want to simulate patterns in that temporal data. We can treat the levels associated with a particular grouping factor (e.g. year) as both a factor and continuous.
+
+To treat a grouping factor as continuous, we use `covariate=TRUE` in the parameter list. In this way we can simulate a linear effect of year:
+```{r}
+squid_data <- sim_population(
+  parameters=list(
+    year_cont = list(
+      group="year",
+      names= "year_cont",
+      covariate=TRUE,
+      beta=0.3
+    ),
+    year = list(
+      cov = 0.8
+    ),
+    residual=list(
+      cov = 1
+      )
+    ), 
+  data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",N=1000)
+)
+```
+
+note we have specified `group` in the parameter list. This enables us to link a set of parameters to the grouping factor in the data structure. This doesn't have to be specified and defaults to the name of the list item.
+
+
+```{r,fig.width=6,fig.height=6}
+data <- pop_data(squid_data)
+head(data)
+plot(y ~ year_cont, data)
+```
+
+
+Here we can see there is within year variation, year to year variation, as well as a linear directional year effect.
+```{r}
+lmer(y ~ year_cont + (1|year), data)
+```
+
+In a similar way we can also simulate a quadratic effect of time.
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- sim_population(
+  parameters=list(
+    year_cont = list(
+      group="year",
+      names= c("year_cont","year_cont:year_cont"),
+      covariate=TRUE,
+      beta=c(0.3,-0.03)
+    ),
+    year = list(
+      cov = 1
+    ),
+    residual=list(
+      cov = 0.8
+      )
+    ), 
+  data_structure = make_structure(structure = "year(20) + sex(2)/individual(50)",N=1000)
+)
+
+data <- pop_data(squid_data)
+
+plot(y~year_cont,data)
+```
+
+<br>
+
+Cyclical effects are described in a later section and temporal autocorrelation is still to be implemented.
+
+<br>
+
+
+
+
+## Multi-response 
+
+We can simulate multiple phenotypes that covary at different levels. In the case of a simple random effects model, we can have a covariance matrix at each level, 
+
+<!-- Anne: I would formulate this section “Multi-trait response”, as it is different from say multidimensional plasticity where a single trait can respond to several environmental variables. Also, perhaps add a short sentence of introduction here such as “We simulate here no longer one phenotype y varying across I individuals, but a number of phenotypes that (co)vary across individuals..”
+ -->
+
+<!-- 
+$$
+\begin{bmatrix} 
+  y^{(1)} \\ 
+  y^{(2)} 
+\end{bmatrix}
+=   \beta_0 + \boldsymbol Z_j + \boldsymbol\epsilon_{i,j}
+$$ 
+-->
+<div class="alert alert-info">
+
+$$
+\boldsymbol Y_{i,j} =  \boldsymbol\beta_0 + \boldsymbol Z_j + \boldsymbol E_{i,j}
+$$ 
+$$
+\boldsymbol Z \sim MVN(0,\Sigma_z)
+$$
+$$
+\boldsymbol E \sim MVN(0,\Sigma_\epsilon)
+$$
+</div>
+
+We can indicate that there are multiple phenotypes within the parameter list in two ways. First, we can use `n_response` in the parameter list, and specifying the covariance matrix (cov) at each level. In this way we can simulate covariance at each level. 
+
+<!-- Anne: Should the blue background model not come after the first paragraph?
+  We probably just need an intro paragraph
+ -->
+
+```{r}
+squid_data <- sim_population(
+  parameters=list(
+    individual = list(
+      cov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      n_response = 2
+    ),
+    residual = list(
+      cov = matrix(c(1,0.5,0.5,1),nrow = 2,ncol = 2),
+      n_response = 2
+    )
+  ),
+  data_structure=make_structure(structure = "individual(100)",N=1000)
+)
+
+data <- pop_data(squid_data)
+head(data)
+
+```
+
+<!--Dave: I think in the Multi-response section there needs to be some explanation of the syntax, eg for lines like: cov = matrix(c(1,0.5,0.5,1),nrow=2,ncol=2). To what do each of those refer?
+
+BOX
+to code a matrix in R we use the `matrix` function. This takes a vector of values, and arranges then in a matrix, with dimensions specified with `nrow` and `ncol`. For big matrices this can be petty annoying. 
+`Tri2M()` function from the package `MCMCglmm`
+
+Tri2M(c(1,0.5,1,0.3,0.2,1), lower.tri = FALSE)
+
+
+
+ -->
+
+
+
+<!-- 
+https://stackoverflow.com/questions/63007496/how-to-create-an-editable-matrix-in-shiny-app
+make little shiny app that allows you to enter diagonal and 
+
+ -->
+Second, we can build up predictors at each level that drive this covariance. Here we make `beta` into a matrix ($B$), with predictors as rows, and responses as columns. 
+
+<div class="alert alert-info">
+
+$$
+\boldsymbol Y_{i,j} = \beta_0 + \boldsymbol Z_j B_z + \boldsymbol X_i \boldsymbol B_x + \boldsymbol E_{i,j}
+$$
+$$
+\boldsymbol X \sim MVN(\mu_x,\Sigma_x)
+$$
+$$
+\boldsymbol Z \sim MVN(\mu_z,\Sigma_z)
+$$
+$$
+\boldsymbol E \sim N(0,\Sigma_\epsilon)
+$$
+</div>
+
+The formulation above (just random effects), can be simulated in a similar way with `beta` as an identity matrix (i.e. a predictor for each trait).
+<!-- I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
+ -->
+```{r, eval=TRUE}
+
+squid_data <- sim_population(
+  parameters=list(
+    individual = list(
+      cov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      beta= diag(2)
+    ),
+    residual = list(
+      cov =matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      beta= diag(2)
+    )
+  ),
+  data_structure= make_structure(structure = "individual(100)",N=1000))
+
+data <- pop_data(squid_data)
+head(data)
+
+# library(MCMCglmm)
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
+# summary(mod)
+
+```
+
+Alternatively, you could also create multivariate phenotypes being affected by the same predictors. Here we have two phenotypes, affected by three predictors, and so we can create a 3x2 matrix of betas
+
+```{r}
+beta <- matrix(c(0.5,0.1,0.2,0.2,0.3,0.1),nrow=3,ncol=2)
+beta
+```
+
+```{r, eval=TRUE}
+
+squid_data <- sim_population(
+  parameters= list(
+    observation = list(
+      names = c("temperature", "rainfall", "wind"),
+      beta= beta
+    ),
+    residual = list(
+      cov= matrix(c(1,0.5,0.5,1),nrow=2,ncol=2),
+      n_response=2
+    )
+  ),
+  N=2000
+)
+
+data <- pop_data(squid_data)
+head(data)
+
+# library(MCMCglmm)
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):individual, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE)
+# summary(mod)
+
+```
+
+
+<br>
+
+## Breeding values
+We can provide the pedigree/phylogeny as an argument to the function. The pedigree is given as a list - the name of the pedigree in the list links it with the item in the parameter list. This is where being able to have something in the parameter list with a different name to the grouping factor is useful. In this way permanent environmental and additive genetic effects can be simulated. Something like:
+```{r, eval=TRUE}
+param <- list(
+  individual = list(
+    cov = 0.3
+  ),
+  animal = list(
+    group="individual",
+    cov = 0.2
+  ),
+  residual = list(
+    cov = 0.5
+  )
+)
+```
+
+Then a bit of code to sort out the pedigree. **NOTE** the `sim_population` function has very little error checking of pedigree structure at the moment 
+```{r, eval=TRUE, cache=TRUE}
+
+data(BTped)
+
+## make data structure with two observations per individual
+ds <- data.frame(individual=rep(BTped[,1], 2))
+
+squid_data <- sim_population(
+  parameters = param,
+  data_structure = ds, 
+  pedigree=list(animal=BTped))
+
+data <- pop_data(squid_data)
+head(data)
+
+Ainv<-inverseA(BTped)$Ainv
+data$animal_id <- data$individual
+# mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
+# summary(mod)
+
+```
+
+We can also run multivariate animal models and have the breeding values simulated at the residual level
+```{r, eval=TRUE, cache=TRUE}
+
+squid_data <- sim_population(
+  parameters = list(
+    animal = list(
+      cov = diag(2),
+       n_response=2
+    ),
+    residual = list(
+      cov = diag(2),
+       n_response=2
+    )
+  ),
+  data_structure = BTped,
+  pedigree = list(animal = BTped)
+)
+
+data <- pop_data(squid_data)
+head(data)
+
+
+# mod <- MCMCglmm(cbind(y1,y2)~1,random=~us(trait):animal, rcov=~us(trait):units,data=data,family=rep("gaussian",2),verbose=FALSE,ginverse=list(animal=Ainv))
+
+```
+
+<br>
+
+## Phylogenetic values
+Will work very similar to breeding values (in fact I think it work work if you put in a phylogeny in pedigree format). Might want to include different modes of evolution.
+
+Additionally we could have an argument to specify a covariance matrix which can be used to generate the effects. This means that as well as relationship matrices for phylogenies and pedigrees, we could also incorporate spatial effects.  
+
+
+<br><br>
+
+# Simulating 'complex' data using the model formula
+ 
+If more complex interactions between simulated traits are needed, then the model formula can be specified. We can first demonstrate this with a simple linear model.
+
+```{r}
+
+squid_data <- sim_population(
+  parameters=list(
+    observation= list(
+      names = c("temperature", "rainfall"),
+      beta =c(0.5,0.3)  
+    ),
+    residual = list(
+      cov=1
+    )
+  ),
+  N=2000,
+  model = "temperature + rainfall + residual_effect"
+)
+
+data <- pop_data(squid_data)
+
+coef(lm(y ~ temperature + rainfall, data))
+```
+
+In the formula, we write out how the variables are added up. By default they are all scaled by their beta values before this happens. Sometimes it is useful to prevent this (i.e. multiply two traits together without them being scaled by their respective beta) and we can do this by using `I()`.
+
+```{r}
+
+squid_data <- sim_population(
+  parameters=list(
+    observation= list(
+      names = c("temperature", "rainfall"),
+      beta =c(0.5,0.3) 
+    ),
+    residual = list(
+      cov=1
+    )
+  ),
+  N=2000,
+  model = "temperature + I(rainfall) + residual_effect"
+)
+
+data <- pop_data(squid_data)
+
+coef(lm(y ~ temperature + rainfall, data))
+
+```
+
+We can also add extra parameters to the parameter list, which we can call from within the function. In combination with `I()` we can then customise the model formula a bit
+
+```{r}
+
+squid_data <- sim_population(
+  parameters=list(
+    observation= list(
+      names = c("temperature", "rainfall"),
+      beta =c(0.5,0.3),
+      extra_beta = 0.1  
+      ),
+    residual = list(
+      cov=1
+      )
+  ),
+  N=2000,
+  model = "temperature + extra_beta*I(rainfall) + residual_effect"
+)
+
+data <- pop_data(squid_data)
+
+coef(lm(y ~ temperature + rainfall, data))
+
+```
+ In this case it might seem a bit pointless, but it becomes useful for different kinds of interactions. 
+
+<br>
+
+## Random slopes 
+
+<div class="alert alert-info">
+
+$$
+y_{i,j} = \beta_0 + u_j + x_{i,j} \boldsymbol\beta_j + \epsilon_{i,j}
+$$
+$$
+\begin{bmatrix} u_j \\\boldsymbol\beta_j \\ \end{bmatrix} \sim MVN(\begin{bmatrix} 0 \\ \bar{\beta} \\ \end{bmatrix},\Sigma_{u,\boldsymbol\beta})
+$$
+$$
+\epsilon \sim N(0,\sigma^2_\epsilon)
+$$
+</div>
+
+We can specify random slopes by simulating a slopes variable (`ind_slope`) at the individual level ($\boldsymbol\beta_j$). Here we want to give the mean and variance of the slopes, rather than have the mean=0 and the slopes as deviations as in a LMM. 
+```{r}
+
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_slope"),
+      mean =c(0,0.2), 
+      cov =matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2)
+    ),
+    observation= list(
+      names = c("environment"),
+      cov =c(1)
+    ), 
+    residual = list(
+      names = c("residual"),
+      cov =c(0.5)
+    )
+  ),
+  data_structure=make_structure("individual(300)",N=3000),
+  model="ind_int + ind_slope * environment + residual"
+)
+
+data <- pop_data(squid_data)
+
+short_summary(lmer(y ~ environment + (1+environment|individual),data))
+```
+
+Can also implement it as a slope and deviations from the slope using `I()`, to fit in more with how it is modelled. 
+```{r, eval=FALSE}
+
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_slope"),
+      cov =matrix(c(1,0.3,0.3,0.5),ncol=2,nrow=2)
+    ),
+    observation= list(
+      names = c("environment"),
+      cov =c(1),
+      beta =c(0.2)
+    ), 
+    residual = list(
+      names = c("residual"),
+      cov =c(0.5)
+    )
+  ),
+  data_structure=make_structure("individual(300)",N=3000),
+  model="ind_int + environment + ind_slope * I(environment) + residual"
+)
+
+data <- pop_data(squid_data)
+
+short_summary(lmer(y ~ environment + (1+environment|individual),data))
+
+```
+
+<br>
+
+## Individual variation in residual variance
+Again we can just simulate variables at a given level, and then combine them how we want. Typically we think of within-individual variances (or sds) as being log-normally distributed 
+<!-- Dave: I got lost in the next section starting with: “The formulation above (just random effects), can be simulated in a similar way with beta as an identity matrix (i.e. a predictor for each trait).” might need more explanation.
+ -->
+```{r}
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_lnsd"),
+      mean =c(0,0.5), 
+      cov =matrix(c(1,0.5,0.5,1),2,2)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta =c(0.5)
+    ), 
+    residual = list(
+      names = c("residual"),
+      cov =c(1)
+    )
+  ),
+  data_structure=make_structure("individual(300)",N=3000),
+  model= "ind_int + environment + exp(ind_lnsd)*residual"
+)
+
+data <- pop_data(squid_data)
+
+```
+
+We can extend this to create a formula for the residual variance. We can give the function string of equations in the formula, separated by ";", with the last line being returned as the response.
+```r
+" resid_sd = xxx + ind_lnsd + xxx ; 
+  ind_int + environment + exp(resid_sd)*resid "
+
+```
+
+<br>
+
+## Indirect Genetic Effects
+Indirect genetic effects are a bit more difficult to code.Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
+
+```{r, eval=TRUE, cache=TRUE}
+squid_data <- sim_population(
+  parameters=list(
+    animal = list(
+      names=c("direct","maternal"),
+      cov = matrix(c(1,0.3,0.3,0.5),2,2)
+    ),
+    residual = list(
+      names="residual",
+      cov = 0.5
+    )
+  ),
+  data_structure=ped,
+  pedigree=list(animal=ped),
+  model = "direct + maternal[dam] + residual"
+)
+
+data <- pop_data(squid_data)
+
+head(data)
+
+```
+
+
+## Cyclical Temporal Effects
+`squidR` uses the sinusoidal equation to implement cyclical temporal effects
+
+<div class="alert alert-info">
+
+$$
+y = A sin(B(x - C)) + D
+$$
+</div>
+
+ where A is the amplitude, $B/2\pi$ is the period $C/B$ is the horizontal shift and D is the vertical shift. We can visualise this
+
+```{r}
+ 
+time <- 1:20
+
+amplitude <- 10       # |A| = the amplitude
+period <- 10
+h_shift <- 3
+v_shift <- 5
+
+B <- (2*pi) / abs(period) # 2pi/|B| = the period 
+cyclic_effect <- amplitude*sin(B*time - B^2*h_shift ) + v_shift
+
+plot(cyclic_effect~time)
+
+ ```
+
+
+We can include this complexity into the model part of the `sim_population`, adding the extra parameters for the cyclical effects into the year_cont part of the list.
+
+```{r}
+squid_data <- sim_population(
+  parameters=list(
+    year_cont = list(
+      group="year",
+      names= "linear_effect",
+      covariate=TRUE,
+      beta=0.3,
+      amplitude = 2,       # |A| = the amplitude
+      period = 10,
+      h_shift = 3,
+      v_shift = 5
+    ),
+    year = list(
+      cov = 1.2
+    ),
+    residual=list(
+      cov = 1
+      )
+    ), 
+  data_structure= make_structure(structure = "year(20) + sex(2)/individual(50)",N=1000),
+
+  model=" B =(2*pi) / abs(period);
+          cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;
+          linear_effect + cyclic_effect + year_effect + residual_effect
+"
+)
+
+data <- pop_data(squid_data)
+
+plot(y~year,data)
+
+
+```
+
+
+
+# Simulating multiple population from the same world
+
+We can use the `sim_population()` function to generate multiple datasets (populations) form the same set of parameters (world). To do this we can specify the `N_pop` argument in `sim_population()`. This defaults to 1.
+
+```{r}
+
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      cov = 0.5
+    ),
+    residual = list(
+      cov = 0.5
+    )
+  ),
+  data_structure = make_structure(structure = "sex(2)/individual(1000)", N=2000),
+  N_pop=5
+)
+```
+By default `pop_data` returns a data.table, where the `squid_pop` column indicates the population
+```{r}
+data <- pop_data(squid_data)
+head(data)
+```
+
+It can also be output as a list, which might be more useful for processing many iterations of a simulation. 
+```{r}
+data <- pop_data(squid_data, list=TRUE)
+```
