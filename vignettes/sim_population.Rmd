@@ -1056,8 +1056,8 @@ squid_data <- sim_population(
       cov = 0.5
     )
   ),
-  data_structure=ped,
-  pedigree=list(animal=ped),
+  data_structure=BTped,
+  pedigree=list(animal=BTped),
   model = "direct + maternal[dam] + residual"
 )
 
