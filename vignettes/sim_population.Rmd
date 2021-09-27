@@ -14,12 +14,12 @@ options(width = 300)
 library(lme4)
 library(MCMCglmm)
 library(scales)
-devtools::load_all("~/squid/R")
+# devtools::load_all("~/squid/R")
 # devtools::check("~/github/squid/R")
 
 
 # devtools::install_github("squid-group/squid", ref="development")
-# library(squid)
+library(squid)
 
 library(knitr)
 # the default source hook
