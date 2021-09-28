@@ -113,7 +113,11 @@ generate_y <- function(predictors, betas, str_index,  model, y_pred_names,extra_
     model <- gsub("\\[(\\w+)\\]","\\[\\1_ID\\]",model)
 
     # evaluate the formula in the context of y_predictors and the extra params
-    y <- eval(parse(text=model), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
+    # y <- eval(parse(text=model), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
+    
+    model2 <- paste(model,";\n return(data.frame(mget(ls()[!ls() %in% colnames(y_predictors)])))")
+    y <- eval(parse(text=model2), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
+    
     if(is.vector(y)) y <- matrix(y)
   }
   
