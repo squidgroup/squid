@@ -6,6 +6,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
+
 ```{r, echo=FALSE, message=FALSE,warning=FALSE}
 rm(list=ls())
 
@@ -14,12 +15,12 @@ options(width = 300)
 library(lme4)
 library(MCMCglmm)
 library(scales)
-# devtools::load_all("~/squid/R")
+devtools::load_all("~/squid/R")
 # devtools::check("~/github/squid/R")
 
 
 # devtools::install_github("squid-group/squid", ref="development")
-library(squid)
+# library(squid)
 
 library(knitr)
 # the default source hook
@@ -794,7 +795,7 @@ param <- list(
 ```
 
 Then a bit of code to sort out the pedigree. **NOTE** the `sim_population` function has very little error checking of pedigree structure at the moment 
-```{r, eval=TRUE}
+```{r, eval=TRUE, cache=TRUE}
 
 data(BTped)
 
@@ -809,15 +810,15 @@ squid_data <- sim_population(
 data <- pop_data(squid_data)
 head(data)
 
-# Ainv<-inverseA(BTped)$Ainv
-# data$animal_id <- data$individual
+Ainv<-inverseA(BTped)$Ainv
+data$animal_id <- data$individual
 # mod <- MCMCglmm(y~1, random=~ individual + animal_id,data=data,ginverse=list(animal_id=Ainv),verbose=FALSE)
 # summary(mod)
 
 ```
 
 We can also run multivariate animal models and have the breeding values simulated at the residual level
-```{r, eval=TRUE}
+```{r, eval=TRUE, cache=TRUE}
 
 squid_data <- sim_population(
   parameters = list(
@@ -869,7 +870,7 @@ squid_data <- sim_population(
     )
   ),
   N=2000,
-  model = "temperature + rainfall + residual_effect"
+  model = "y = temperature + rainfall + residual_effect"
 )
 
 data <- pop_data(squid_data)
@@ -877,7 +878,7 @@ data <- pop_data(squid_data)
 coef(lm(y ~ temperature + rainfall, data))
 ```
 
-In the formula, we write out how the variables are added up. By default they are all scaled by their beta values before this happens. Sometimes it is useful to prevent this (i.e. multiply two traits together without them being scaled by their respective beta) and we can do this by using `I()`.
+In the formula, we write out how the variables are added up. *Everything that you want exported needs to be defined* (e.g. `y=...`). By default they are all scaled by their beta values before this happens. Sometimes it is useful to prevent this (i.e. multiply two traits together without them being scaled by their respective beta) and we can do this by using `I()`.
 
 ```{r}
 
@@ -892,7 +893,7 @@ squid_data <- sim_population(
     )
   ),
   N=2000,
-  model = "temperature + I(rainfall) + residual_effect"
+  model = "y = temperature + I(rainfall) + residual_effect"
 )
 
 data <- pop_data(squid_data)
@@ -917,7 +918,7 @@ squid_data <- sim_population(
       )
   ),
   N=2000,
-  model = "temperature + extra_beta*I(rainfall) + residual_effect"
+  model = "y = temperature + extra_beta*I(rainfall) + residual_effect"
 )
 
 data <- pop_data(squid_data)
@@ -964,7 +965,7 @@ squid_data <- sim_population(
     )
   ),
   data_structure=make_structure("individual(300)",N=3000),
-  model="ind_int + ind_slope * environment + residual"
+  model="y = ind_int + ind_slope * environment + residual"
 )
 
 data <- pop_data(squid_data)
@@ -992,7 +993,7 @@ squid_data <- sim_population(
     )
   ),
   data_structure=make_structure("individual(300)",N=3000),
-  model="ind_int + environment + ind_slope * I(environment) + residual"
+  model="y = ind_int + environment + ind_slope * I(environment) + residual"
 )
 
 data <- pop_data(squid_data)
@@ -1025,7 +1026,7 @@ squid_data <- sim_population(
     )
   ),
   data_structure=make_structure("individual(300)",N=3000),
-  model= "ind_int + environment + exp(ind_lnsd)*residual"
+  model= "y = ind_int + environment + exp(ind_lnsd)*residual"
 )
 
 data <- pop_data(squid_data)
@@ -1033,9 +1034,36 @@ data <- pop_data(squid_data)
 ```
 
 We can extend this to create a formula for the residual variance. We can give the function string of equations in the formula, separated by ";", with the last line being returned as the response.
-```r
-" resid_sd = xxx + ind_lnsd + xxx ; 
-  ind_int + environment + exp(resid_sd)*resid "
+
+```{r,fig.width=6,fig.height=6}
+squid_data <- sim_population(
+  parameters = list(
+    individual = list(
+      names = c("ind_int","ind_lnsd"),
+      mean =c(0,0.5), 
+      cov =matrix(c(0.1,0,0,0.2),ncol=2,nrow=2)
+    ),
+    observation= list(
+      names = c("environment"),
+      beta =0.5,
+      beta_resid = -0.3
+    ), 
+    residual = list(
+      names = c("residual"),
+      cov =c(1)
+    )
+  ),
+  data_structure=make_structure("individual(300)",N=3000),
+  model= " resid_sd = beta_resid * I(environment) + ind_lnsd;
+   actual_residuals = exp(resid_sd)*residual;
+                  y = ind_int + environment + actual_residuals"
+)
+
+data <- pop_data(squid_data)
+
+head(data)
+
+plot(actual_residuals ~ environment, data)
 
 ```
 
@@ -1044,7 +1072,7 @@ We can extend this to create a formula for the residual variance. We can give th
 ## Indirect Genetic Effects
 Indirect genetic effects are a bit more difficult to code.Lets take the example of maternal genetic effects. The maternal genetic effect that affects an individual's phenotype, is that of its mother, not itself. Here we can use `[]` to index the levels of the random effects within the formula. This means that we can simulate the direct genetic and maternal genetic effects that an individual has (and the covariance between them), as well as generating an individual's phenotype from its own direct genetic effects, and its mother's maternal genetic effect.
 
-```{r, eval=TRUE}
+```{r, eval=TRUE, cache=TRUE}
 squid_data <- sim_population(
   parameters=list(
     animal = list(
@@ -1058,7 +1086,7 @@ squid_data <- sim_population(
   ),
   data_structure=BTped,
   pedigree=list(animal=BTped),
-  model = "direct + maternal[dam] + residual"
+  model = "y = direct + maternal[dam] + residual"
 )
 
 data <- pop_data(squid_data)
@@ -1123,8 +1151,7 @@ squid_data <- sim_population(
 
   model=" B =(2*pi) / abs(period);
           cyclic_effect = amplitude*sin(B*I(linear_effect) - B^2*h_shift ) + v_shift;
-          linear_effect + cyclic_effect + year_effect + residual_effect
-"
+          y = linear_effect + cyclic_effect + year_effect + residual_effect"
 )
 
 data <- pop_data(squid_data)
