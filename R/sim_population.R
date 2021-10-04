@@ -6,14 +6,18 @@
 #' @param model Optional. 
 #' @param family A description of the error distribution. Default "gaussian".
 #' @param link A description of the link function distribution. Default "identity".
-#' @param pedigree A list of pedigrees for each hierarchical level
+#' @param pedigree A list of pedigrees for each hierarchical level. Each pedigree must be matrix or data.frame, that is at least 3 columns, which correspond to ID, dam and sire.
+#' @param phylogeny A list of phylogenies for each hierarchical level. Each pedigree should be phylo class.
+#' @param cov_str A list of covariance structures for each hierarchical level. 
+#' @param N Sample size when data_structure is not specified
+#' @param N_pop Number of populations. Default = 1
 #' @details Parameter list ... 
 #' @return 
 #' @examples
 #' 
 #' @export
 #' @import MCMCglmm
-sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree,N, N_pop=1){
+sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, phylogeny, cov_str, N, N_pop=1, known_predictors, extra_betas){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
@@ -26,9 +30,16 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
     if(nrow(data_structure)!=N) stop("N and nrow(data_structure) are not equal. Only one needs to be specified.")
   }
   
+  # if(!missing("known_predictors")& !missing("data_structure")){
+  #   if(nrow(data_structure)!=nrow(known_predictors)) stop("data_structure and known_predictors need to be the same length.")
+  # }
 
   ## gets the arguments into a list that is added to for the output
   output <- lapply(as.list(environment()), function(x) if (length(x)==1 && x=="") NULL else x)
+
+#####################  
+###---Fill in parameter lists 
+##################### 
 
   output$parameters <- do.call(fill_parameters, output)
 
@@ -44,39 +55,31 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
   }
 
 #####################  
-###---PEDIGREE  
+###---cov structures
 #####################  
 
-  ## check pedigree is list, make one if not
-  if(missing(pedigree)){
-    output$pedigree <- pedigree <-list()
-  }else{
-    if(!is.list(pedigree) | is.data.frame(pedigree)) stop("pedigree needs to be a list")
-  }
 
   ## check pedigree levels match data structure levels
-  ped_check <- lapply(names(pedigree),function(i){
-  # data_structure[,i]
-    if(!all(unique(pedigree[[i]][,1]) %in% unique(data_structure[,output$parameters[[i]]$group]))) stop(paste("all individuals in the pedigree linked with", i, "are not in the data_structure"))
-    if(!all(unique(data_structure[,output$parameters[[i]]$group]) %in% unique(pedigree[[i]][,1]))) stop(paste("all individuals in data_structure are not in the pedigree linked with", i))      
-  })
+  ## make function - that can check ped,phylo and covs
+
+  output$cov_str <- do.call(cov_str_list, output)
+  ## make cov_str with everything, then return it back to cov_str after predictors
 
 
-## within sim_predictors, use factorise_ped, make sure it matches. maybe somehow factorise them together?
-  
-
-  # unique(data_structure[,param[[i]]$group])
-  # unique(pedigree[[i]][,1])
+  ## MCAR, sample a given number 
+  ## MAR, sample a given number based of probability given by a predictor
+  ## MNAR, sample a given number based of probability given by that response
 
 
 #####################  
 ###---PREDICTORS 
 #####################  
 
-
-  #output$predictors <- do.call(sim_predictors, output)
   output$predictors <- lapply(1:N_pop, function(x) do.call(sim_predictors, output))
+  # output$predictors <- lapply(1:N_pop, function(x) cbind(do.call(sim_predictors, output), known_predictors))
   ## returns list of predictor matrices
+
+  # output$cov_str <- cov_str
 
 #####################  
 ###---GENERATE Y
@@ -90,15 +93,6 @@ sim_population <- function(parameters, data_structure, model, family="gaussian",
 ##################### 
 
   output$y <- lapply(y, function(x) transform_dist(x, family, link))
-
-  # in output predictors, if name matches something in data_structure, then append "_effects"
-
-## might be ble to take this out as it should happen anymore
-  # matching_names <- colnames(predictors) %in% colnames(data_structure)
-  # colnames(predictors)[matching_names] <- paste0(colnames(predictors)[matching_names],"_effects")
-  
-
-  # out <- as.data.frame(cbind(y_family,predictors,data_structure))
   
   class(output) <- 'squid'
   return(output)

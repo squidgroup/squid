@@ -35,11 +35,44 @@ index_ped <- function(pedigree, unknown=NA){
   )
   colnames(new_ped) <- colnames(pedigree)[1:3]
 
-  return(new_ped)
+  return(new_ped) 
 }
 
 
-sim_predictors <- function(parameters, data_structure, pedigree, ...){
+cov_str_list <- function(parameters, data_structure, pedigree, phylogeny, cov_str,...){
+
+  ped_check <- lapply(c("pedigree","phylogeny","cov_str"), function(j){
+    cs <- get(j)
+    if(!is.null(cs) && (!is.list(cs) | is.data.frame(cs))) stop(j, " needs to be a list", call.=FALSE) 
+  })
+
+  ped_names <- c(names(pedigree),names(phylogeny),names(cov_str))
+  if(any(duplicated(ped_names))) stop("Cannot have multiple covariance structures linking to the same item in the parameter list", call.=FALSE)
+  if(any(!ped_names %in% names(parameters))) stop("Some names in pedigree/phylogeny/cov_str are not in parameters", call.=FALSE)
+
+  ped_chol <- lapply(pedigree, function(x) Matrix::chol(nadiv::makeA(x)))
+  phylo_chol <- lapply(phylogeny, function(x) as(chol(ape::vcv(x)), "dgCMatrix"))
+  cor_chol <- lapply(cov_str, function(x) as(chol(x), "dgCMatrix"))
+
+  chol_str<-c(ped_chol,phylo_chol,cor_chol)
+
+  names_check <- lapply(ped_names,function(i){
+  # data_structure[,i]
+    if(!all(unique(rownames(chol_str[[i]])) %in% unique(data_structure[,parameters[[i]]$group]))) stop(paste("all IDs in the pedigree/phylogeny/cov_str linked with", i, "are not in the data_structure"), call.=FALSE)
+    if(!all(unique(data_structure[,parameters[[i]]$group]) %in% unique(rownames(chol_str[[i]])))) stop(paste("all IDs in data_structure are not in the pedigree/phylogeny/cov_str linked with", i), call.=FALSE)      
+  })
+  
+  add_list<-names(parameters)[!names(parameters) %in% names(chol_str)]
+  for(i in add_list){
+    chol_str[[i]] <- Matrix::Diagonal(parameters[[i]][["n_level"]])
+  }
+  return( chol_str)
+}
+
+
+
+
+sim_predictors <- function(parameters, data_structure, pedigree, cov_str, ...){
   
   ## index data_structure
   str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
@@ -47,7 +80,7 @@ sim_predictors <- function(parameters, data_structure, pedigree, ...){
 
   traits <- do.call(cbind, lapply( names(parameters), function(i){  
 
-# i<-"individual"
+# i<-"animal"
     p <- parameters[[i]]
     
     ## sort out which are interactions   
@@ -65,15 +98,13 @@ sim_predictors <- function(parameters, data_structure, pedigree, ...){
 
       ## work out what to do with fixed effects and interactions
     }else if(p$covariate){
+
       x<- matrix(rep(str_index[,p$group],k),nrow(str_index),k)
+
     }else{
-      ## if name is listed in pedigree argument, link to pedigree
-      if(i %in% names(pedigree)){
-          x <- MCMCglmm::rbv(pedigree[[i]],p$cov[!interactions,!interactions])
-      }else{
-        x <- matrix(stats::rnorm( n*k,  0, 1), n, k) %*% chol(p$cov[!interactions,!interactions]) + matrix(p$mean[!interactions], n, k, byrow=TRUE)  
-      }
-      
+
+      x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$cov[!interactions,!interactions])   + matrix(p$mean[!interactions], n, k, byrow=TRUE),"matrix")
+
       ## expand traits to be the same length as the number of observations using data structure  
       if(!p$group %in% c("observation","residual")) x <- x[str_index[,p$group],,drop=FALSE]
     }
@@ -115,9 +146,9 @@ generate_y <- function(predictors, betas, str_index,  model, y_pred_names,extra_
     # evaluate the formula in the context of y_predictors and the extra params
     # y <- eval(parse(text=model), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
     
-    model2 <- paste(model,";\n return(data.frame(mget(ls()[!ls() %in% colnames(y_predictors)])))")
+    model2 <- paste(model,";\n return(data.frame(mget(ls()[!ls() %in% c(colnames(y_predictors),names(extra_param))])))")
     y <- eval(parse(text=model2), envir = c(as.data.frame(y_predictors),as.list(extra_param)))
-    
+
     if(is.vector(y)) y <- matrix(y)
   }
   
@@ -131,6 +162,7 @@ generate_y_list <- function(parameters, data_structure, predictors, pedigree, mo
   
   ## put all betas together
   betas <- do.call(rbind,lapply(parameters,function(x) x$beta))
+  #betas <- rbind(do.call(rbind,lapply(parameters,function(x) x$beta)), extra_betas)
 
   y_pred_names <- c(colnames(predictors[[1]]), paste0(colnames(predictors[[1]]),"_raw"), if(!is.null(str_index)){paste0(colnames(str_index),"_ID")})
 
