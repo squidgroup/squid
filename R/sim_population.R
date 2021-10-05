@@ -164,3 +164,41 @@ pop_data <- function(x,list=FALSE,...){
 }
 
 
+#' @title get_parameters
+#' @description Extracts population level data from a squid object
+#' @param x an R object of class 'squid'
+#' @param list Logical - whether to return data as a list or data_table (FALSE; default).
+#' @param ... further arguments passed to or from other methods.
+#' @export
+
+get_parameters <- function(x){
+  param<- lapply(x$parameters,function(y){
+
+    means <- y$mean
+    names(means) <- paste0(y$names,"_mean")
+
+    vars <- diag(y$cov)
+    names(vars) <- paste0(y$names,"_var")
+
+    if(ncol(y$cov)>1){ 
+      covs <- y$cov[lower.tri(y$cov)]
+      name_ind<-which(lower.tri(y$cov), arr.ind=TRUE)
+      names(covs) <- paste0(y$names[name_ind[,2]],":",y$names[name_ind[,1]],"_cov")
+    }else{
+      covs<-NULL
+    }
+
+    betas <- as.vector(y$beta)
+    names(betas) <- if(y$n_response==1){ 
+      paste0(y$names,"_beta") 
+    }else{ 
+      paste0(rep(y$names,y$n_response),"_beta_y",rep(1:y$n_response, each=nrow(y$beta) )) 
+    }
+
+    c(means,vars,covs,betas)  
+  })
+  names(param)<-NULL
+  c(param, recursive=TRUE)
+
+  ## extra_parameters
+}
