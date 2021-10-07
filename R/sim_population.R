@@ -167,8 +167,6 @@ pop_data <- function(x,list=FALSE,...){
 #' @title get_parameters
 #' @description Extracts population level data from a squid object
 #' @param x an R object of class 'squid'
-#' @param list Logical - whether to return data as a list or data_table (FALSE; default).
-#' @param ... further arguments passed to or from other methods.
 #' @export
 
 get_parameters <- function(x){
