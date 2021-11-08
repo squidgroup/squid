@@ -62,6 +62,7 @@ add_interactions <- function(all_levels, int){
 
 
 make_structure <- function(structure, repeat_obs=1,...){
+
 	## strip white space from structure
 	structure <- gsub("\\s","",structure)
 
@@ -98,7 +99,7 @@ make_structure <- function(structure, repeat_obs=1,...){
 	## repeat levels for number of time steps
 	repeat_levels <- all_levels_int[rep(1:nrow(all_levels_int),each=repeat_obs),,drop=FALSE] 
 
-	return(repeat_levels)
+	return(as.data.table(repeat_levels))
 }
 
 ## potential error messages
