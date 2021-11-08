@@ -16,7 +16,9 @@
 #' @examples
 #' 
 #' @export
-#' @import MCMCglmm
+#' @import nadiv
+#' @import ape
+#' @import Matrix
 sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, phylogeny, cov_str, N, N_pop=1, known_predictors, extra_betas){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")

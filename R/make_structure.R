@@ -53,7 +53,7 @@ add_interactions <- function(all_levels, int){
 #' Make nested and crossed balanced hierarchical structures
 #'
 #' @param structure A formula specifying the structure and sample sizes at each level. See details.
-#' @param time_step Number of repeated observations at the lowest level
+#' @param repeat_obs Number of repeated observations at the lowest level
 #' @details Factors are input as a text string. The name of each factor is followed by the number of levels in that factor in brackets e.g. "individual(100)". Nested factors can be specified using "/", e.g. "population(2)/individual(2)", the lower levels being specified after the higher levels, and the sample sizes of the lower levels 
 #' @return 
 #' @examples
@@ -61,9 +61,11 @@ add_interactions <- function(all_levels, int){
 #' @export
 
 
-make_structure <- function(structure, time_step=1){
+make_structure <- function(structure, repeat_obs=1,...){
 	## strip white space from structure
 	structure <- gsub("\\s","",structure)
+
+    if(!grepl("^[A-z0-9_:/()+]*$",structure)) stop("Characters in structure must be alphanumeric, '_', '/', '+', '(', ')' or ':'", call.=FALSE)
 
 	## separate into crossed and nested components
 	components <- strsplit(structure, "\\+")[[1]]
@@ -94,10 +96,11 @@ make_structure <- function(structure, time_step=1){
 	}
 
 	## repeat levels for number of time steps
-	repeat_levels <- all_levels_int[rep(1:nrow(all_levels_int),each=time_step),,drop=FALSE] 
+	repeat_levels <- all_levels_int[rep(1:nrow(all_levels_int),each=repeat_obs),,drop=FALSE] 
 
 	return(repeat_levels)
 }
 
 ## potential error messages
+## can only be 
 ## - ) needs to be followed by +, / or end
