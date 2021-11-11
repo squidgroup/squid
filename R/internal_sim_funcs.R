@@ -51,7 +51,7 @@ cov_str_list <- function(parameters, data_structure, pedigree, phylogeny, cov_st
   if(any(!ped_names %in% names(parameters))) stop("Some names in pedigree/phylogeny/cov_str are not in parameters", call.=FALSE)
 
   ped_chol <- lapply(pedigree, function(x) Matrix::chol(nadiv::makeA(x)))
-  phylo_chol <- lapply(phylogeny, function(x) as(chol(ape::vcv(x)), "dgCMatrix"))
+  phylo_chol <- lapply(phylogeny, function(x) as(chol(ape::vcv(x), corr = TRUE), "dgCMatrix"))
   cor_chol <- lapply(cov_str, function(x) as(chol(x), "dgCMatrix"))
 
   chol_str<-c(ped_chol,phylo_chol,cor_chol)
@@ -103,7 +103,7 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, ...){
 
     }else{
 
-      x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$cov[!interactions,!interactions])   + matrix(p$mean[!interactions], n, k, byrow=TRUE),"matrix")
+      x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$vcov[!interactions,!interactions])   + matrix(p$mean[!interactions], n, k, byrow=TRUE),"matrix")
 
       ## expand traits to be the same length as the number of observations using data structure  
       if(!p$group %in% c("observation","residual")) x <- x[str_index[,p$group],,drop=FALSE]
@@ -169,7 +169,7 @@ generate_y_list <- function(parameters, data_structure, predictors, pedigree, mo
   ## extract and name extra parameters
   if(!is.null(model)){
 
-    param_names <- c("names", "group", "mean", "cov", "beta", "n_response", "fixed", "covariate", "n_level")
+    param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_response", "fixed", "covariate", "n_level")
     extra_param <- unlist(sapply(parameters, function(x){ x[!names(x) %in% param_names] }))
         
     if(!is.null(extra_param)){

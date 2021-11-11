@@ -7,7 +7,9 @@
 #' @param family A description of the error distribution. Default "gaussian".
 #' @param link A description of the link function distribution. Default "identity".
 #' @param pedigree A list of pedigrees for each hierarchical level. Each pedigree must be matrix or data.frame, that is at least 3 columns, which correspond to ID, dam and sire.
+#' @param pedigree_type A list describing what kind of genetic variance is to be simulated from each pedigree. Default is 'additive', other options are 'dominance' and 'epistatic'. Makes use of relationship matrices created by the nadiv package.
 #' @param phylogeny A list of phylogenies for each hierarchical level. Each pedigree should be phylo class.
+#' @param phylogeny_type A list describing what mode of evolution should be simulated from each phylogeny. Options are 'brownian'(default) or 'OU'. 
 #' @param cov_str A list of covariance structures for each hierarchical level. 
 #' @param N Sample size when data_structure is not specified
 #' @param N_pop Number of populations. Default = 1
@@ -19,7 +21,7 @@
 #' @import nadiv
 #' @import ape
 #' @import Matrix
-sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, phylogeny, cov_str, N, N_pop=1, known_predictors, extra_betas){
+sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N, N_pop=1, known_predictors, extra_betas){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
@@ -177,12 +179,12 @@ get_parameters <- function(x){
     means <- y$mean
     names(means) <- paste0(y$names,"_mean")
 
-    vars <- diag(y$cov)
+    vars <- diag(y$vcov)
     names(vars) <- paste0(y$names,"_var")
 
-    if(ncol(y$cov)>1){ 
-      covs <- y$cov[lower.tri(y$cov)]
-      name_ind<-which(lower.tri(y$cov), arr.ind=TRUE)
+    if(ncol(y$vcov)>1){ 
+      covs <- y$vcov[lower.tri(y$vcov)]
+      name_ind<-which(lower.tri(y$vcov), arr.ind=TRUE)
       names(covs) <- paste0(y$names[name_ind[,2]],":",y$names[name_ind[,1]],"_cov")
     }else{
       covs<-NULL

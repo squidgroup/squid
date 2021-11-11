@@ -64,22 +64,40 @@ fill_parameters <- function(parameters,data_structure, N, ...){
   for (i in names(parameters)){
     # p <- parameters[[i]]
     
+    ## make cov from vcorr
+    if(!is.null(parameters[[i]][["vcorr"]])){
+
+      if(!is.null(parameters[[i]][["vcov"]]) {
+        message("vcov and vcorr are both specified for '",i,"', only vcov is being used")
+      }else{
+        if(!is.matrix(parameters[[i]][["vcov"]])) stop("vcorr needs to be a matrix for ",i, call.=FALSE)
+        if(nrow(parameters[[i]][["vcorr"]])!=ncol(parameters[[i]][["vcorr"]])) stop("need square vcorr matrix for ",i, call.=FALSE)
+        }
+        if(!isSymmetric(parameters[[i]][["vcorr"]])) stop("vcorr matrix should be symmetric for ",i, call.=FALSE)
+        if(!all(diag(parameters[[i]][["vcorr"]])>0)){ stop("Variances for ",i," must all be >0", call.=FALSE)}
+          sd <- sqrt(diag(parameters[[i]][["vcorr"]]))
+          corr <- parameters[[i]][["vcorr"]]
+          diag(corr) <- 1
+          parameters[[i]][["vcov"]] <- diag(sd) %*% corr %*% diag(sd)
+    }
+
+
     # If cov is not a matrix, make it one. Need to do this before working out k, as code below requires a matrix
     # if its a matrix check its square and symmetric
     # if its a vector, make its the diagonal of a square matrix
     # if neither give error
-    if(!is.null(parameters[[i]][["cov"]])){
-      if(is.matrix(parameters[[i]][["cov"]])){
-        if(nrow(parameters[[i]][["cov"]])!=ncol(parameters[[i]][["cov"]])) stop("need square cov matrix for ",i, call.=FALSE)
-        if(!isSymmetric(parameters[[i]][["cov"]])) stop("cov matrix should be symmetric for ",i, call.=FALSE)
+    if(!is.null(parameters[[i]][["vcov"]])){
+      if(is.matrix(parameters[[i]][["vcov"]])){
+        if(nrow(parameters[[i]][["vcov"]])!=ncol(parameters[[i]][["vcov"]])) stop("need square vcov matrix for ",i, call.=FALSE)
+        if(!isSymmetric(parameters[[i]][["vcov"]])) stop("vcov matrix should be symmetric for ",i, call.=FALSE)
           #any(x[lower.tri(x)] != x[upper.tri(x)])
-        if(any(eigen(parameters[[i]][["cov"]])$values<0))stop("cov matrix should be positive definite for ",i, call.=FALSE)
-        if(!all(diag(parameters[[i]][["cov"]])>0)){ stop("Variances for ",i," must all be >0", call.=FALSE)}
-      }else if(is.vector(parameters[[i]][["cov"]])){
-        if(!all(parameters[[i]][["cov"]]>0)){ stop("Variances for ",i," must all be >0", call.=FALSE)}
-        parameters[[i]][["cov"]] <- if(length(parameters[[i]][["cov"]])==1) as.matrix(parameters[[i]][["cov"]]) else diag(parameters[[i]][["cov"]])
+        if(any(eigen(parameters[[i]][["vcov"]])$values<0))stop("vcov matrix should be positive definite for ",i, call.=FALSE)
+        if(!all(diag(parameters[[i]][["vcov"]])>0)){ stop("Variances for ",i," must all be >0", call.=FALSE)}
+      }else if(is.vector(parameters[[i]][["vcov"]])){
+        if(!all(parameters[[i]][["vcov"]]>0)){ stop("Variances for ",i," must all be >0", call.=FALSE)}
+        parameters[[i]][["vcov"]] <- if(length(parameters[[i]][["vcov"]])==1) as.matrix(parameters[[i]][["vcov"]]) else diag(parameters[[i]][["vcov"]])
       }else{
-        stop("cov must be a symmetric square matrix or a vector", call.=FALSE)
+        stop("vcov must be a symmetric square matrix or a vector", call.=FALSE)
       }
     }
   
@@ -102,7 +120,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
     } 
 
 
-    if(is.null(parameters[[i]][["beta"]]) & is.null(parameters[[i]][["cov"]])){
+    if(is.null(parameters[[i]][["beta"]]) & is.null(parameters[[i]][["vcov"]])){
       stop("'beta' or 'cov' needs to be specified for ", i, call.=FALSE)
     }
 
@@ -110,7 +128,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
     lengths <- c(length(parameters[[i]][["names"]]),
     	length(parameters[[i]][["mean"]]),
-    	ncol(parameters[[i]][["cov"]]),
+    	ncol(parameters[[i]][["vcov"]]),
     	nrow(parameters[[i]][["beta"]]) ## possibly change this if allowing matrix of sds for multivariate
     )
     k <- unique(lengths[lengths>0])
@@ -162,7 +180,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
     # Check whether covariate is specified
     if(is.null(parameters[[i]][["covariate"]])) parameters[[i]][["covariate"]] <- FALSE
   
-    if(parameters[[i]][["covariate"]] & (!is.null(parameters[[i]][["mean"]]) || !is.null(parameters[[i]][["cov"]]))) warning("Covariate=TRUE for ",i,", so mean and cov are ignored", call.=FALSE)
+    if(parameters[[i]][["covariate"]] & (!is.null(parameters[[i]][["mean"]]) || !is.null(parameters[[i]][["vcov"]]))) warning("Covariate=TRUE for ",i,", so mean and cov are ignored", call.=FALSE)
     
     if(parameters[[i]][["covariate"]] & is.null(parameters[[i]][["beta"]])) stop("If covariate =TRUE, beta also needs to be specified", call.=FALSE)
 
@@ -179,7 +197,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
     
     # Check whether cov specified
     # If not, diag(k)
-    if(is.null(parameters[[i]][["cov"]])) parameters[[i]][["cov"]] <- diag(k)
+    if(is.null(parameters[[i]][["vcov"]])) parameters[[i]][["vcov"]] <- diag(k)
     
     # Check whether beta specified
     if(is.null(parameters[[i]][["beta"]])){
@@ -188,7 +206,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
 
 
   ## add names to means, cov and betas
-  names(parameters[[i]][["mean"]]) <- rownames(parameters[[i]][["beta"]]) <- rownames(parameters[[i]][["cov"]]) <- colnames(parameters[[i]][["cov"]]) <- parameters[[i]][["names"]]
+  names(parameters[[i]][["mean"]]) <- rownames(parameters[[i]][["beta"]]) <- rownames(parameters[[i]][["vcov"]]) <- colnames(parameters[[i]][["vcov"]]) <- parameters[[i]][["names"]]
 
   }
 
@@ -196,7 +214,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
   j <- n_phenotypes(parameters)
 
   ##Check extra parameters
-  param_names <- c("names", "group", "mean", "cov", "beta", "n_level", "fixed", "n_response", "covariate")
+  param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "n_response", "covariate")
 
   e_p <- unlist(sapply(parameters, function(x){
     names(x)[!names(x) %in% param_names]
