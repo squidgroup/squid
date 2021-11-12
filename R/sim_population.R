@@ -2,7 +2,7 @@
 #' @title sim_population
 #' @description Simulate population level data
 #' @param parameters A list of parameters for each hierarchical level. See details.
-#' @param data_structure A matrix or dataframe with a named column for each grouping factor, inuding the levels
+#' @param data_structure A matrix or dataframe with a named column for each grouping factor, including the levels
 #' @param model Optional. 
 #' @param family A description of the error distribution. Default "gaussian".
 #' @param link A description of the link function distribution. Default "identity".

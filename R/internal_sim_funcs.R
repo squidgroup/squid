@@ -12,7 +12,7 @@ index_factors <- function(data_structure, pedigree, parameters,...){
         
         list_names <- names(parameters)[sapply(parameters,function(x) x$group) %in% i]
         ped_link <- list_names[list_names %in% names(pedigree)]
-        if(length(ped_link)>1){stop("Multiple pedigrees linked to one grouping factor")}
+        if(length(ped_link)>1){stop("Multiple pedigrees linked to one grouping factor", call.=FALSE)}
         match(data_structure[,i],pedigree[[ped_link]][,1])
       }else{ 
         as.numeric(factor(data_structure[,i]))
@@ -62,7 +62,7 @@ cov_str_list <- function(parameters, data_structure, pedigree, phylogeny, cov_st
     if(!all(unique(data_structure[,parameters[[i]]$group]) %in% unique(rownames(chol_str[[i]])))) stop(paste("all IDs in data_structure are not in the pedigree/phylogeny/cov_str linked with", i), call.=FALSE)      
   })
   
-  add_list<-names(parameters)[!names(parameters) %in% names(chol_str)]
+  add_list<-names(parameters)[!names(parameters) %in% c(names(chol_str),"interactions")]
   for(i in add_list){
     chol_str[[i]] <- Matrix::Diagonal(parameters[[i]][["n_level"]])
   }
@@ -76,18 +76,20 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, ...){
   
   ## index data_structure
   str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
-  ped_index <- lapply(pedigree,index_ped)
+  # ped_index <- lapply(pedigree,index_ped)
 
-  traits <- do.call(cbind, lapply( names(parameters), function(i){  
+
+
+  traits <- do.call(cbind, lapply( names(parameters)[names(parameters)!="interactions"], function(i){  
 
 # i<-"animal"
     p <- parameters[[i]]
     
     ## sort out which are interactions   
-    interactions <- grepl(":",p$names)
+    # interactions <- grepl(":",p$names)
 
-    # k <- length(p$mean)
-    k <- sum(!interactions)
+    k <- length(p$mean)
+    # k <- sum(!interactions)
     n <- p$n_level
 
     ## simulate 'traits' at each level from multivariate normal 
@@ -103,25 +105,41 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, ...){
 
     }else{
 
-      x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$vcov[!interactions,!interactions])   + matrix(p$mean[!interactions], n, k, byrow=TRUE),"matrix")
+      # x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$vcov[!interactions,!interactions])   + matrix(p$mean[!interactions], n, k, byrow=TRUE),"matrix")
+      x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$vcov)   + matrix(p$mean, n, k, byrow=TRUE),"matrix")
+
 
       ## expand traits to be the same length as the number of observations using data structure  
       if(!p$group %in% c("observation","residual")) x <- x[str_index[,p$group],,drop=FALSE]
     }
     ## use names form parameter list 
-    colnames(x) <- p$names[!interactions]
+    # colnames(x) <- p$names[!interactions]
+    colnames(x) <- p$names
 
-    ## add in interactions
-    x_int <- do.call(cbind,lapply(strsplit(p$names[interactions],":"), function(j){
-        eval(parse(text=paste(j, collapse="*")), envir = as.data.frame(x) )
-    }))
-    if(sum(interactions)>0) colnames(x_int) <- p$names[interactions]
-
-    cbind(x,x_int)
-  
+    return(x)
   }))
-  
-  return(traits)
+
+
+# traits <- data.frame(a=rnorm(100),b=rnorm(100),c=rnorm(100),d=rnorm(100))
+# interactions <- list(names=c("a:b","c:d", "exp(a)"), beta=c(2,3))
+
+
+  ## add in interactions
+  if(!is.null(parameters[["interactions"]])){
+
+    x_int <- do.call(cbind,lapply(strsplit(parameters[["interactions"]]$names,":"), function(j){
+        eval(parse(text=paste(j, collapse="*")), envir = as.data.frame(traits) )
+    }))
+
+    colnames(x_int) <- parameters[["interactions"]]$names
+
+    traits<-cbind(traits,x_int)
+
+  }
+
+  traits[,do.call(c,lapply(parameters,function(x) x$names))]
+
+
 }
 
 
@@ -161,6 +179,7 @@ generate_y_list <- function(parameters, data_structure, predictors, pedigree, mo
   str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
   
   ## put all betas together
+  ## ned to order betas
   betas <- do.call(rbind,lapply(parameters,function(x) x$beta))
   #betas <- rbind(do.call(rbind,lapply(parameters,function(x) x$beta)), extra_betas)
 

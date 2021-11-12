@@ -99,7 +99,7 @@ make_structure <- function(structure, repeat_obs=1,...){
 	## repeat levels for number of time steps
 	repeat_levels <- all_levels_int[rep(1:nrow(all_levels_int),each=repeat_obs),,drop=FALSE] 
 
-	return(as.data.table(repeat_levels))
+	return(as.data.frame(repeat_levels))
 }
 
 ## potential error messages

@@ -1,12 +1,11 @@
 
 n_phenotypes <- function(parameters){
-  j <- sapply(parameters, function(x) ncol(x[["beta"]]))
+  j <- sapply(parameters[names(parameters) !="interactions"], function(x) ncol(x[["beta"]]))
   if(length(unique(j))!= 1) stop("The number of phenotypes (columns in beta) are not consistent across hierarchical levels in the parameter list", call.=FALSE)
   return(unique(j))
 }
-
-
-
+# [names(parameters) !="interactions"]
+# n_phenotypes(parameters)
 
 ## I've used loops rather than apply functions in here because then the original parameter list can then be added to rather than new lists made - this will be slightly slower but very negligible given their size
 fill_parameters <- function(parameters,data_structure, N, ...){
@@ -26,7 +25,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
   # Check whether length(group)==1 - If not, give warning and use only first group
  
   #i <- names(parameters)[1]
-  for (i in names(parameters)){
+  for (i in names(parameters)[names(parameters) !="interactions"]){
     group <-parameters[[i]][["group"]]
     if(is.null(group)) group <- i
     if(length(group)>1){
@@ -36,11 +35,11 @@ fill_parameters <- function(parameters,data_structure, N, ...){
     parameters[[i]][["group"]] <- group
   }
 
-  group_names <- sapply(parameters,function(x) x[["group"]])
+  group_names <- sapply(parameters[names(parameters) !="interactions"],function(x) x[["group"]])
 
   ## check data_structure
   if(is.null(data_structure)){
-    if(any(!group_names %in% c("observation","residual"))) stop("data_structure must be specified if there are more groups than 'observation' and 'residual' in parameter list", call.=FALSE)
+    if(any(!group_names %in% c("observation","residual","interactions"))) stop("data_structure must be specified if there are more groups than 'observation', 'residual' and 'interactions' in parameter list", call.=FALSE)
   }else{
     if(!(is.matrix(data_structure)|is.data.frame(data_structure))) stop("data_structure is not a matrix or data.frame", call.=FALSE)   
   } 
@@ -49,10 +48,10 @@ fill_parameters <- function(parameters,data_structure, N, ...){
   if(! "residual" %in% group_names) stop("One of the parameters groups must be 'residual'", call.=FALSE)
  
   # Check whether all groups match ones in data structure - If not, give error
-  if(any(!group_names %in% c(colnames(data_structure),"observation","residual"))) stop("Group names in parameter list do not match group names in data_structure", call.=FALSE)
+  if(any(!group_names %in% c(colnames(data_structure),"observation","residual","interactions"))) stop("Group names in parameter list do not match group names in data_structure", call.=FALSE)
 
   # Check no group is called observation or residual - If not, give error
-  if(any(colnames(data_structure) %in% c("observation","residual"))) stop("'observation' and 'residual' are reserved names for grouping factors. Please rename grouping factors in data_structure", call.=FALSE)
+  if(any(colnames(data_structure) %in% c("observation","residual","interactions"))) stop("'observation', 'residual' and 'interactions' are reserved names for grouping factors. Please rename grouping factors in data_structure", call.=FALSE)
 
 
 ########
@@ -61,13 +60,16 @@ fill_parameters <- function(parameters,data_structure, N, ...){
 
 
   #i <- names(parameters)[1]
-  for (i in names(parameters)){
+
+
+
+  for (i in names(parameters)[!names(parameters) %in% c("interactions")]){
     # p <- parameters[[i]]
     
     ## make cov from vcorr
     if(!is.null(parameters[[i]][["vcorr"]])){
 
-      if(!is.null(parameters[[i]][["vcov"]]) {
+      if(!is.null(parameters[[i]][["vcov"]])){
         message("vcov and vcorr are both specified for '",i,"', only vcov is being used")
       }else{
         if(!is.matrix(parameters[[i]][["vcov"]])) stop("vcorr needs to be a matrix for ",i, call.=FALSE)
@@ -101,6 +103,24 @@ fill_parameters <- function(parameters,data_structure, N, ...){
       }
     }
   
+
+## maybe dont have special rule for resiudal, because if in multivaraite model want residuals at one level but not another, need to be able to specify beta=0 
+
+    # if(i=="residual"){
+    #   if(any(!names(parameters[[i]])) %in% c("mean", "vcov","vcorr")){
+    #     message("Only mean and vcov/vcorr will be used for residual")
+    #   }
+    #   if(is.null(parameters[[i]][["vcov"]])){
+    #   stop("'vcov' needs to be specified for ", i, call.=FALSE)
+    # }
+    #   #parameters[[i]][["beta"]] <- NULL
+
+
+    #     param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "n_response", "covariate")
+
+    # }
+
+
     # If beta is not a matrix, make it one. good for working out k and for simulations, as code below requires a matrix
     if(!is.null(parameters[[i]][["beta"]])){
       if(is.vector(parameters[[i]][["beta"]])){
@@ -121,7 +141,7 @@ fill_parameters <- function(parameters,data_structure, N, ...){
 
 
     if(is.null(parameters[[i]][["beta"]]) & is.null(parameters[[i]][["vcov"]])){
-      stop("'beta' or 'cov' needs to be specified for ", i, call.=FALSE)
+      stop("'beta' or 'vcov' needs to be specified for ", i, call.=FALSE)
     }
 
     # Work out number of variables at that level (k)
@@ -148,11 +168,6 @@ fill_parameters <- function(parameters,data_structure, N, ...){
     if(!any(!grepl(":",parameters[[i]][["names"]]))){
      stop("'names' only include interaction terms for ", i, call.=FALSE) 
     }
-    ## check that all main effects are also specified along with interactions
-    interactions <- grepl(":",parameters[[i]][["names"]])
-    if(!all(c(strsplit(parameters[[i]][["names"]][interactions],":"), recursive=TRUE) %in% parameters[[i]][["names"]][!interactions] )){
-      stop("'names' doesn't include all variables included in interactions for ", i, call.=FALSE) 
-    }
 
 
     ## set n_level - assume that it is not input by user, if it is, it will be over-written
@@ -167,10 +182,13 @@ fill_parameters <- function(parameters,data_structure, N, ...){
         length(unique(data_structure[,parameters[[i]][["group"]]]))
       }
 
+    ## covariate and fixed should be fixed to false for observation and residual
+    if(parameters[[i]][["group"]] %in% c("observation","residual")){
+      parameters[[i]][["fixed"]] <- FALSE
+      parameters[[i]][["covariate"]] <- FALSE
+    }
 
-
-
-    ## fixed
+    ## fixed    
     if(is.null(parameters[[i]][["fixed"]])) parameters[[i]][["fixed"]] <- FALSE
     
     if(parameters[[i]][["fixed"]] & parameters[[i]][["n_level"]] != k) stop("If fixed=TRUE, number of parameters should match the number of levels in grouping factor", call.=FALSE)
@@ -213,6 +231,59 @@ fill_parameters <- function(parameters,data_structure, N, ...){
   ##check whether all betas have same dimension
   j <- n_phenotypes(parameters)
 
+
+
+########
+## interactions
+########
+
+  pred_names <- do.call(c, lapply(parameters,function(x) x[["names"]]))
+  if(any(duplicated(pred_names))) stop("Predictor names must be unique", call.=FALSE)
+  
+# pred_names <- c("a","b","c","d")
+# interactions <- list(names=c("a:b","c:d"), beta=c(2,3), cov=2)
+
+  if(!is.null(parameters[["interactions"]])){
+    interactions <- parameters[["interactions"]]
+
+    if(is.null(interactions[["names"]])) stop("'names' need to be specified for interactions", call.=FALSE) 
+    if(any(!names(interactions) %in% c("names", "beta"))){
+        message("Only 'names' and 'beta' will be used for interactions")
+        interactions <- interactions[c("names", "beta")]
+      }
+    interaction_names <- interactions[["names"]]
+    interaction_variables <- unique(c(strsplit(interaction_names,":"), recursive=TRUE))
+
+    ## check that all main effects are also specified along with interactions
+    if(!all(interaction_variables %in% pred_names )) stop("variables included in interactions are not all specified in the 'names' arguments of the parameter list", call.=FALSE) 
+
+
+    if(!is.null(interactions[["beta"]])){
+      if(is.vector(interactions[["beta"]])){
+        interactions[["beta"]] <- matrix(interactions[["beta"]])
+      }else if(!is.matrix(interactions[["beta"]])){stop("'beta' in interactions should be a vector or matrix", call.=FALSE)
+      }
+      if(j != ncol(interactions[["beta"]])){ 
+        stop("number of columns in beta is not the same as n_response for interactions", call.=FALSE)
+      }
+    }else{ 
+      interactions[["beta"]] <- matrix(1,length(interaction_names),j)
+      #diag(interactions[["n_response"]])
+    } 
+
+    ## names and betas needs to be vectors of same dimensions
+    if(length(interactions[["names"]])!=nrow(interactions[["beta"]])) stop("'names' and 'beta' need to be the same length in interactions ", call.=FALSE) 
+    
+    rownames(interactions[["beta"]]) <- interaction_names
+    parameters[["interactions"]][["beta"]] <- interactions[["beta"]]
+  }
+
+
+
+
+
+
+
   ##Check extra parameters
   param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "n_response", "covariate")
 
@@ -235,10 +306,8 @@ fill_parameters <- function(parameters,data_structure, N, ...){
 
   }
 
+
   ## Check whether all names in data_structure and parameters contain only words, digits, : and _
-  pred_names <- do.call(c, lapply(parameters,function(x) x[["names"]]))
-  if(any(duplicated(pred_names))) stop("Predictor names must be unique", call.=FALSE)
-  
   all_names <- c(e_p, pred_names, colnames(data_structure))
 
   if(!all(grepl("^[A-z0-9_:]*$",all_names))) stop("Names in data structure and in parameters must be alphanumeric, '_' or ':'", call.=FALSE)
