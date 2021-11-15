@@ -3,6 +3,8 @@
 #' @description Simulate population level data
 #' @param parameters A list of parameters for each hierarchical level. See details.
 #' @param data_structure A matrix or dataframe with a named column for each grouping factor, including the levels
+#' @param N Sample size when data_structure is not specified
+#' @param N_response Optional. 
 #' @param model Optional. 
 #' @param family A description of the error distribution. Default "gaussian".
 #' @param link A description of the link function distribution. Default "identity".
@@ -11,7 +13,6 @@
 #' @param phylogeny A list of phylogenies for each hierarchical level. Each pedigree should be phylo class.
 #' @param phylogeny_type A list describing what mode of evolution should be simulated from each phylogeny. Options are 'brownian'(default) or 'OU'. 
 #' @param cov_str A list of covariance structures for each hierarchical level. 
-#' @param N Sample size when data_structure is not specified
 #' @param N_pop Number of populations. Default = 1
 #' @details Parameter list ... 
 #' @return 
@@ -21,7 +22,7 @@
 #' @import nadiv
 #' @import ape
 #' @import Matrix
-simulate_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N, N_pop=1, known_predictors, extra_betas){
+simulate_population <- function(parameters, data_structure, N, N_response=1, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N_pop=1, known_predictors, extra_betas){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
@@ -47,15 +48,15 @@ simulate_population <- function(parameters, data_structure, model, family="gauss
 
   output$parameters <- do.call(fill_parameters, output)
 
-  j <- n_phenotypes(output$parameters)
+  # j <- n_phenotypes(output$parameters)
 
-  if(j > 1 & !missing("model")) stop("Currently cannot specify multiple responses and a model formula")
+  if(N_response > 1 & !missing("model")) stop("Currently cannot specify multiple responses and a model formula")
 
-  if(!(length(link)==j || length(link)==1)){
-    stop("Link must either be length 1 or same length as the number of parameters")
+  if(!(length(link)==N_response || length(link)==1)){
+    stop("Link must either be length 1 or same length as the number of responses")
   }
-  if(!(length(family)==j || length(family)==1)){
-    stop("Family must either be length 1 or same length as the number of parameters")
+  if(!(length(family)==N_response || length(family)==1)){
+    stop("Family must either be length 1 or same length as the number of responses")
   }
 
 #####################  

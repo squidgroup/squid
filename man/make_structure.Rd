@@ -2,25 +2,23 @@
 % Please edit documentation in R/make_structure.R
 \name{make_structure}
 \alias{make_structure}
-\title{Make hierarchical structure}
+\title{Make nested and crossed balanced hierarchical structures}
 \usage{
-make_structure(structure, N, balanced = TRUE)
+make_structure(structure, repeat_obs = 1, ...)
 }
 \arguments{
-\item{structure}{A formula specifying the structure. See details.}
+\item{structure}{A formula specifying the structure and sample sizes at each level. See details.}
 
-\item{N}{Number of observations}
-
-\item{balanced}{Logical. Is the number of observations within each grouping level the same? Default TRUE.}
+\item{repeat_obs}{Number of repeated observations at the lowest level}
 }
 \value{
 
 }
 \description{
-Make hierarchical structure
+Make nested and crossed balanced hierarchical structures
 }
 \details{
-structure ...
+Factors are input as a text string. The name of each factor is followed by the number of levels in that factor in brackets e.g. "individual(100)". Nested factors can be specified using "/", e.g. "population(2)/individual(2)", the lower levels being specified after the higher levels, and the sample sizes of the lower levels
 }
 \examples{
 
