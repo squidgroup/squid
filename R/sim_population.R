@@ -1,5 +1,5 @@
 
-#' @title sim_population
+#' @title simulate_population
 #' @description Simulate population level data
 #' @param parameters A list of parameters for each hierarchical level. See details.
 #' @param data_structure A matrix or dataframe with a named column for each grouping factor, including the levels
@@ -21,7 +21,7 @@
 #' @import nadiv
 #' @import ape
 #' @import Matrix
-sim_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N, N_pop=1, known_predictors, extra_betas){
+simulate_population <- function(parameters, data_structure, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N, N_pop=1, known_predictors, extra_betas){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
   if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
@@ -147,13 +147,13 @@ summary.squid <- function(object, ...){
   
 }
 
-#' @title pop_data
+#' @title get_population_data
 #' @description Extracts population level data from a squid object
 #' @param x an R object of class 'squid'
 #' @param list Logical - whether to return data as a list or data_table (FALSE; default).
 #' @param ... further arguments passed to or from other methods.
 #' @export
-pop_data <- function(x,list=FALSE,...){
+get_population_data <- function(x,list=FALSE,...){
 
   # data.table(cbind(x$y,x$predictors,x$data_structure))
 
