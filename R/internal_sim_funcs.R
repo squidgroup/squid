@@ -1,3 +1,11 @@
+ar1_cor <- function(n, rho) {
+  exponent <- abs(matrix(1:n - 1, nrow = n, ncol = n, byrow = TRUE) - 
+      (1:n - 1))
+  rho^exponent
+}
+# from https://www.r-bloggers.com/2020/02/generating-correlation-matrix-for-ar1-model/
+#ar1_cor(n=10,rho=0.5)
+
 index_factors <- function(data_structure, pedigree, parameters,...){
   
   if(is.null(data_structure)){
