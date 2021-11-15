@@ -1,6 +1,6 @@
 
 lmerall <- function(df){    
-  modIDS      <- lmer(Phenotype~ X1 + (X1|Individual), data=df)
+  modIDS      <- lme4::lmer(Phenotype~ X1 + (X1|Individual), data=df)
   vcs         <- VarCorr(modIDS)
   Vintercepts <- vcs$Individual[1,1]
   Vslopes     <- vcs$Individual[2,2]

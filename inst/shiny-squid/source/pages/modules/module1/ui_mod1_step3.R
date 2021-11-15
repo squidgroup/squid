@@ -35,7 +35,7 @@ span(
   actionButton("Mod1Step3_Run", label = Modules_VAR$Run$label, icon= Modules_VAR$Run$icon, class="runButton"),
   runningIndicator(),
   sim_msg(),
-  
+
   # Output
     # Graph: density distribution of true values (Vp)
     #        density distribution of blups (Vi)
@@ -44,20 +44,20 @@ span(
     plotOutput("Mod1Step3_plot", width = Modules_VAR$Plot$width),
     # Scatter plot: measurements correlation
     plotOutput("Mod1Step3_plot2", width = Modules_VAR$Plot$width),
-    
+
     # Table : display true and measured values (Vp, Vi, Vme and mean)
     p(HTML(Mod1Step4_txt$para3)),    # Text: statistical result
     uiOutput("Mod1Step3_summary_table"),
-  
+
   # Repeatability equation
   p(HTML(Mod1Step3_txt$para1)),         # Text: paragraph 1
   p(paste("$$Repeatability=\\frac{V'_",NOT$devI,"}{V'_",NOT$devI,"+V'_",NOT$residualUpper,"}$$",sep="")),
   textOutput("Mod1Step3_Rep_txt"),
-  
+
   p(HTML(Mod1Step3_txt$point)),        # Text: point
   p(HTML(Mod1Step3_txt$point2)),       # Text: point 2
   p(HTML(Mod1Step3_txt$point3)),       # Text: point 3
-  
+
   p(HTML(module1_txt$statModTitle)),
   p(HTML(Mod1Step3_txt$statmodel)),       # Text: statistical model 1
   p(paste("$$",NOT$trait.1,"_{",NOT$time,NOT$ind,"}=",
@@ -68,7 +68,7 @@ span(
   p(paste("$$V_",NOT$total,"=V_",NOT$devI,"+V_",NOT$residualUpper,"$$",sep="")),
   p("where"),
   p(paste("$$V_",NOT$residualUpper,"=V_{",NOT$mean," ",NOT$env,"}+V_",NOT$mError,"$$",sep="")),
-  
+
   displayRCode(Mod1Step3_txt$RCode),
   
   div(class="line"),
