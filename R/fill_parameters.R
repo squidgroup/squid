@@ -7,6 +7,8 @@ n_phenotypes <- function(parameters){
 # [names(parameters) !="interactions"]
 # n_phenotypes(parameters)
 
+
+
 ## I've used loops rather than apply functions in here because then the original parameter list can then be added to rather than new lists made - this will be slightly slower but very negligible given their size
 fill_parameters <- function(parameters,data_structure, N, N_response,...){
 
@@ -14,8 +16,6 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
   if(!is.list(parameters)) stop("parameters are not provided as a list", call.=FALSE)
 
   # 
-
-
 
 #########
 ## Group Names
@@ -83,6 +83,9 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
           parameters[[i]][["vcov"]] <- diag(sd) %*% corr %*% diag(sd)
     }
 
+    if(is.null(parameters[[i]][["beta"]]) & is.null(parameters[[i]][["vcov"]])){
+      stop("'beta' or 'vcov' needs to be specified for ", i, call.=FALSE)
+    }
 
     # If cov is not a matrix, make it one. Need to do this before working out k, as code below requires a matrix
     # if its a matrix check its square and symmetric
@@ -127,22 +130,26 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
         parameters[[i]][["beta"]] <- matrix(parameters[[i]][["beta"]])
       }else if(!is.matrix(parameters[[i]][["beta"]])){stop("'beta' in ", i, " should be a vector or matrix", call.=FALSE)
       }
-      if(is.null(parameters[[i]][["n_response"]])){ 
-        parameters[[i]][["n_response"]] <- ncol(parameters[[i]][["beta"]])
-      }else if(parameters[[i]][["n_response"]] != ncol(parameters[[i]][["beta"]])){ 
-        stop("number of columns in beta is not the same as n_response for ",i, call.=FALSE)
+    if(N_response != ncol(parameters[[i]][["beta"]])){ 
+        stop("Number of columns in beta is not the same as N_response for ",i, call.=FALSE)
       }
+      ##
     }else{ 
-      if(is.null(parameters[[i]][["n_response"]])){ 
-        parameters[[i]][["n_response"]] <- 1
-      }else if(parameters[[i]][["n_response"]]>1){ parameters[[i]][["beta"]] <- diag(parameters[[i]][["n_response"]])
+    ## if the number of responses and the size of cov are the same, and beta is not specified, then beta = I, as assuming that the user is simulating random effects
+    ## if not the same then matrix of 1s
+      if(N_response == ncol(parameters[[i]][["vcov"]])){ 
+        parameters[[i]][["beta"]] <- diag(N_response)
+      }else{
+        parameters[[i]][["beta"]] <- matrix(1, nrow= ncol(parameters[[i]][["vcov"]]), ncol= N_response)  
       }
-    } 
-
-
-    if(is.null(parameters[[i]][["beta"]]) & is.null(parameters[[i]][["vcov"]])){
-      stop("'beta' or 'vcov' needs to be specified for ", i, call.=FALSE)
-    }
+    }  
+    ##
+    # }else{ 
+    #   if(is.null(parameters[[i]][["n_response"]])){ 
+    #     parameters[[i]][["n_response"]] <- 1
+    #   }else if(parameters[[i]][["n_response"]]>1){ parameters[[i]][["beta"]] <- diag(parameters[[i]][["n_response"]])
+    #   }
+    # } 
 
     # Work out number of variables at that level (k)
     # Check that size (k) of names, mean, cov, sd and var match - if not give error
@@ -165,9 +172,9 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
       stop("'names' should be a vector for ", i, call.=FALSE)
     }
     # check everything is not just interaction terms
-    if(!any(!grepl(":",parameters[[i]][["names"]]))){
-     stop("'names' only include interaction terms for ", i, call.=FALSE) 
-    }
+    # if(!any(!grepl(":",parameters[[i]][["names"]]))){
+    #  stop("'names' only include interaction terms for ", i, call.=FALSE) 
+    # }
 
 
     ## set n_level - assume that it is not input by user, if it is, it will be over-written
@@ -216,11 +223,6 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
     # Check whether cov specified
     # If not, diag(k)
     if(is.null(parameters[[i]][["vcov"]])) parameters[[i]][["vcov"]] <- diag(k)
-    
-    # Check whether beta specified
-    if(is.null(parameters[[i]][["beta"]])){
-      parameters[[i]][["beta"]] <- matrix(1,k,parameters[[i]][["n_response"]])
-    }
 
 
   ## add names to means, cov and betas
@@ -229,7 +231,7 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
   }
 
   ##check whether all betas have same dimension
-  j <- n_phenotypes(parameters)
+  # j <- n_phenotypes(parameters)
 
 
 
@@ -263,11 +265,11 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
         interactions[["beta"]] <- matrix(interactions[["beta"]])
       }else if(!is.matrix(interactions[["beta"]])){stop("'beta' in interactions should be a vector or matrix", call.=FALSE)
       }
-      if(j != ncol(interactions[["beta"]])){ 
-        stop("number of columns in beta is not the same as n_response for interactions", call.=FALSE)
+      if(N_response != ncol(interactions[["beta"]])){ 
+        stop("number of columns in beta is not the same as N_response for interactions", call.=FALSE)
       }
     }else{ 
-      interactions[["beta"]] <- matrix(1,length(interaction_names),j)
+      interactions[["beta"]] <- matrix(1,length(interaction_names),N_response)
       #diag(interactions[["n_response"]])
     } 
 
@@ -285,7 +287,7 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
 
 
   ##Check extra parameters
-  param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "n_response", "covariate")
+  param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "covariate")
 
   e_p <- unlist(sapply(parameters, function(x){
     names(x)[!names(x) %in% param_names]
