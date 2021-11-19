@@ -325,3 +325,40 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
 
 }
 
+
+
+
+
+
+# data(BTdata)
+# known_predictors <- list(predictors=BTdata[,c("hatchdate","tarsus")], beta=matrix(c(1,2,3),nrow=3))
+# N_response <- 1
+
+fill_preds <- function(known_predictors,N_response,...){
+  if(!is.list(known_predictors)) stop("known_predictors must be a list", call.=FALSE)
+  # if(any(!names(known_predictors) %in% c("predictors","beta"))) stop("known_predictors are not provided as a list", call.=FALSE)
+  if(!all(c("predictors") %in% names(known_predictors))) stop("known_predictors must contain predictors ", call.=FALSE)
+  if(!(is.data.frame(known_predictors[["predictors"]]) | is.matrix(known_predictors[["predictors"]])))stop("predictors in known_predictors must be a data.frame or matrix", call.=FALSE)
+  if(is.data.frame(known_predictors[["predictors"]])) known_predictors[["predictors"]] <- as.matrix(known_predictors[["predictors"]])
+  if(any(!apply(known_predictors[["predictors"]],2,is.numeric))) stop("predictors in known_predictors must be numeric", call.=FALSE)
+  
+  if(!is.null(known_predictors[["beta"]])){
+    if(is.vector(known_predictors[["beta"]])){
+      known_predictors[["beta"]] <- matrix(known_predictors[["beta"]])
+    }else if(!is.matrix(known_predictors[["beta"]])) {
+      stop("'beta' in known_predictors should be a vector or matrix", call.=FALSE)
+    }
+    if(!is.numeric(known_predictors[["beta"]]))stop("beta in known_predictors must be numeric", call.=FALSE)
+    if(N_response != ncol(known_predictors[["beta"]])) stop("Number of columns in beta is not the same as N_response for known_predictors", call.=FALSE)      
+    if(ncol(known_predictors[["predictors"]]) != nrow(known_predictors[["beta"]])) stop("The dimensions of beta do not match the number of predictors for known_predictors", call.=FALSE)
+      ##
+  }else{ 
+    known_predictors[["beta"]] <- matrix(1, nrow= ncol(known_predictors[["predictors"]]), ncol= N_response)  
+  }
+
+  rownames(known_predictors[["beta"]]) <- colnames(known_predictors[["predictors"]])
+
+  return(known_predictors)
+}
+# kn<-fill_preds(list(predictors=BTdata[,c("hatchdate","tarsus")], beta=matrix(c(1,2,3),ncol=1)),1)
+

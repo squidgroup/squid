@@ -79,8 +79,7 @@ cov_str_list <- function(parameters, data_structure, pedigree, phylogeny, cov_st
 
 
 
-
-sim_predictors <- function(parameters, data_structure, pedigree, cov_str, ...){
+sim_predictors <- function(parameters, data_structure, pedigree, cov_str, known_predictors, ...){
   
   ## index data_structure
   str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
@@ -144,9 +143,16 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, ...){
     traits<-cbind(traits,x_int)
 
   }
+  
+  #order predictors to match betas 
+  traits<-traits[,do.call(c,lapply(parameters,function(x) x$names))]
 
-  traits[,do.call(c,lapply(parameters,function(x) x$names))]
+  ## add in known predictors
+  if(!is.null(known_predictors)){
+    traits<-cbind(traits,known_predictors$predictors)
+  }
 
+  return(traits)
 
 }
 
@@ -181,7 +187,7 @@ generate_y <- function(predictors, betas, str_index,  model, y_pred_names,extra_
   return(y)
 }
 
-generate_y_list <- function(parameters, data_structure, predictors, pedigree, model,...){
+generate_y_list <- function(parameters, data_structure, predictors, pedigree, model,known_predictors,...){
 
     ## index data_structure
   str_index <- index_factors(data_structure=data_structure,pedigree=pedigree,parameters=parameters)
@@ -189,6 +195,9 @@ generate_y_list <- function(parameters, data_structure, predictors, pedigree, mo
   ## put all betas together
   ## ned to order betas
   betas <- do.call(rbind,lapply(parameters,function(x) x$beta))
+  if(!is.null(known_predictors)){
+    betas<-rbind(betas,known_predictors$beta)
+  }
   #betas <- rbind(do.call(rbind,lapply(parameters,function(x) x$beta)), extra_betas)
 
   y_pred_names <- c(colnames(predictors[[1]]), paste0(colnames(predictors[[1]]),"_raw"), if(!is.null(str_index)){paste0(colnames(str_index),"_ID")})

@@ -1,10 +1,11 @@
 
 #' @title simulate_population
 #' @description Simulate population level data
-#' @param parameters A list of parameters for each hierarchical level. See details.
 #' @param data_structure A matrix or dataframe with a named column for each grouping factor, including the levels
 #' @param N Sample size when data_structure is not specified
-#' @param N_response Optional. 
+#' @param parameters A list of parameters for each hierarchical level. See details.
+#' @param N_response The number of response variables, defaults to 1. 
+#' @param known_predictors This option provides a way of inputting existing predictor variables, without simulating all predictors. This argument takes a list, with item 'predictors' and 'betas', where 'predictors' is a matrix or dataframe 
 #' @param model Optional. 
 #' @param family A description of the error distribution. Default "gaussian".
 #' @param link A description of the link function distribution. Default "identity".
@@ -22,11 +23,14 @@
 #' @import nadiv
 #' @import ape
 #' @import Matrix
-simulate_population <- function(parameters, data_structure, N, N_response=1, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N_pop=1, known_predictors, extra_betas){
+simulate_population <- function(data_structure, N, parameters, N_response=1, known_predictors, model, family="gaussian", link="identity", pedigree, pedigree_type, phylogeny, phylogeny_type, cov_str, N_pop=1){
 
   if(!all(link %in% c("identity", "log", "inverse", "sqrt", "logit", "probit"))) stop("Link must be 'identity', 'log', 'inverse', 'sqrt', 'logit', 'probit'")
-  if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
+  if(!(length(link)==N_response || length(link)==1))  stop("Link must either be length 1 or same length as the number of responses")
   
+  if(!all(family %in% c("gaussian", "poisson", "binomial"))) stop("Family must be 'gaussian', 'poisson', 'binomial'")
+  if(!(length(family)==N_response || length(family)==1))  stop("Family must either be length 1 or same length as the number of responses")
+
   if(missing("N") & missing("data_structure")){
     stop("Either N or data_structure need to be specified")
   }else if(missing("N")){
@@ -35,9 +39,12 @@ simulate_population <- function(parameters, data_structure, N, N_response=1, mod
     if(nrow(data_structure)!=N) stop("N and nrow(data_structure) are not equal. Only one needs to be specified.")
   }
   
-  # if(!missing("known_predictors")& !missing("data_structure")){
-  #   if(nrow(data_structure)!=nrow(known_predictors)) stop("data_structure and known_predictors need to be the same length.")
-  # }
+  if(!missing("known_predictors")){
+    if(N!=nrow(known_predictors[["predictors"]])) stop("The number of observation specified does not match the number of rows in known_predictors")
+  }
+
+  if(N_response > 1 & !missing("model")) stop("Currently cannot specify multiple responses and a model formula")
+
 
   ## gets the arguments into a list that is added to for the output
   output <- lapply(as.list(environment()), function(x) if (length(x)==1 && x=="") NULL else x)
@@ -46,18 +53,12 @@ simulate_population <- function(parameters, data_structure, N, N_response=1, mod
 ###---Fill in parameter lists 
 ##################### 
 
+
+
   output$parameters <- do.call(fill_parameters, output)
 
-  # j <- n_phenotypes(output$parameters)
+  if(!missing(known_predictors)) output$known_predictors <- do.call(fill_preds, output)
 
-  if(N_response > 1 & !missing("model")) stop("Currently cannot specify multiple responses and a model formula")
-
-  if(!(length(link)==N_response || length(link)==1)){
-    stop("Link must either be length 1 or same length as the number of responses")
-  }
-  if(!(length(family)==N_response || length(family)==1)){
-    stop("Family must either be length 1 or same length as the number of responses")
-  }
 
 #####################  
 ###---cov structures
@@ -121,7 +122,7 @@ print.squid <- function(x, ...){
             /    \\           
             |    |          
             |    |          
-      0     |    |      0     
+     0      |    |      0     
      /      \\____/      \\    
     {     __/(  )\\__     }   
      \\___/__\\_\\/_/__\\___/    
