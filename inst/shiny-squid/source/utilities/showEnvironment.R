@@ -1,8 +1,8 @@
 showEnvironment <- function(input, module, envName){
   
-  envObject <- SQUID::setEnvironments(input, module)
-  modelVar  <- SQUID::setVariables(input, module, envObject)
-  envData   <- SQUID::getEnvironment(envObject[[envName]], modelVar$N, TRUE)
+  envObject <- squid::setEnvironments(input, module)
+  modelVar  <- squid::setVariables(input, module, envObject)
+  envData   <- squid::getEnvironment(envObject[[envName]], modelVar$N, TRUE)
   
   myData   <- data.frame("envData"  = envData, 
                          "x"        = rep(1:modelVar$N$NS, modelVar$N$NI),
