@@ -156,7 +156,8 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
     lengths <- c(length(parameters[[i]][["names"]]),
     	length(parameters[[i]][["mean"]]),
     	ncol(parameters[[i]][["vcov"]]),
-    	nrow(parameters[[i]][["beta"]]) ## possibly change this if allowing matrix of sds for multivariate
+    	nrow(parameters[[i]][["beta"]]), ## possibly change this if allowing matrix of sds for multivariate
+      length(parameters[[i]][["functions"]])
     )
     k <- unique(lengths[lengths>0])
     if(length(k) != 1) stop("The number of parameters given for ", i, " are not consistent", call.=FALSE)
@@ -202,10 +203,13 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
     
     if(parameters[[i]][["fixed"]] & is.null(parameters[[i]][["beta"]])) stop("If fixed =TRUE, beta also needs to be specified", call.=FALSE)
 
+    if(parameters[[i]][["fixed"]] & (!is.null(parameters[[i]][["mean"]]) || !is.null(parameters[[i]][["vcov"]]) || !is.null(parameters[[i]][["functions"]]))) warning("Fixed=TRUE for ",i,", so mean, cov and functions are ignored", call.=FALSE)
+
+
     # Check whether covariate is specified
     if(is.null(parameters[[i]][["covariate"]])) parameters[[i]][["covariate"]] <- FALSE
   
-    if(parameters[[i]][["covariate"]] & (!is.null(parameters[[i]][["mean"]]) || !is.null(parameters[[i]][["vcov"]]))) warning("Covariate=TRUE for ",i,", so mean and cov are ignored", call.=FALSE)
+    if(parameters[[i]][["covariate"]] & (!is.null(parameters[[i]][["mean"]]) || !is.null(parameters[[i]][["vcov"]]) || !is.null(parameters[[i]][["functions"]]))) warning("Covariate=TRUE for ",i,", so mean, cov and functions are ignored", call.=FALSE)
     
     if(parameters[[i]][["covariate"]] & is.null(parameters[[i]][["beta"]])) stop("If covariate =TRUE, beta also needs to be specified", call.=FALSE)
 
@@ -224,9 +228,21 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
     # If not, diag(k)
     if(is.null(parameters[[i]][["vcov"]])) parameters[[i]][["vcov"]] <- diag(k)
 
+    
+    ### functions
+    if(is.null(parameters[[i]][["functions"]])){
+      parameters[[i]][["functions"]] <- rep("identity",k)
+    }else if(!is.vector(parameters[[i]][["functions"]])){
+      stop("'functions' should be a vector for ", i, call.=FALSE)
+    }else if(!all(is.character(parameters[[i]][["functions"]]))){
+      stop("'functions' should be a character vector for ", i, call.=FALSE)
+    }else{
+      parameters[[i]][["functions"]][is.na(parameters[[i]][["functions"]])] <- "identity"
+    }
+    ## should they be input as characters?
 
   ## add names to means, cov and betas
-  names(parameters[[i]][["mean"]]) <- rownames(parameters[[i]][["beta"]]) <- rownames(parameters[[i]][["vcov"]]) <- colnames(parameters[[i]][["vcov"]]) <- parameters[[i]][["names"]]
+    names(parameters[[i]][["functions"]]) <- names(parameters[[i]][["mean"]]) <- rownames(parameters[[i]][["beta"]]) <- rownames(parameters[[i]][["vcov"]]) <- colnames(parameters[[i]][["vcov"]]) <- parameters[[i]][["names"]]
 
   }
 
@@ -287,7 +303,7 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
 
 
   ##Check extra parameters
-  param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "covariate")
+  param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_level", "fixed", "covariate", "functions")
 
   e_p <- unlist(sapply(parameters, function(x){
     names(x)[!names(x) %in% param_names]

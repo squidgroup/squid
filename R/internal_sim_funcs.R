@@ -91,21 +91,14 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, known_
 
 # i<-"animal"
     p <- parameters[[i]]
-    
-    ## sort out which are interactions   
-    # interactions <- grepl(":",p$names)
-
     k <- length(p$mean)
-    # k <- sum(!interactions)
     n <- p$n_level
 
     ## simulate 'traits' at each level from multivariate normal 
     if(p$fixed){
       
       x<-stats::model.matrix(stats::formula(paste("~ factor(",p$group,")-1")),as.data.frame(str_index))
-      # x<- p$mean[str_index[,p$group]]
-
-      ## work out what to do with fixed effects and interactions
+    
     }else if(p$covariate){
 
       x<- matrix(rep(str_index[,p$group],k),nrow(str_index),k)
@@ -115,16 +108,20 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, known_
       # x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$vcov[!interactions,!interactions])   + matrix(p$mean[!interactions], n, k, byrow=TRUE),"matrix")
       x <- as(Matrix::crossprod(cov_str[[i]],matrix(stats::rnorm( n*k,  0, 1), n, k)) %*% chol(p$vcov)   + matrix(p$mean, n, k, byrow=TRUE),"matrix")
 
-
+      ### apply functions
+      ### add them in likes betas, making sure they are in the right order? then apply them to the cols?
+      x_func <- sapply(1:k,function(i) sapply(x[,i],p[["functions"]][i]))
+      
       ## expand traits to be the same length as the number of observations using data structure  
-      if(!p$group %in% c("observation","residual")) x <- x[str_index[,p$group],,drop=FALSE]
+      if(!p$group %in% c("observation","residual")) x_func <- x_func[str_index[,p$group],,drop=FALSE]
     }
-    ## use names form parameter list 
-    # colnames(x) <- p$names[!interactions]
-    colnames(x) <- p$names
 
-    return(x)
+    ## use names form parameter list 
+    colnames(x_func) <- p$names
+
+    return(x_func)
   }))
+
 
 
 # traits <- data.frame(a=rnorm(100),b=rnorm(100),c=rnorm(100),d=rnorm(100))
@@ -205,7 +202,7 @@ generate_y_list <- function(parameters, data_structure, predictors, pedigree, mo
   ## extract and name extra parameters
   if(!is.null(model)){
 
-    param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_response", "fixed", "covariate", "n_level")
+    param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_response", "fixed", "covariate", "n_level", "function")
     extra_param <- unlist(sapply(parameters, function(x){ x[!names(x) %in% param_names] }))
         
     if(!is.null(extra_param)){
