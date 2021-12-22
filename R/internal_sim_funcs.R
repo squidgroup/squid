@@ -110,16 +110,16 @@ sim_predictors <- function(parameters, data_structure, pedigree, cov_str, known_
 
       ### apply functions
       ### add them in likes betas, making sure they are in the right order? then apply them to the cols?
-      x_func <- sapply(1:k,function(i) sapply(x[,i],p[["functions"]][i]))
+      x <- sapply(1:k,function(i) sapply(x[,i],p[["functions"]][i]))
       
       ## expand traits to be the same length as the number of observations using data structure  
-      if(!p$group %in% c("observation","residual")) x_func <- x_func[str_index[,p$group],,drop=FALSE]
+      if(!p$group %in% c("observation","residual")) x <- x[str_index[,p$group],,drop=FALSE]
     }
 
     ## use names form parameter list 
-    colnames(x_func) <- p$names
+    colnames(x) <- p$names
 
-    return(x_func)
+    return(x)
   }))
 
 
