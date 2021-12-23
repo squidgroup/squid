@@ -1,10 +1,10 @@
-rm(list=ls())
+# rm(list=ls())
 
 
-devtools::load_all("~/github/squid/R")
+# devtools::load_all("~/github/squid/R")
 
 pop_data <- simulate_population(
-  data_structure=make_structure("individual(200)",repeat_obs=20),
+  data_structure=make_structure("nest(10)/individual(20)",repeat_obs=20),
   parameters = list(
     individual = list( 
       vcov = 0.1
@@ -27,64 +27,112 @@ sample_group <- function(x,n){
 }
 
 
-
-simple_sampling <- function(pop_data, FUN){
-				# check that all levels of factor have at least the maximum samples
-
 	data_structure <- pop_data$data_structure
+# param = list( N = cbind(individual=c(50, 100),observation=c(10, 5)), order = c("individual","observation"))
 
+param = cbind(nest=c(2,10),individual=c(10, 15),observation=c(10, 5))
+## columns are named, and order with highest hierarchical level first (order in which sampling is done)
 
-simple = c("individual(50)/observation(10)","individual(100)/observation(5)")
-structure=simple
-structure <- gsub("\\s","",structure)
-comp_list <- strsplit(structure, "\\/")
-comp_list_N <- lapply(comp_list,extract_N)
-comp_names <- lapply(comp_list,extract_name)
+# simple = c("individual(50)/observation(10)","individual(100)/observation(5)")
+# structure=simple
+# structure <- gsub("\\s","",structure)
+# comp_list <- strsplit(structure, "\\/")
+# comp_list_N <- lapply(comp_list,extract_N)
+# comp_names <- lapply(comp_list,extract_name)
+
+nested_sampling <- function(data_structure, param){
+				# check that all levels of factor have at least the maximum samples
 	
-
-FUN = list(individual= c(50, 100), observation=c(10, 5), sample_order = c("individual","observation"))
-# simple = list(individual= c(15, 10, 5))
-
-
-
-## observation level
-groups <- FUN[["sample_order"]]
-i <- 1
-
-index<-which(data_structure[[groups[i]]] %in% sample(unique(data_structure[[groups[i]]]), FUN[[groups[i]]][1], replace=FALSE))
-i2 <- sample_group(data_structure[index,groups[i]],FUN[[groups[i+1]]][1])
-table(data_structure[i2,])
-
-
-index<-which(data_structure[[groups[i]]] %in% sample(unique(data_structure[[groups[i]]]), FUN[[groups[i]]][2], replace=FALSE))
-i2<-sample_group(data_structure[index,groups[i]],FUN[[groups[i+1]]][2])
-table(data_structure[i2,])
+	if(!all(colnames(param) %in% c(colnames(data_structure),"observation"))) stop("Names in sample order need to be in data_structure")
+	if("observation" %in% colnames(param) & !"observation" %in% colnames(data_structure)) data_structure[,"observation"] <- 1:nrow(data_structure)
 
 		# for(i in colnames(data_structure)){
 		# 	if(min(table(data_structure[,i]) ) < max(simple[[i]])) stop("not all levels of ",i, " have the maximum number of samples")
 		# }
+
+	# for (i in colnames(param)){
+	# 	if(length(unique(data_structure[,i])) < max(param[,i])) stop("not all levels of ",i, " have the maximum number of samples")
+	# }
+
 		
-		# 
 
-		data_structure[sample_group(data_structure$individual),]
+apply(param,1, function(x){
 
-		# sample_population( simple = list(ind= c(50, 10), pop=c(2, 10), sample_order = “pop + ind”) )
-		# “pop(2) + ind(50)”
-		# Completely crossed - doesnt matter the order of sampling?
-		# Only Nested - does matter the order
+})
 
-		# Ind, 50, 100
-		# Pop, 10, 5
+## observation level
+groups <- colnames(param)
+j <- 2
+# i=2
+for(i in 1:ncol(param)){
+	if(i==1){
+		index1<-which(data_structure[,groups[i]] %in% sample(unique(data_structure[,groups[i]]), param[,groups[i]][j], replace=FALSE))
+	}else{
+		index_new <- sample_group(data_structure[index,groups[i-1]],param[,groups[i]][j])
+		index <- index[index_new]
+	}
+}
 
-		# At each level, user can specify proportion or integer of samples at a given level, either fixed or variable, if proportion then round to nearest integer, if variable use poisson
-		# Apply separately to each response.
+sample_group <- function(x,n) which(x %in% sample(unique(x), n, replace=FALSE))
+
+index1 <- sample_group(data_structure[,groups[1]],param[,groups[1]][j])
+dat2 <- data_structure[index1,]
+
+
+sample(unique(x)
+
+
+split(dat2,dat2)
+lapply(split(data_structure[index1,],data_structure[index1,groups[i]]), )
+
+
+
+index<-which(data_structure[,groups[1]] %in% sample(unique(data_structure[,groups[1]]), param[,groups[1]][j], replace=FALSE))
+
+if(ncol(param)>1)
+for(i in 2:ncol(param)){
+		index_new <- sort(which(data_structure[index,groups[i]] %in%c(tapply(data_structure[index,groups[i]],data_structure[index,groups[i-1]],function(x) sample(unique(x),param[,groups[i]][j], replace=FALSE)), recursive=TRUE)))
+		index <- index[index_new]
+	}
+}
+
+
+
+# length(unique(data_structure[,"individual"]))
+# unique(table(data_structure[,"individual"]))
+
+# length(table(data_structure[,"nest"]))
+# unique(table(data_structure[,"nest"]))
+
+# aggregate(observation~nest+individual,data_structure,length)
+# aggregate(observation~nest+individual,data_structure,length)
+
+# unique(table(data_structure[,"individual"]))
+# unique(table(data_structure[,"nest"]))/unique(table(data_structure[,"individual"]))
+
+length(unique(data_structure[index,"nest"]))
+length(unique(data_structure[index,"individual"]))
+unique(table(data_structure[index,"individual"]))
+
+data_structure[index,]
+
+index<-which(data_structure[[groups[i]]] %in% sample(unique(data_structure[[groups[i]]]), param[[groups[i]]][1], replace=FALSE))
+i2 <- sample_group(data_structure[index,groups[i]],param[[groups[i+1]]][1])
+table(data_structure[i2,])
+
+
+index<-which(data_structure[[groups[i]]] %in% sample(unique(data_structure[[groups[i]]]), param[[groups[i]]][2], replace=FALSE))
+i2<-sample_group(data_structure[index,groups[i]],param[[groups[i+1]]][2])
+table(data_structure[i2,])
+
+
+
+		# At each level, user can specify proportion or integer of samples at a given level if proportion then round to nearest integer?
+		# Apply separately to each response?
 
 }
 
-complex = c("0.5 * body size")
-
-
-complex_sampling <- function(pop_data, FUN){
+complex_sampling <- function(pop_data, param){
 			## check that missingness predictors are are in y or predictors
 		## by default center and scale predictors
 
@@ -94,7 +142,7 @@ complex_sampling <- function(pop_data, FUN){
 			dat<- as.data.frame(apply(cbind(pop_data$y[[1]],squid_data$predictors[[1]]),2,scale) )
 
 			# FUN= c(0, "0.5*environment", "0.25*y")
-			l <- sapply(FUN, function(x) {
+			l <- sapply(param, function(x) {
 				y <- eval(parse(text=x),envir = dat)
 			  if(length(y)==1) y <- rep(y, nrow(dat))
 			  return(y)
@@ -121,27 +169,31 @@ complex_sampling <- function(pop_data, FUN){
 }
 
 
+temporal_sampling <- function(pop_data, param){
+# Which grouping factor is time
+		# Which grouping factor is temporally dependent
+		# Sampling parameters - between group variance in sampling across time
+		# list(time = c(day, month), group = c(ind, pop), variance = c(0.5, 0,6))
+
+}
 
 
-sample_population <- function(pop_data, simple, complex, temporal, plot=FALSE){
+
+sample_population <- function(pop_data, type, param, plot=FALSE){
 	
 
 	data_structure <- pop_data$data_structure
 
 
-	if(!is.null(simple)){
-		indices <- simple_sampling(pop_data, simple)
-	}
-	if(!is.null(complex)){
-		indices <- complex_sampling(pop_data, complex)
-	}
-	if(!is.null(temporal)){
-		# Which grouping factor is time
-		# Which grouping factor is temporally dependent
-		# Sampling parameters - between group variance in sampling across time
-		# list(time = c(day, month), group = c(ind, pop), variance = c(0.5, 0,6))
+	if(type=="nested"){
+		indices <- nested_sampling(pop_data$data_structure, param)
+	}else if(type=="complex"){
+		indices <- complex_sampling(pop_data, param)
+	}else if(type=="temporal"){
+		indices <- temporal_sampling(pop_data, param)
+	}else stop("type must be 'nested', 'complex' or 'temporal'")
 
-	}
+	## incorporate into squid object
 }
 
 
