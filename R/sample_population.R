@@ -105,7 +105,7 @@ complex_sampling <- function(pop_data, param, plot=FALSE){
 	## option to plot missingness function
 		
 	## put together y and predictors and scale
-	dat<- as.data.frame(apply(cbind(pop_data$y[[1]],squid_data$predictors[[1]]),2,scale) )
+	dat<- as.data.frame(apply(cbind(pop_data$y[[1]],pop_data$predictors[[1]]),2,scale) )
 
 	# FUN= c(0, "0.5*environment", "0.25*y")
 	l <- sapply(param, function(x) {
