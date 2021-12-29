@@ -1,51 +1,29 @@
-# rm(list=ls())
 
+## function which tells whether consecutive columns are nested, assuming that the first one is the highest level
+is.nested <-function(x) sapply(2:ncol(x), function(i) nrow(unique(x[,c(i-1,i)])) == length(unique(x[,i])) )
 
-# devtools::load_all("~/github/squid/R")
+## function
+## param 
+sample_nested <- function(data_structure, param, plot=FALSE){
+	
+	groups <- colnames(param)
+	
+	## check naming
+	if(!all(groups %in% c(colnames(data_structure),"observation"))){
+		stop("Names in sample order need to be in data_structure")
+	}
+	
+	## if there isn't an observation level specified make one
+	if("observation" %in% groups & !"observation" %in% colnames(data_structure)){
+	 data_structure[,"observation"] <- 1:nrow(data_structure)
+	}
 
-# pop_data <- simulate_population(
-#   data_structure=make_structure("nest(10)/individual(20)",repeat_obs=20),
-#   parameters = list(
-#     individual = list( 
-#       vcov = 0.1
-#     ),
-#     observation= list(
-#       names = c("environment"),
-#       beta =c(0.5)
-#     ), 
-#     residual = list(
-#       vcov = 0.8
-#     )
-#   )
-# )
-
-
-
-# sample_group <- function(x,n){
-# 	if(min(table(x)) < n) stop("not all levels have the maximum number of samples", call. = FALSE)
-# 	sort(c(lapply(unique(x), function(y) sample(which(x==y),n, replace=FALSE) ), recursive=TRUE))
-# }
-# sample_group <- function(x,n) which(x %in% sample(unique(x), n, replace=FALSE))
-
-
-# data_structure <- pop_data$data_structure
-# param = cbind(individual=c(10, 15),observation=c(10, 5))
-## columns are named, and order with highest hierarchical level first (order in which sampling is done)
-
-# simple = c("individual(50)/observation(10)","individual(100)/observation(5)")
-# structure=simple
-# structure <- gsub("\\s","",structure)
-# comp_list <- strsplit(structure, "\\/")
-# comp_list_N <- lapply(comp_list,extract_N)
-# comp_names <- lapply(comp_list,extract_name)
-
-nested_sampling <- function(data_structure, param, plot=FALSE){
-	## maybe need some function to test if nested
+	## test if nested
+	if(!all(is.nested(data_structure[,groups]))){
+		stop("Grouping factors are not nested in the order provided")
+	}
 
 	# check that all levels of factor have at least the maximum samples
-	
-	if(!all(colnames(param) %in% c(colnames(data_structure),"observation"))) stop("Names in sample order need to be in data_structure")
-	if("observation" %in% colnames(param) & !"observation" %in% colnames(data_structure)) data_structure[,"observation"] <- 1:nrow(data_structure)
 
 		# for(i in colnames(data_structure)){
 		# 	if(min(table(data_structure[,i]) ) < max(simple[[i]])) stop("not all levels of ",i, " have the maximum number of samples")
@@ -56,20 +34,19 @@ nested_sampling <- function(data_structure, param, plot=FALSE){
 	# }
 
 		
-	groups <- colnames(param)
 
 	# for each parameter set (row in param)
 	apply(param,1, function(j){
 		
-		index<-which(data_structure[,groups[1]] %in% sample(unique(data_structure[,groups[1]]), j[1], replace=FALSE))
 		## get the right number of levels for the highest group
+		index<-which(data_structure[,groups[1]] %in% sample(unique(data_structure[,groups[1]]), j[1], replace=FALSE))
 
+		##then cascade through nested groups to get right number of levels within each
 		if(ncol(param)>1){
 			for(i in 2:ncol(param)){
 				index_new <- sort(which(data_structure[index,groups[i]] %in% c(tapply(data_structure[index,groups[i]],data_structure[index,groups[i-1]], function(x) sample(unique(x),j[i], replace=FALSE)), recursive=TRUE)))
 				index <- index[index_new]
-			}
-			##then cascade through nested groups to get right number of levels within each
+			}	
 		}
 
 		index
@@ -78,45 +55,37 @@ nested_sampling <- function(data_structure, param, plot=FALSE){
 		# At each level, user can specify proportion or integer of samples at a given level if proportion then round to nearest integer?
 		# Apply separately to each response?
 
+# possible alternative data entry
+# simple = c("individual(50)/observation(10)","individual(100)/observation(5)")
+# structure=simple
+# structure <- gsub("\\s","",structure)
+# comp_list <- strsplit(structure, "\\/")
+# comp_list_N <- lapply(comp_list,extract_N)
+# comp_names <- lapply(comp_list,extract_name)
+
 }
 
 
-# length(unique(data_structure[,"individual"]))
-# unique(table(data_structure[,"individual"]))
-
-# length(table(data_structure[,"nest"]))
-# unique(table(data_structure[,"nest"]))
-
-# aggregate(observation~nest+individual,data_structure,length)
-
-# unique(table(data_structure[,"individual"]))
-# unique(table(data_structure[,"nest"]))/unique(table(data_structure[,"individual"]))
-
-# length(unique(data_structure[index,"nest"]))
-# length(unique(data_structure[index,"individual"]))
-# unique(table(data_structure[index,"individual"]))
-# aggregate(individual~nest,data_structure[index,],function(x) length(unique(x)))
-
-
-complex_sampling <- function(pop_data, param, plot=FALSE){
-	## check that missingness predictors are are in y or predictors
+sample_missing <- function(pop_data, param, plot=FALSE){
+	## check that missingness predictors are are in y or predictors (error message will be given if they;re not, but might be worth making more informative one)
 	## by default center and scale predictors
-
 	## option to plot missingness function
 		
-	## put together y and predictors and scale
-	dat<- as.data.frame(apply(cbind(pop_data$y[[1]],pop_data$predictors[[1]]),2,scale) )
+	lapply(1:pop_data$N_pop, function(i){	
 
-	# FUN= c(0, "0.5*environment", "0.25*y")
-	l <- sapply(param, function(x) {
-		y <- eval(parse(text=x),envir = dat)
-	  if(length(y)==1) y <- rep(y, nrow(dat))
-	  return(y)
+		## put together y and predictors and scale
+		## scaling means that all coefficients are comparable
+		dat <- as.data.frame(apply(cbind(pop_data$y[[i]],pop_data$predictors[[i]]),2,scale) )
+	
+			l <- sapply(param, function(x) {
+				y <- eval(parse(text=x),envir = dat)
+			  if(length(y)==1) y <- rep(y, nrow(dat))
+			  return(y)
+			})
+			e <- plogis(l)
+			o <- apply(e,2,function(x)as.logical(rbinom(length(x),1,x)))
+			apply(o,2,which)
 	})
-	## scaling means that all coefficients are comparable
-	e <- plogis(l)
-	o <- apply(e,2,function(x)as.logical(rbinom(length(x),1,x)))
-	apply(o,2,which)
 	# could make total N constant ;using the probabilities e with sample
 
 	# plot(dat$env,o)
@@ -127,16 +96,12 @@ complex_sampling <- function(pop_data, param, plot=FALSE){
 	# plot(x,plogis(x*0.5), type="l",ylim=c(0,1))
 	# plot(x,rbinom(length(x),1,plogis(x*0.5)),ylim=c(0,1))
 
-	# Logistic function - probability of being sampled
-	# MNAR Y = beta_1 * body size
-	# MNAR Y = beta_1 * (temp +residual)
-	# MAR Y = beta_2*temp
 }
 
 
 
 
-temporal_sampling <- function(data_structure, param, plot=FALSE){
+sample_temporal <- function(data_structure, param, plot=FALSE){
 	# Which grouping factor is time
 	# Which grouping factor is temporally dependent
 	# Sampling parameters - between group variance in sampling across time
@@ -176,19 +141,37 @@ temporal_sampling <- function(data_structure, param, plot=FALSE){
 }
 
 
-sample_population <- function(pop_data, type, param, plot=FALSE){
+
+
+#' @title sample_population
+#' @description Sample population level data
+#' @param x A squid object, created using simulate_population().
+#' @param type Type of sampling, needs to be one of 'nested', 'missing' or temporal. See details.
+#' @param param A set of parameters, specific to the sampling type. See details.
+#' @param plot Logical. Should illustrative plots be made - defaults to FALSE.
+#' @details ...
+#' @return 
+#' @examples
+#' 
+#' @export
+sample_population <- function(x, type, param, plot=FALSE){
 	
-	data_structure <- pop_data$data_structure
+	if(class(x) != "squid"){
+		stop("x needs to be class 'squid'")
+	}
 
 	if(type=="nested"){
-		indices <- nested_sampling(pop_data$data_structure, param, plot)
-	}else if(type=="complex"){
-		indices <- complex_sampling(pop_data, param, plot)
+		indices <- sample_nested(x$data_structure, param, plot)
+	}else if(type=="missing"){
+		indices <- sample_missing(x, param, plot)
 	}else if(type=="temporal"){
-		indices <- temporal_sampling(pop_data$data_structure, param, plot)
-	}else stop("type must be 'nested', 'complex' or 'temporal'")
+		indices <- lapply(1:x$N_pop,function(x) sample_temporal(x$data_structure, param, plot))
+	}else {
+		stop("type must be 'nested', 'missing' or 'temporal'")
+	}
 
-	indices
+	pop_data$samples <- indices
+	pop_data
 	## apply to each population 
 	## incorporate into squid object
 
@@ -196,7 +179,20 @@ sample_population <- function(pop_data, type, param, plot=FALSE){
 
 
 
-
-get_sample_data <- function(){
-
+#' @title get_sample_data
+#' @description Extracts sampled data from a squid object
+#' @param x an R object of class 'squid'
+#' @param list Logical - whether to return data as a list or data_table (FALSE; default).
+#' @param ... further arguments passed to or from other methods.
+#' @export
+get_sample_data <- function(x,list=FALSE,...){
+  
+  pop_list <- lapply(1:x$N_pop,function(i) data.table(cbind(x$y[[i]],x$predictors[[i]],x$data_structure,squid_pop=i)))
+  
+  if(list){
+    return(pop_list)
+  }else{
+    do.call(rbind,pop_list)
+  }
 }
+
