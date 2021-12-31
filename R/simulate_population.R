@@ -147,6 +147,7 @@ print.squid <- function(x, ...){
 #' @export
 summary.squid <- function(object, ...){
   
+  ## description of sampling.
 }
 
 #' @title get_population_data

@@ -50,7 +50,7 @@ sample_nested <- function(data_structure, param, plot=FALSE){
 		}
 
 		index
-	})
+	}, simplify=FALSE)
 
 		# At each level, user can specify proportion or integer of samples at a given level if proportion then round to nearest integer?
 		# Apply separately to each response?
@@ -101,38 +101,38 @@ sample_missing <- function(pop_data, param, plot=FALSE){
 
 
 
-sample_temporal <- function(data_structure, param, plot=FALSE){
+sample_temporal <- function(data_structure, time, group, variance, N, plot=FALSE){
 	# Which grouping factor is time
 	# Which grouping factor is temporally dependent
 	# Sampling parameters - between group variance in sampling across time
 	# list(time = c(day, month), group = c(ind, pop), variance = c(0.5, 0,6))
 
-	  groups <- unique(data_structure[,param$group])
-  N_group <- length(groups)
+	all_levels <- unique(data_structure[,group])
+  N_levels <- length(all_levels)
 
-  Tsamp <- length(unique(data_structure[,param$time]))
+  Tsamp <- length(unique(data_structure[,time]))
   # Tsamp - number of time points
 
-  Tmin <- min(unique(data_structure[,param$time]))
+  Tmin <- min(unique(data_structure[,time]))
   ## work out within group and between group range
-  TsampB <- round(Tsamp*param$variance,0)
+  TsampB <- round(Tsamp*variance,0)
   TsampW <- Tsamp-TsampB
   ## 
-  if(! TsampW >= param$N) stop(" ")
+  if(! TsampW >= N) stop("Number of time steps not enough to implement this varaince")
 
 
   if(plot){
-    plot(NA, xlim=c(1,Tsamp), ylim=c(1,N_group))
-    abline( h=1:N_group, col="grey")
+    plot(NA, xlim=c(1,Tsamp), ylim=c(1,N_levels))
+    abline( h=1:N_levels, col="grey")
   }
 
-  indices <- sort(c(lapply(1:N_group, function(x){ 
-        Tx <- sort(sample(1:TsampW,param$N, replace=FALSE)) + sample(1:TsampB,1) + Tmin -1
-        if(plot) points(Tx,rep(x,param$N), pch=19, col=x)
+  indices <- sort(c(lapply(1:N_levels, function(x){ 
+        Tx <- sort(sample(1:TsampW,N, replace=FALSE)) + sample(1:TsampB,1) + Tmin -1
+        if(plot) points(Tx,rep(x,N), pch=19, col=x)
         Tx
-        groups[x]
-        index1 <- which(data_structure[,param$group]==groups[x])
-        index1[which(data_structure[index1,param$time] %in% Tx)]
+        all_levels[x]
+        index1 <- which(data_structure[,group]==all_levels[x])
+        index1[which(data_structure[index1,time] %in% Tx)]
         
       }), recursive=TRUE))
   if(plot)points(individual~day,data_structure[indices,])
@@ -161,19 +161,46 @@ sample_population <- function(x, type, param, plot=FALSE){
 	}
 
 	if(type=="nested"){
-		indices <- sample_nested(x$data_structure, param, plot)
+		if(!is.matrix(param)){
+		  stop("param needs to be a matrix for type='nested'")
+		}
+		indices <- lapply(1:x$N_pop,function(y) sample_nested(x$data_structure, param, plot))
+	
 	}else if(type=="missing"){
+		if(!is.vector(param)){
+		  stop("param needs to be a vector for type='missing'")
+		}
 		indices <- sample_missing(x, param, plot)
+	
 	}else if(type=="temporal"){
-		indices <- lapply(1:x$N_pop,function(x) sample_temporal(x$data_structure, param, plot))
+		if(!is.list(param)){
+		  stop("param needs to be a list for type='temporal'")
+		}
+		if(!all(sapply(param,is.vector))){
+		  stop("All elements of param list must be vectors for type='temporal'")
+		}
+		vec_length <- sapply(param,length)
+		if(!all(vec_length%in%c(1,max(vec_length)))){
+		  stop("vectors in param list must be same length or length 1, for type='temporal'")
+		}
+		param <- lapply(param,function(y) if(length(y)==1) {rep(y,max(vec_length))} else {y})
+		indices <- lapply(1:x$N_pop,function(y) { # for each population
+			lapply(1:max(vec_length), function(i) { # for each set of parameters
+				do.call(sample_temporal, c(list(data_structure=data_structure),lapply(param,function(z) z[i]), plot=FALSE)) # 
+			})
+		})
 	}else {
 		stop("type must be 'nested', 'missing' or 'temporal'")
 	}
+
+	pop_data$sample_param <- list(type=type, param=param)
 
 	pop_data$samples <- indices
 	pop_data
 	## apply to each population 
 	## incorporate into squid object
+
+## plotting - maybe plot only first population, but all parameter combinations
 
 }
 
@@ -182,12 +209,15 @@ sample_population <- function(x, type, param, plot=FALSE){
 #' @title get_sample_data
 #' @description Extracts sampled data from a squid object
 #' @param x an R object of class 'squid'
+#' @param sample_set Integer - which sample set to return. Defaults to 1
 #' @param list Logical - whether to return data as a list or data_table (FALSE; default).
 #' @param ... further arguments passed to or from other methods.
 #' @export
-get_sample_data <- function(x,list=FALSE,...){
+get_sample_data <- function(x, sample_set=1, list=FALSE,...){
   
-  pop_list <- lapply(1:x$N_pop,function(i) data.table(cbind(x$y[[i]],x$predictors[[i]],x$data_structure,squid_pop=i)))
+  pop_list <- lapply(1:x$N_pop,function(i) {
+  	data.table(cbind(x$y[[i]],x$predictors[[i]],x$data_structure,squid_pop=i)[x$samples[[i]][[sample_set]],])
+  })
   
   if(list){
     return(pop_list)
@@ -195,4 +225,6 @@ get_sample_data <- function(x,list=FALSE,...){
     do.call(rbind,pop_list)
   }
 }
+
+sample_data$samples
 
