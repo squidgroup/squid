@@ -225,6 +225,3 @@ get_sample_data <- function(x, sample_set=1, list=FALSE,...){
     do.call(rbind,pop_list)
   }
 }
-
-sample_data$samples
-
