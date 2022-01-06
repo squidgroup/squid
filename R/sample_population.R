@@ -186,7 +186,7 @@ sample_population <- function(x, type, param, plot=FALSE){
 		param <- lapply(param,function(y) if(length(y)==1) {rep(y,max(vec_length))} else {y})
 		indices <- lapply(1:x$N_pop,function(y) { # for each population
 			lapply(1:max(vec_length), function(i) { # for each set of parameters
-				do.call(sample_temporal, c(list(data_structure=data_structure),lapply(param,function(z) z[i]), plot=FALSE)) # 
+				do.call(sample_temporal, c(list(data_structure=x$data_structure),lapply(param,function(z) z[i]), plot=FALSE)) # 
 			})
 		})
 	}else {
