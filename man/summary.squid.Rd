@@ -4,7 +4,7 @@
 \alias{summary.squid}
 \title{summary.squid}
 \usage{
-summary.squid(object, ...)
+\method{summary}{squid}(object, ...)
 }
 \arguments{
 \item{object}{an R object of class 'squid'}

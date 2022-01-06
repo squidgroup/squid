@@ -4,7 +4,7 @@
 \alias{print.squid}
 \title{print.squid}
 \usage{
-print.squid(x, ...)
+\method{print}{squid}(x, ...)
 }
 \arguments{
 \item{x}{an R object of class 'squid'}

@@ -112,7 +112,7 @@ simulate_population <- function(data_structure, N, parameters, N_response=1, kno
 #' @description Print method for class 'squid'
 #' @param x an R object of class 'squid'
 #' @param ... further arguments passed to or from other methods.
-#' @export
+#' @method print squid
 print.squid <- function(x, ...){
   cat("Data simulated using squid \n
               /\\             
@@ -140,15 +140,17 @@ print.squid <- function(x, ...){
 }
 
 
+
 #' @title summary.squid
 #' @description summary method for class 'squid'
 #' @param object an R object of class 'squid'
 #' @param ... further arguments passed to or from other methods.
-#' @export
+#' @method summary squid
 summary.squid <- function(object, ...){
   
   ## description of sampling.
 }
+
 
 #' @title get_population_data
 #' @description Extracts population level data from a squid object
