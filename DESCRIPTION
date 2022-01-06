@@ -45,8 +45,9 @@ Imports:
     MCMCglmm,
     Matrix,
     ape,
-    nadiv
-RoxygenNote: 7.1.1.9000
+    nadiv,
+    methods
+RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
     knitr,

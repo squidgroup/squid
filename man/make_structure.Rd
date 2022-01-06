@@ -10,6 +10,8 @@ make_structure(structure, repeat_obs = 1, ...)
 \item{structure}{A formula specifying the structure and sample sizes at each level. See details.}
 
 \item{repeat_obs}{Number of repeated observations at the lowest level}
+
+\item{...}{Further arguments passed to or from other methods.}
 }
 \value{
 

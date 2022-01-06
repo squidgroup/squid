@@ -5,8 +5,11 @@
 \title{simulate_population}
 \usage{
 simulate_population(
-  parameters,
   data_structure,
+  N,
+  parameters,
+  N_response = 1,
+  known_predictors,
   model,
   family = "gaussian",
   link = "identity",
@@ -15,16 +18,19 @@ simulate_population(
   phylogeny,
   phylogeny_type,
   cov_str,
-  N,
-  N_pop = 1,
-  known_predictors,
-  extra_betas
+  N_pop = 1
 )
 }
 \arguments{
+\item{data_structure}{A matrix or dataframe with a named column for each grouping factor, including the levels}
+
+\item{N}{Sample size when data_structure is not specified}
+
 \item{parameters}{A list of parameters for each hierarchical level. See details.}
 
-\item{data_structure}{A matrix or dataframe with a named column for each grouping factor, including the levels}
+\item{N_response}{The number of response variables, defaults to 1.}
+
+\item{known_predictors}{This option provides a way of inputting existing predictor variables, without simulating all predictors. This argument takes a list, with item 'predictors' and 'betas', where 'predictors' is a matrix or dataframe}
 
 \item{model}{Optional.}
 
@@ -41,8 +47,6 @@ simulate_population(
 \item{phylogeny_type}{A list describing what mode of evolution should be simulated from each phylogeny. Options are 'brownian'(default) or 'OU'.}
 
 \item{cov_str}{A list of covariance structures for each hierarchical level.}
-
-\item{N}{Sample size when data_structure is not specified}
 
 \item{N_pop}{Number of populations. Default = 1}
 }

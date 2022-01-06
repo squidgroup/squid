@@ -82,8 +82,8 @@ sample_missing <- function(pop_data, param, plot=FALSE){
 			  if(length(y)==1) y <- rep(y, nrow(dat))
 			  return(y)
 			})
-			e <- plogis(l)
-			o <- apply(e,2,function(x)as.logical(rbinom(length(x),1,x)))
+			e <- stats::plogis(l)
+			o <- apply(e,2,function(x)as.logical(stats::rbinom(length(x),1,x)))
 			apply(o,2,which)
 	})
 	# could make total N constant ;using the probabilities e with sample
@@ -93,8 +93,8 @@ sample_missing <- function(pop_data, param, plot=FALSE){
 	# plot(l,o)
 
 	# x <- seq(-4,4,0.1)
-	# plot(x,plogis(x*0.5), type="l",ylim=c(0,1))
-	# plot(x,rbinom(length(x),1,plogis(x*0.5)),ylim=c(0,1))
+	# plot(x,stats::plogis(x*0.5), type="l",ylim=c(0,1))
+	# plot(x,stats::rbinom(length(x),1,stats::plogis(x*0.5)),ylim=c(0,1))
 
 }
 
@@ -123,19 +123,19 @@ sample_temporal <- function(data_structure, time, group, variance, N, plot=FALSE
 
   if(plot){
     plot(NA, xlim=c(1,Tsamp), ylim=c(1,N_levels))
-    abline( h=1:N_levels, col="grey")
+    graphics::abline( h=1:N_levels, col="grey")
   }
 
   indices <- sort(c(lapply(1:N_levels, function(x){ 
         Tx <- sort(sample(1:TsampW,N, replace=FALSE)) + sample(1:TsampB,1) + Tmin -1
-        if(plot) points(Tx,rep(x,N), pch=19, col=x)
+        if(plot) graphics::points(Tx,rep(x,N), pch=19, col=x)
         Tx
         all_levels[x]
         index1 <- which(data_structure[,group]==all_levels[x])
         index1[which(data_structure[index1,time] %in% Tx)]
         
       }), recursive=TRUE))
-  if(plot)points(individual~day,data_structure[indices,])
+  if(plot)graphics::points(individual~day,data_structure[indices,])
 
   indices
 }

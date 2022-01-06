@@ -54,6 +54,7 @@ add_interactions <- function(all_levels, int){
 #'
 #' @param structure A formula specifying the structure and sample sizes at each level. See details.
 #' @param repeat_obs Number of repeated observations at the lowest level
+#' @param ... Further arguments passed to or from other methods.
 #' @details Factors are input as a text string. The name of each factor is followed by the number of levels in that factor in brackets e.g. "individual(100)". Nested factors can be specified using "/", e.g. "population(2)/individual(2)", the lower levels being specified after the higher levels, and the sample sizes of the lower levels 
 #' @return 
 #' @examples
