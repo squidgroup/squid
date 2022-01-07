@@ -1,4 +1,4 @@
-# squid .9000
+# squid 0.1.3
 
 -   Update personal info of SQuID members
 

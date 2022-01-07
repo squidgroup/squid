@@ -1,6 +1,6 @@
 Package: squid
 Title: Statistical Quantification of Individual Differences
-Version: 0.1.2.9000
+Version: 0.1.3
 Authors@R: c(
     person("Hassen"  , "Allegue"        , email = "h.all@disroot.org"                 , role = c("aut","cre")),
     person("Yimen"   , "G. Araya-Ajoy"  , email = "yimencr@gmail.com"                 , role = "aut"),
@@ -23,23 +23,23 @@ Description: A simulation-based tool made to help researchers to become familiar
     and sensitivity analysis of multilevel and multivariate data [Allegue, H., Araya-Ajoy, Y.G., Dingemanse, 
     N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) 
     <doi: 10.1111/2041-210X.12659>].
-URL: https://github.com/squid-group/squid
+URL: https://github.com/squid-group/squid, https://squid-group.github.io/squid/
 BugReports: https://github.com/squid-group/squid/issues
 Depends:
-    R (>= 3.6.0)
+    R (>= 4.1.1)
 License: MIT + file LICENSE
 LazyData: true
 Imports:
     stats,
-    shiny (>= 1.3.2),
-    shinyMatrix (>= 0.3.0),
-    ggplot2 (>= 3.1.1),
-    plotly (>= 4.9.0),
-    grid (>= 3.5.3),
-    MASS (>= 7.3-51.1),
+    shiny (>= 1.6.0),
+    shinyMatrix (>= 0.4.0),
+    ggplot2 (>= 3.3.5),
+    plotly (>= 4.9.3),
+    grid (>= 4.1.1),
+    MASS (>= 7.3-53.1),
     lme4 (>= 1.1-21),
     arm (>= 1.10-1),
-    data.table (>= 1.12.2),
-    brms (>= 2.9.0)
+    data.table (>= 1.1-27.1),
+    brms (>= 2.15.0)
 RoxygenNote: 7.1.1
 Suggests: testthat
