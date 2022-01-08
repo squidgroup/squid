@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://squid-group.github.io/squid/404.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/index.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/reference/package-squid.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/reference/squidApp.html</loc>
+  </url>
+  <url>
+    <loc>https://squid-group.github.io/squid/reference/squidR.html</loc>
+  </url>
+</urlset>
