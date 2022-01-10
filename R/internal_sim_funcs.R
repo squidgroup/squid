@@ -202,7 +202,7 @@ generate_y_list <- function(parameters, data_structure, predictors, pedigree, mo
   ## extract and name extra parameters
   if(!is.null(model)){
 
-    param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_response", "fixed", "covariate", "n_level", "function")
+    param_names <- c("names", "group", "mean", "vcov", "vcorr", "beta", "n_response", "fixed", "covariate", "n_level", "functions")
     extra_param <- unlist(sapply(parameters, function(x){ x[!names(x) %in% param_names] }))
         
     if(!is.null(extra_param)){

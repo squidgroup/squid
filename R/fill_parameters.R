@@ -72,7 +72,7 @@ fill_parameters <- function(parameters,data_structure, N, N_response,...){
       if(!is.null(parameters[[i]][["vcov"]])){
         message("vcov and vcorr are both specified for '",i,"', only vcov is being used")
       }else{
-        if(!is.matrix(parameters[[i]][["vcov"]])) stop("vcorr needs to be a matrix for ",i, call.=FALSE)
+        if(!is.matrix(parameters[[i]][["vcorr"]])) stop("vcorr needs to be a matrix for ",i, call.=FALSE)
         if(nrow(parameters[[i]][["vcorr"]])!=ncol(parameters[[i]][["vcorr"]])) stop("need square vcorr matrix for ",i, call.=FALSE)
         }
         if(!isSymmetric(parameters[[i]][["vcorr"]])) stop("vcorr matrix should be symmetric for ",i, call.=FALSE)

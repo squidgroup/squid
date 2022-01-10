@@ -225,3 +225,5 @@ get_sample_data <- function(x, sample_set=1, list=FALSE,...){
     do.call(rbind,pop_list)
   }
 }
+
+## think it would be a good idea to provide functionality that allowed a user to chose different variables to have missing data
