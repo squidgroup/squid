@@ -26,7 +26,7 @@ Description: A simulation-based tool made to help researchers to become familiar
 URL: https://github.com/squid-group/squid, https://squid-group.github.io/squid/
 BugReports: https://github.com/squid-group/squid/issues
 Depends:
-    R (>= 4.1.1)
+    R (>= 4.1.0)
 License: MIT + file LICENSE
 LazyData: true
 Imports:
