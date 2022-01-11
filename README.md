@@ -5,7 +5,7 @@
 Status](https://travis-ci.org/squid-group/squid.svg?branch=master)](https://travis-ci.org/squid-group/squid)
 [![Downloads](https://cranlogs.r-pkg.org/badges/squid?color=brightgreen)](https://cran.r-project.org/package=squid)
 [![total
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/squid)](http://cranlogs.r-pkg.org/badges/grand-total/squid)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/squid)](https://cranlogs.r-pkg.org/badges/grand-total/squid)
 
 #### Brief description
 
