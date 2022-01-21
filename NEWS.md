@@ -1,5 +1,7 @@
 # squid 0.2.0.9000
 
+-   Fix directory error in `squidApp()`
+
 # squid 0.2.0
 
 -   Update personal info of SQuID members
