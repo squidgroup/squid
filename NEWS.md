@@ -1,6 +1,7 @@
-# squid 0.2.0.9000
+# squid 0.2.1
 
 -   Fix directory error in `squidApp()`
+    [e740983](https://github.com/squid-group/squid/commit/d96273ac032929e4159062e985eeca142a3bcde4)
 
 # squid 0.2.0
 

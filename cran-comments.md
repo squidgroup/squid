@@ -1,5 +1,5 @@
 ## Test environments
-* local Windows 10, R 4.1.1
+* local Windows 10, R 4.1.2
 * win-builder (devel and release)
 * Fedora Linux, R-devel, clang, gfortran
 * macOS 10.13.6 High Sierra, R-release, brew
