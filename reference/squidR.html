@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">squid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -251,20 +251,20 @@ A description of the columns of the full and the sampled <code>data.frame</code>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># see first records of the simulated data set</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">output</span><span class="op">$</span><span class="va">full_data</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Replicate Individual Group Individual_Trait Trait Time    Phenotype  B0  B1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         1          1     1                1     1    1 -0.561301192 0.1 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         1          1     1                1     1    2  0.002720554 0.1 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         1          1     1                1     1    3 -0.232680324 0.1 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         1          1     1                1     1    4  0.083790348 0.1 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         1          1     1                1     1    5  0.487647464 0.1 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         1          1     1                1     1    6  0.235072113 0.1 0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   B2 B12          I         S1 S2 S12        X1 X2 X1X2 G           e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0   0 -0.3499058 -0.2047274  0   0 -1.701603  0    0 0 -0.48959985</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0   0 -0.3499058 -0.2047274  0   0 -1.684667  0    0 0  0.07619561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0   0 -0.3499058 -0.2047274  0   0 -1.632320  0    0 0 -0.15372316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0   0 -0.3499058 -0.2047274  0   0 -1.598099  0    0 0  0.16633142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0   0 -0.3499058 -0.2047274  0   0 -1.549233  0    0 0  0.57530617</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0   0 -0.3499058 -0.2047274  0   0 -1.551076  0    0 0  0.32253775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Replicate Individual Group Individual_Trait Trait Time Phenotype  B0  B1 B2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         1          1     1                1     1    1 0.8524855 0.1 0.1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         1          1     1                1     1    2 0.6962012 0.1 0.1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         1          1     1                1     1    3 0.7881231 0.1 0.1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         1          1     1                1     1    4 0.6049255 0.1 0.1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         1          1     1                1     1    5 0.3511777 0.1 0.1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         1          1     1                1     1    6 0.4968828 0.1 0.1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   B12         I         S1 S2 S12        X1 X2 X1X2 G           e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0 0.6770744 0.09026024  0   0 -1.717315  0    0 0  0.40214787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0 0.6770744 0.09026024  0   0 -1.637466  0    0 0  0.23067153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0 0.6770744 0.09026024  0   0 -1.677376  0    0 0  0.33018662</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0 0.6770744 0.09026024  0   0 -1.619357  0    0 0  0.13595026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0 0.6770744 0.09026024  0   0 -1.560384  0    0 0 -0.12901775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0 0.6770744 0.09026024  0   0 -1.532884  0    0 0  0.01145517</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## run a second simulation with the identical world but with a different sampling design </span></span>
 <span class="r-in"><span class="co">## where individuals are sampled the same number of times and at the same time    </span></span>
