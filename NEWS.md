@@ -1,3 +1,5 @@
+# squid 0.2.1.9000
+
 # squid 0.2.1
 
 -   Fix directory error in `squidApp()`
