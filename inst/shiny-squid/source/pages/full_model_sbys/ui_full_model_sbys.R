@@ -24,7 +24,7 @@ wellPanel(
           ),
           # Bivariate Model Summary
           tabPanel("Bivariate model",
-                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_bivar_summary.R.R",local=TRUE)[["value"]]
+                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_bivar_summary.R",local=TRUE)[["value"]]
           ),
           # Sampling design description
           tabPanel("Sampling design", 
