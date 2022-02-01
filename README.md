@@ -41,7 +41,7 @@ To install the latest released version from CRAN:
 To install the development version from GitHub:
 
     # install.packages("devtools")
-    devtools::install_github("hallegue/squid")
+    devtools::install_github("squid-group/squid")
 
 Get more information about the installation of the
 [devtools](https://cran.r-project.org/package=devtools/readme/README.html)
