@@ -9,10 +9,11 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/squid)](https://cranlog
 
 #### Brief description
 
-<img id='logo' src='./man/pictures/logo_2.png' align='left' alt='' style='padding-right:20px;'>
-**SQuID** stands for **S**tatistical **Qu**antification of
-**I**ndividual **D**ifferences and is the product of the SQuID working
-group. The package aims to help scholars who, like us, are interested in
+<img id='logo' src='./man/figures/logo_2.png' align='left' alt='' style='padding-right:20px;'>
+<!-- ![alt text](./man/figures/logo_2.png) --> <b>SQuID</b> stands for
+<b>S</b>tatistical <b>Qu</b>antification of <b>I</b>ndividual
+<b>D</b>ifferences and is the product of the SQuID working group. The
+package aims to help scholars who, like us, are interested in
 understanding patterns of phenotypic variance. Individual differences
 are the raw material for natural selection to act on and hence the basis
 of evolutionary adaptation. Understanding the sources of phenotypic

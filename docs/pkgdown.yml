@@ -1,8 +1,8 @@
 pandoc: 2.14.0.3
-pkgdown: 1.6.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-01-22T12:40Z
+last_built: 2022-02-06T16:18Z
 urls:
   reference: https://squid-group.github.io/squid/reference
   article: https://squid-group.github.io/squid/articles
