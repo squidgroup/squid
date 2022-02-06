@@ -2,9 +2,9 @@ div(
   wellPanel(
   
       h4(portal_txt$parag0_title),
-      p(HTML(portal_txt$patag1_image),
+      div(p(HTML(portal_txt$patag1_image),
         HTML(portal_txt$parag0_contents_1)),
-      p(HTML(portal_txt$parag0_contents_2))
+      p(HTML(portal_txt$parag0_contents_2)))
   ),
   wellPanel(
       h4("Guidance for Users"),

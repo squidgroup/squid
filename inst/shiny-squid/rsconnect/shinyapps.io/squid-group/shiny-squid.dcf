@@ -1,0 +1,14 @@
+name: shiny-squid
+title: shiny-squid
+username:
+account: squid-group
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5127272
+bundleId: 5549728
+url: https://squid-group.shinyapps.io/shiny-squid/
+when: 1644178204.04803
+lastSyncTime: 1644178204.04803
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: test.R

@@ -18,7 +18,7 @@ portal_txt <- list(
                                 the generation of datasets that users may download and use for a range of simulation-based 
                                 statistical analyses such as power and sensitivity analysis of multilevel and multivariate data.",
       "parag1_title"         = "SQuID biological goals",
-      "patag1_image"         = '<img id="logo" src="pictures/logo_2.png" align="left" alt="SQuID">',
+      "patag1_image"         = '<img id="logo" src="pictures/squid_logo.png" align="left" alt="SQuID" width=120px heigth=120px>',
       "parag1_contents"      = 'SQuID seeks to understand patterns of phenotypic variance, which is the material 
                                 on which natural selection is acting, and thus is a most essential feature of 
                                 biological investigation. Different sources of variations are at the origin of 

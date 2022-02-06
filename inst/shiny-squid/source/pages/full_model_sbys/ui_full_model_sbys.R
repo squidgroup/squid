@@ -16,19 +16,19 @@ wellPanel(
           
           # Full model description
           tabPanel("Simulation model", 
-            source("./source/pages/full_model_sbys/ui_fullmodel_sbys_full_model.R",local=TRUE)[["value"]]         
+            source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_full_model.R",local=TRUE)[["value"]]         
           ),
           # Model Summary
           tabPanel("Model summary", 
-                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_summary.R",local=TRUE)[["value"]]
+                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_summary.R",local=TRUE)[["value"]]
           ),
           # Bivariate Model Summary
           tabPanel("Bivariate model",
-                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_bivar_summary.R",local=TRUE)[["value"]]
+                   source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_bivariate_summary.R",local=TRUE)[["value"]]
           ),
           # Sampling design description
           tabPanel("Sampling design", 
-            source("./source/pages/full_model_sbys/ui_fullmodel_sbys_sampling_design.R",local=TRUE)[["value"]]  
+            source("./source/pages/full_model_sbys/ui_fullmodel_sbys_description_sampling_design.R",local=TRUE)[["value"]]  
           )         
         )
       ),
