@@ -9,7 +9,7 @@ source("./source/server/fullmodel/svr_dispay_model_equation.R",local=TRUE)
 source("./source/server/fullmodel/svr_get_model_equation.R",local=TRUE)
 source("./source/server/fullmodel/svr_get_vind_matrix.R",local=TRUE)
 source("./source/server/fullmodel/svr_get_b_matrix.R",local=TRUE)
-source("./source/server/fullmodel/svr_get_Summary_variances.R",local=TRUE)
+source("./source/server/fullmodel/svr_get_summary_variances.R",local=TRUE)
 source("./source/server/fullmodel/svr_create_rcode.R",local=TRUE)
 
 #### Utilities ####
