@@ -88,7 +88,7 @@ getFullData <- function(Mu, N, B, V, Time, variables, environments){
     }   
 	
     #######################################################################################
-    # Create environmnetal effect values 
+    # Create environmental effect values 
     X                <- matrix(0,  N$NI*N$NS*N$NP, variables$nb.IS)    
     X[,variables$B0] <- 1 # Intercept (slope is by default = 1 ) 
     
