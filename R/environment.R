@@ -288,9 +288,9 @@ getEnvironment <- function(environment, N, visualization){
       output <- output + outputTMP
     }
     
-    # Standardize envirnement (Variance = 1) (dividing each individual environment by the environment standard deviation)
+    # Standardize environment (Variance = 1) (dividing each individual environment by the environment standard deviation)
     # Centering environment to 0 (Subtract environment mean)
-    if(!visualization){ # Do not standardize environment when it's just for previsualization
+    if(!visualization){ # Do not standardize environment when it's just for pre-visualization
       EnvironmentID <- rep(seq(1:NB), each = N$NS)
       SD            <- rep(by(output, EnvironmentID, stats::sd), each = N$NS)
       MEAN          <- rep(by(output, EnvironmentID, base::mean), each = N$NS)
