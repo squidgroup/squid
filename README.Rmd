@@ -39,7 +39,7 @@ To install the development version from GitHub:
 
 ```
 # install.packages("devtools")
-devtools::install_github("squid-group/squid")
+devtools::install_github("squidgroup/squid")
 
 ```
 Get more information about the installation of the [devtools](https://cran.r-project.org/package=devtools/readme/README.html) package.

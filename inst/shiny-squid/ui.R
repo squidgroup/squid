@@ -92,8 +92,8 @@ shinyUI(
           fixedPage(
             wellPanel(
               h4("Contact us"),
-              p("Visit us on ", a("Github.", href="https://github.com/hallegue/squid", target="_blank")),
-              p("Report a ", a("bug.", href="https://github.com/hallegue/squid/issues", target="_blank"))
+              p("Visit us on ", a("Github.", href="https://github.com/squidgroup/squid", target="_blank")),
+              p("Report a ", a("bug.", href="https://github.com/squidgroup/squid/issues", target="_blank"))
             ),
             wellPanel(
               h4(portal_txt$parag2_title),

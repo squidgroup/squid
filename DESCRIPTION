@@ -23,8 +23,8 @@ Description: A simulation-based tool made to help researchers to become familiar
     and sensitivity analysis of multilevel and multivariate data [Allegue, H., Araya-Ajoy, Y.G., Dingemanse, 
     N.J., Dochtermann N.A., Garamszegi, L.Z., Nakagawa, S., Reale, D., Schielzeth, H. and Westneat, D.F. (2016) 
     <doi: 10.1111/2041-210X.12659>].
-URL: https://github.com/squid-group/squid, https://squid-group.github.io/squid/
-BugReports: https://github.com/squid-group/squid/issues
+URL: https://github.com/squidgroup/squid, https://squidgroup.github.io/squid/
+BugReports: https://github.com/squidgroup/squid/issues
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE
